@@ -7,8 +7,20 @@ __Warning__ : this is intended for local use only. No attention has been put to 
 # Setup
 
 ```
+# setup bin environment
 nix-shell
+# setup python environment
 python -m venv .venv
+# activte python environment
 source .venv/bin/activate
+# add modules for python env
 pip install -r requirements.txt 
+# prepare tailwind/assets
+./reset.sh
+# init the database
+python src/manage.py migrate
+# populate the database
+python src/manage.py initgenerators
+# run the server
+python src/manage.py runserver
 ```

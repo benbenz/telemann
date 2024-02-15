@@ -12,5 +12,6 @@ pkgs.mkShell {
     pkgs.openssl
     pkgs.libjpeg
     pkgs.zlib
+    pkgs.nodejs
   ];
 }

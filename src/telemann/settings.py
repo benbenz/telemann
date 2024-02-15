@@ -45,13 +45,14 @@ THIRD_PARTY_APPS = [
     "fontawesomefree"
 ]
 
-PROJECT_APPS = [
+LOCAL_APPS = [
     # projects apps
     'sounds.apps.SoundsConfig',
     'tags.apps.TagsConfig',
+    'theme'
 ]
 
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 
 MIDDLEWARE = [
@@ -136,6 +137,8 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     str(BASE_DIR / "src" / "telemann" / "static") , 
 ]
+
+STATIC_ROOT = 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

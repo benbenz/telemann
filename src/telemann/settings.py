@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # projects apps
     'sounds.apps.SoundsConfig',
+    'tags.apps.TagsConfig',
 ]
 
 MIDDLEWARE = [

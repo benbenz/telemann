@@ -1,0 +1,11 @@
+[
+    {
+        "fields" : {
+            "name"     : "Synthmaster" ,
+            "description" : "SynthMaster soft-synthesizer" ,
+            "filenames": "SynthMaster2.vst3,SynthMaster2.vst,SynthMaster2.component"
+        } ,
+        "model": "sounds.SoundGenerator" ,
+        "pk": 1
+    }
+]

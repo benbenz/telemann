@@ -1,3 +1,13 @@
+# django server
 django==5.0
+
+# audio . midi
 pedalboard
 mido
+
+# UI stuff
+django-tailwind
+fontawesomefree==6.5.1
+
+# utils
+json-normalize

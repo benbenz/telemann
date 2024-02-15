@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/sound.css' %}">
+{% endblock %}
+
+{% block javascript_start %}
+<script src="{% static 'sounds/js/sound.js' %}"></script>
+<script>
+let settings = {
+
+};
+window.SoundApp = new SoundApp(settings);
+</script>
+{% endblock %}
+
+
+{% block content %}
+
+<div id="chatcontainer" x-data="{
+                modalOpen: false ,
+                model: '{{model}}',
+                temperature: {{temperature}} ,
+                knowledge_plus:true,
+                knowledge_only: false,
+                synthesizer_engine: 'tree_summarize',
+                chat_engine: 'chat_condensed',
+                score_do_filter: true ,
+                score_threshold: 0.78 ,
+                preview_open : false ,
+                preview_doc : null ,
+                query_mode : 'default' ,
+                application: '{{application}}' ,
+                top_k: 5 
+              }">
+  <div class="chat-window">
+    <div class="row">
+      <div class="box conversations with-background shown">
+
+        <div class="top">
+          <button id="new-conversation-button" class="chatbutton new-conversation">
+            <i class="fa-regular fa-pencil"></i>
+            <span class="font-bold">New Conversation</span>
+          </button>
+          <div class="spinner"></div>
+        </div>
+        <div class="bottom_buttons">
+          <button id="delete-conversations-button" class="chatbutton">
+            <i class="fa-regular fa-trash"></i>
+            <span>Clear Conversations</span>
+          </button>
+          <button class="chatbutton" @click="modalOpen =!modalOpen">
+            <i class="fa-regular fa-gear"></i>
+            <span class="convo-title">
+              Model: <strong x-text="model"></strong><br>
+              <!--System Message: <i class="fa-regular fa-message-lines" title="{{ system_message }}"></i>-->
+            </span>
+          </button>
+        </div>
+      </div>
+      
+      <div class="conversation disable-scrollbars  with-background">
+        <div class="stop_generating stop_generating-hidden">
+          <button id="cancel-button" class="chatbutton">
+            <span>Stop Generating</span>
+            <i class="fa-regular fa-stop"></i>
+          </button>
+        </div>
+        <div class="mainsection">
+            <div class="box column" id="messages"></div>
+            <div class="column" id="previewctrl" :class="[preview_open ? 'flex':'hidden' ]">
+                <i class="fa-regular fa-angles-right" :class="[preview_open ? 'flex rotated':'hidden' ]" @click="preview_open=false"></i>
+                <i class="fa-regular fa-angles-left" :class="[preview_open ? 'hidden':'flex rotated' ]" @click="preview_open=true"></i>
+            </div>
+            <div class="box column" id="previewdoc" :class="[preview_open ? 'flex' : 'hidden']">{% include "chat/preview.html" %}</div>
+        </div>
+        <div class="user-input">
+          <div class="box with-background input-box">
+            <textarea id="message-input" placeholder="Ask a question" data-gramm="false"></textarea>
+            <div id="send-button">
+              <i class="fa-regular fa-paper-plane-top"></i>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="mobile-sidebar">
+      <i class="fa-solid fa-bars"></i>
+    </div>
+  </div><!-- chat-window -->
+</div> <!-- chatcontainer modalOpen div -->
+
+{% endblock %}

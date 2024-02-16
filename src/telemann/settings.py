@@ -15,6 +15,8 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
+APPS_DIR = BASE_DIR / "src"
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -49,7 +51,7 @@ LOCAL_APPS = [
     # projects apps
     'sounds.apps.SoundsConfig',
     'tags.apps.TagsConfig',
-    'theme'
+    'theme',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -70,7 +72,7 @@ ROOT_URLCONF = 'telemann.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [ str(APPS_DIR / 'telemann' / 'templates') ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -135,7 +137,7 @@ STATIC_URL = 'static/'
 
 # extra static file dirs
 STATICFILES_DIRS = [
-    str(BASE_DIR / "src" / "telemann" / "static") , 
+    str(APPS_DIR / "telemann" / "static") , 
 ]
 
 STATIC_ROOT = 'staticfiles'
@@ -149,3 +151,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Tailwind
 TAILWIND_APP_NAME = 'theme'
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]

@@ -1,0 +1,9 @@
+{% extends 'base_logged.html' %}  <!-- Extend your base template -->
+
+{% block content %}
+  <h2>{% if object %}Edit{% else %}Create{% endif %} Sound Generator</h2>
+  <form method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+  </form>
+{% endblock %}

@@ -3,9 +3,69 @@ from django.db.models.signals import pre_save
 from tags.models import Tag
 import json_normalize
 
-def default_channels():
-    return [1,2]
+class SamplingFrequency(models.IntegerChoices):
+    fs16000 = 16000 , ('16kHz')
+    fs22050 = 22050 , ('22kHz')
+    fs32000 = 32000 , ('32kHz')
+    fs44100 = 44100 , ('44.1kHz')
+    fs48000 = 48000 , ('48kHz')
+    fs96000 = 96000 , ('96kHz')
 
+class BufferSize(models.IntegerChoices):
+    buf64 = 64 , ('64')
+    buf128 = 128 , ('128')
+    buf256 = 256 , ('256')
+    buf512 = 512 , ('512')
+    buf1024 = 1024 , ('1024')
+
+class Resolution(models.IntegerChoices):
+    res16 = 16 , ('16 bits')
+    res24 = 24 , ('24 bits')
+    res32 = 32 , ('32 bits')
+
+class MIDIChannel(models.IntegerChoices):
+    ch1 = 0 , ('1')
+    ch2 = 1 , ('2')
+    ch3 = 2 , ('3')
+    ch4 = 3 , ('4')
+    ch5 = 4 , ('5')
+    ch6 = 5 , ('6')
+    ch7 = 6 , ('7')
+    ch8 = 7 , ('8')
+    ch9 = 8 , ('9')
+    ch10 = 9 , ('10')
+    ch11 = 10 , ('11')
+    ch12 = 11 , ('12')
+    ch13 = 12 , ('13')
+    ch14 = 13 , ('14')
+    ch15 = 14 , ('15')
+    ch16 = 15 , ('16')
+
+class AudioIO(models.TextChoices):
+    mono1 = "1" , 'Mono 1'
+    mono2 = "2" , 'Mono 2'
+    mono3 = "3" , 'Mono 3'
+    mono4 = "4" , 'Mono 4'
+    mono5 = "5" , 'Mono 5'
+    mono6 = "6" , 'Mono 6'
+    mono7 = "7" , 'Mono 7'
+    mono8 = "8" , 'Mono 8'
+    mono9 = "9" , 'Mono 9'
+    mono10 = "10" , 'Mono 10'
+    mono11 = "11" , 'Mono 11'
+    mono12 = "12" , 'Mono 12'
+    mono13 = "13" , 'Mono 13'
+    mono14 = "14" , 'Mono 14'
+    mono15 = "15" , 'Mono 15'
+    mono16 = "16" , 'Mono 16'
+    stereo1_2 = "1,2" , 'Stereo 1/2'
+    stereo3_4 = "3,4" , 'Stereo 3/4'
+    stereo5_6 = "5,6" , 'Stereo 5/6'
+    stereo7_8 = "7,8" , 'Stereo 7/8'
+    stereo9_10 = "9,10" , 'Stereo 9/10'
+    stereo11_12 = "11,12" , 'Stereo 11/12'
+    stereo13_14 = "13,14" , 'Stereo 13/4'
+    stereo15_16 = "15,16" , 'Stereo 15/16'
 
 class SoundGenerator(models.Model):
 
@@ -13,24 +73,23 @@ class SoundGenerator(models.Model):
         RECORDING  = 'recording'
         INSTRUMENT = 'instrument'
         ARTIST     = 'artist'
-
     
     id          = models.AutoField(primary_key=True) 
     # type and descriptions
     type        = models.CharField(max_length=16,choices=Type.choices,default=Type.INSTRUMENT,help_text="Type of generator")
     name        = models.CharField(max_length=64,null=False,help_text="The name of the sound generator")
-    description = models.TextField(max_length=256,null=True,default=None)
-    filenames   = models.TextField(max_length=256,null=True,default=None,help_text="The list of possible file names for the plugin")
+    description = models.CharField(max_length=256,null=True,default=None)
+    filenames   = models.CharField(max_length=256,null=True,default=None,help_text="The list of possible file names for the plugin")
     file_path   = models.FilePathField(max_length=512,null=True,default=None,help_text="File path for the plugin")
     # capture/control audio/midi parameters
     audio_device_name = models.CharField(max_length=64,default=None,null=True,help_text="Audio input device")
-    audio_device_channels = models.JSONField(default=default_channels,null=True,help_text="Audio input channels")
-    audio_device_samplerate = models.PositiveSmallIntegerField(default=44100,help_text="Audio input sample rate")
-    audio_device_kernelsize = models.PositiveSmallIntegerField(default=256,help_text="Audio input kernel size")
-    audio_device_sample_format = models.SmallIntegerField(default=16,help_text="Audio input resolution")
+    audio_device_channels = models.CharField(max_length=5,default=AudioIO.stereo1_2,choices=AudioIO.choices,null=True,help_text="Audio input channels")
+    audio_device_samplerate = models.PositiveSmallIntegerField(default=SamplingFrequency.fs44100,choices=SamplingFrequency.choices,help_text="Audio input sample rate")
+    audio_device_kernelsize = models.PositiveSmallIntegerField(default=BufferSize.buf256,choices=BufferSize.choices,help_text="Audio input kernel size")
+    audio_device_sample_format = models.SmallIntegerField(default=Resolution.res16,choices=Resolution.choices,help_text="Audio input resolution")
     midi_out_port_name = models.CharField(max_length=64,default=None,null=True,help_text="MIDI OUT port name")
     midi_in_port_name = models.CharField(max_length=64,default=None,null=True,help_text="MIDI IN port name")
-    midi_channel = models.PositiveSmallIntegerField(default=None,null=True,help_text="MIDI channel")    
+    midi_channel = models.PositiveSmallIntegerField(default=None,null=True,choices=MIDIChannel.choices,help_text="MIDI channel")    
     # extra parameters
     parameters  = models.JSONField(default=None,null=True,help_text="Extra Parameters for this generator")
 

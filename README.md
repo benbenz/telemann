@@ -13,10 +13,10 @@ nix-shell
 python -m venv .venv
 # activte python environment
 source .venv/bin/activate
-# add modules for python env
+# add modules to python env
 pip install -r requirements.txt 
 # prepare tailwind/assets
-./reset.sh
+./deploy.sh
 # init the database
 python src/manage.py migrate
 # populate the database
@@ -24,3 +24,7 @@ python src/manage.py initgenerators
 # run the server
 python src/manage.py runserver
 ```
+
+You can now use the labeller at http://localhost:8000
+
+

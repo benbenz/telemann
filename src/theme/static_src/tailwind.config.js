@@ -41,16 +41,8 @@ module.exports = {
          */
         // '../../**/*.py'
     ],
-    darkMode: 'class',
     theme: {
-      extend: {
-        colors: {
-          clifford: '#da373d',
-          primary: {
-            600: 'var(--conversations)'
-          }
-        }
-      }
+        extend: {},
     },
     plugins: [
         /**

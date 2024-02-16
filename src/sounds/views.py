@@ -11,8 +11,16 @@ from .forms import SoundGeneratorForm
 
 
 
-def sounds(request):
-    return render(request,"sounds/sounds.html",{})
+def sounds(request,generatorid=None):
+    if generatorid is None:
+        generators = SoundGenerator.objects.all()
+        return render(request,"sounds/sounds.html",{
+            'generators' : generators
+        })
+    else:
+        program = request.GET.get('p',0)
+        bank    = request.GET.get('b',0)
+        return render(request,"sounds/sounds.html",{'program':program,'bank':bank})
 
 def sound(request,soundid):
     if request.method != "POST":

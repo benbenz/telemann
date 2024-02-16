@@ -1,3 +1,20 @@
-<div class="">
-    <div class="generator-name">{{generator.name}}</div>
+{% load sounds %}
+{% if for_selection %}
+<a class="generator-infos"  href="{% url 'sounds:sounds' generatorid=generator.id %}">
+{% else %}
+<div class="generator-infos">
+{% endif %}
+    <div class="generator-info generator-name">{{generator.name}}</div>
+    <div class="generator-info generator-type">{{generator.type|generator_type_icon|safe}} </div>
+    <div class="generator-info generator-type">{{generator.type}}</div>
+    <div class="generator-info generator-type">{{generator.audio_device_name}}</div>
+    <div class="generator-info generator-commands">
+        {% if not for_selection %}
+        <a href="{% url 'sounds:generator_edit' pk=generator.id %}"><i class="fa-solid fa-edit"></i></a>
+        {% endif %}
+    </div>
+{% if for_selection %}
+</a>
+{% else %}
 </div>
+{% endif %}

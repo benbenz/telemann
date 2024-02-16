@@ -7,7 +7,7 @@ class SoundGeneratorForm(forms.ModelForm):
     # we need to handle the file path separately so that django doesnt automatically check that it exists...
     file_path = forms.CharField(max_length=512, required=False, help_text="The file path for the plugin or the recordings directory")
     #file_path = forms.FileField(max_length=512, required=False, help_text="The file path for the plugin or the recordings directory")
-    audio_device_name = forms.CharField(widget=forms.Select(choices=get_audio_input_interfaces),max_length=64,help_text="Audio input device")
+    audio_device_name = forms.CharField(widget=forms.Select(choices=get_audio_input_interfaces),required=False,max_length=64,help_text="Audio input device")
     midi_out_port_name = forms.CharField(widget=forms.Select(choices=get_midi_output_ports),required=False,max_length=64,help_text="MIDI OUT port name")
     # midi_in_port_name = forms.CharField(widget=forms.Select(choices=get_midi_input_ports),max_length=64,help_text="MIDI IN port name")
 

@@ -71,9 +71,10 @@ class AudioIO(models.TextChoices):
 class SoundGenerator(models.Model):
 
     class Type(models.TextChoices):
-        RECORDING  = 'recording'
-        INSTRUMENT = 'instrument'
-        ARTIST     = 'artist'
+        AUDIOFILES  = 'files'
+        RECORDING   = 'recording'
+        INSTRUMENT  = 'instrument'
+        ARTIST      = 'artist'
     
     id          = models.AutoField(primary_key=True) 
     # type and descriptions
@@ -81,7 +82,7 @@ class SoundGenerator(models.Model):
     name        = models.CharField(max_length=64,null=False,help_text="The name of the sound generator: 'SynthMaster', 'Diva', etc.")
     description = models.CharField(max_length=256,null=True,default=None,help_text="A short description")
     # capture/control audio/midi parameters
-    audio_device_name = models.CharField(max_length=64,default=None,null=True,help_text="Audio input device")
+    audio_device_name = models.CharField(max_length=64,default=None,null=True,blank=True,help_text="Audio input device")
     audio_device_samplerate = models.PositiveSmallIntegerField(default=SamplingFrequency.fs44100,choices=SamplingFrequency.choices,help_text="Audio input sample rate")
     audio_device_channels = models.CharField(max_length=5,default=None,choices=AudioIO.choices,null=True,blank=True,help_text="Audio input channels")
     audio_device_kernelsize = models.PositiveSmallIntegerField(default=None,choices=BufferSize.choices,null=True,blank=True,help_text="Audio input kernel size")

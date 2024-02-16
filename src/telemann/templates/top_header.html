@@ -17,7 +17,14 @@
 
           function focusClass(url_refs) {
             const { host, hostname, href, origin, pathname, port, protocol, search } = window.location
-            infocus = url_refs.includes(pathname)
+            //infocus = url_refs.includes(pathname)
+            infocus = false
+            for(url_ref of url_refs) {
+              if(pathname.startsWith(url_ref)) {
+                infocus = true ;
+                break ;
+              }
+            }
             if(infocus)
               return 'focussed'
             else

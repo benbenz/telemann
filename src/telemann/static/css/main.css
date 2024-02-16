@@ -190,19 +190,29 @@ nav a:hover {
 }
 
 #centersection {
-  margin: auto ;
+  margin-left: auto ;
+  margin-right: auto ;
   width: 80vw;
   backdrop-filter: blur(200px);
 }
 
 #centercontent {
-  max-width: 50%;
+  max-width: 70%;
   margin: auto;
 }
 
+.form-buttons {
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  width: fit-content;
+  align-content: center;
+  align-items: center;
+}
+
 .form-button  {
-  background-color: #006bb9!important; 
-  color: white!important ;
+  background-color: #b0d3ec!important; 
+  color: rgb(59, 32, 3)!important ;
 }
 
 div.form {

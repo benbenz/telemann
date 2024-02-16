@@ -10,9 +10,13 @@
 
 {% block content %}
 
+<h2 class="text-xl my-5 font-bold">Available Generators</h2>
+
 {% for generator in generators %}
     {% include 'sounds/widgets/generator.html' with generator=generator %}
 {% endfor %}
 
-<a class="" href="{%url 'sounds:generator_new' %}" role="button"><button>Create New</button></a>
+<a href="{% url 'sounds:generator_new' %}"><button class="form-button flex m-auto mt-5 px-4 py-2 mt-2 rounded-lg md:mt-0 focus:outline-none focus:shadow-outline">Create New</button></a>
+
+
 {% endblock %}

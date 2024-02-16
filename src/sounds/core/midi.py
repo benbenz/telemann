@@ -23,11 +23,11 @@ def get_midi_input_ports():
     devices = mido.get_input_names()
     result = list()
     result.extend([
-        (-2,MIDIInterface.NONE),
-        (-1,MIDIInterface.INTERNAL)
+        (MIDIInterface.NONE,MIDIInterface.NONE),
+        (MIDIInterface.INTERNAL,MIDIInterface.INTERNAL)
     ])
-    for idx,device in enumerate(devices):
+    for device in devices:
         result.append(
-            (idx,device)
+            (device,device)
         )
     return result 

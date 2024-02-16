@@ -5,7 +5,9 @@
       <div class="burgermenu dark:text-white">
           <i class="fa fa-bars"></i>
       </div>
-      <a class="ml-8" href="{% url 'sounds:sounds' %}">
+      <a class="flex m-0 lm-2" href="{% url 'sounds:sounds' %}">
+        <img class="inline" src="{% static 'images/favicons/favicon-32x32.png' %}"/>
+        <div class="inline logo-text leckerli-one-regular">elemann</div>
       </a>
       <div class="portal-header-name dark:text-white"></div>
 
@@ -13,9 +15,9 @@
       <!--https://tailwindcomponents.com/component/responsive-navbar-with-dropdown-->
       <script>
 
-          function focusClass(url_ref) {
+          function focusClass(url_refs) {
             const { host, hostname, href, origin, pathname, port, protocol, search } = window.location
-            infocus = pathname == url_ref
+            infocus = url_refs.includes(pathname)
             if(infocus)
               return 'focussed'
             else
@@ -24,8 +26,8 @@
 
       </script>
       <nav :class="{'flex': open, 'hidden': !open}" class="flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
-        <a :class="focusClass('{% url 'sounds:generators' %}')" class="px-4 py-2 mt-2 rounded-lg md:mt-0 focus:outline-none focus:shadow-outline" href="{% url 'sounds:generators' %}">Generators</a>
-        <a :class="focusClass('{% url 'sounds:sounds' %}')" class="px-4 py-2 mt-2 rounded-lg md:mt-0 md:ml-4 focus:outline-none focus:shadow-outline" href="{% url 'sounds:sounds' %}">Sounds</a>
+        <a :class="focusClass(['{% url 'sounds:generators' %}','{% url 'sounds:generator_new' %}'])" class="px-4 py-2 mt-2 rounded-lg md:mt-0 focus:outline-none focus:shadow-outline" href="{% url 'sounds:generators' %}">Generators</a>
+        <a :class="focusClass(['{% url 'sounds:sounds' %}'])" class="px-4 py-2 mt-2 rounded-lg md:mt-0 md:ml-4 focus:outline-none focus:shadow-outline" href="{% url 'sounds:sounds' %}">Sounds</a>
         <div @click.away="open = false" class="relative" x-data="{ open: false }">
           <button @click="open = !open" class="flex flex-row items-center w-full px-4 py-2 mt-2 text-left rounded-lg md:w-auto md:inline md:mt-0 md:ml-4 focus:outline-none focus:shadow-outline">
             <span>More</span>

@@ -43,6 +43,11 @@ module.exports = {
     ],
     theme: {
         extend: {},
+        colors: {
+            // Using modern `rgb`
+            primary: 'rgb(var(--color-primary))',
+            secondary: 'rgb(var(--color-secondary))',            
+        }
     },
     plugins: [
         /**

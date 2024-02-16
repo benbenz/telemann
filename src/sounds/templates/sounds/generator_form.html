@@ -1,9 +1,14 @@
 {% extends 'base_logged.html' %}  <!-- Extend your base template -->
-
+{% load static crispy_forms_tags %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/sound.css' %}"/>
+{% endblock %}
 {% block content %}
-  <h2>{% if object %}Edit{% else %}Create{% endif %} Sound Generator</h2>
+<div class="form">
+  <h2 class="text-xl my-5 font-bold">{% if object %}Edit{% else %}Create{% endif %} Sound Generator</h2>
   <form method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save</button>
+    {{ form|crispy }}
+    <button type="submit" class="form-button flex m-auto px-4 py-2 mt-2 rounded-lg md:mt-0 focus:outline-none focus:shadow-outline">Save</button>
   </form>
+</div>  
 {% endblock %}

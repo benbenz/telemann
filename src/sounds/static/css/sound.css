@@ -1,0 +1,10 @@
+div.relative > .pointer-events-none {
+    display: none;
+}
+form div small {
+  width: 100%;
+  text-align: right;
+  display: block;
+  color: var(--colour-1);
+}
+

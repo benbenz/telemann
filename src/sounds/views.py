@@ -27,7 +27,8 @@ def sound(request,soundid):
         return HttpResponse(error_message, content_type="text/plain", status=500)
     
 def generators(request):
-    return render(request,"sounds/generators.html",{})
+    generators = SoundGenerator.objects.all()
+    return render(request,"sounds/generators.html",{'generators':generators})
     
 def generator(request,generatorid):
     if request.method != "POST":

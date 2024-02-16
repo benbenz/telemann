@@ -40,11 +40,14 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "django.forms"
 ]
 
 THIRD_PARTY_APPS = [
     "tailwind",
-    "fontawesomefree"
+    "fontawesomefree",
+    "crispy_forms",
+    "crispy_tailwind",           
 ]
 
 LOCAL_APPS = [
@@ -151,7 +154,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Tailwind
 TAILWIND_APP_NAME = 'theme'
-
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+CRISPY_TEMPLATE_PACK = "tailwind"
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+from django.forms.renderers import TemplatesSetting
+class FormRenderer(TemplatesSetting):
+    form_template_name = "form_custom.html"
+FORM_RENDERER = "telemann.settings.FormRenderer"

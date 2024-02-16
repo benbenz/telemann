@@ -41,6 +41,7 @@ class MIDIChannel(models.IntegerChoices):
     ch15 = 14 , ('15')
     ch16 = 15 , ('16')
 
+
 class AudioIO(models.TextChoices):
     mono1 = "1" , 'Mono 1'
     mono2 = "2" , 'Mono 2'
@@ -77,21 +78,22 @@ class SoundGenerator(models.Model):
     id          = models.AutoField(primary_key=True) 
     # type and descriptions
     type        = models.CharField(max_length=16,choices=Type.choices,default=Type.INSTRUMENT,help_text="Type of generator")
-    name        = models.CharField(max_length=64,null=False,help_text="The name of the sound generator")
-    description = models.CharField(max_length=256,null=True,default=None)
-    filenames   = models.CharField(max_length=256,null=True,default=None,help_text="The list of possible file names for the plugin")
-    file_path   = models.FilePathField(max_length=512,null=True,default=None,help_text="File path for the plugin")
+    name        = models.CharField(max_length=64,null=False,help_text="The name of the sound generator: 'SynthMaster', 'Diva', etc.")
+    description = models.CharField(max_length=256,null=True,default=None,help_text="A short description")
     # capture/control audio/midi parameters
     audio_device_name = models.CharField(max_length=64,default=None,null=True,help_text="Audio input device")
-    audio_device_channels = models.CharField(max_length=5,default=AudioIO.stereo1_2,choices=AudioIO.choices,null=True,help_text="Audio input channels")
     audio_device_samplerate = models.PositiveSmallIntegerField(default=SamplingFrequency.fs44100,choices=SamplingFrequency.choices,help_text="Audio input sample rate")
-    audio_device_kernelsize = models.PositiveSmallIntegerField(default=BufferSize.buf256,choices=BufferSize.choices,help_text="Audio input kernel size")
-    audio_device_sample_format = models.SmallIntegerField(default=Resolution.res16,choices=Resolution.choices,help_text="Audio input resolution")
-    midi_out_port_name = models.CharField(max_length=64,default=None,null=True,help_text="MIDI OUT port name")
-    midi_in_port_name = models.CharField(max_length=64,default=None,null=True,help_text="MIDI IN port name")
-    midi_channel = models.PositiveSmallIntegerField(default=None,null=True,choices=MIDIChannel.choices,help_text="MIDI channel")    
+    audio_device_channels = models.CharField(max_length=5,default=None,choices=AudioIO.choices,null=True,blank=True,help_text="Audio input channels")
+    audio_device_kernelsize = models.PositiveSmallIntegerField(default=None,choices=BufferSize.choices,null=True,blank=True,help_text="Audio input kernel size")
+    audio_device_sample_format = models.SmallIntegerField(default=None,choices=Resolution.choices,null=True,blank=True,help_text="Audio input resolution")
+    midi_out_port_name = models.CharField(max_length=64,default=None,null=True,blank=True,help_text="MIDI OUT port name")
+    midi_in_port_name = models.CharField(max_length=64,default=None,null=True,blank=True,help_text="MIDI IN port name")
+    midi_channel = models.PositiveSmallIntegerField(default=None,null=True,blank=True,choices=MIDIChannel.choices,help_text="MIDI channel")    
+    # audio plugin stuff
+    filenames   = models.CharField(max_length=256,null=True,blank=True,default=None,help_text="Optional: the list of possible file names for the plugin (comma separated)")
+    file_path   = models.FilePathField(max_length=512,null=True,default=None,help_text="Optional: the file path for the plugin (requried if this is a plugin)")
     # extra parameters
-    parameters  = models.JSONField(default=None,null=True,help_text="Extra Parameters for this generator")
+    parameters  = models.JSONField(default=None,null=True,blank=True,help_text="Extra Parameters for this generator")
 
     class Meta:
         indexes = [

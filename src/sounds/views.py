@@ -43,7 +43,7 @@ def render_sound(request,generatorid):
     audio = render_audio(generator,bank=bank,program=program)
     headers = {
         'Cache-Control': 'no-cache, no-store, must-revalidate',
-        'Content-Length': audio.size * audio.itemsize
+#        'Content-Length': audio.size * audio.itemsize
     }
     # return StreamingHttpResponse(
     #     stream_audio(audio,generator.audio_device_samplerate),

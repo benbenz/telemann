@@ -7,6 +7,7 @@ import numpy as np
 import wave
 from enum import StrEnum , auto
 from sounds.apps import SoundsConfig
+from pedalboard.io import AudioFile
 
 class AudioInterface(StrEnum):
     NONE = "---------"
@@ -68,12 +69,18 @@ def convert_to_wav(audio,framerate,convertto16bits=True):
     if convertto16bits:
        audio = convert_to_16bits(audio)
     C , N = audio.shape
+    audio_interleaved = np.ndarray(shape=(N,C),dtype=audio.dtype)
+    for c in range(C):
+       for s in range(N):
+          audio_interleaved[s][c] = audio[c][s]
     with wave.open(bIO, mode='wb') as wObj:
         wObj.setnchannels(C)
         wObj.setnframes(N)
         wObj.setframerate(framerate)
         wObj.setsampwidth(audio.itemsize)
-        wObj.writeframes(audio)
+        wObj.writeframes(audio_interleaved)
     bIO.seek(0)
+    # with AudioFile(bIO,"w", format='wav', samplerate=framerate, num_channels=C, bit_depth=8*audio.itemsize) as f:
+    #    f.write(audio)
     return bIO
    

@@ -1,5 +1,5 @@
 {% extends "base_logged.html" %}
-{% load static i18n %}
+{% load static i18n random %}
 
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/sound.css' %}">
@@ -22,7 +22,7 @@
 
 <h2 class="text-xl my-5 font-bold">Sounds for generator {{generator.name}}</h2>
 
-<audio autoplay="true" controls src="{% url 'sounds:render_sound' generatorid=generator.id %}?b={{bank}}&p={{program}}"/>
+<audio autoplay loop controls src="{% url 'sounds:render_sound' generatorid=generator.id %}?b={{bank}}&p={{program}}&r={% random_uuid %}"/>
 
 {% endif  %}
 

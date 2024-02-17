@@ -21,8 +21,8 @@ pip install -r requirements.txt
 python src/manage.py migrate
 # populate the database
 python src/manage.py initgenerators
-# run the server
-python src/manage.py runserver
+# run the server (note the nothreading - this is to avoid locks)
+python src/manage.py runserver --nothreading
 ```
 
 You can now use the labeller at http://localhost:8000

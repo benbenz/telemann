@@ -20,7 +20,7 @@
 
 {% else %}
 
-<audio autoplay="true" src="{% url 'sounds:render' %}"/>
+<audio autoplay="true" controls src="{% url 'sounds:render_sound' generatorid=generator.id %}?b={{bank}}&p={{program}}"/>
 
 {% endif  %}
 

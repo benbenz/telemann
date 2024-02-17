@@ -1,15 +1,15 @@
 import json
 import uuid
 from django.conf import settings
-from django.http import HttpResponse, StreamingHttpResponse , JsonResponse
+from django.http import HttpResponse, StreamingHttpResponse , JsonResponse , FileResponse
 from django.shortcuts import render
 from django.templatetags.static import static
 from django.views.generic.edit import CreateView , UpdateView
 from django.urls import reverse_lazy
 from .models import SoundGenerator
 from .forms import SoundGeneratorForm
-
-
+from .core.audio import convert_to_wav , render_audio
+import io
 
 def sounds(request,generatorid=None):
     if generatorid is None:
@@ -18,21 +18,40 @@ def sounds(request,generatorid=None):
             'generators' : generators
         })
     else:
+        generator = SoundGenerator.objects.get(id=generatorid)
         program = request.GET.get('p',0)
         bank    = request.GET.get('b',0)
-        return render(request,"sounds/sounds.html",{'program':program,'bank':bank})
+        return render(request,"sounds/sounds.html",{'program':program,'bank':bank,'generator':generator})
+    
+def stream_audio(audio,framerate):
+    # for frame in np.nditer(audio):
+    #     bytes = frame.tobytes()
+    #     yield bytes
+    
+    # we need to change format so that the <audio> element recognizes it
+    wavaudio = convert_to_wav(audio,framerate)
+    while wavaudio.readable:
+        yield wavaudio.read(128)
 
-def sound(request,soundid):
-    if request.method != "POST":
-        return render(request,"sounds/sound.html",{
-
-        })
-    try:
-        data = json.loads(request.body)
-        return HttpResponse( "OK", status=200,content_type="text/html")
-    except Exception as e:  
-        error_message = f"Sorry, an error occurred: {type(e).__name__} - {str(e)}"
-        return HttpResponse(error_message, content_type="text/plain", status=500)
+def render_sound(request,generatorid):
+    program = request.GET.get('p',0)
+    bank    = request.GET.get('b',0)
+    generator:SoundGenerator = SoundGenerator.objects.get(id=generatorid)
+    # pedalboard return 32 bits float data
+    # content_type = f"audio/pcm;rate={generator.audio_device_samplerate};encoding=float;bits=32"
+    content_type = "audio/wave"
+    audio = render_audio(generator,bank=bank,program=program)
+    headers = {
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Content-Length': audio.size * audio.itemsize
+    }
+    # return StreamingHttpResponse(
+    #     stream_audio(audio,generator.audio_device_samplerate),
+    #     content_type=content_type,
+    #     status=200,
+    #     headers=headers
+    # )
+    return FileResponse(convert_to_wav(audio,generator.audio_device_samplerate),headers=headers)
     
 def generators(request):
     generators = SoundGenerator.objects.all()

@@ -27,9 +27,21 @@ class SoundGeneratorForm(forms.ModelForm):
         'filenames',
         'file_path'
     ]        
+
     class Meta:
         model = SoundGenerator
         exclude = ['file_path','audio_device_name','midi_out_port_name','midi_in_port_name']  # Exclude the original file_path field from the model
+
+    def __init__(self, *args, **kwargs):
+        super(SoundGeneratorForm, self).__init__(*args, **kwargs)
+        
+        # Set initial value for file_path field if instance is provided and has a file_path attribute
+        if self.instance and hasattr(self.instance, 'file_path'):
+            self.fields['file_path'].initial = self.instance.file_path        
+        if self.instance and hasattr(self.instance, 'audio_device_name'):
+            self.fields['audio_device_name'].initial = self.instance.audio_device_name        
+        if self.instance and hasattr(self.instance, 'midi_out_port_name'):
+            self.fields['midi_out_port_name'].initial = self.instance.midi_out_port_name        
 
     def save(self, commit=True):
         instance = super(SoundGeneratorForm, self).save(commit=False)

@@ -2,6 +2,8 @@
     {
         "fields" : {
             "type" : "recording",
+            "nature": "recording",
+            "synthesis": "sampling",
             "name"     : "Audio Recording" ,
             "description" : "Audio recording (audio file) as sound source" ,
             "filenames": null ,
@@ -12,7 +14,9 @@
     },
     {
         "fields" : {
-            "type" : "person",
+            "type" : "voice",
+            "nature": "natural",
+            "synthesis": "natural",
             "name"     : "Kate B" ,
             "description" : "Kate B is a soul artist" ,
             "filenames": null ,
@@ -24,12 +28,29 @@
     {
         "fields" : {
             "type" : "instrument",
+            "nature": "digital",
+            "synthesis": "subtractive",
+            "audio_device_name": "internal capture",
             "name"     : "Synthmaster" ,
             "description" : "SynthMaster soft-synthesizer" ,
             "filenames": "SynthMaster2.vst3,SynthMaster2.vst,SynthMaster2.component" ,
-            "file_path": null
+            "file_path": "/Library/Audio/Plug-Ins/VST3/SynthMaster2.vst3"
         } ,
         "model": "sounds.SoundGenerator" ,
         "pk": 3
+    },
+    {
+        "fields" : {
+            "type" : "instrument",
+            "nature": "digital",
+            "synthesis": "subtractive",
+            "audio_device_name": "internal capture",
+            "name"     : "Diva" ,
+            "description" : "Diva soft-synthesizer" ,
+            "filenames": "Diva.vst3,Diva.vst,Diva.component" ,
+            "file_path": "/Library/Audio/Plug-Ins/VST3/Diva.vst3"
+        } ,
+        "model": "sounds.SoundGenerator" ,
+        "pk": 4
     }
 ]

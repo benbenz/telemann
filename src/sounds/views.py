@@ -6,8 +6,8 @@ from django.shortcuts import render
 from django.templatetags.static import static
 from django.views.generic.edit import CreateView , UpdateView
 from django.urls import reverse_lazy
-from .models import SoundGenerator
-from .forms import SoundGeneratorForm
+from .models import SoundGenerator , SoundSource
+from .forms import SoundGeneratorForm , SoundSourceForm
 from .core.audio import convert_to_wav , render_audio
 import io
 
@@ -21,7 +21,35 @@ def sounds(request,generatorid=None):
         generator = SoundGenerator.objects.get(id=generatorid)
         program = request.GET.get('p',0)
         bank    = request.GET.get('b',0)
-        return render(request,"sounds/sounds.html",{'program':program,'bank':bank,'generator':generator})
+        if isinstance(program,str):
+            program = int(program)
+        if isinstance(bank,str):
+            bank = int(bank)
+        if request.method == 'GET':
+            try:
+                sound_source = SoundSource.objects.get(generator=generator,midi_program=program,midi_bank=bank)
+                form = SoundSourceForm(instance=sound_source)
+            except SoundSource.DoesNotExist:
+                sound_source = SoundSource.objects.create(generator=generator,midi_program=program,midi_bank=bank)
+                form = SoundSourceForm()
+
+            return render(request,"sounds/sounds.html",{
+                'generator' : generator ,
+                'program':program,
+                'bank':bank,
+                'form':form
+            })
+        elif request.method == 'POST':
+            try:
+                sound_source = SoundSource.objects.get(generator=generator,midi_program=program,midi_bank=bank)
+                form = SoundSourceForm(request.POST,instance=sound_source)
+                form.save()
+            except SoundSource.DoesNotExist:
+                sound_source = SoundSource.objects.create(generator=generator,midi_program=program,midi_bank=bank)
+                form = SoundSourceForm(request.POST,instance=sound_source)
+                form.save()
+            return JsonResponse("OK")     
+           
     
 def stream_audio(audio,framerate):
     # for frame in np.nditer(audio):
@@ -42,7 +70,7 @@ def render_sound(request,generatorid):
     content_type = "audio/wave"
     audio = render_audio(generator,bank=bank,program=program)
     headers = {
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
+#        'Cache-Control': 'no-cache, no-store, must-revalidate',
 #        'Content-Length': audio.size * audio.itemsize
     }
     # return StreamingHttpResponse(
@@ -81,7 +109,3 @@ class SoundGeneratorUpdateView(UpdateView):
     form_class = SoundGeneratorForm
     template_name = 'sounds/generator_form.html'  # You can use the same template as for creating
     success_url = reverse_lazy('sounds:generators')  # Redirect after a successful form update
-
-
-
-

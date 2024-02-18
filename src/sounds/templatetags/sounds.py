@@ -11,9 +11,7 @@ MAX_LEN = 800
 def source_ellipsis(type):
     if type == SoundGenerator.Type.RECORDING.value:
         return "<i class=\"fa-solid fa-microphone\"></i>"
-    elif type == SoundGenerator.Type.AUDIOFILES.value:
-        return "<i class=\"fa-solid fa-file-audio\"></i>"
-    elif type == SoundGenerator.Type.ARTIST.value:
+    elif type == SoundGenerator.Type.VOICE.value:
         return "<i class=\"fa-solid fa-microphone-lines\"></i>"
     elif type == SoundGenerator.Type.INSTRUMENT.value:
         return "<i class=\"fa-regular fa-piano-keyboard\"></i>"

@@ -18,7 +18,7 @@ def get_audio_input_interfaces():
     result = list()
     result.extend([
         (None,AudioInterface.NONE),
-        (AudioInterface.INTERNAL_CAPTURE,AudioInterface.INTERNAL_CAPTURE)
+        (AudioInterface.INTERNAL_CAPTURE.lower(),AudioInterface.INTERNAL_CAPTURE)
     ])
     for device in devices:
         # this is an input
@@ -49,6 +49,7 @@ def render_audio(generator:SoundGenerator,
         # Load a VST3 or Audio Unit plugin from a known path on disk:
         instrument = load_plugin(generator.file_path)
         SoundsConfig.PLUGINS_CACHE[generator.name] = instrument
+        print("Loaded instrument")
 
     #print(instrument.parameters.keys())
 
@@ -57,6 +58,8 @@ def render_audio(generator:SoundGenerator,
       duration=length, # seconds
       sample_rate=sample_rate,
     )
+
+    print("Rendered")
 
     return audio
   
@@ -69,10 +72,9 @@ def convert_to_wav(audio,framerate,convertto16bits=True):
     if convertto16bits:
        audio = convert_to_16bits(audio)
     C , N = audio.shape
-    audio_interleaved = np.ndarray(shape=(N,C),dtype=audio.dtype)
-    for c in range(C):
-       for s in range(N):
-          audio_interleaved[s][c] = audio[c][s]
+    audio_interleaved = np.ndarray(shape=(N*C),dtype=audio.dtype)
+    audio_interleaved[0::2] = audio[0]
+    audio_interleaved[1::2] = audio[1]
     with wave.open(bIO, mode='wb') as wObj:
         wObj.setnchannels(C)
         wObj.setnframes(N)

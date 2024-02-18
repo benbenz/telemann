@@ -71,14 +71,42 @@ class AudioIO(models.TextChoices):
 class SoundGenerator(models.Model):
 
     class Type(models.TextChoices):
-        AUDIOFILES  = 'files'
         RECORDING   = 'recording'
         INSTRUMENT  = 'instrument'
-        ARTIST      = 'artist'
+        VOICE       = 'voice'
+
+    class Nature(models.TextChoices):
+        UNKNOWN    = 'unknown'
+        NATURAL    = 'natural'
+        ACCOUSTIC  = 'accoustic'
+        ELECTRIC   = 'electric'
+        ELEC_ACC   = 'elec_acc'
+        ELECTRONIC = 'electronic'
+        DIGITAL    = 'digital'
+        RECORDING  = 'recording'
+
+    class Synthesis(models.TextChoices):
+        UNKNOWN  = 'unknown'
+        NATURAL  = 'natural'
+        ACCOUSTIC  = 'accoustic'
+        ELECTRIC   = 'electric'
+        ELEC_ACC   = 'elec_acc'
+        ANALOG   = 'analog'
+        DIGITAL  = 'digital'
+        VIRTUAL_ANALOG = 'virtual_analog'
+        SUBTRACTIVE = 'subtractive'
+        ADDITIVE = 'additive'
+        NEURAL   = 'neural'
+        GRANULAR = 'granular'
+        FM       = 'fm'
+        SAMPLING = 'sampling'
+        HYBRID   = 'hybrid'
     
     id          = models.AutoField(primary_key=True) 
     # type and descriptions
     type        = models.CharField(max_length=16,choices=Type.choices,default=Type.INSTRUMENT,help_text="Type of generator")
+    nature      = models.CharField(max_length=16,choices=Nature.choices,default=Nature.UNKNOWN,help_text="The Nature of the sound")
+    synthesis   = models.CharField(max_length=16,choices=Synthesis.choices,default=Synthesis.UNKNOWN,help_text="The Synthesis type of the sound")
     name        = models.CharField(max_length=64,null=False,help_text="The name of the sound generator: 'SynthMaster', 'Diva', etc.")
     description = models.CharField(max_length=256,null=True,default=None,help_text="A short description")
     # capture/control audio/midi parameters
@@ -99,10 +127,25 @@ class SoundGenerator(models.Model):
     class Meta:
         indexes = [
 #            models.Index(fields=['name']),
+            models.Index(fields=['nature']),
         ]
         constraints = [
             models.UniqueConstraint(fields=["name"],name="generator_name_unique")
         ]
+
+    @staticmethod
+    def normalize_parameters(instance):
+        if instance.parameters is None:
+            return
+        instance.parameters = json_normalize(instance.parameters)
+
+    @staticmethod
+    def pre_save(sender, instance, **kwargs):
+        SoundGenerator.normalize_parameters(instance)
+
+pre_save.connect(SoundGenerator.pre_save, SoundGenerator)      
+
+
 
 class SoundProcessor(models.Model):
     id          = models.AutoField(primary_key=True) 
@@ -113,35 +156,30 @@ class SoundProcessor(models.Model):
     class Meta:
         indexes = [
 #            models.Index(fields=['name']),
+
         ]
         constraints = [
             models.UniqueConstraint(fields=["name"],name="processor_name_unique")
         ]        
 
 
+def choice_midi_program():
+    list = []
+    for i in range(128):
+        list.append( (i,i) )
+    return list
+
+def choice_midi_bank():
+    list = []
+    for i in range(128):
+        list.append( (i,i) )
+    return list
+
 class SoundSource(models.Model):
 
-    class Type(models.TextChoices):
-        UNKNOWN    = 'unknown'
-        VOICE      = 'voice'
-        INSTRUMENT = 'instrument'
-        EFFECT     = 'effect'
-        SOUND_FX   = 'soundfx'
-
-    class Nature(models.TextChoices):
-        UNKNOWN    = 'unknown'
-        NATURAL    = 'natural'
-        ACCOUSTIC  = 'accoustic'
-        ELECTRIC   = 'electric'
-        ELEC_ACC   = 'elec_acc'
-        ELECTRONIC = 'electronic'
-        ANALOG     = 'analog'
-        DIGITAL    = 'digital'
-        NEURAL     = 'neural'
-
     class Category(models.TextChoices):
+        # INSTRUMENTs categories
         UNKNOWN = 'unknown'
-        VOICE = 'voice'
         BASS = 'bass'
         LEAD = 'lead'
         PIANO = 'piano'
@@ -155,11 +193,19 @@ class SoundSource(models.Model):
         DRUM = 'drum'
         PERCUSSION = 'percussion'
         GUITAR = 'guitar'
+        RYTHM = 'rythm'
+        SAMPLE = 'sample'
+        SONG = 'song'
         SOUND_FX = 'soundfx'
+        # VOICEs categories
+        VOICE = 'voice' # also used by INSTRUMENT
+        BARITONE = 'baritone'
+        ALTO = 'alto'
+        SOPRANO = 'soprano'
 
     @staticmethod
     def normalize_parameters(instance):
-        if instance.tag is None:
+        if instance.parameters is None:
             return
         instance.parameters = json_normalize(instance.parameters)
 
@@ -168,15 +214,16 @@ class SoundSource(models.Model):
         SoundSource.normalize_parameters(instance)
 
     id            = models.AutoField(primary_key=True) 
-    generator     = models.ForeignKey(SoundGenerator,default=None,null=True,on_delete=models.CASCADE)
-    type          = models.CharField(max_length=16,choices=Type.choices,default=Type.UNKNOWN,help_text="Type of sound")
-    nature        = models.CharField(max_length=16,choices=Nature.choices,default=Nature.UNKNOWN,help_text="The Nature of the sound")
     category      = models.CharField(max_length=16,choices=Category.choices,default=Category.UNKNOWN,help_text="Category of sound")
-    parameters    = models.JSONField(help_text="Parameters for this specific sound") # can be text pronounced by the vocal artist 
+    description   = models.TextField(max_length=512,null=True,default=None,blank=True,help_text="A short description")
+    parameters    = models.JSONField(default=None,null=True,blank=True,help_text="Parameters for this specific sound") # can be text pronounced by the vocal artist 
+    midi_bank     = models.SmallIntegerField(choices=choice_midi_bank,null=True,default=None,blank=True,help_text="The MIDI bank of the sound")
+    midi_program  = models.SmallIntegerField(choices=choice_midi_program,null=True,default=None,blank=True,help_text="The MIDI program of the sound")
     recording     = models.FilePathField(max_length=512,null=True,default=None,help_text="File path for recorded sources")
     last_modified = models.DateTimeField(default=None,null=True,help_text="the date/time the file was modified")
     record_date   = models.DateTimeField(auto_now_add=True,help_text="the date/time the file was entered in the database")
     # relations
+    generator     = models.ForeignKey(SoundGenerator,default=None,null=False,on_delete=models.CASCADE)
     tags          = models.ManyToManyField(Tag,related_name="sounds")
 
     class Meta:
@@ -184,17 +231,15 @@ class SoundSource(models.Model):
         indexes = [
             models.Index(fields=['record_date']),
             models.Index(fields=['generator']),
-            models.Index(fields=['type']),
-            models.Index(fields=['nature']),
         ]
         constraints = [
             models.UniqueConstraint(fields=["recording"],name="recording_is_unique"),
-            models.UniqueConstraint(fields=["generator","parameters"],name="generator_parameters_is_unique"),
+            models.UniqueConstraint(fields=["generator","midi_bank","midi_program"],name="generator_bank_program_is_unique"),
         ]
 
 pre_save.connect(SoundSource.pre_save, SoundSource)      
 
-class SoundDataSet(models.Model):
+class SoundDataset(models.Model):
     
     id            = models.AutoField(primary_key=True) 
     name          = models.CharField(max_length=64,null=False,help_text="The name of the sound dataset")
@@ -211,19 +256,22 @@ class SoundDataSet(models.Model):
         ]
 
 
-class Sound(models.Model):
+class SoundBite(models.Model):
 
     id            = models.AutoField(primary_key=True) 
-    source        = models.ForeignKey(SoundSource,null=False,on_delete=models.CASCADE)
-    processor     = models.ForeignKey(SoundProcessor,default=None,null=True,on_delete=models.CASCADE)
-    # format = { "source : { ...params... } , processors: [ { ...params... } ]"}
-    parameters    = models.JSONField(help_text="Parameters for this specific soundbite (generator(if+processor parameters)")
     file_path     = models.FilePathField(max_length=512,null=False,help_text="File path of the waveform")
+    notes         = models.JSONField(null=True,default=None,blank=True,help_text="The notes played")
+    duration_gen  = models.FloatField(null=True,default=None,blank=True,help_text="The duration of generation the sound")
+    duration_snd  = models.FloatField(null=True,default=None,blank=True,help_text="The actual duration of the sound")
+    # format = { "source : { ...params... } , processors: [ { ...params... } ]"}
+    parameters    = models.JSONField(default=None,null=True,blank=True,help_text="Parameters for this specific soundbite (generator(if+processor parameters)")
     last_modified = models.DateTimeField(default=None,null=True,help_text="the date/time the file was modified")
     record_date   = models.DateTimeField(auto_now_add=True,help_text="the date/time the file was entered in the database")
 
     # relation
-    dataset = models.ForeignKey(SoundDataSet,on_delete=models.CASCADE)
+    source        = models.ForeignKey(SoundSource,null=False,on_delete=models.CASCADE)
+    processor     = models.ForeignKey(SoundProcessor,default=None,null=True,on_delete=models.CASCADE)
+    dataset = models.ForeignKey(SoundDataset,on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['record_date']
@@ -235,5 +283,17 @@ class Sound(models.Model):
 #            models.UniqueConstraint(fields=["doc_id", "vector_store"],name="doc_id_vector_store_unique")
 #            models.UniqueConstraint(fields=["application","file_path"],name="application_file_path_unique")
         ]    
+
+    @staticmethod
+    def normalize_parameters(instance):
+        if instance.parameters is None:
+            return
+        instance.parameters = json_normalize(instance.parameters)
+
+    @staticmethod
+    def pre_save(sender, instance, **kwargs):
+        SoundBite.normalize_parameters(instance)
+
+pre_save.connect(SoundBite.pre_save, SoundBite)              
     
 

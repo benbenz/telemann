@@ -1,5 +1,5 @@
 from django import forms
-from .models import SoundGenerator
+from .models import SoundGenerator , SoundSource , SoundBite
 from .core.audio import get_audio_input_interfaces
 from .core.midi import get_midi_output_ports , get_midi_input_ports
 
@@ -13,6 +13,8 @@ class SoundGeneratorForm(forms.ModelForm):
 
     field_order = [
         'type',
+        'nature',
+        'synthesis',
         'name',
         'description',
         'audio_device_name',
@@ -52,3 +54,35 @@ class SoundGeneratorForm(forms.ModelForm):
         if commit:
             instance.save()
         return instance
+    
+
+
+class SoundSourceForm(forms.ModelForm):
+
+    # we need to handle the file path separately so that django doesnt automatically check that it exists...
+    #recording = forms.CharField(max_length=512, required=False, help_text="File path for recorded sources")
+
+    field_order = [
+        'category',
+        'description',
+        'tags',
+        'parameters'
+    ]        
+
+    class Meta:
+        model = SoundSource
+        exclude = ['recording','last_modified','record_date','midi_bank','midi_program','parameters','generator'] 
+
+    def __init__(self, *args, **kwargs):
+        super(SoundSourceForm, self).__init__(*args, **kwargs)
+        
+        # Set initial value for file_path field if instance is provided and has a file_path attribute
+        # if self.instance and hasattr(self.instance, 'recording'):
+        #     self.fields['recording'].initial = self.instance.recording        
+
+    def save(self, commit=True):
+        instance = super(SoundSourceForm, self).save(commit=False)
+        #instance.recording = self.cleaned_data.get('recording')
+        if commit:
+            instance.save()
+        return instance    

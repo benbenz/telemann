@@ -21,7 +21,8 @@ pip install -r requirements.txt
 python src/manage.py migrate
 # populate the database
 python src/manage.py initgenerators
-# run the server (note the nothreading - this is to avoid locks)
+# run the server
+# note the '--nothreading' option - this is to avoid locks with pedalboard (to be debugged)
 python src/manage.py runserver --nothreading
 ```
 

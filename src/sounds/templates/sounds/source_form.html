@@ -5,11 +5,11 @@
 {% endblock %}
 {% block content %}
 <div class="form">
-  <h2 class="text-xl my-5 font-bold">{% if object %}Edit{% else %}Create{% endif %} Sound Generator</h2>
+  <h2 class="text-xl my-5 font-bold">{% if object %}Edit{% else %}Create{% endif %} Sound Source</h2>
   <form method="post">{% csrf_token %}
     {{ form|crispy }}
     <div class="form-buttons">
-    <a href="{% url 'sounds:generators' %}">
+    <a href="{% url 'sounds:sources' %}">
       <button class="form-button flex px-4 py-2 mt-2 mr-5 rounded-lg md:mt-0 focus:outline-none focus:shadow-outline" type="button">Cancel</button>
     </a>    
     <button type="submit" class="form-button flex px-4 py-2 mt-2 rounded-lg md:mt-0 focus:outline-none focus:shadow-outline">Save</button>

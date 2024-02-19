@@ -8,11 +8,11 @@ form div small {
   color: var(--colour-1);
 }
 
-.generator-infos { display: flex; flex-direction: row; padding: 1em; border-radius: 1em;}
-.generator-info { display: flex; flex: 1}
-.generator-name { font-weight: 600;}
+.source-infos { display: flex; flex-direction: row; padding: 1em; border-radius: 1em;}
+.source-info { display: flex; flex: 1}
+.source-name { font-weight: 600;}
 
-a.generator-infos:hover {
+a.source-infos:hover {
   background-color: rgba(255,255,0,0.5);
 
   /*

@@ -11,11 +11,11 @@
 
 {% block content %}
 
-{% if generators is None %}
+{% if sources is None %}
 
-<h2 class="text-xl my-5 font-bold">Sounds for generator {{generator.name}}</h2>
+<h2 class="text-xl my-5 font-bold">Sounds for {{source.name}}</h2>
 
-<audio autoplay="true" loop controls src="{% url 'sounds:render_sound' generatorid=generator.id %}?b={{bank}}&p={{program}}&r={% random_uuid %}"></audio>
+<audio autoplay="true" loop controls src="{% url 'sounds:render_sound' srcid=source.id %}?b={{bank}}&p={{program}}&r={% random_uuid %}"></audio>
 
 <div class="form">
   <form method="post">{% csrf_token %}
@@ -23,11 +23,6 @@
     <input type="hidden" value="{{ bank }}" name="b"/>
     {{ form|crispy }}
     <div class="form-buttons">
-    <!--
-    <a href="{% url 'sounds:generators' %}">
-      <button class="form-button flex px-4 py-2 mt-2 mr-5 rounded-lg md:mt-0 focus:outline-none focus:shadow-outline" type="button">Cancel</button>
-    </a>
-    -->    
     <button type="submit" class="form-button flex px-4 py-2 mt-2 rounded-lg md:mt-0 focus:outline-none focus:shadow-outline">Save</button>
   </div>
   </form>
@@ -35,10 +30,10 @@
 
 {% else %}
 
-<h2 class="text-xl my-5 font-bold">Please choose a generator</h2>
+<h2 class="text-xl my-5 font-bold">Please choose a source</h2>
 
-{% for generator in generators %}
-    {% include 'sounds/widgets/generator.html' with generator=generator for_selection=True %}
+{% for source in sources %}
+    {% include 'sounds/widgets/source.html' with source=source for_selection=True %}
 {% endfor %}
 
 {% endif  %}

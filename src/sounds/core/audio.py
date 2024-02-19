@@ -1,7 +1,7 @@
 from sounddevice import query_devices
 from pedalboard import load_plugin
 from mido import Message 
-from ..models import SoundGenerator
+from ..models import SoundSource
 import io
 import numpy as np
 import wave
@@ -29,7 +29,7 @@ def get_audio_input_interfaces():
     return result 
 
 
-def render_audio(generator:SoundGenerator,
+def render_audio(generator:SoundSource,
            bank:int|None=None,
            program:int|None=None,
            length:int|None=None):
@@ -40,7 +40,7 @@ def render_audio(generator:SoundGenerator,
   # Render some audio by passing MIDI to an instrument:
   sample_rate = generator.audio_device_samplerate
   
-  if generator.type == SoundGenerator.Type.INSTRUMENT:
+  if generator.type == SoundSource.Type.INSTRUMENT:
 
     if SoundsConfig.PLUGINS_CACHE.get(generator.name):
        instrument = SoundsConfig.PLUGINS_CACHE.get(generator.name)
@@ -52,6 +52,9 @@ def render_audio(generator:SoundGenerator,
         print("Loaded instrument")
 
     #print(instrument.parameters.keys())
+        
+    # necessary to avoid locks on future rendering?
+    instrument([],duration=0,sample_rate=sample_rate)
 
     audio = instrument(
       [Message("note_on", note=60), Message("note_off", note=60, time=length)],

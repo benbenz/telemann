@@ -20,7 +20,8 @@
             //infocus = url_refs.includes(pathname)
             infocus = false
             for(url_ref of url_refs) {
-              if(pathname.startsWith(url_ref)) {
+              url_test = url_ref.replace('999','')
+              if(pathname.startsWith(url_test)) {
                 infocus = true ;
                 break ;
               }
@@ -33,7 +34,7 @@
 
       </script>
       <nav :class="{'flex': open, 'hidden': !open}" class="flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
-        <a :class="focusClass(['{% url 'sounds:generators' %}','{% url 'sounds:generator_new' %}'])" class="px-4 py-2 mt-2 rounded-lg md:mt-0 focus:outline-none focus:shadow-outline" href="{% url 'sounds:generators' %}">Generators</a>
+        <a :class="focusClass(['{% url 'sounds:sources' %}','{% url 'sounds:source_new' %}','{% url 'sounds:source_edit' pk=999 %}'])" class="px-4 py-2 mt-2 rounded-lg md:mt-0 focus:outline-none focus:shadow-outline" href="{% url 'sounds:sources' %}">Sources</a>
         <a :class="focusClass(['{% url 'sounds:sounds' %}'])" class="px-4 py-2 mt-2 rounded-lg md:mt-0 md:ml-4 focus:outline-none focus:shadow-outline" href="{% url 'sounds:sounds' %}">Sounds</a>
         <div @click.away="open = false" class="relative" x-data="{ open: false }">
           <button @click="open = !open" class="flex flex-row items-center w-full px-4 py-2 mt-2 text-left rounded-lg md:w-auto md:inline md:mt-0 md:ml-4 focus:outline-none focus:shadow-outline">

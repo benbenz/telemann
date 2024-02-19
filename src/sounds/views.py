@@ -6,19 +6,19 @@ from django.shortcuts import render
 from django.templatetags.static import static
 from django.views.generic.edit import CreateView , UpdateView
 from django.urls import reverse_lazy
-from .models import SoundGenerator , SoundSource
-from .forms import SoundGeneratorForm , SoundSourceForm
+from .models import SoundSource , SoundTone
+from .forms import SoundSourceForm , SoundToneForm
 from .core.audio import convert_to_wav , render_audio
 import io
 
-def sounds(request,generatorid=None):
-    if generatorid is None:
-        generators = SoundGenerator.objects.all()
+def sounds(request,srcid=None):
+    if srcid is None:
+        sources = SoundSource.objects.all()
         return render(request,"sounds/sounds.html",{
-            'generators' : generators
+            'sources' : sources
         })
     else:
-        generator = SoundGenerator.objects.get(id=generatorid)
+        source  = SoundSource.objects.get(id=srcid)
         program = request.GET.get('p',0)
         bank    = request.GET.get('b',0)
         if isinstance(program,str):
@@ -27,26 +27,26 @@ def sounds(request,generatorid=None):
             bank = int(bank)
         if request.method == 'GET':
             try:
-                sound_source = SoundSource.objects.get(generator=generator,midi_program=program,midi_bank=bank)
-                form = SoundSourceForm(instance=sound_source)
-            except SoundSource.DoesNotExist:
-                sound_source = SoundSource.objects.create(generator=generator,midi_program=program,midi_bank=bank)
-                form = SoundSourceForm()
+                sound_tone = SoundTone.objects.get(source=source,midi_program=program,midi_bank=bank)
+                form = SoundToneForm(instance=sound_tone)
+            except SoundTone.DoesNotExist:
+                sound_tone = SoundTone.objects.create(source=source,midi_program=program,midi_bank=bank)
+                form = SoundToneForm(instance=sound_tone)
 
             return render(request,"sounds/sounds.html",{
-                'generator' : generator ,
+                'source' : source ,
                 'program':program,
                 'bank':bank,
                 'form':form
             })
         elif request.method == 'POST':
             try:
-                sound_source = SoundSource.objects.get(generator=generator,midi_program=program,midi_bank=bank)
-                form = SoundSourceForm(request.POST,instance=sound_source)
+                sound_tone = SoundTone.objects.get(source=source,midi_program=program,midi_bank=bank)
+                form = SoundToneForm(request.POST,instance=sound_tone)
                 form.save()
-            except SoundSource.DoesNotExist:
-                sound_source = SoundSource.objects.create(generator=generator,midi_program=program,midi_bank=bank)
-                form = SoundSourceForm(request.POST,instance=sound_source)
+            except SoundTone.DoesNotExist:
+                sound_tone = SoundTone.objects.create(source=source,midi_program=program,midi_bank=bank)
+                form = SoundToneForm(request.POST,instance=sound_tone)
                 form.save()
             return JsonResponse("OK")     
            
@@ -61,14 +61,14 @@ def stream_audio(audio,framerate):
     while wavaudio.readable:
         yield wavaudio.read(128)
 
-def render_sound(request,generatorid):
+def render_sound(request,srcid):
     program = request.GET.get('p',0)
     bank    = request.GET.get('b',0)
-    generator:SoundGenerator = SoundGenerator.objects.get(id=generatorid)
+    source:SoundSource = SoundSource.objects.get(id=srcid)
     # pedalboard return 32 bits float data
-    # content_type = f"audio/pcm;rate={generator.audio_device_samplerate};encoding=float;bits=32"
+    # content_type = f"audio/pcm;rate={source.audio_device_samplerate};encoding=float;bits=32"
     content_type = "audio/wave"
-    audio = render_audio(generator,bank=bank,program=program)
+    audio = render_audio(source,bank=bank,program=program)
     headers = {
 #        'Cache-Control': 'no-cache, no-store, must-revalidate',
 #        'Content-Length': audio.size * audio.itemsize
@@ -79,15 +79,15 @@ def render_sound(request,generatorid):
     #     status=200,
     #     headers=headers
     # )
-    return FileResponse(convert_to_wav(audio,generator.audio_device_samplerate),headers=headers)
+    return FileResponse(convert_to_wav(audio,source.audio_device_samplerate),headers=headers)
     
-def generators(request):
-    generators = SoundGenerator.objects.all()
-    return render(request,"sounds/generators.html",{'generators':generators})
+def sources(request):
+    sources = SoundSource.objects.all()
+    return render(request,"sounds/sources.html",{'sources':sources})
     
-def generator(request,generatorid):
+def source(request,srcid):
     if request.method != "POST":
-        return render(request,"sounds/generator.html",{
+        return render(request,"sounds/source.html",{
 
         })
     try:
@@ -98,14 +98,14 @@ def generator(request,generatorid):
         return HttpResponse(error_message, content_type="text/plain", status=500)    
     
 
-class SoundGeneratorCreateView(CreateView):
-    model = SoundGenerator
-    form_class = SoundGeneratorForm
-    template_name = 'sounds/generator_form.html'  # Specify your template path
-    success_url = reverse_lazy('sounds:generators')  # Redirect after a successful form submission
+class SoundSourceCreateView(CreateView):
+    model = SoundSource
+    form_class = SoundSourceForm
+    template_name = 'sounds/source_form.html'  # Specify your template path
+    success_url = reverse_lazy('sounds:sources')  # Redirect after a successful form submission
 
-class SoundGeneratorUpdateView(UpdateView):
-    model = SoundGenerator
-    form_class = SoundGeneratorForm
-    template_name = 'sounds/generator_form.html'  # You can use the same template as for creating
-    success_url = reverse_lazy('sounds:generators')  # Redirect after a successful form update
+class SoundSourceUpdateView(UpdateView):
+    model = SoundSource
+    form_class = SoundSourceForm
+    template_name = 'sounds/source_form.html'  # You can use the same template as for creating
+    success_url = reverse_lazy('sounds:sources')  # Redirect after a successful form update

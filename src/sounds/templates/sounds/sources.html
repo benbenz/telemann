@@ -1,0 +1,22 @@
+{% extends "base_logged.html" %}
+{% load static i18n %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/sound.css' %}">
+{% endblock %}
+
+{% block javascript_start %}
+{% endblock %}
+
+{% block content %}
+
+<h2 class="text-xl my-5 font-bold">Available Sources</h2>
+
+{% for source in sources %}
+    {% include 'sounds/widgets/source.html' with source=source %}
+{% endfor %}
+
+<a href="{% url 'sounds:source_new' %}"><button class="form-button flex m-auto mt-5 px-4 py-2 mt-2 rounded-lg md:mt-0 focus:outline-none focus:shadow-outline">Create New</button></a>
+
+
+{% endblock %}

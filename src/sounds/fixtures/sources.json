@@ -9,7 +9,7 @@
             "filenames": null ,
             "file_path": null
         } ,
-        "model": "sounds.SoundGenerator" ,
+        "model": "sounds.SoundSource" ,
         "pk": 1
     },
     {
@@ -22,7 +22,7 @@
             "filenames": null ,
             "file_path": null
         } ,
-        "model": "sounds.SoundGenerator" ,
+        "model": "sounds.SoundSource" ,
         "pk": 2
     },
     {
@@ -36,7 +36,7 @@
             "filenames": "SynthMaster2.vst3,SynthMaster2.vst,SynthMaster2.component" ,
             "file_path": "/Library/Audio/Plug-Ins/VST3/SynthMaster2.vst3"
         } ,
-        "model": "sounds.SoundGenerator" ,
+        "model": "sounds.SoundSource" ,
         "pk": 3
     },
     {
@@ -50,7 +50,7 @@
             "filenames": "Diva.vst3,Diva.vst,Diva.component" ,
             "file_path": "/Library/Audio/Plug-Ins/VST3/Diva.vst3"
         } ,
-        "model": "sounds.SoundGenerator" ,
+        "model": "sounds.SoundSource" ,
         "pk": 4
     }
 ]

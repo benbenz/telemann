@@ -29,38 +29,57 @@ def get_audio_input_interfaces():
     return result 
 
 
-def render_audio(generator:SoundSource,
-           bank:int|None=None,
+def render_audio(source:SoundSource,
+           bank_msb:int|None=None,
+           bank_lsb:int|None=None,
            program:int|None=None,
            length:int|None=None):
   
   if length is None:
-    length = 7 # 4 seconds
+    length = 10 # 4 seconds
 
   # Render some audio by passing MIDI to an instrument:
-  sample_rate = generator.audio_device_samplerate
+  sample_rate = source.audio_device_samplerate
   
-  if generator.type == SoundSource.Type.INSTRUMENT:
+  if source.type == SoundSource.Type.INSTRUMENT:
 
-    if SoundsConfig.PLUGINS_CACHE.get(generator.name):
-       instrument = SoundsConfig.PLUGINS_CACHE.get(generator.name)
+    if SoundsConfig.PLUGINS_CACHE.get(source.file_path):
+       instrument = SoundsConfig.PLUGINS_CACHE.get(source.file_path)
        print("Got instrument from cache")
     else:
         # Load a VST3 or Audio Unit plugin from a known path on disk:
-        instrument = load_plugin(generator.file_path)
-        SoundsConfig.PLUGINS_CACHE[generator.name] = instrument
+        instrument = load_plugin(source.file_path)
+        SoundsConfig.PLUGINS_CACHE[source.file_path] = instrument
         print("Loaded instrument")
 
     #print(instrument.parameters.keys())
         
+    # this is also the opportunity to change the program here with minimal data
+    # Bank Select MSB
+    pgm_events = []
+    pgm_events.append( Message('control_change', control=0, channel=0, value=bank_msb,time=0) )
+    if bank_lsb is not None:
+       pgm_events.append(Message('control_change', control=32, channel=0, value=bank_lsb,time=0.05))
+    pgm_events.append(Message('program_change', channel=0, program=program,time=0.1) )
+        
     # necessary to avoid locks on future rendering?
+    # this doesnt resolve the issue when runserver reloads because of source changes
+    # but this helps with the lock that was happening on the 3rd play ...
     instrument([],duration=0,sample_rate=sample_rate)
 
+    # instrument([msg_bmsb,msg_blsb,msg_pgm],duration=0.4,sample_rate=sample_rate)
     audio = instrument(
-      [Message("note_on", note=60), Message("note_off", note=60, time=length)],
+      [ *pgm_events,
+         Message("note_on", note=60,time=0.5), Message("note_off", note=60, time=length+0.5)],
       duration=length, # seconds
       sample_rate=sample_rate,
     )
+
+    # audio = instrument(
+    #   [Message("note_on", note=60), Message("note_off", note=60, time=length)],
+    #   duration=length, # seconds
+    #   sample_rate=sample_rate,
+    # )
 
     print("Rendered")
 

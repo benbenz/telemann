@@ -2,6 +2,7 @@ from django import forms
 from .models import SoundSource , SoundTone , SoundBite
 from .core.audio import get_audio_input_interfaces
 from .core.midi import get_midi_output_ports , get_midi_input_ports
+from .models import choice_midi_bank , choice_midi_program
 
 class SoundSourceForm(forms.ModelForm):
     # we need to handle the file path separately so that django doesnt automatically check that it exists...
@@ -61,17 +62,21 @@ class SoundToneForm(forms.ModelForm):
 
     # we need to handle the file path separately so that django doesnt automatically check that it exists...
     #recording = forms.CharField(max_length=512, required=False, help_text="File path for recorded sources")
+    # midi_bank     = forms.IntegerField(disabled=True,help_text="The MIDI bank of the sound")
+    # midi_program  = forms.IntegerField(disabled=True,help_text="The MIDI program of the sound")
 
     field_order = [
+        # 'midi_bank',
+        # 'midi_program',
         'category',
         'description',
         'tags',
-        'parameters'
+        'recommended_rec'
     ]        
 
     class Meta:
         model = SoundTone
-        exclude = ['recording','last_modified','record_date','midi_bank','midi_program','parameters','source'] 
+        exclude = ['recording','last_modified','record_date','midi_bank_msb','midi_bank_lsb','midi_program','parameters','source'] 
 
     def __init__(self, *args, **kwargs):
         super(SoundToneForm, self).__init__(*args, **kwargs)
@@ -80,8 +85,13 @@ class SoundToneForm(forms.ModelForm):
             self.fields['category'].choices = self.instance.get_compatible_categories()
         
         # Set initial value for file_path field if instance is provided and has a file_path attribute
-        # if self.instance and hasattr(self.instance, 'recording'):
-        #     self.fields['recording'].initial = self.instance.recording        
+        # if self.instance and hasattr(self.instance, 'midi_bank'):
+        #     self.fields['midi_bank'].initial = self.instance.midi_bank        
+        # if self.instance and hasattr(self.instance, 'midi_program'):
+        #     self.fields['midi_program'].initial = self.instance.midi_program  
+
+        # self.fields['midi_bank'].choices = choice_midi_bank()
+        # self.fields['midi_program'].choices = choice_midi_program()      
 
     def save(self, commit=True):
         instance = super(SoundToneForm, self).save(commit=False)

@@ -10,6 +10,7 @@ from .models import SoundSource , SoundTone
 from .forms import SoundSourceForm , SoundToneForm
 from .core.audio import convert_to_wav , render_audio
 import io
+import math
 
 def sounds(request,srcid=None):
     if srcid is None:
@@ -20,41 +21,70 @@ def sounds(request,srcid=None):
     else:
         source   = SoundSource.objects.get(id=srcid)
         program  = request.GET.get('p',0)
-        bank     = request.GET.get('b',0)
+        bank_msb = request.GET.get('bm',0)
+        bank_lsb = request.GET.get('bl',0)
         category = request.GET.get('c',None)
         if isinstance(program,str):
             program = int(program)
-        if isinstance(bank,str):
-            bank = int(bank)
+        if isinstance(bank_msb,str):
+            bank_msb = int(bank_msb)
+        if isinstance(bank_lsb,str):
+            bank_lsb = int(bank_lsb)
+
+        # looping feature
+        # we let the UI be "ignorant" (only increment/decrement program...)
+        # and the view is handling the computation of bank+program
+        if program>127:
+            bank_offset = math.floor( (program - program%128)/128 )
+            if source.midi_bank_use_lsb:
+                bank_lsb += bank_offset
+                bank_lsb = bank_lsb % 128
+            else:
+                bank_msb += bank_offset
+                bank_msb = bank_msb%source.midi_bank_num
+            program = program%128
+        if program<0:
+            if source.midi_bank_use_lsb:
+                bank_msb -= 1
+                bank_lsb = math.floor( 128 + (program - program%128)/128 )
+            else:
+                bank_msb = math.floor( source.midi_bank_num + (program - program%128)/128 )
+            program = program%128
+
         if request.method == 'GET':
             try:
-                sound_tone = SoundTone.objects.get(source=source,midi_program=program,midi_bank=bank)
+                sound_tone = SoundTone.objects.get(source=source,midi_program=program,midi_bank_msb=bank_msb,midi_bank_lsb=bank_lsb)
+                category = sound_tone.category
                 form = SoundToneForm(instance=sound_tone)
             except SoundTone.DoesNotExist:
-                sound_tone = SoundTone(source=source,midi_program=program,midi_bank=bank,category=category)
+                sound_tone = SoundTone(source=source,midi_program=program,midi_bank_msb=bank_msb,midi_bank_lsb=bank_lsb,category=category)
                 form = SoundToneForm(instance=sound_tone)
 
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                 return render(request,"sounds/widgets/soundtone.html",{
                     'source' : source ,
+                    'bank_msb':bank_msb,
+                    'bank_lsb':bank_lsb,
                     'program':program,
-                    'bank':bank,
+                    'category':category,
                     'form':form
                 })
             else:
                 return render(request,"sounds/sounds.html",{
                     'source' : source ,
+                    'bank_msb':bank_msb,
+                    'bank_lsb':bank_lsb,
                     'program':program,
-                    'bank':bank,
+                    'category':category,
                     'form':form,
                 })
         elif request.method == 'POST':
             try:
-                sound_tone = SoundTone.objects.get(source=source,midi_program=program,midi_bank=bank)
+                sound_tone = SoundTone.objects.get(source=source,midi_program=program,midi_bank_msb=bank_msb,midi_bank_lsb=bank_lsb)
                 form = SoundToneForm(request.POST,instance=sound_tone)
                 form.save()
             except SoundTone.DoesNotExist:
-                sound_tone = SoundTone.objects.create(source=source,midi_program=program,midi_bank=bank)
+                sound_tone = SoundTone.objects.create(source=source,midi_program=program,midi_bank_msb=bank_msb,midi_bank_lsb=bank_lsb)
                 form = SoundToneForm(request.POST,instance=sound_tone)
                 form.save()
             return JsonResponse("OK")     
@@ -71,13 +101,23 @@ def stream_audio(audio,framerate):
         yield wavaudio.read(128)
 
 def render_sound(request,srcid):
-    program = request.GET.get('p',0)
-    bank    = request.GET.get('b',0)
+    program  = request.GET.get('p',0)
+    bank_msb = request.GET.get('bm',0)
+    bank_lsb = request.GET.get('bl',0)
+
+    if isinstance(program,str):
+        program = int(program)
+    if isinstance(bank_msb,str):
+        bank_msb = int(bank_msb)
+    if isinstance(bank_lsb,str):
+        bank_lsb = int(bank_lsb)
     source:SoundSource = SoundSource.objects.get(id=srcid)
     # pedalboard return 32 bits float data
     # content_type = f"audio/pcm;rate={source.audio_device_samplerate};encoding=float;bits=32"
     content_type = "audio/wave"
-    audio = render_audio(source,bank=bank,program=program)
+    if not source.midi_bank_use_lsb:
+        bank_lsb = None
+    audio = render_audio(source,bank_msb=bank_msb,bank_lsb=bank_lsb,program=program)
     headers = {
 #        'Cache-Control': 'no-cache, no-store, must-revalidate',
 #        'Content-Length': audio.size * audio.itemsize

@@ -68,6 +68,18 @@ class AudioIO(models.TextChoices):
     stereo13_14 = "13,14" , 'Stereo 13/4'
     stereo15_16 = "15,16" , 'Stereo 15/16'
 
+def choice_midi_program():
+    list = []
+    for i in range(128):
+        list.append( (i,i) )
+    return list
+
+def choice_midi_bank():
+    list = []
+    for i in range(128): #MSB x LSB
+        list.append( (i,i) )
+    return list
+
 class SoundSource(models.Model):
 
     class Type(models.TextChoices):
@@ -116,6 +128,8 @@ class SoundSource(models.Model):
     midi_out_port_name = models.CharField(max_length=64,default=None,null=True,blank=True,help_text="MIDI OUT port name")
     midi_in_port_name = models.CharField(max_length=64,default=None,null=True,blank=True,help_text="MIDI IN port name")
     midi_channel = models.PositiveSmallIntegerField(default=None,null=True,blank=True,choices=MIDIChannel.choices,help_text="MIDI channel")    
+    midi_bank_num = models.IntegerField(choices=choice_midi_bank,null=True,default=None,blank=True,help_text="The MIDI bank maximum value")
+    midi_bank_use_lsb = models.BooleanField(default=None,null=True,blank=True,help_text="If the Bank LSB is used or not")
     # audio plugin stuff
     filenames   = models.CharField(max_length=256,null=True,blank=True,default=None,help_text="Optional: the list of possible file names for the plugin (comma separated)")
     file_path   = models.FilePathField(max_length=512,null=True,default=None,help_text="Optional: the file path for the plugin (requried if this is a plugin)")
@@ -160,19 +174,6 @@ class Processor(models.Model):
             models.UniqueConstraint(fields=["name"],name="processor_name_unique")
         ]        
 
-
-def choice_midi_program():
-    list = []
-    for i in range(128):
-        list.append( (i,i) )
-    return list
-
-def choice_midi_bank():
-    list = []
-    for i in range(128):
-        list.append( (i,i) )
-    return list
-
 class SoundTone(models.Model):
 
     class Category(models.TextChoices):
@@ -194,11 +195,13 @@ class SoundTone(models.Model):
         PLUCK = 'pluck'
         GUITAR = 'guitar'
         RYTHM = 'rythm'
+        LOOP = 'loop'
         SAMPLE = 'sample'
         SONG = 'song'
-        SOUND_FX = 'soundfx'
+        SOUND_FX = 'soundfx','Sound FX'
         VOCAL = 'vocal'
         VOCODER = 'vocoder'
+        
         # VOICEs categories
         VOICE = 'voice'
         BARITONE = 'baritone'
@@ -219,15 +222,17 @@ class SoundTone(models.Model):
     id            = models.AutoField(primary_key=True) 
     category      = models.CharField(max_length=16,choices=Category.choices,default=None,null=True,blank=True,help_text="Category of sound")
     description   = models.TextField(max_length=512,null=True,default=None,blank=True,help_text="A short description")
+    duration_rec  = models.FloatField(null=True,default=None,blank=True,help_text="A recommended duration in seconds for this sound")
     parameters    = models.JSONField(default=None,null=True,blank=True,help_text="Parameters for this specific sound") # can be text pronounced by the vocal artist 
-    midi_bank     = models.SmallIntegerField(choices=choice_midi_bank,null=True,default=None,blank=True,help_text="The MIDI bank of the sound")
+    midi_bank_msb = models.IntegerField(choices=choice_midi_bank,null=True,default=None,blank=True,help_text="The MIDI bank MSB of the sound")
+    midi_bank_lsb = models.IntegerField(choices=choice_midi_bank,null=True,default=None,blank=True,help_text="The MIDI bank LSB of the sound")
     midi_program  = models.SmallIntegerField(choices=choice_midi_program,null=True,default=None,blank=True,help_text="The MIDI program of the sound")
     recording     = models.FilePathField(max_length=512,null=True,default=None,help_text="File path for recorded sources")
     last_modified = models.DateTimeField(default=None,null=True,help_text="the date/time the file was modified")
     record_date   = models.DateTimeField(auto_now_add=True,help_text="the date/time the file was entered in the database")
     # relations
     source        = models.ForeignKey(SoundSource,default=None,null=False,on_delete=models.CASCADE)
-    tags          = models.ManyToManyField(Tag,blank=True,related_name="sounds")
+    tags          = models.ManyToManyField(Tag,blank=True,related_name="sounds",help_text="Tags associated with the sound")
 
     class Meta:
         ordering = ['record_date']
@@ -237,7 +242,7 @@ class SoundTone(models.Model):
         ]
         constraints = [
             models.UniqueConstraint(fields=["recording"],name="recording_is_unique"),
-            models.UniqueConstraint(fields=["source","midi_bank","midi_program"],name="source_bank_program_is_unique"),
+            models.UniqueConstraint(fields=["source","midi_bank_msb","midi_bank_lsb","midi_program"],name="source_bank_program_is_unique"),
         ]
 
     def get_compatible_categories(self):

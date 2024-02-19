@@ -34,7 +34,9 @@
             "name"     : "Synthmaster" ,
             "description" : "SynthMaster soft-synthesizer" ,
             "filenames": "SynthMaster2.vst3,SynthMaster2.vst,SynthMaster2.component" ,
-            "file_path": "/Library/Audio/Plug-Ins/VST3/SynthMaster2.vst3"
+            "file_path": "/Library/Audio/Plug-Ins/VST3/SynthMaster2.vst3" ,
+            "midi_bank_num" : 19 ,
+            "midi_bank_use_lsb" : true 
         } ,
         "model": "sounds.SoundSource" ,
         "pk": 3
@@ -48,7 +50,9 @@
             "name"     : "Diva" ,
             "description" : "Diva soft-synthesizer" ,
             "filenames": "Diva.vst3,Diva.vst,Diva.component" ,
-            "file_path": "/Library/Audio/Plug-Ins/VST3/Diva.vst3"
+            "file_path": "/Library/Audio/Plug-Ins/Components/Diva.component",
+            "midi_bank_num" : 19 ,
+            "midi_bank_use_lsb" : false
         } ,
         "model": "sounds.SoundSource" ,
         "pk": 4

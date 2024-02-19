@@ -7,36 +7,50 @@
 {% endblock %}
 
 {% block javascript_start %}
-<script>
 
-    function selectCategory(catval) {
-        document.getElementById('id_category').value = catval;
-    }
-</script>
+{% if sources is None %}
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/speech-commands@0.5.4/dist/speech-commands.min.js"></script>
+{% endif %}
+
 {% endblock %}
 
 {% block content %}
 
 {% if sources is None %}
 
-<h2 class="text-xl my-5 font-bold">Sounds for {{source.name}}</h2>
-
 <div class="soundpanels">
 
-<div class="soundpanel left">
-    <div class="soundpanel-assist"><h2 class="text-lg">Categories</h2>
+<div class="soundpanel left mt-5">
+    <div class="soundpanel-assist">
+        <h2 class="text-lg font-bold mb-2">Categories</h2>
         <ul class="categories">
         {% for catval,category in form.fields.category.choices %}
             <li><a onclick="selectCategory('{{catval}}')">{{ category }}</a></li>
         {% endfor %}
         </ul>
     </div>
-    <div class="soundpanel-assist"><h2 class="text-lg">Tags</h2></div>
+    <div class="soundpanel-assist">
+        <h2 class="text-lg font-bold mb-2">Tags</h2>
+    </div>
 </div>
 
-<div class="soundpanel right">
+<div class="soundpanel right mt-5">
+
+<h2 class="text-lg font-bold text-center mb-2">Sounds for {{source.name}}</h2>
+
+<div id="soundtone_content">
 {% include 'sounds/widgets/soundtone.html' with source=source %}
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", (event) => {
+    onSoundToneLoaded();
+})
+</script>
+
+</div>
+
 
 </div><!--soundpanels-->
 

@@ -18,9 +18,10 @@ def sounds(request,srcid=None):
             'sources' : sources
         })
     else:
-        source  = SoundSource.objects.get(id=srcid)
-        program = request.GET.get('p',0)
-        bank    = request.GET.get('b',0)
+        source   = SoundSource.objects.get(id=srcid)
+        program  = request.GET.get('p',0)
+        bank     = request.GET.get('b',0)
+        category = request.GET.get('c',None)
         if isinstance(program,str):
             program = int(program)
         if isinstance(bank,str):
@@ -30,15 +31,23 @@ def sounds(request,srcid=None):
                 sound_tone = SoundTone.objects.get(source=source,midi_program=program,midi_bank=bank)
                 form = SoundToneForm(instance=sound_tone)
             except SoundTone.DoesNotExist:
-                sound_tone = SoundTone.objects.create(source=source,midi_program=program,midi_bank=bank)
+                sound_tone = SoundTone(source=source,midi_program=program,midi_bank=bank,category=category)
                 form = SoundToneForm(instance=sound_tone)
 
-            return render(request,"sounds/sounds.html",{
-                'source' : source ,
-                'program':program,
-                'bank':bank,
-                'form':form
-            })
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return render(request,"sounds/widgets/soundtone.html",{
+                    'source' : source ,
+                    'program':program,
+                    'bank':bank,
+                    'form':form
+                })
+            else:
+                return render(request,"sounds/sounds.html",{
+                    'source' : source ,
+                    'program':program,
+                    'bank':bank,
+                    'form':form,
+                })
         elif request.method == 'POST':
             try:
                 sound_tone = SoundTone.objects.get(source=source,midi_program=program,midi_bank=bank)

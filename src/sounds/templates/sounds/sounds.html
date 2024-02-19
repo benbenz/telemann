@@ -1,5 +1,5 @@
 {% extends "base_logged.html" %}
-{% load static i18n crispy_forms_tags random %}
+{% load static i18n %}
 
 
 {% block css %}
@@ -7,6 +7,12 @@
 {% endblock %}
 
 {% block javascript_start %}
+<script>
+
+    function selectCategory(catval) {
+        document.getElementById('id_category').value = catval;
+    }
+</script>
 {% endblock %}
 
 {% block content %}
@@ -15,18 +21,24 @@
 
 <h2 class="text-xl my-5 font-bold">Sounds for {{source.name}}</h2>
 
-<audio autoplay="true" loop controls src="{% url 'sounds:render_sound' srcid=source.id %}?b={{bank}}&p={{program}}&r={% random_uuid %}"></audio>
+<div class="soundpanels">
 
-<div class="form">
-  <form method="post">{% csrf_token %}
-    <input type="hidden" value="{{ program }}" name="p"/>
-    <input type="hidden" value="{{ bank }}" name="b"/>
-    {{ form|crispy }}
-    <div class="form-buttons">
-    <button type="submit" class="form-button flex px-4 py-2 mt-2 rounded-lg md:mt-0 focus:outline-none focus:shadow-outline">Save</button>
-  </div>
-  </form>
+<div class="soundpanel left">
+    <div class="soundpanel-assist"><h2 class="text-lg">Categories</h2>
+        <ul class="categories">
+        {% for catval,category in form.fields.category.choices %}
+            <li><a onclick="selectCategory('{{catval}}')">{{ category }}</a></li>
+        {% endfor %}
+        </ul>
+    </div>
+    <div class="soundpanel-assist"><h2 class="text-lg">Tags</h2></div>
 </div>
+
+<div class="soundpanel right">
+{% include 'sounds/widgets/soundtone.html' with source=source %}
+</div>
+
+</div><!--soundpanels-->
 
 {% else %}
 

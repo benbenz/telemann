@@ -8,10 +8,56 @@ form div small {
   color: var(--colour-1);
 }
 
-.source-infos { display: flex; flex-direction: row; padding: 1em; border-radius: 1em;}
+.source-infos { display: flex; flex-direction: row; padding: 1em; border-radius: 1em; max-width: 70%;
+  margin: auto;
+}
 .source-info { display: flex; flex: 1}
 .source-name { font-weight: 600;}
 
+.soundpanels {
+  display: flex;
+  flex-direction: row;
+}
+.soundpanel {
+  flex: 1;
+}
+.soundpanel.left {
+  display: flex;
+  flex-direction: row;
+}
+.soundpanel.left .soundpanel-assist {
+  flex: 1
+}
+
+ul.categories li a {
+  cursor: pointer;
+}
+
+.soundcontrols {
+  display: flex;
+  flex-direction: row;
+}
+.soundcontrol {
+  display: flex;
+  flex: 1;
+}
+.soundcontrol.audio {
+  flex: 20;
+}
+.soundcontrol.reverse {
+  flex-direction: row-reverse;
+}
+.soundcontrol i.fa-solid {
+  font-size: 40px;
+}
+
+.form-button.soundtone {
+  background-color: rgb(80, 76, 76) ;
+  color: white;
+  font-weight: 800;
+  margin-top: 1em;
+}
+ 
 a.source-infos:hover {
   background-color: rgba(255,255,0,0.5);
 

@@ -197,8 +197,6 @@ nav a:hover {
 }
 
 #centercontent {
-  max-width: 70%;
-  margin: auto;
 }
 
 .form-buttons {
@@ -210,9 +208,9 @@ nav a:hover {
   align-items: center;
 }
 
-.form-button  {
-  background-color: #b0d3ec!important; 
-  color: rgb(59, 32, 3)!important ;
+button.form-button  , [type="button"].form-button {
+  background-color: #b0d3ec; 
+  color: rgb(59, 32, 3);
 }
 
 div.form {

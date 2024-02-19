@@ -1,0 +1,32 @@
+{% load static i18n crispy_forms_tags random %}
+
+<div class="soundcontrols">
+    <div class="soundcontrol"><i class="fa-solid fa-circle-left"></i></div>
+    <div class="soundcontrol audio">
+        <audio autoplay="true" loop controls>
+            <source id="audioSource" type="audio/wav" src="{% url 'sounds:render_sound' srcid=source.id %}?b={{bank}}&p={{program}}&r={% random_uuid %}"></source>
+        </audio>
+    </div>
+    <div class="soundcontrol reverse"><i class="fa-solid fa-circle-right"></i></div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", (event) => {
+    // let audio = document.querySelector('audio')
+    // let source = document.getElementById('audioSource');
+    // source.src = "{% url 'sounds:render_sound' srcid=source.id %}?b={{bank}}&p={{program}}&r={% random_uuid %}"
+    // audio.load(); //call this to just preload the audio without playing
+    // audio.play(); //call this to play the song right away});    
+})
+</script>
+
+<div class="form">
+  <form method="post" id="soundtone_form">{% csrf_token %}
+    <input type="hidden" value="{{ program }}" name="p"/>
+    <input type="hidden" value="{{ bank }}" name="b"/>
+    {{ form|crispy }}
+    <div class="form-buttons">
+    <button type="submit" class="form-button soundtone flex px-4 py-2 mt-2 rounded-lg md:mt-0 focus:outline-none focus:shadow-outline">Save</button>
+  </div>
+  </form>
+</div>

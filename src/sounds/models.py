@@ -197,8 +197,10 @@ class SoundTone(models.Model):
         SAMPLE = 'sample'
         SONG = 'song'
         SOUND_FX = 'soundfx'
+        VOCAL = 'vocal'
+        VOCODER = 'vocoder'
         # VOICEs categories
-        VOICE = 'voice' # also used by INSTRUMENT
+        VOICE = 'voice'
         BARITONE = 'baritone'
         ALTO = 'alto'
         SOPRANO = 'soprano'
@@ -215,7 +217,7 @@ class SoundTone(models.Model):
         SoundTone.normalize_parameters(instance)
 
     id            = models.AutoField(primary_key=True) 
-    category      = models.CharField(max_length=16,choices=Category.choices,default=Category.UNKNOWN,help_text="Category of sound")
+    category      = models.CharField(max_length=16,choices=Category.choices,default=None,null=True,blank=True,help_text="Category of sound")
     description   = models.TextField(max_length=512,null=True,default=None,blank=True,help_text="A short description")
     parameters    = models.JSONField(default=None,null=True,blank=True,help_text="Parameters for this specific sound") # can be text pronounced by the vocal artist 
     midi_bank     = models.SmallIntegerField(choices=choice_midi_bank,null=True,default=None,blank=True,help_text="The MIDI bank of the sound")
@@ -225,7 +227,7 @@ class SoundTone(models.Model):
     record_date   = models.DateTimeField(auto_now_add=True,help_text="the date/time the file was entered in the database")
     # relations
     source        = models.ForeignKey(SoundSource,default=None,null=False,on_delete=models.CASCADE)
-    tags          = models.ManyToManyField(Tag,related_name="sounds")
+    tags          = models.ManyToManyField(Tag,blank=True,related_name="sounds")
 
     class Meta:
         ordering = ['record_date']
@@ -237,6 +239,23 @@ class SoundTone(models.Model):
             models.UniqueConstraint(fields=["recording"],name="recording_is_unique"),
             models.UniqueConstraint(fields=["source","midi_bank","midi_program"],name="source_bank_program_is_unique"),
         ]
+
+    def get_compatible_categories(self):
+        if self.source is None:
+            return sorted( SoundTone.Category.choices , key=lambda cat: cat[1] )
+        voices_category = [
+            SoundTone.Category.VOICE.value ,
+            SoundTone.Category.BARITONE.value ,
+            SoundTone.Category.ALTO.value ,
+            SoundTone.Category.SOPRANO.value ,
+            SoundTone.Category.SPOKEN.value ,
+        ]
+        if self.source.type == SoundSource.Type.INSTRUMENT:
+            return sorted( filter( lambda x: x[0] not in voices_category,SoundTone.Category.choices) , key=lambda cat: cat[1])
+        elif self.source.type == SoundSource.Type.VOICE:
+            return sorted( filter( lambda x: x[0] in voices_category,SoundTone.Category.choices) , key=lambda cat: cat[1])
+        else:
+            return sorted( SoundTone.Category.choices , key=lambda cat: cat[1])
 
 pre_save.connect(SoundTone.pre_save, SoundTone)      
 

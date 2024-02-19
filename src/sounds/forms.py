@@ -71,10 +71,13 @@ class SoundToneForm(forms.ModelForm):
 
     class Meta:
         model = SoundTone
-        exclude = ['recording','last_modified','record_date','midi_bank','midi_program','parameters','generator'] 
+        exclude = ['recording','last_modified','record_date','midi_bank','midi_program','parameters','source'] 
 
     def __init__(self, *args, **kwargs):
         super(SoundToneForm, self).__init__(*args, **kwargs)
+
+        if self.instance:
+            self.fields['category'].choices = self.instance.get_compatible_categories()
         
         # Set initial value for file_path field if instance is provided and has a file_path attribute
         # if self.instance and hasattr(self.instance, 'recording'):

@@ -14,7 +14,7 @@ function _clearThRender() {
 
 function renderAudio() {
     _clearThRender()
-    thRender = setTimeout( _renderAudio , 300 )
+    thRender = setTimeout( _renderAudio , 200 )
 }
 
 function nextSound() {
@@ -97,8 +97,7 @@ function onSoundToneLoaded(){
     if(category!==null)
         selectCategory(category) ;
 
-    renderAudio()
-
+    //renderAudio()
 }
 
 

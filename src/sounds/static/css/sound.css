@@ -97,3 +97,17 @@ audio {
   width: 70%;
   margin-bottom: 1em;
 }
+
+.midi_editable_input {
+  background: none;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+.midi_editable_input:focus {
+  background: white;
+  outline: unset ;
+  border: unset;
+  cursor: unset;
+  box-shadow: none;
+}

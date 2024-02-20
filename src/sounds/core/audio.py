@@ -36,21 +36,36 @@ def render_audio(source:SoundSource,
            length:int|None=None):
   
   if length is None:
-    length = 10 # 4 seconds
+    length = 60 # 4 seconds
 
   # Render some audio by passing MIDI to an instrument:
   sample_rate = source.audio_device_samplerate
   
   if source.type == SoundSource.Type.INSTRUMENT:
 
+    instrument_info = None
+
+    print(SoundsConfig.PLUGINS_CACHE)
+
     if SoundsConfig.PLUGINS_CACHE.get(source.file_path):
-       instrument = SoundsConfig.PLUGINS_CACHE.get(source.file_path)
-       print("Got instrument from cache")
-    else:
+        for instr_info in SoundsConfig.PLUGINS_CACHE.get(source.file_path):
+            if not instr_info['rendering']:
+                instrument_info = instr_info
+                print("Got instrument from cache")
+                break
+    if instrument_info is None:
         # Load a VST3 or Audio Unit plugin from a known path on disk:
         instrument = load_plugin(source.file_path)
-        SoundsConfig.PLUGINS_CACHE[source.file_path] = instrument
+        if not source.file_path in SoundsConfig.PLUGINS_CACHE:
+            SoundsConfig.PLUGINS_CACHE[source.file_path] = []      
+        instrument_info = {
+            "instrument":instrument,
+            "rendering":True
+        }
+        SoundsConfig.PLUGINS_CACHE[source.file_path].append(instrument_info)
         print("Loaded instrument")
+
+    instrument = instrument_info['instrument']
 
     #print(instrument.parameters.keys())
         
@@ -65,12 +80,15 @@ def render_audio(source:SoundSource,
     # necessary to avoid locks on future rendering?
     # this doesnt resolve the issue when runserver reloads because of source changes
     # but this helps with the lock that was happening on the 3rd play ...
-    instrument([],duration=0,sample_rate=sample_rate)
+    # also the opportunity to change the program here ...
+    instrument([*pgm_events,],duration=0.5,sample_rate=sample_rate)
+
+    print("Loaded Preset")
 
     # instrument([msg_bmsb,msg_blsb,msg_pgm],duration=0.4,sample_rate=sample_rate)
     audio = instrument(
-      [ *pgm_events,
-         Message("note_on", note=60,time=0.5), Message("note_off", note=60, time=length+0.5)],
+      [ 
+         Message("note_on", note=60,time=0), Message("note_off", note=60, time=length)],
       duration=length, # seconds
       sample_rate=sample_rate,
     )
@@ -82,6 +100,8 @@ def render_audio(source:SoundSource,
     # )
 
     print("Rendered")
+
+    instrument_info['rendering'] = False
 
     return audio
   

@@ -1,9 +1,30 @@
+var thRender = null ;
+
+function _renderAudio() {
+    let audioSrc = document.getElementById("audioSource")
+    audioSrc.src = audioSrc.getAttribute('data-src') ;
+    let audioEle = document.getElementById('soundtone_audio')
+    audioEle.load()
+}
+
+function _clearThRender() {
+    if(thRender!==null)
+        clearTimeout(thRender)
+}
+
+function renderAudio() {
+    _clearThRender()
+    thRender = setTimeout( _renderAudio , 300 )
+}
+
 function nextSound() {
+    _clearThRender()
     program++;
     submitForm();
 }
 
 function prevSound() {
+    _clearThRender()
     program--;
     submitForm();
 }
@@ -75,6 +96,8 @@ function onSoundToneLoaded(){
 
     if(category!==null)
         selectCategory(category) ;
+
+    renderAudio()
 
 }
 

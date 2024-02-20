@@ -5,8 +5,8 @@
 <div class="soundcontrols">
     <div class="soundcontrol prevsound"><i class="fa-solid fa-circle-left"></i></div>
     <div class="soundcontrol audio">
-        <audio autoplay="true" loop controls>
-            <source id="audioSource" type="audio/wav" src="{% url 'sounds:render_sound' srcid=source.id %}?bm={{bank_msb}}&bl={{bank_lsb}}&p={{program}}&r={% random_uuid %}"></source>
+        <audio id="soundtone_audio" autoplay="true" loop controls>
+            <source id="audioSource" type="audio/wav" src="" data-src="{% url 'sounds:render_sound' srcid=source.id %}?bm={{bank_msb}}&bl={{bank_lsb}}&p={{program}}&r={% random_uuid %}"></source>
         </audio>
     </div>
     <div class="soundcontrol reverse nextsound"><i class="fa-solid fa-circle-right"></i></div>

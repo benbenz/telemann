@@ -57,10 +57,10 @@ def render_audio(source:SoundSource,
     # this is also the opportunity to change the program here with minimal data
     # Bank Select MSB
     pgm_events = []
-    pgm_events.append( Message('control_change', control=0, channel=0, value=bank_msb,time=0) )
+    pgm_events.append( Message('control_change', control=0, value=bank_msb,time=0) )
     if bank_lsb is not None:
-       pgm_events.append(Message('control_change', control=32, channel=0, value=bank_lsb,time=0.05))
-    pgm_events.append(Message('program_change', channel=0, program=program,time=0.1) )
+       pgm_events.append(Message('control_change', control=32, value=bank_lsb,time=0.05))
+    pgm_events.append(Message('program_change', program=program,time=0.1) )
         
     # necessary to avoid locks on future rendering?
     # this doesnt resolve the issue when runserver reloads because of source changes

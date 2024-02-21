@@ -33,7 +33,7 @@ function analyzeAudio() {
         return response.json(); // Parse the response body as JSON
     })
     .then(json => {
-        let div = document.getElementById('id_autogen')
+        let div = document.getElementById('id_descrip_tech')
         div.innerHTML = json.autogen
     })
     .catch(error => {

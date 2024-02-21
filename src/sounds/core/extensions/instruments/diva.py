@@ -117,7 +117,7 @@ class DivaExtension(InstrumentExtension):
                 if shapes is not None:
                     oscs.append(
                         {
-                            "shapes" : shapes 
+                            "shapes" : shapes ,
                             "volume" : self._get_osc_volume(params,i_vco),
                             "sub":False
                         }
@@ -189,14 +189,17 @@ class DivaExtension(InstrumentExtension):
         saw = params[f"saw{i_vco}on"]["raw_value"]
         if saw == 1.0:
             shapes.append( OscShape.SAWUP )
-        pulse = params[f"pulse{i_vco}on"]["raw_value"]
-        if pulse == 1.0:
-            shapes.append( OscShape.PULSE )
         if i_vco==1:
+            pwm = params[f"pwm{i_vco}on"]["raw_value"]
+            if pwm == 1.0:
+                shapes.append( OscShape.PULSE )
             noise = params[f"noise{i_vco}on"]["raw_value"]
             if noise == 1.0:
                 shapes.append( OscShape.NOISE )
         if i_vco==2:
+            pulse = params[f"pulse{i_vco}on"]["raw_value"]
+            if pulse == 1.0:
+                shapes.append( OscShape.PULSE )
             sine = params[f"sine{i_vco}on"]["raw_value"]
             if sine == 1.0:
                 shapes.append( OscShape.SINE )

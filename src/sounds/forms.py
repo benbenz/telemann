@@ -71,7 +71,7 @@ class SoundToneForm(forms.ModelForm):
         # 'midi_program',
         'category',
         'description',
-        'descrip_tech',
+        'description_tech',
         'tags',
         'recommended_rec'
     ]        

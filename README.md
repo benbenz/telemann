@@ -59,6 +59,7 @@ MIDI Programs folder. All files there are indexed, whether they are visible or n
 
 The parameters in the fixtures match the following preset organization, which basically consist in copying all presets in MIDI Pograms and flattening+splitting them (keeping the main presets at the root of MIDI Programs):
 
+```
 /Library/Audio/Presets/u-he/Diva/MIDI Programs/1 BASS
 /Library/Audio/Presets/u-he/Diva/MIDI Programs/2 LEAD
 /Library/Audio/Presets/u-he/Diva/MIDI Programs/3 POLY SYNTH
@@ -155,7 +156,7 @@ The parameters in the fixtures match the following preset organization, which ba
 /Library/Audio/Presets/u-he/Diva/MIDI Programs/XS Analog Clavinova.h2p
 /Library/Audio/Presets/u-he/Diva/MIDI Programs/XS Analog E. Piano.h2p
 /Library/Audio/Presets/u-he/Diva/MIDI Programs/XS Juno Hoover.h2p
-
+```
 
 ## SynthMaster
 

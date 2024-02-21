@@ -85,8 +85,7 @@ def parse_new_program_value(source:SoundSource,bank_msb:int,bank_lsb:int|None,pr
         while program_offset >= 0:
             program = program_offset
             bank_msb += 1
-            if bank_msb==len(num_programs):
-                break
+            bank_msb = bank_msb % source.midi_bank_num
             num_bank_programs = num_programs[bank_msb]
             program_offset = program - num_bank_programs
         
@@ -99,11 +98,28 @@ def parse_new_program_value(source:SoundSource,bank_msb:int,bank_lsb:int|None,pr
             program = program % 128
     # decrement
     elif program<0:
-        if source.midi_bank_use_lsb:
+        program_offset = program 
+        while program_offset < 0:
+            program = program_offset
             bank_msb -= 1
-            bank_lsb = math.floor( 128 + (program - program%128)/128 )
+            bank_msb = bank_msb % source.midi_bank_num
+            num_bank_programs = num_programs[bank_msb]
+            program_offset = program + num_bank_programs
+        
+        program = program_offset
+        
+        # we know, the new bank_msb and the target program value
+        # we just have to write it in terms of LSB/program values now    
+        if source.midi_bank_use_lsb:
+            bank_lsb = math.floor( (program - program%128)/128 )
+            program = program % 128
         else:
-            bank_msb = math.floor( source.midi_bank_num + (program - program%128)/128 )
-        program = program%128    
+            program = program % 128        
+    else:
+        if source.midi_bank_use_lsb:
+            bank_lsb = math.floor( (program - program%128)/128 )
+            program = program % 128
+        else:
+            program = program % 128
 
     return bank_msb , bank_lsb , program

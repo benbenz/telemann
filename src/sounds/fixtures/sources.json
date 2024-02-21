@@ -77,7 +77,7 @@
             "description" : "Diva soft-synthesizer" ,
             "filenames": "Diva.vst3,Diva.vst,Diva.component" ,
             "file_path": "/Library/Audio/Plug-Ins/Components/Diva.component",
-            "midi_bank_num" : 19 ,
+            "midi_bank_num" : 22 ,
             "midi_bank_use_lsb" : false ,
             "parameters" : {
                 "midi" : {
@@ -94,13 +94,16 @@
                         20 ,
                         40 ,
                         27 ,
-                        199 ,
+                        128 ,
+                        71 ,
                         95 ,
                         24 ,
                         38 ,
                         71 ,
                         50 ,
-                        306
+                        128 ,
+                        128 ,
+                        50
                     ]
                 }
             }            

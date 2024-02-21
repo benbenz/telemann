@@ -57,7 +57,7 @@ To avoid another possible source of confusion, make sure that there are no junke
 MIDI Programs folder. All files there are indexed, whether they are visible or not"
 
 
-The parameters in the fixtures match the following preset organization (which basically consist in copying all (sub)directories and flattening them):
+The parameters in the fixtures match the following preset organization, which basically consist in copying all presets in MIDI Pograms and flattening+splitting them (keeping the main presets at the root of MIDI Programs):
 
 /Library/Audio/Presets/u-he/Diva/MIDI Programs/1 BASS
 /Library/Audio/Presets/u-he/Diva/MIDI Programs/2 LEAD
@@ -70,13 +70,16 @@ The parameters in the fixtures match the following preset organization (which ba
 /Library/Audio/Presets/u-he/Diva/MIDI Programs/Basari
 /Library/Audio/Presets/u-he/Diva/MIDI Programs/Bigtone eco bank
 /Library/Audio/Presets/u-he/Diva/MIDI Programs/BrontoScorpio
-/Library/Audio/Presets/u-he/Diva/MIDI Programs/Fernando's hardware factory
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/Fernando's hardware factory - A
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/Fernando's hardware factory - B
 /Library/Audio/Presets/u-he/Diva/MIDI Programs/Ingo Weidner
 /Library/Audio/Presets/u-he/Diva/MIDI Programs/MCnoone
 /Library/Audio/Presets/u-he/Diva/MIDI Programs/Mr Wobble
 /Library/Audio/Presets/u-he/Diva/MIDI Programs/Sjoerd van Geffen
 /Library/Audio/Presets/u-he/Diva/MIDI Programs/Tasmodia
-/Library/Audio/Presets/u-he/Diva/MIDI Programs/TREASURE TROVE!
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/TREASURE TROVE! - A
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/TREASURE TROVE! - B
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/TREASURE TROVE! - C
 /Library/Audio/Presets/u-he/Diva/MIDI Programs/BS Deep Space Diva.h2p
 /Library/Audio/Presets/u-he/Diva/MIDI Programs/BS THXish.h2p
 /Library/Audio/Presets/u-he/Diva/MIDI Programs/BT dotted afterhour 01 (mw).h2p

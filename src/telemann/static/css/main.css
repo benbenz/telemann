@@ -65,8 +65,9 @@ a {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff725b",endColorstr="#b1f2ff",GradientType=1);     
   z-index: 2;
 
-  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
-  /*box-shadow: rgba(240, 46, 170, 0.4) 0px 5px, rgba(240, 46, 170, 0.3) 0px 10px, rgba(240, 46, 170, 0.2) 0px 15px, rgba(240, 46, 170, 0.1) 0px 20px, rgba(240, 46, 170, 0.05) 0px 25px;*/
+  /*box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;*/
+  box-shadow: rgba(240, 46, 170, 0.4) 0px 5px, rgba(240, 46, 170, 0.3) 0px 10px, rgba(240, 46, 170, 0.2) 0px 15px, rgba(240, 46, 170, 0.1) 0px 20px, rgba(240, 46, 170, 0.05) 0px 25px;
+  /*box-shadow: rgba(240, 169, 46, 0.4) 0px 5px, rgba(240, 169, 46, 0.3) 0px 10px, rgba(240, 169, 46, 0.2) 0px 15px, rgba(240, 169, 46, 0.1) 0px 20px, rgba(240, 169, 46, 0.05) 0px 25px;*/
 }
 
 #topheader .logo-text , #topheader img {

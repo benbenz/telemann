@@ -101,6 +101,11 @@ function onSoundToneLoaded(with_render=false){
         renderAudio()
 
     document.addEventListener("keypress",onKeyPress);
+
+    document.querySelectorAll('.midi_editable_input').forEach( (ele) => {
+        ele.addEventListener('click',autoSelectInput)
+    }) ;
+
 }
 
 function onSoundControlLoaded(with_render=false) {
@@ -118,15 +123,12 @@ function onSoundControlLoaded(with_render=false) {
     document.querySelectorAll('.soundcontrol').forEach( (ele) => {
         ele.addEventListener('click',animateBeat)
     }) ;
-    document.querySelectorAll('.midi_editable_input').forEach( (ele) => {
-        ele.addEventListener('click',autoSelectInput)
-    }) ;
     if(with_render===true)
         renderAudio()    
 } 
 
 function onKeyPress(event) {
-       
+
 }
 
 

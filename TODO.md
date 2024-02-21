@@ -11,6 +11,8 @@ Tasks to do ...
 
 ### In Progress 🕑
 
+- [ ] Implement PedalBoard VST (v1) handling: https://forum.juce.com/t/midi-program-change-forwarding-for-vst3/47161
+      Issue with VST3 and program changes all over the place ...
 
 ### Done ✓
 

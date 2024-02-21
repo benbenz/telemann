@@ -36,7 +36,7 @@ def render_audio(source:SoundSource,
            length:int|None=None):
   
   if length is None:
-    length = 60 # 4 seconds
+    length = 10 # 4 seconds
 
   # Render some audio by passing MIDI to an instrument:
   sample_rate = source.audio_device_samplerate
@@ -74,21 +74,22 @@ def render_audio(source:SoundSource,
     pgm_events = []
     pgm_events.append( Message('control_change', control=0, value=bank_msb,time=0) )
     if bank_lsb is not None:
-       pgm_events.append(Message('control_change', control=32, value=bank_lsb,time=0.05))
-    pgm_events.append(Message('program_change', program=program,time=0.1) )
+       pgm_events.append(Message('control_change', control=32, value=bank_lsb,time=0.1))
+    pgm_events.append(Message('program_change', program=program,time=0.2) )
         
     # necessary to avoid locks on future rendering?
     # this doesnt resolve the issue when runserver reloads because of source changes
     # but this helps with the lock that was happening on the 3rd play ...
     # also the opportunity to change the program here ...
-    instrument([*pgm_events,],duration=0.5,sample_rate=sample_rate)
+    # NO NEED: this seems to be better now and this slows down a lot the rendering of Synthmaster ...
+    # instrument([*pgm_events,],duration=0.5,sample_rate=sample_rate)
 
     print("Loaded Preset")
 
     # instrument([msg_bmsb,msg_blsb,msg_pgm],duration=0.4,sample_rate=sample_rate)
     audio = instrument(
-      [ 
-         Message("note_on", note=60,time=0), Message("note_off", note=60, time=length)],
+      [ *pgm_events,
+         Message("note_on", note=60,time=0.5), Message("note_off", note=60, time=length+0.5)],
       duration=length, # seconds
       sample_rate=sample_rate,
     )

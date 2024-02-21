@@ -22,8 +22,7 @@ python src/manage.py migrate
 # populate the database
 python src/manage.py initsources
 # run the server
-# note the '--nothreading' option - this is to avoid locks with pedalboard (to be debugged)
-python src/manage.py runserver --nothreading
+python src/manage.py runserver
 ```
 
 You can now use the labeller at http://localhost:8000

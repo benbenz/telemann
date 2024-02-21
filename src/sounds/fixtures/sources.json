@@ -29,7 +29,7 @@
         "fields" : {
             "type" : "instrument",
             "nature": "digital",
-            "synthesis": "subtractive",
+            "synthesis": "hybrid",
             "audio_device_name": "internal capture",
             "name"     : "Synthmaster" ,
             "description" : "SynthMaster soft-synthesizer" ,
@@ -62,7 +62,8 @@
                         73
                     ]
                 }
-            }
+            },
+            "extension" : "instruments.synthmaster2"
         } ,
         "model": "sounds.SoundSource" ,
         "pk": 3
@@ -106,7 +107,8 @@
                         50
                     ]
                 }
-            }            
+            },
+            "extension" : "instruments.diva"
         } ,
         "model": "sounds.SoundSource" ,
         "pk": 4

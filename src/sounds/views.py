@@ -8,7 +8,7 @@ from django.views.generic.edit import CreateView , UpdateView
 from django.urls import reverse_lazy
 from .models import SoundSource , SoundTone
 from .forms import SoundSourceForm , SoundToneForm
-from .core.audio import convert_to_wav , render_audio
+from .core.audio import convert_to_wav , render_audio , get_sound_analysis
 from .core.midi import MIDIPattern , parse_new_program_value
 import io
 import math
@@ -110,23 +110,37 @@ def render_sound(request,srcid):
 
     bank_msb , bank_lsb , program = parse_new_program_value(source,bank_msb,bank_lsb,program)
 
-    # pedalboard return 32 bits float data
-    # content_type = f"audio/pcm;rate={source.audio_device_samplerate};encoding=float;bits=32"
-    content_type = "audio/wave"
-    if not source.midi_bank_use_lsb:
-        bank_lsb = None
-    audio = render_audio(source,bank_msb=bank_msb,bank_lsb=bank_lsb,program=program,pattern=pattern)
+    audio = render_audio(source,
+                         bank_msb=bank_msb,
+                         bank_lsb=bank_lsb,
+                         program=program,
+                         pattern=pattern)
     headers = {
 #        'Cache-Control': 'no-cache, no-store, must-revalidate',
 #        'Content-Length': audio.size * audio.itemsize
     }
-    # return StreamingHttpResponse(
-    #     stream_audio(audio,generator.audio_device_samplerate),
-    #     content_type=content_type,
-    #     status=200,
-    #     headers=headers
-    # )
     return FileResponse(convert_to_wav(audio,source.audio_device_samplerate),headers=headers)
+
+
+def analyze_sound(request,srcid):
+    program  = request.GET.get('p',0)
+    bank_msb = request.GET.get('bm',0)
+    bank_lsb = request.GET.get('bl',0)
+
+    if isinstance(program,str):
+        program = int(program)
+    if isinstance(bank_msb,str):
+        bank_msb = int(bank_msb)
+    if isinstance(bank_lsb,str):
+        bank_lsb = int(bank_lsb)
+
+    source:SoundSource = SoundSource.objects.get(id=srcid)
+
+    bank_msb , bank_lsb , program = parse_new_program_value(source,bank_msb,bank_lsb,program)
+
+    sound_info = get_sound_analysis(source,bank_msb=bank_msb,bank_lsb=bank_lsb,program=program)
+
+    return JsonResponse(sound_info)
     
 def sources(request):
     sources = SoundSource.objects.all()

@@ -18,3 +18,7 @@ django-widget-tweaks
 
 # utils
 json-normalize
+
+# signal processing stuff
+scipy
+matplotlib

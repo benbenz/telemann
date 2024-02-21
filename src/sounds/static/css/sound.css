@@ -73,7 +73,7 @@ ul.categories li a:hover {
   background-color: rgb(80, 76, 76) ;
   color: white;
   font-weight: 800;
-  margin-top: 1em;
+  /*margin-top: 1em;*/
 }
  
 a.source-infos:hover {
@@ -132,4 +132,12 @@ audio {
 .beat {
   animation: beat 0.4s;  
   animation-timing-function: cubic-bezier(0.1, -0.6, 0.2, 0);
+}
+
+.form textarea {
+  height: 8em;
+}
+
+#id_tags {
+  height: 4em;
 }

@@ -64,19 +64,21 @@ class SoundToneForm(forms.ModelForm):
     #recording = forms.CharField(max_length=512, required=False, help_text="File path for recorded sources")
     # midi_bank     = forms.IntegerField(disabled=True,help_text="The MIDI bank of the sound")
     # midi_program  = forms.IntegerField(disabled=True,help_text="The MIDI program of the sound")
+    tags = forms.CharField(max_length=128,widget=forms.Textarea,help_text="Tags associated with the sound")
 
     field_order = [
         # 'midi_bank',
         # 'midi_program',
         'category',
         'description',
+        'autogen',
         'tags',
         'recommended_rec'
     ]        
 
     class Meta:
         model = SoundTone
-        exclude = ['recording','last_modified','record_date','midi_bank_msb','midi_bank_lsb','midi_program','parameters','source'] 
+        exclude = ['recording','last_modified','record_date','midi_bank_msb','midi_bank_lsb','midi_program','parameters','source','tags'] 
 
     def __init__(self, *args, **kwargs):
         super(SoundToneForm, self).__init__(*args, **kwargs)

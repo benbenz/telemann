@@ -123,3 +123,7 @@ def parse_new_program_value(source:SoundSource,bank_msb:int,bank_lsb:int|None,pr
             program = program % 128
 
     return bank_msb , bank_lsb , program
+
+
+def get_midi_program_key(bank_msb,bank_lsb,program):
+    return f"{bank_msb}:{bank_lsb}:{program}"

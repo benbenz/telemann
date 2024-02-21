@@ -1,8 +1,14 @@
 var thRender = null ;
+var AUDIO_URL ;
+var AUDIO_ANALYZE ;
 
 function recomputeAudioUrl() {
     let pattern = document.getElementById("midiPattern")
     AUDIO_URL = AUDIO_URL_BASE + `bm=${bank_msb}&bl=${bank_lsb}&p=${program}&ptn=${pattern.value}`
+}
+function recomputeAudioAnalyzeUrl() {
+    let pattern = document.getElementById("midiPattern")
+    AUDIO_ANALYZE = AUDIO_ANALYZE_BASE + `bm=${bank_msb}&bl=${bank_lsb}&p=${program}&ptn=${pattern.value}`
 }
 function _renderAudio() {
     recomputeAudioUrl()
@@ -10,6 +16,34 @@ function _renderAudio() {
     audioSrc.src = AUDIO_URL 
     let audioEle = document.getElementById('soundtone_audio')
     audioEle.load()
+}
+
+function analyzeAudio() {
+    recomputeAudioAnalyzeUrl()    
+    fetch(AUDIO_ANALYZE,{
+        method: 'GET' ,
+        headers: {
+            "X-Requested-With": "XMLHttpRequest",
+        },
+        // signal: controller.signal
+    }).then( (response) =>{
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json(); // Parse the response body as JSON
+    })
+    .then(json => {
+        let div = document.getElementById('id_autogen')
+        div.innerHTML = json.autogen
+    })
+    .catch(error => {
+        // Handle any errors here
+        console.error('There was a problem with the fetch operation:', error);
+    });    
+}
+
+function onAudioLoaded(event){
+    analyzeAudio();
 }
 
 function _clearThRender() {
@@ -100,7 +134,7 @@ function onSoundToneLoaded(with_render=false){
     if(with_render===true)
         renderAudio()
 
-    document.addEventListener("keypress",onKeyPress);
+    document.addEventListener("keydown",onKeyPress);
 
     document.querySelectorAll('.midi_editable_input').forEach( (ele) => {
         ele.addEventListener('click',autoSelectInput)
@@ -123,12 +157,21 @@ function onSoundControlLoaded(with_render=false) {
     document.querySelectorAll('.soundcontrol').forEach( (ele) => {
         ele.addEventListener('click',animateBeat)
     }) ;
+    document.getElementById('soundtone_audio').addEventListener("loadeddata", onAudioLoaded );
+
     if(with_render===true)
         renderAudio()    
 } 
 
 function onKeyPress(event) {
-
+    switch(event.key) {
+        case 'ArrowRight':
+            document.querySelector('.nextsound').dispatchEvent(new CustomEvent('click',{}))
+        break
+        case 'ArrowLeft':
+            document.querySelector('.prevsound').dispatchEvent(new CustomEvent('click',{}))
+        break 
+    }
 }
 
 

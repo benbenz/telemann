@@ -19,4 +19,13 @@ def generator_type_icon(type):
         return "<i class=\"fa-regular fa-piano-keyboard\"></i>"
     else:
         return "<i class=\"fa-solid fa-microphone\"></i>"
+    
+TAB = 0 
+
+@register.simple_tag
+def tab_index():
+    global TAB
+    res = TAB
+    TAB +=1 
+    return res
 

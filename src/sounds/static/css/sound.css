@@ -103,6 +103,7 @@ audio {
   outline: none;
   border: none;
   cursor: pointer;
+  width: 3em;
 }
 .midi_editable_input:focus {
   background: white;
@@ -110,4 +111,25 @@ audio {
   border: unset;
   cursor: unset;
   box-shadow: none;
+}
+
+#midiPattern {
+  margin-right: 2em;
+}
+
+@keyframes beat {
+  from {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.beat {
+  animation: beat 0.4s;  
+  animation-timing-function: cubic-bezier(0.1, -0.6, 0.2, 0);
 }

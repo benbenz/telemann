@@ -20,5 +20,19 @@
             "django": true,
             "host": "localhost"
         },
+        {
+            "name": "django:initsources",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/manage.py",
+            "args": [
+                "initsources",
+            ],
+            "justMyCode": false,
+            "env": {
+            },
+            "django": true,
+            "host": "localhost"
+        },        
     ]
 }

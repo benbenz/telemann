@@ -9,6 +9,7 @@ from django.urls import reverse_lazy
 from .models import SoundSource , SoundTone
 from .forms import SoundSourceForm , SoundToneForm
 from .core.audio import convert_to_wav , render_audio
+from .core.midi import MIDIPattern , parse_new_program_value
 import io
 import math
 
@@ -23,6 +24,7 @@ def sounds(request,srcid=None):
         program  = request.GET.get('p',0)
         bank_msb = request.GET.get('bm',0)
         bank_lsb = request.GET.get('bl',0)
+        pattern  = request.GET.get('ptn')
         category = request.GET.get('c',None)
         if isinstance(program,str):
             program = int(program)
@@ -34,22 +36,7 @@ def sounds(request,srcid=None):
         # looping feature
         # we let the UI be "ignorant" (only increment/decrement program...)
         # and the view is handling the computation of bank+program
-        if program>127:
-            bank_offset = math.floor( (program - program%128)/128 )
-            if source.midi_bank_use_lsb:
-                bank_lsb += bank_offset
-                bank_lsb = bank_lsb % 128
-            else:
-                bank_msb += bank_offset
-                bank_msb = bank_msb%source.midi_bank_num
-            program = program%128
-        if program<0:
-            if source.midi_bank_use_lsb:
-                bank_msb -= 1
-                bank_lsb = math.floor( 128 + (program - program%128)/128 )
-            else:
-                bank_msb = math.floor( source.midi_bank_num + (program - program%128)/128 )
-            program = program%128
+        bank_msb , bank_lsb , program = parse_new_program_value(source,bank_msb,bank_lsb,program)
 
         if request.method == 'GET':
             try:
@@ -66,6 +53,8 @@ def sounds(request,srcid=None):
                     'bank_msb':bank_msb,
                     'bank_lsb':bank_lsb,
                     'program':program,
+                    'pattern':pattern,
+                    'patterns':MIDIPattern.__members__.items(),
                     'category':category,
                     'form':form
                 })
@@ -75,6 +64,8 @@ def sounds(request,srcid=None):
                     'bank_msb':bank_msb,
                     'bank_lsb':bank_lsb,
                     'program':program,
+                    'pattern':pattern,
+                    'patterns':MIDIPattern.__members__.items(),
                     'category':category,
                     'form':form,
                 })
@@ -87,7 +78,7 @@ def sounds(request,srcid=None):
                 sound_tone = SoundTone.objects.create(source=source,midi_program=program,midi_bank_msb=bank_msb,midi_bank_lsb=bank_lsb)
                 form = SoundToneForm(request.POST,instance=sound_tone)
                 form.save()
-            return JsonResponse("OK")     
+            return JsonResponse({"response":"OK","error":None})     
            
     
 def stream_audio(audio,framerate):
@@ -104,6 +95,7 @@ def render_sound(request,srcid):
     program  = request.GET.get('p',0)
     bank_msb = request.GET.get('bm',0)
     bank_lsb = request.GET.get('bl',0)
+    pattern  = request.GET.get('ptn')
 
     if isinstance(program,str):
         program = int(program)
@@ -111,13 +103,19 @@ def render_sound(request,srcid):
         bank_msb = int(bank_msb)
     if isinstance(bank_lsb,str):
         bank_lsb = int(bank_lsb)
+    if pattern is not None:
+        pattern = MIDIPattern[pattern]
+
     source:SoundSource = SoundSource.objects.get(id=srcid)
+
+    bank_msb , bank_lsb , program = parse_new_program_value(source,bank_msb,bank_lsb,program)
+
     # pedalboard return 32 bits float data
     # content_type = f"audio/pcm;rate={source.audio_device_samplerate};encoding=float;bits=32"
     content_type = "audio/wave"
     if not source.midi_bank_use_lsb:
         bank_lsb = None
-    audio = render_audio(source,bank_msb=bank_msb,bank_lsb=bank_lsb,program=program)
+    audio = render_audio(source,bank_msb=bank_msb,bank_lsb=bank_lsb,program=program,pattern=pattern)
     headers = {
 #        'Cache-Control': 'no-cache, no-store, must-revalidate',
 #        'Content-Length': audio.size * audio.itemsize

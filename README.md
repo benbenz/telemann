@@ -57,6 +57,103 @@ To avoid another possible source of confusion, make sure that there are no junke
 MIDI Programs folder. All files there are indexed, whether they are visible or not"
 
 
+The parameters in the fixtures match the following preset organization (which basically consist in copying all (sub)directories and flattening them):
+
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/1 BASS
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/2 LEAD
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/3 POLY SYNTH
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/4 DREAM SYNTH
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/5 PERCUSSIVE
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/6 RHYTHMIC
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/7 EFFECTS
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/8 TEMPLATES
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/Basari
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/Bigtone eco bank
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/BrontoScorpio
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/Fernando's hardware factory
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/Ingo Weidner
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/MCnoone
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/Mr Wobble
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/Sjoerd van Geffen
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/Tasmodia
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/TREASURE TROVE!
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/BS Deep Space Diva.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/BS THXish.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/BT dotted afterhour 01 (mw).h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/BT flex butter seq (mw+vel).h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/BT juno hoovered bass (mw).h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/BT the master himself (at+mw+pb).h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/HS Albert Hall Mini.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/HS All Processors.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/HS Bass Nine.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/HS Canterbury Creeper.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/HS Chango Clique.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/HS Chili Paste duo.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/HS Divanity.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/HS Duduwap 1.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/HS Fatima poly.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/HS Gammond.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/HS Hail Bob 1.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/HS High StraDIVAri.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/HS House Dust.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/HS I cant believe its not analogue.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/HS Kit 1 acoustic.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/HS Kit 2 electro.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/HS Kromosaur.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/HS Lounge Dust.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/HS Model K12.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/HS Modular Bells.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/HS Protocol.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/HS Sparkle.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/HS Strumpet.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/HS Switched On Voicing.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/HS Sync Hangar.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/HS Trans-Uranian Express.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/HS Vulcan Pigs.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/IW BP Strings Ensemble 1.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/IW Jump Brass.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/IW Jupiter High Strings.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/IW Mini Detuned Saw Lead.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/IW Poly6 Strings.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/JA WashingMachine.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/JS Bud Pluck.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/MK Bass In Tube.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/MK Bass Pack Leader.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/MK Brass Straight Up.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/MK FX Scaled Resonance.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/MK FX Wind.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/MK Joy.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/MK Pattern Grammaphone.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/MK Pattern Metal Works.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/MK Planet Earth.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/MK Strings Short PWM.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/MK Syncopat.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/MM Choir In The Clouds.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/PAK Karinanthon EP.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/PG FilterConToUrs.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/ROY EXPERIMENTAL God Particle.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/ROY FX Cold December.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/ROY FX Rewinding the Tape.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/ROY Old Recipe.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/SG Chica Go.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/SG Crackpipe Organ.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/SG Miss Duality.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/SG Practicing Paganini.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/SG Rotterdam.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/SG Stra Diva Rius.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/SG What The Pluck.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/SM Schnarrer.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/SW Bonk.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/SW Magic Flute.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/TUC Bubbler.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/TUC Knock It!.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/TUC Single Cell Worm.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/XH MONO (fx) Alien Biosymmetry.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/XS Analog Clavinova.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/XS Analog E. Piano.h2p
+/Library/Audio/Presets/u-he/Diva/MIDI Programs/XS Juno Hoover.h2p
+
+
 ## SynthMaster
 
 Check SynthMaster [user manual](http://www.kv331audio.com/synthmaster/downloads/synthmasterusermanual.pdf) page 19.
@@ -67,6 +164,13 @@ To be able to use program change messages, you should assign presets to a MIDI b
 follow these steps:
 1. Filter the presets you’d like to add to the MIDI bank. For instance, the screenshot on the right shows Brass Factory Presets.
 2. Move mouse over the Presets list and right click. From the context menu, choose “Assign presets to MIDI bank” sub menu and then choose an empty bank.
+
+
+The parameters in the sources.json fixture match when each category is matched to a MIDI bank (in order of appearance in the browser).
+Bank0. Bass
+Bank1. Bowed Strings
+Bank2. Brass
+etc. 
 
 
 

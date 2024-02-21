@@ -3,8 +3,8 @@ django==5.0
 
 # audio . midi
 # pedalboard
-../pedalboard
-#pedalboard-benbenz
+#../pedalboard
+pedalboard-benbenz[bin]
 mido
 python-rtmidi
 sounddevice

@@ -1,7 +1,8 @@
 from django.db import models
 from django.db.models.signals import pre_save
 from tags.models import Tag
-import json_normalize
+from json_normalize import json_normalize
+import json
 
 class SamplingFrequency(models.IntegerChoices):
     fs16000 = 16000 , ('16kHz')
@@ -80,6 +81,12 @@ def choice_midi_bank():
         list.append( (i,i) )
     return list
 
+def choice_midi_value():
+    list = []
+    for i in range(128): #MSB x LSB
+        list.append( (i,i) )
+    return list
+
 class SoundSource(models.Model):
 
     class Type(models.TextChoices):
@@ -130,6 +137,7 @@ class SoundSource(models.Model):
     midi_channel = models.PositiveSmallIntegerField(default=None,null=True,blank=True,choices=MIDIChannel.choices,help_text="MIDI channel")    
     midi_bank_num = models.IntegerField(choices=choice_midi_bank,null=True,default=None,blank=True,help_text="The MIDI bank maximum value")
     midi_bank_use_lsb = models.BooleanField(default=None,null=True,blank=True,help_text="If the Bank LSB is used or not")
+    midi_velocity_pref = models.PositiveSmallIntegerField(default=None,choices=choice_midi_value,null=True,blank=True,help_text="The preferred MIDI velocity")
     # audio plugin stuff
     filenames   = models.CharField(max_length=256,null=True,blank=True,default=None,help_text="Optional: the list of possible file names for the plugin (comma separated)")
     file_path   = models.FilePathField(max_length=512,null=True,default=None,help_text="Optional: the file path for the plugin (requried if this is a plugin)")
@@ -147,9 +155,11 @@ class SoundSource(models.Model):
 
     @staticmethod
     def normalize_parameters(instance):
-        if instance.parameters is None:
-            return
-        instance.parameters = json_normalize(instance.parameters)
+        pass
+        # if instance.parameters is None:
+        #     return
+        # json_normalized = json_normalize(instance.parameters)
+        # instance.parameters = {k,v for k,v in json_normalized }
 
     @staticmethod
     def pre_save(sender, instance, **kwargs):
@@ -199,6 +209,7 @@ class SoundTone(models.Model):
         SAMPLE = 'sample'
         SONG = 'song'
         SOUND_FX = 'soundfx','Sound FX'
+        SOUNDSCAPE = 'soundscape'
         VOCAL = 'vocal'
         VOCODER = 'vocoder'
         
@@ -213,7 +224,7 @@ class SoundTone(models.Model):
     def normalize_parameters(instance):
         if instance.parameters is None:
             return
-        instance.parameters = json_normalize(instance.parameters)
+        instance.parameters = json_normalize(json.dumps(instance.parameters))
 
     @staticmethod
     def pre_save(sender, instance, **kwargs):

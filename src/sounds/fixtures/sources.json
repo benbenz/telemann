@@ -34,9 +34,35 @@
             "name"     : "Synthmaster" ,
             "description" : "SynthMaster soft-synthesizer" ,
             "filenames": "SynthMaster2.vst3,SynthMaster2.vst,SynthMaster2.component" ,
-            "file_path": "/Library/Audio/Plug-Ins/VST3/SynthMaster2.vst3" ,
+            "file_path": "/Library/Audio/Plug-Ins/VST/SynthMaster2.vst" ,
             "midi_bank_num" : 19 ,
-            "midi_bank_use_lsb" : true 
+            "midi_bank_use_lsb" : true ,
+            "midi_velocity_pref" : 100 ,
+            "parameters" : {
+                "midi" : {
+                    "num_programs" : [
+                        548 ,
+                        55 ,
+                        115 ,
+                        158 ,
+                        29 ,
+                        60 ,
+                        78 ,
+                        63 ,
+                        85 ,
+                        115 ,
+                        174 ,
+                        82 ,
+                        25 ,
+                        265 ,
+                        67 ,
+                        25 ,
+                        25 ,
+                        431 ,
+                        73
+                    ]
+                }
+            }
         } ,
         "model": "sounds.SoundSource" ,
         "pk": 3
@@ -52,7 +78,32 @@
             "filenames": "Diva.vst3,Diva.vst,Diva.component" ,
             "file_path": "/Library/Audio/Plug-Ins/Components/Diva.component",
             "midi_bank_num" : 19 ,
-            "midi_bank_use_lsb" : false
+            "midi_bank_use_lsb" : false ,
+            "parameters" : {
+                "midi" : {
+                    "num_programs" : [
+                        75 ,
+                        78 ,
+                        99 ,
+                        90 ,
+                        69 ,
+                        33 ,
+                        51 ,
+                        55 ,
+                        11 ,
+                        20 ,
+                        40 ,
+                        27 ,
+                        199 ,
+                        95 ,
+                        24 ,
+                        38 ,
+                        71 ,
+                        50 ,
+                        306
+                    ]
+                }
+            }            
         } ,
         "model": "sounds.SoundSource" ,
         "pk": 4

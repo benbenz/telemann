@@ -1,27 +1,14 @@
-{% load static i18n crispy_forms_tags random %}
-
+{% load static i18n crispy_forms_tags random sounds %}
 <h2 class="text-lg mb-2 text-center">
-  Bank: <input class="midi_editable_input" value="{{ bank_msb }}" text="{{ bank_msb }}"/>{% if source.midi_bank_use_lsb %}:{{bank_lsb}}{% endif %}
-  Program: {{ program }}
+  <select id="midiPattern" name="midiPattern" onchange="renderAudio()" tabindex="{% tab_index %}">
+      {% for ptn in patterns %}
+      <option value="{{ptn.0}}" {% if ptn.0 == pattern %}selected{% endif %}>{{ptn.1}}</option>
+      {% endfor %}
+  </select>
+  Bank: <input class="midi_editable_input text-lg" value="{{ bank_msb }}" onChange="bank_msb=parseInt(this.value);submitForm()"  tabindex="{% tab_index %}"/>
+  {% if source.midi_bank_use_lsb %}:<input class="midi_editable_input text-lg" value="{{ bank_lsb }}" onChange="bank_lsb=parseInt(this.value);submitForm()" tabindex="{% tab_index %}"/>{% endif %}
+  Program: <input class="midi_editable_input text-lg" value="{{ program }}" onChange="program=parseInt(this.value);submitForm()" tabindex="{% tab_index %}"/>
 </h2>
-
-<div class="soundcontrols">
-    <div class="soundcontrol prevsound"><i class="fa-solid fa-circle-left"></i></div>
-    <div class="soundcontrol audio">
-        <audio id="soundtone_audio" autoplay="true" loop controls>
-            <source id="audioSource" type="audio/wav" src="{% url 'sounds:render_sound' srcid=source.id %}?bm={{bank_msb}}&bl={{bank_lsb}}&p={{program}}&r={% random_uuid %}" data-src="{% url 'sounds:render_sound' srcid=source.id %}?bm={{bank_msb}}&bl={{bank_lsb}}&p={{program}}&r={% random_uuid %}"></source>
-        </audio>
-    </div>
-    <div class="soundcontrol reverse nextsound"><i class="fa-solid fa-circle-right"></i></div>
-</div>
-<script src="{% static 'js/sound.js' %}" type="text/javascript"></script>
-<script type="text/javascript">
-var bank_msb = {{bank_msb}};
-var bank_lsb = {{bank_lsb}};
-var program = {{program}};
-var category = {% if my_value %}"{{category}}"{% else %}null{% endif %};
-</script>
-
 <div class="form">
   <form method="post" id="soundtone_form">{% csrf_token %}
     {{ form|crispy }}
@@ -30,3 +17,9 @@ var category = {% if my_value %}"{{category}}"{% else %}null{% endif %};
   </div>
   </form>
 </div>
+<script type="text/javascript">
+  var bank_msb = {{bank_msb}};
+  var bank_lsb = {{bank_lsb}};
+  var program = {{program}};
+  var category = {% if category %}"{{category}}"{% else %}null{% endif %};
+</script>  

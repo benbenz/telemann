@@ -5,9 +5,11 @@ from ..models import SoundSource
 import io
 import numpy as np
 import wave
+import math
 from enum import StrEnum , auto
 from sounds.apps import SoundsConfig
 from pedalboard.io import AudioFile
+from .midi import get_midi_pattern , MIDIPattern
 
 class AudioInterface(StrEnum):
     NONE = "---------"
@@ -33,17 +35,15 @@ def render_audio(source:SoundSource,
            bank_msb:int|None=None,
            bank_lsb:int|None=None,
            program:int|None=None,
-           length:int|None=None):
+           pattern:MIDIPattern|None=None):
   
-  if length is None:
-    length = 10 # 4 seconds
-
   # Render some audio by passing MIDI to an instrument:
   sample_rate = source.audio_device_samplerate
-  
+
   if source.type == SoundSource.Type.INSTRUMENT:
 
     instrument_info = None
+    preset_offset = 2
 
     print(SoundsConfig.PLUGINS_CACHE)
 
@@ -74,8 +74,8 @@ def render_audio(source:SoundSource,
     pgm_events = []
     pgm_events.append( Message('control_change', control=0, value=bank_msb,time=0) )
     if bank_lsb is not None:
-       pgm_events.append(Message('control_change', control=32, value=bank_lsb,time=0.1))
-    pgm_events.append(Message('program_change', program=program,time=0.2) )
+       pgm_events.append(Message('control_change', control=32, value=bank_lsb,time=0.4))
+    pgm_events.append(Message('program_change', program=program,time=0.8) )
         
     # necessary to avoid locks on future rendering?
     # this doesnt resolve the issue when runserver reloads because of source changes
@@ -83,13 +83,14 @@ def render_audio(source:SoundSource,
     # also the opportunity to change the program here ...
     # NO NEED: this seems to be better now and this slows down a lot the rendering of Synthmaster ...
     # instrument([*pgm_events,],duration=0.5,sample_rate=sample_rate)
-
-    print("Loaded Preset")
+    #print("Loaded Preset")
 
     # instrument([msg_bmsb,msg_blsb,msg_pgm],duration=0.4,sample_rate=sample_rate)
+    notes , length = get_midi_pattern(source=source,pattern=pattern,preset_offset=preset_offset)
+
     audio = instrument(
       [ *pgm_events,
-         Message("note_on", note=60,time=0.5), Message("note_off", note=60, time=length+0.5)],
+        *notes],
       duration=length, # seconds
       sample_rate=sample_rate,
     )
@@ -103,6 +104,10 @@ def render_audio(source:SoundSource,
     print("Rendered")
 
     instrument_info['rendering'] = False
+
+    # crop audio
+    audio_start = math.floor( sample_rate * preset_offset )
+    audio = audio[:,audio_start:]
 
     return audio
   

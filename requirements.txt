@@ -21,4 +21,5 @@ json-normalize
 
 # signal processing stuff
 scipy
-matplotlib
+#matplotlib
+Pillow

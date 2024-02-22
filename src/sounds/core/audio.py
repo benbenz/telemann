@@ -16,6 +16,7 @@ from .signal import get_envelope
 from importlib import import_module
 import inspect
 from .extensions.instruments.base import InstrumentExtension
+from PIL import Image
 
 class AudioInterface(StrEnum):
     NONE = "---------"
@@ -222,6 +223,10 @@ def get_image_data(source:SoundSource,
 
     try:
         image_data = instrument.capture()
+        im = Image.fromarray(image_data)
+        rgb_image = im.convert('RGB')
+        rgb_image.save("your_file.jpeg")
+
         return image_data.tolist()
     except Exception as e:
         print(f"RENDERING ERROR:{str(e)}")

@@ -17,6 +17,9 @@ function _renderAudio() {
     let audioEle = document.getElementById('soundtone_audio')
     audioEle.load()
 }
+function setSoundName(name){
+    document.getElementById('sound_name').innerHTML = name;
+}
 
 function analyzeAudio() {
     recomputeAudioAnalyzeUrl()    
@@ -33,8 +36,9 @@ function analyzeAudio() {
         return response.json(); // Parse the response body as JSON
     })
     .then(json => {
-        let div = document.getElementById('id_descrip_tech')
-        div.innerHTML = json.autogen
+        let div = document.getElementById('id_description_tech')
+        div.innerHTML = json.description_tech
+        setSoundName(json.program_name)
     })
     .catch(error => {
         // Handle any errors here

@@ -72,6 +72,7 @@ def convert_parameters(instrument):
             'raw_value' : param.raw_value ,
             'value' : param.string_value ,
             'range' : param.range ,
+            # 'text' : param.get_text_for_raw_value(param.raw_value)
         }
     return result 
 
@@ -199,10 +200,12 @@ def get_sound_analysis(source:SoundSource,
         analyze_audio(source,audio_4_analysis,sound_info)
     
     if instrExtension:
-        sound_info['autogen'] = instrExtension.generate_text(sound_info)
+        sound_info['description_tech'] = instrExtension.generate_text(sound_info)
     else:
-        sound_info['autogen'] = None
-    
+        sound_info['description_tech'] = None
+
+    sound_info['program_name'] = instrument.current_program_name
+
     return sound_info
   
 def convert_to_16bits(audio):

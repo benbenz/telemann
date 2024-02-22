@@ -125,7 +125,8 @@ def capture_sound_image(request,srcid):
 
     image_data = get_image_data(source,bank_msb=bank_msb,bank_lsb=bank_lsb,program=program)
 
-    return JsonResponse({"image":image_data,"error":None})
+    #return JsonResponse({"image":image_data,"error":None})
+    return FileResponse(image_data,content_type='image/jpeg')
 
 def get_program_info(request):
     bank_msb = request.GET.get('bm',0)

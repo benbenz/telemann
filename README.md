@@ -22,7 +22,8 @@ python src/manage.py migrate
 # populate the database
 python src/manage.py initsources
 # run the server
-python src/manage.py runserver
+# IT IS ESSENTIAL to run the server without threading NOR reload if you want to use the IMAGE CAPTURE feature
+python src/manage.py runserver --nothreading --noreload
 ```
 
 You can now use the labeller at http://localhost:8000

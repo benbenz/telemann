@@ -7,6 +7,7 @@ import numpy as np
 import wave
 import math
 import re
+import io
 from enum import StrEnum , auto
 from sounds.apps import SoundsConfig
 from pedalboard.io import AudioFile
@@ -225,12 +226,18 @@ def get_image_data(source:SoundSource,
         image_data = instrument.capture()
         im = Image.fromarray(image_data)
         rgb_image = im.convert('RGB')
-        rgb_image.save("your_file.jpeg")
-
-        return image_data.tolist()
+        #rgb_image.save("your_file.jpeg")
+        #rgb_image.save()
+        #return image_data.tolist()
+        bIO = io.BytesIO()
+        rgb_image.save(bIO,format='jpeg')
+        bIO.seek(0)
+        return bIO
     except Exception as e:
         print(f"RENDERING ERROR:{str(e)}")
-
+        print("Did you forget the run the server with the --nothreading --noreload options?")
+        print("The correct command is:")
+        print("python src/manage.py --nothreading --noreload options?")
     return None
   
 def convert_to_16bits(audio):

@@ -10,6 +10,9 @@ function recomputeAudioAnalyzeUrl() {
     let pattern = document.getElementById("midiPattern")
     AUDIO_ANALYZE = AUDIO_ANALYZE_BASE + `bm=${bank_msb}&bl=${bank_lsb}&p=${program}&ptn=${pattern.value}`
 }
+function recomputeAudioImageCaptureUrl() {
+    AUDIO_CAPTURE = AUDIO_CAPTURE_BASE + `bm=${bank_msb}&bl=${bank_lsb}&p=${program}`
+}
 function _renderAudio() {
     recomputeAudioUrl()
     let audioSrc = document.getElementById("audioSource")
@@ -40,11 +43,18 @@ function analyzeAudio() {
         let div = document.getElementById('id_description_tech')
         div.innerHTML = json.description_tech
         setSoundName(json.program_name)
+        // now time to also get the UI of the instrument
+        captureAudioInterface()
     })
     .catch(error => {
         // Handle any errors here
         console.error('There was a problem with the fetch operation:', error);
     });    
+}
+
+function captureAudioInterface() {
+    recomputeAudioImageCaptureUrl()    
+    document.getElementById('soundtone_capture').src = AUDIO_CAPTURE ;
 }
 
 function onAudioLoaded(event){
@@ -145,7 +155,21 @@ function onSoundToneLoaded(with_render=false){
         ele.addEventListener('click',autoSelectInput)
     }) ;
 
+    document.getElementById('soundtone_capture').src = "";
+    hideSoundtoneCapture() ;
+
 }
+
+function hideSoundtoneCapture() {
+    document.getElementById('soundtone_interface').classList.add('hidden-dyn') ;
+}
+function showSoundtoneCapture() {
+    document.getElementById('soundtone_interface').classList.remove('hidden-dyn') ;
+}
+function toggleSoundtoneCapture() {
+    document.getElementById('soundtone_interface').classList.toggle('hidden-dyn') ;
+}
+
 
 function onSoundControlLoaded(with_render=false) {
         // let audio = document.querySelector('audio')
@@ -166,6 +190,10 @@ function onSoundControlLoaded(with_render=false) {
 
     if(with_render===true)
         renderAudio()    
+
+    document.getElementById('capture_view_icon').addEventListener("click", toggleSoundtoneCapture) ;
+
+    document.getElementById('soundtone_interface').addEventListener("click", hideSoundtoneCapture) ;
 } 
 
 function onKeyPress(event) {

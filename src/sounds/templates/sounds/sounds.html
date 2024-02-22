@@ -19,6 +19,10 @@
 
 {% if sources is None %}
 
+<div id="soundtone_interface">
+    <img id="soundtone_capture" src=""/>
+</div>
+
 <div class="soundpanels">
 
 <div class="soundpanel left mt-5">
@@ -37,7 +41,7 @@
 
 <div class="soundpanel right mt-5">
 
-<h2 class="text-lg font-bold text-center mb-2">{{source.name}}:<span id="sound_name"></span></h2>
+<h2 class="text-lg font-bold text-center mb-2">{{source.name}}:<span id="sound_name"></span><i id="capture_view_icon" class="fa fa-picture-o"></i></h2>
 
 {% include 'sounds/widgets/soundtone_ctrl.html' %}
 

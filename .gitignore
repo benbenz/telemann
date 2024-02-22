@@ -360,3 +360,6 @@ conf/pgbouncer/*.*
 /conversations.sql
 
 !/logs
+
+/*.jpeg
+/*.jpg

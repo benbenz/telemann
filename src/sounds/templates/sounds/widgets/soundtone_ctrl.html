@@ -3,6 +3,7 @@
 <script type="text/javascript">
     var AUDIO_URL_BASE = "{% url 'sounds:render_sound' srcid=source.id %}?r={% random_uuid %}&";
     var AUDIO_ANALYZE_BASE = "{% url 'sounds:analyze_sound' srcid=source.id %}?r={% random_uuid %}&";
+    var AUDIO_CAPTURE_BASE = "{% url 'sounds:capture_sound_image' srcid=source.id %}?r={% random_uuid %}&";
 </script>  
 <div class="soundcontrols">
     <div class="soundcontrol prevsound"><i class="fa-solid fa-circle-left" tabindex="{% tab_index %}"></i></div>

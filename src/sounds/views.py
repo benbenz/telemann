@@ -8,7 +8,7 @@ from django.views.generic.edit import CreateView , UpdateView
 from django.urls import reverse_lazy
 from .models import SoundSource , SoundTone
 from .forms import SoundSourceForm , SoundToneForm
-from .core.audio import convert_to_wav , render_audio , get_sound_analysis
+from .core.audio import convert_to_wav , render_audio , get_sound_analysis , get_image_data
 from .core.midi import MIDIPattern , parse_new_program_value
 import io
 import math
@@ -21,17 +21,8 @@ def sounds(request,srcid=None):
         })
     else:
         source   = SoundSource.objects.get(id=srcid)
-        program  = request.GET.get('p',0)
-        bank_msb = request.GET.get('bm',0)
-        bank_lsb = request.GET.get('bl',0)
-        pattern  = request.GET.get('ptn')
+        bank_msb , bank_lsb , program , pattern = get_program_info(request)
         category = request.GET.get('c',None)
-        if isinstance(program,str):
-            program = int(program)
-        if isinstance(bank_msb,str):
-            bank_msb = int(bank_msb)
-        if isinstance(bank_lsb,str):
-            bank_lsb = int(bank_lsb)
 
         # looping feature
         # we let the UI be "ignorant" (only increment/decrement program...)
@@ -92,19 +83,8 @@ def stream_audio(audio,framerate):
         yield wavaudio.read(128)
 
 def render_sound(request,srcid):
-    program  = request.GET.get('p',0)
-    bank_msb = request.GET.get('bm',0)
-    bank_lsb = request.GET.get('bl',0)
-    pattern  = request.GET.get('ptn')
-
-    if isinstance(program,str):
-        program = int(program)
-    if isinstance(bank_msb,str):
-        bank_msb = int(bank_msb)
-    if isinstance(bank_lsb,str):
-        bank_lsb = int(bank_lsb)
-    if pattern is not None:
-        pattern = MIDIPattern[pattern]
+    
+    bank_msb , bank_lsb , program , pattern = get_program_info(request)
 
     source:SoundSource = SoundSource.objects.get(id=srcid)
 
@@ -123,16 +103,8 @@ def render_sound(request,srcid):
 
 
 def analyze_sound(request,srcid):
-    program  = request.GET.get('p',0)
-    bank_msb = request.GET.get('bm',0)
-    bank_lsb = request.GET.get('bl',0)
 
-    if isinstance(program,str):
-        program = int(program)
-    if isinstance(bank_msb,str):
-        bank_msb = int(bank_msb)
-    if isinstance(bank_lsb,str):
-        bank_lsb = int(bank_lsb)
+    bank_msb , bank_lsb , program , _ = get_program_info(request)
 
     source:SoundSource = SoundSource.objects.get(id=srcid)
 
@@ -141,6 +113,37 @@ def analyze_sound(request,srcid):
     sound_info = get_sound_analysis(source,bank_msb=bank_msb,bank_lsb=bank_lsb,program=program)
 
     return JsonResponse(sound_info)
+
+
+def capture_sound_image(request,srcid):
+
+    bank_msb , bank_lsb , program , _ = get_program_info(request)
+
+    source:SoundSource = SoundSource.objects.get(id=srcid)
+
+    bank_msb , bank_lsb , program = parse_new_program_value(source,bank_msb,bank_lsb,program)
+
+    image_data = get_image_data(source,bank_msb=bank_msb,bank_lsb=bank_lsb,program=program)
+
+    return JsonResponse({"image":image_data,"error":None})
+
+def get_program_info(request):
+    bank_msb = request.GET.get('bm',0)
+    bank_lsb = request.GET.get('bl',0)
+    program  = request.GET.get('p',0)
+    pattern  = request.GET.get('ptn')
+
+    if isinstance(bank_msb,str):
+        bank_msb = int(bank_msb)
+    if isinstance(bank_lsb,str):
+        bank_lsb = int(bank_lsb)
+    if isinstance(program,str):
+        program = int(program)
+    if pattern is not None:
+        pattern = MIDIPattern[pattern]
+
+    return bank_msb , bank_lsb , program , pattern
+
     
 def sources(request):
     sources = SoundSource.objects.all()

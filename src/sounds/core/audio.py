@@ -6,6 +6,7 @@ import io
 import numpy as np
 import wave
 import math
+import re
 from enum import StrEnum , auto
 from sounds.apps import SoundsConfig
 from pedalboard.io import AudioFile
@@ -206,7 +207,26 @@ def get_sound_analysis(source:SoundSource,
 
     sound_info['program_name'] = instrument.current_program_name
 
+    if source.parameters and 'midi' in source.parameters and 'program_name_ignore' in source.parameters['midi']:
+         sound_info['program_name'] = re.sub(source.parameters['midi']['program_name_ignore'],'',sound_info['program_name'])
+
     return sound_info
+
+def get_image_data(source:SoundSource,
+           bank_msb:int|None=None,
+           bank_lsb:int|None=None,
+           program:int|None=None):
+    
+    instrument_info = get_intrument_info(source)
+    instrument = instrument_info['instrument']
+
+    try:
+        image_data = instrument.capture()
+        return image_data.tolist()
+    except Exception as e:
+        print(f"RENDERING ERROR:{str(e)}")
+
+    return None
   
 def convert_to_16bits(audio):
     scaled_array = 32768 * audio

@@ -19,6 +19,7 @@ function _renderAudio() {
 }
 function setSoundName(name){
     document.getElementById('sound_name').innerHTML = name;
+    document.getElementById('id_name').value = name ;
 }
 
 function analyzeAudio() {

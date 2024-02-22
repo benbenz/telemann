@@ -141,3 +141,7 @@ audio {
 #id_tags {
   height: 4em;
 }
+
+#div_id_name {
+  display: none ;
+}

@@ -69,6 +69,7 @@ class SoundToneForm(forms.ModelForm):
     field_order = [
         # 'midi_bank',
         # 'midi_program',
+        'name',
         'category',
         'description',
         'description_tech',

@@ -12,4 +12,5 @@ urlpatterns = [
     re_path(r"sounds/(?P<srcid>\w+)?/?$", views.sounds, name="sounds"),
     path('sound/render/<int:srcid>/',views.render_sound,name='render_sound'),
     path('sound/analyze/<int:srcid>/',views.analyze_sound,name='analyze_sound'),
+    path('sound/capture/<int:srcid>/',views.capture_sound_image,name='capture_sound_image'),
 ]

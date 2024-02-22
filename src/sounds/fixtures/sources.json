@@ -82,6 +82,7 @@
             "midi_bank_use_lsb" : false ,
             "parameters" : {
                 "midi" : {
+                    "program_name_ignore" : "[0-9]+:[0-9]+\\s?",
                     "num_programs" : [
                         75 ,
                         78 ,

@@ -16,6 +16,7 @@ Tasks to do ...
      - [ ] ENV  >> rule by looking at parameters 
 
 - [ ] Issue with Collapsing "model" in Diva: not the case in the VST plugin: Problem with AU parameters parsing ? in pedalboard or JUCE ?
+- [ ] Use Diva.vst if not resolved
 - [ ] Issue with VST Preset Name being offset with SynthMaster ... (not Diva VST ...) No idea why
 
 ### In Progress 🕑

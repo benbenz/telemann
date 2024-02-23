@@ -363,3 +363,5 @@ conf/pgbouncer/*.*
 
 /*.jpeg
 /*.jpg
+
+./src/sounds/core/extensions/**/extra/*.py

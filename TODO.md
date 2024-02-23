@@ -15,6 +15,8 @@ Tasks to do ...
      - [ ] FILT >> rule by looking at parameters 
      - [ ] ENV  >> rule by looking at parameters 
 
+- [ ] Issue with Collapsing "model" in Diva
+
 ### In Progress 🕑
 
 - [ ] Implement PedalBoard VST (v1) handling: https://forum.juce.com/t/midi-program-change-forwarding-for-vst3/47161

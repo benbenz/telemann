@@ -14,10 +14,12 @@ class DivaExtension(InstrumentExtension):
         return "not implemented"
 
     def arp_off(self, instrument)->float:
-        return instrument.parameters['onoff'].raw_value
+        #return instrument.parameters['onoff'].raw_value
+        return None
 
     def arp_set(self, instrument, value: float):
-        instrument.parameters['onoff'].raw_value = value
+        pass
+        #instrument.parameters['onoff'].raw_value = value
 
     def analyze_sound(self, source:SoundSource, instrument:ExternalPlugin, sound_info:dict):
 
@@ -25,6 +27,13 @@ class DivaExtension(InstrumentExtension):
 
         sound_info['analysis']['oscs'] = self._get_oscs(params)
 
+        sound_info['analysis']['filters'] = self._get_filters(params)
+
+############################################################################################################
+#
+# OSC section
+#
+############################################################################################################        
 
     def _get_oscs(self,params:dict):
         oscs = []
@@ -118,7 +127,7 @@ class DivaExtension(InstrumentExtension):
                     oscs.append(
                         {
                             "shapes" : shapes ,
-                            "volume" : self._get_osc_volume(params,i_vco),
+                            "volume" : vol ,
                             "sub":False
                         }
                     )
@@ -211,5 +220,57 @@ class DivaExtension(InstrumentExtension):
             return 1.0 - mix
         elif i_vco ==2:
             return mix 
+        
 
+    def _get_oscs_digital(self,params:dict,count:int):
+        oscs = []
+        for i in range(count):
+            i_vco = i+1
+            vol = self._get_osc_volume_simple(params,i_vco)
+            if vol > VOL_THRESH: 
+                shapes = self._get_osc_shapes_digital(params,i_vco)
+                if shapes is not None:
+                    oscs.append(
+                        {
+                            "shapes" : shapes ,
+                            "volume" : vol , 
+                            "sub":False
+                        }
+                    )
+        return oscs    
+    
+    def _get_osc_shapes_digital(self,params:dict,i_vco:int):
+        shapes = []
+        osc_shape = params[f"digitaltype{i}"]["value"]
+        osc_shape = int(osc_shape)
+        if osc_shape == 1:
+            shapes = [ OscShape.SAWMULTI ]
+        elif osc_shape == 2:
+            shapes = [ OscShape.TRISHAPED ]
+        elif osc_shape == 3:
+            shapes = [ OscShape.NOISE ]
+        elif osc_shape == 4:
+            shapes = [ OscShape.FEEDBACK ]
+        elif osc_shape == 5:
+            shapes = [ OscShape.PULSE ]
+        elif osc_shape == 6:
+            shapes = [ OscShape.SAWTOOTH ]
+        elif osc_shape == 7:
+            shapes = [ OscShape.TRIANGLE ]
 
+        return shapes          
+
+############################################################################################################
+#
+# Filters section
+#
+############################################################################################################        
+
+    def _get_filters(self,params):
+
+        filters = []
+
+        model_osc = params['model']['value']
+        model_hpf = params['model']['value']
+
+        return filters 

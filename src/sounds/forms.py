@@ -79,7 +79,7 @@ class SoundToneForm(forms.ModelForm):
 
     class Meta:
         model = SoundTone
-        exclude = ['recording','last_modified','record_date','midi_bank_msb','midi_bank_lsb','midi_program','parameters','source','tags'] 
+        exclude = ['recording','last_modified','record_date','midi_bank_msb','midi_bank_lsb','midi_program','source','tags'] 
 
     def __init__(self, *args, **kwargs):
         super(SoundToneForm, self).__init__(*args, **kwargs)

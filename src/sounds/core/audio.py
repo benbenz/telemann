@@ -67,10 +67,16 @@ def get_intrument_info(source:SoundSource):
 def convert_parameters(instrument):
     result = dict()
     params = instrument.parameters
-    for param_name,param in params.items():
+    for param_name in sorted(params.keys()):
+        param = params[param_name]
+        c = 1
+        while param_name in result:
+            param_name = f"{param_name}{c}"
+            c+=1
+
         # cpp_parameter = param.__get_cpp_parameter()
         # x_text_value = get_text_for_raw_value(cpp_parameter,  param.raw_value, False)
-        result[param.python_name] = {
+        result[param_name] = {
             'label' : param.label ,
             'raw_value' : param.raw_value ,
             'value' : param.string_value ,

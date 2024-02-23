@@ -142,7 +142,7 @@ audio {
   height: 4em;
 }
 
-#div_id_name {
+#div_id_name , #div_id_parameters {
   display: none ;
 }
 

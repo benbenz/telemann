@@ -105,6 +105,8 @@ def render_audio(source:SoundSource,
 
     instrument = instrument_info['instrument']
 
+    #instrument.reset()
+
     #print(instrument.parameters.keys())
         
     # this is also the opportunity to change the program here with minimal data
@@ -112,8 +114,8 @@ def render_audio(source:SoundSource,
     pgm_events = []
     pgm_events.append( Message('control_change', control=0, value=bank_msb,time=0) )
     if source.midi_bank_use_lsb:
-       pgm_events.append(Message('control_change', control=32, value=bank_lsb,time=0.4))
-    pgm_events.append(Message('program_change', program=program,time=0.8) )
+       pgm_events.append(Message('control_change', control=32, value=bank_lsb,time=0.5))
+    pgm_events.append(Message('program_change', program=program,time=1) )
         
     # necessary to avoid locks on future rendering?
     # this doesnt resolve the issue when runserver reloads because of source changes
@@ -134,6 +136,7 @@ def render_audio(source:SoundSource,
         *notes],
       duration=preset_offset+length+2, # preset_offset + length seconds + 2 seconds for release
       sample_rate=sample_rate,
+      reset=False
     )
 
     # audio = instrument(

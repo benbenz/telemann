@@ -18,6 +18,7 @@ from importlib import import_module
 import inspect
 from .extensions.instruments.base import InstrumentExtension
 from PIL import Image
+from scipy.io.wavfile import write as scipy_wav_write
 
 class AudioInterface(StrEnum):
     NONE = "---------"
@@ -163,16 +164,19 @@ def render_audio(source:SoundSource,
                 'parameters' : convert_parameters(instrument) ,
             }
 
+    print("Converted parameters")
+
     return audio
   
 def analyze_audio(source:SoundSource,audio,sound_info):
+    print("\n\n\n\n\n\nIMPLEMENTATION NEEDED FOR analyze_audio\n\n\n\n\n\n\n\n")
+    return
     if 'analysis' not in sound_info:
         sound_info['analysis'] = {}
     if 'envelope' not in sound_info['analysis']:
         env = get_envelope(source,audio)
         # do something with it ... determine 
         #@TODO
-        print("\n\n\n\n\n\nIMPLEMENTATION NEEDED FOR analyze_audio\n\n\n\n\n\n\n\n")
   
 def get_sound_analysis(source:SoundSource,
            bank_msb:int|None=None,
@@ -250,7 +254,11 @@ def get_image_data(source:SoundSource,
     return None
   
 def convert_to_16bits(audio):
-    scaled_array = 32768 * audio
+    f = lambda x: x * 0x8000 if x < 0 else x * 0x7FFF
+    #scaled_array = np.floor( 32768 * audio )
+    vfunc = np.vectorize(f)
+    scaled_array = np.clip(audio,-1.0,1.0)
+    scaled_array = vfunc(scaled_array)
     return scaled_array.astype(np.int16,order='C')
 
 def convert_to_wav(audio,framerate,convertto16bits=True):
@@ -258,9 +266,11 @@ def convert_to_wav(audio,framerate,convertto16bits=True):
     if convertto16bits:
        audio = convert_to_16bits(audio)
     C , N = audio.shape
-    audio_interleaved = np.ndarray(shape=(N*C),dtype=audio.dtype)
-    audio_interleaved[0::2] = audio[0]
-    audio_interleaved[1::2] = audio[1]
+    # audio_interleaved = np.ndarray(shape=(N*C),dtype=audio.dtype)
+    # audio_interleaved[0::2] = audio[0]
+    # audio_interleaved[1::2] = audio[1]
+    audio_interleaved = audio.T.reshape(-1)
+    #scipy_wav_write(bIO,framerate,audio_interleaved)
     with wave.open(bIO, mode='wb') as wObj:
         wObj.setnchannels(C)
         wObj.setnframes(N)

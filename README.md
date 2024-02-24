@@ -28,6 +28,16 @@ python src/manage.py runserver --nothreading --noreload
 
 You can now use the labeller at http://localhost:8000
 
+# Notes on pedalboard + JUCE
+
+If you want to point to pedalboard that is at the same level of your telemann project, use requirements-dev.txt
+This will import the files from the local pedalboard project (cf. its build instructions in BUILD.md) aka ../pedalboard
+
+If you just want to get going, use requirements.txt and this will import the pedalboard_benbenz from pypi.
+
+The pedalboard_benbenz repository is a modified repository to expose different functions like program name, as well as a capture function.
+Moreover, some changes have been made to the underlying JUCE library to fix a bug with the parameters names of the audio units being conflicted when the audio unit uses clumps. 
+
 # Setup plugins for MIDI Program Change
 
 __IMPORTANT NOTE__: There could be a bug with VST3 and program changes (cf. [here][(https://forum.ableton.com/viewtopic.php?t=247288]) even if it applies to Ableton, I've noticed this also occured with telemann ...). 

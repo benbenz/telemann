@@ -197,7 +197,7 @@ def get_sound_analysis(source:SoundSource,
         sound_info['analysis'] = dict()
 
     # perform the analysis based on the preset/tone
-    instrExtension.analyze_sound(source,instrument,sound_info)
+    #instrExtension.analyze_sound(source,instrument,sound_info)
 
     # if we have missing information, lets move to an audio analysis
     if 'envs' not in sound_info['analysis']:

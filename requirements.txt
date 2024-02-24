@@ -1,25 +1,5 @@
-# django server
-django==5.0
+-r requirements-base.txt
 
-# audio . midi
 # pedalboard
 #../pedalboard
 pedalboard-benbenz[bin]
-mido
-python-rtmidi
-sounddevice
-
-# UI stuff
-django-tailwind
-fontawesomefree==6.5.1
-django-crispy-forms
-crispy-tailwind
-django-widget-tweaks
-
-# utils
-json-normalize
-
-# signal processing stuff
-scipy
-#matplotlib
-Pillow

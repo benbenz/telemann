@@ -1,0 +1,22 @@
+# django server
+django==5.0
+
+# audio . midi
+mido
+python-rtmidi
+sounddevice
+
+# UI stuff
+django-tailwind
+fontawesomefree==6.5.1
+django-crispy-forms
+crispy-tailwind
+django-widget-tweaks
+
+# utils
+json-normalize
+
+# signal processing stuff
+scipy
+#matplotlib
+Pillow

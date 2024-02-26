@@ -20,6 +20,7 @@ form div small {
 }
 .source-info { display: flex; flex: 1}
 .source-name { font-weight: 600;}
+.source-plugin-icon { max-height: 2em; }
 
 .soundpanels {
   display: flex;

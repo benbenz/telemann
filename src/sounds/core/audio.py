@@ -86,13 +86,25 @@ def convert_parameters(instrument):
         }
     return result 
 
+def force_reset(source:SoundSource,
+           bank_msb:int|None=None,
+           bank_lsb:int|None=None,
+           program:int|None=None):
+    render_audio(source,
+                  bank_msb=bank_msb,
+                  bank_lsb=bank_lsb,
+                  program=program,
+                  length=1,
+                  reset_plugin=True)
+
 def render_audio(source:SoundSource,
            bank_msb:int|None=None,
            bank_lsb:int|None=None,
            program:int|None=None,
            pattern:MIDIPattern|None=None,
            length:int|None=None,
-           save_parameters=True):
+           save_parameters=True,
+           reset_plugin=True):
   
   # Render some audio by passing MIDI to an instrument:
   sample_rate = source.audio_device_samplerate
@@ -137,7 +149,7 @@ def render_audio(source:SoundSource,
         *notes],
       duration=preset_offset+length+2, # preset_offset + length seconds + 2 seconds for release
       sample_rate=sample_rate,
-      reset=False
+      reset=reset_plugin # resolves the program name issue ?
     )
 
     # audio = instrument(
@@ -197,24 +209,39 @@ def get_sound_analysis(source:SoundSource,
         sound_info['analysis'] = dict()
 
     # perform the analysis based on the preset/tone
-    #instrExtension.analyze_sound(source,instrument,sound_info)
+    try:
+        instrExtension.analyze_sound(source,instrument,sound_info)
+    except Exception as e:
+        print(f"There has been an error with the plugin extension: {str(e)}")
 
     # if we have missing information, lets move to an audio analysis
-    if 'envs' not in sound_info['analysis']:
+    # if 'envs' not in sound_info['analysis']:
 
-        arp_old_value = instrExtension.arp_off(instrument)
+    #     arp_old_value = instrExtension.arp_off(instrument)
 
-        audio_4_analysis = render_audio(source=source,
-                            bank_msb=bank_msb,
-                            bank_lsb=bank_lsb,
-                            program=program,
-                            pattern=pattern,
-                            length=2,
-                            save_parameters=False) # do not save the parameters as we altered the sound ! They shoul be already there from the rendering that occured before
+    #     audio_4_analysis = render_audio(source=source,
+    #                         bank_msb=bank_msb,
+    #                         bank_lsb=bank_lsb,
+    #                         program=program,
+    #                         pattern=pattern,
+    #                         length=2,
+    #                         save_parameters=False, # do not save the parameters as we altered the sound ! They shoul be already there from the rendering that occured before
+    #                         reset_plugin=False) # the plugin should have been reset before by render_sound
         
-        instrExtension.arp_set(instrument,arp_old_value)    
-        analyze_audio(source,audio_4_analysis,sound_info)
-    
+    #     instrExtension.arp_set(instrument,arp_old_value)    
+    #     analyze_audio(source,audio_4_analysis,sound_info)
+        
+    # There is an issue with SynthMaster2 VST
+    # the program name is lagging by 1 request
+    # when we have the audio analysis on (with reset), it worked
+    # but we are now skipping the audio analysis and this causes the preset to be one-too-late 
+    # @TODO: pedalboard/JUCE needs to be investigated to know what is going on
+    # @NOTE: Diva.vst is okay
+    force_reset(source,
+                bank_msb=bank_msb,
+                bank_lsb=bank_lsb,
+                program=program)
+        
     if instrExtension:
         sound_info['description_tech'] = instrExtension.generate_text(sound_info)
     else:

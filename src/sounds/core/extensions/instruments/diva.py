@@ -14,12 +14,17 @@ class DivaExtension(InstrumentExtension):
         return "not implemented"
 
     def arp_off(self, instrument)->float:
-        #return instrument.parameters['onoff'].raw_value
+        if 'arp_onoff' in instrument.parameters: # VST plugin
+            return instrument.parameters['arp_onoff'].raw_value
+        elif 'arpeggiator_onoff' in instrument.parameters: # AudioUnit
+            return instrument.parameters['arpeggiator_onoff'].raw_value
         return None
 
     def arp_set(self, instrument, value: float):
-        pass
-        #instrument.parameters['onoff'].raw_value = value
+        if 'arp_onoff' in instrument.parameters: # VST plugin
+            instrument.parameters['arp_onoff'].raw_value = value
+        elif 'arpeggiator_onoff' in instrument.parameters: # AudioUnit
+            instrument.parameters['arpeggiator_onoff'].raw_value = value
 
     def analyze_sound(self, source:SoundSource, instrument:ExternalPlugin, sound_info:dict):
 
@@ -28,6 +33,10 @@ class DivaExtension(InstrumentExtension):
         sound_info['analysis']['oscs'] = self._get_oscs(params)
 
         sound_info['analysis']['filters'] = self._get_filters(params)
+
+        sound_info['analysis']['envs'] = dict()
+
+        sound_info['analysis']['mod'] = dict()
 
 ############################################################################################################
 #

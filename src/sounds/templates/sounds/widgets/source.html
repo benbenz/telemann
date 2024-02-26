@@ -5,9 +5,10 @@
 <div class="source-infos">
 {% endif %}
     <div class="source-info source-name">{{source.name}}</div>
-    <div class="source-info source-type">{{source.type|generator_type_icon|safe}} </div>
+    <div class="source-info source-type">{{source.type|source_type_icon|safe}} </div>
     <div class="source-info source-type">{{source.type}}</div>
     <div class="source-info source-type">{{source.audio_device_name}}</div>
+    <div class="source-info source-type">{{source|source_plugin_icon|safe}} </div>
     <div class="source-info source-commands">
         {% if not for_selection %}
         <a href="{% url 'sounds:source_edit' pk=source.id %}"><i class="fa-solid fa-edit"></i></a>

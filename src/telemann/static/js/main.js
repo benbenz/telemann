@@ -1,6 +1,7 @@
-function modalOpen(msg) {
+function modalOpen(disable=true) {
     document.getElementById('default-modal').classList.remove('hidden')
-    document.getElementById('mainsection').classList.add('disabled')
+    if(disable)
+        document.getElementById('mainsection').classList.add('disabled')
 }
 function modalClose() {
     document.getElementById('default-modal').classList.add('hidden')

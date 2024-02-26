@@ -323,7 +323,7 @@ function onSoundToneLoaded(){
     document.getElementById('soundtone_capture').src = "";
     hideSoundtoneCapture() ;
 
-    //modalOpen();
+    //modalOpen(false);
 }
 
 function hideSoundtoneCapture() {

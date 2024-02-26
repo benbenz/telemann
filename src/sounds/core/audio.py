@@ -97,12 +97,16 @@ def force_reset(source:SoundSource,
                                 bank_msb=bank_msb,
                                 bank_lsb=bank_lsb,
                                 program=program)
-    audio0 = instrument(
-    pgm_events,
-    duration=preset_offset+1, 
-    sample_rate=source.audio_device_samplerate,
-    reset=True 
-    )
+    # with the new pre-fetching mechanism
+    # we may not render the audio in the previous request
+    # so we need 2 consecutive reset for SynthMaster2 to return the proper program name .....    
+    for _ in range(2):
+        audio0 = instrument(
+        pgm_events,
+        duration=preset_offset+1, 
+        sample_rate=source.audio_device_samplerate,
+        reset=True 
+        )
     
     print("Reset instrument")
 
@@ -179,7 +183,8 @@ def render_audio(source:SoundSource,
         sound_key = get_midi_program_key(bank_msb,bank_lsb,program)
         if sound_key in instrument_info['programs_info']:
             sound_info = instrument_info['programs_info'][sound_key]
-            sound_info['parameters'] = convert_parameters(instrument)
+            if not 'parameters' in sound_info:
+                sound_info['parameters'] = convert_parameters(instrument)
         else:
             instrument_info['programs_info'][sound_key] = {
                 'parameters' : convert_parameters(instrument) ,
@@ -267,15 +272,11 @@ def get_sound_analysis(source:SoundSource,
     # @TODO: pedalboard/JUCE needs to be investigated to know what is going on
     # @NOTE: Diva.vst is okay
         
-    # with the new pre-fetching mechanism
-    # we may not render the audio in the previous request
-    # so we need 2 consecutive reset for SynthMaster2 to return the proper program name .....
-    for _ in range(2):
-        force_reset(source,
-                    instrument,
-                    bank_msb=bank_msb,
-                    bank_lsb=bank_lsb,
-                    program=program)
+    force_reset(source,
+                instrument,
+                bank_msb=bank_msb,
+                bank_lsb=bank_lsb,
+                program=program)
         
     if instrExtension:
         sound_info['description_tech'] = instrExtension.generate_text(sound_info)
@@ -298,11 +299,11 @@ def get_image_data(source:SoundSource,
     instrument = instrument_info['instrument']
 
     # no need for now ... it should follow get_sound_analysis which has already run this
-    # force_reset(source,
-    #             instrument,
-    #             bank_msb=bank_msb,
-    #             bank_lsb=bank_lsb,
-    #             program=program)
+    force_reset(source,
+                instrument,
+                bank_msb=bank_msb,
+                bank_lsb=bank_lsb,
+                program=program)
 
     try:
         image_data = instrument.capture()

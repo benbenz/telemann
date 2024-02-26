@@ -351,7 +351,12 @@ def convert_to_wav(audio,framerate,convertto16bits=True):
     # with AudioFile(bIO,"w", format='wav', samplerate=framerate, num_channels=C, bit_depth=8*audio.itemsize) as f:
     #    f.write(audio)
     return bIO
-   
+
+def convert_to_pcm(audio,convertto16bits=True):
+    if convertto16bits:
+       audio = convert_to_16bits(audio)
+    audio_interleaved = audio.T.reshape(-1)
+    return audio_interleaved.tobytes()   
 
 def get_instrument_extension(source:SoundSource):
     if not source.extension:

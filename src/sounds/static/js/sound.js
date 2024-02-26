@@ -73,6 +73,7 @@ function _renderToAudioElement(blob) {
     const reader = new FileReader();
     reader.onloadend = () => {
     audioEle.src = reader.result;
+    //audioEle.load()
     // autoplay should do its job
     // audioEle.play()
     //     .catch(e => console.error('Error playing the audio:', e));

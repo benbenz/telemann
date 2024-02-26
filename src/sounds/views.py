@@ -8,7 +8,7 @@ from django.views.generic.edit import CreateView , UpdateView
 from django.urls import reverse_lazy
 from .models import SoundSource , SoundTone
 from .forms import SoundSourceForm , SoundToneForm
-from .core.audio import convert_to_wav , render_audio , get_sound_analysis , get_image_data
+from .core.audio import convert_to_wav , convert_to_pcm , render_audio , get_sound_analysis , get_image_data
 from .core.midi import MIDIPattern , parse_new_program_value
 import io
 import math
@@ -100,6 +100,8 @@ def render_sound(request,srcid):
 #        'Content-Length': audio.size * audio.itemsize
     }
     return FileResponse(convert_to_wav(audio,source.audio_device_samplerate),headers=headers)
+    # content_type = f"audio/pcm;rate={source.audio_device_samplerate};encoding=int;bits=16"
+    # return FileResponse(convert_to_pcm(audio,convertto16bits=True),content_type=content_type,headers=headers)
 
 
 def analyze_sound(request,srcid):

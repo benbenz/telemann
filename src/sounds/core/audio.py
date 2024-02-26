@@ -201,6 +201,7 @@ def _get_program_events(source: SoundSource,
     
     pgm_events = []
     preset_offset = 2
+    print(f"bank_msb={bank_msb} bank_lsb={bank_lsb} pgm={program}")
     pgm_events.append( Message('control_change', control=0, value=bank_msb,time=0) )
     if source.midi_bank_use_lsb:
        pgm_events.append(Message('control_change', control=32, value=bank_lsb,time=0.5))

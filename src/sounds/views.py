@@ -101,12 +101,14 @@ def render_sound(request,srcid):
     }
 
     format = request.GET.get('f','wav')
+    mime = request.GET.get('mt',None)
     if format == 'wav':
-        return FileResponse(convert_to_wav(audio,source.audio_device_samplerate),headers=headers)
+        if not mime:
+            mime = 'audio/wave' 
+        return FileResponse(convert_to_wav(audio,source.audio_device_samplerate),content_type=mime,headers=headers)
     elif format == 'pcm':
         content_type = f"audio/pcm;rate={source.audio_device_samplerate};encoding=int;bits=16"
         return FileResponse(convert_to_pcm(audio,convertto16bits=True),content_type=content_type,headers=headers)
-
 
 def analyze_sound(request,srcid):
 

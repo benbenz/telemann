@@ -148,12 +148,12 @@ function resetBlobs() {
     blob_prev = null ;    
 }
 
-function fetchSound(timeout=400) {
+function fetchSound(timeout=400,with_extras=true) {
     _clearThRender()
-    thRender = setTimeout( _fetchAll , timeout )
+    thRender = setTimeout( ()=>_fetchAll(with_extras) , timeout )
 }
 
-function _fetchAll(){
+function _fetchAll(with_extras=true){
     // mark existing promises as aborted
     if(thPromises!==null) {
         for(let i=0 ; i<thPromises.length ; i++) {
@@ -161,10 +161,17 @@ function _fetchAll(){
         }
         thPromises = null ;
     }
+    if(with_extras) {
+        extras = [
+            { func : analyzeAudio , aborted: false } ,
+            { func : captureSoundtoneGUI , aborted: false } ,
+        ]
+    } else {
+        extras = []
+    }
     funcs = [
         { func : _renderAudio , aborted: false } ,
-        { func : analyzeAudio , aborted: false } ,
-        { func : captureSoundtoneGUI , aborted: false } ,
+        ...extras ,
         { func : _renderAudio , aborted: false , args: [ +1 ]} ,
         { func : _renderAudio , aborted: false , args: [ -1 ]} ,
     ]
@@ -261,7 +268,7 @@ function onSoundToneLoaded(){
     if(category!==null)
         selectCategory(category) ;
 
-    fetchSound()
+    fetchSound(200,true)
 
     document.addEventListener("keydown",onKeyPress);
 

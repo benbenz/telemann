@@ -96,7 +96,7 @@ function setSoundName(name){
 
 function analyzeAudio() {
     if(fetched_analysis===true)
-        return ;
+        return Promise.resolve();
     let audio_analyze_url = recomputeAudioAnalyzeUrl()    
     return fetch(audio_analyze_url,{
         method: 'GET' ,
@@ -116,6 +116,7 @@ function analyzeAudio() {
         setSoundName(json.program_name)
         // now time to also get the UI of the instrument
         //captureSoundtoneGUI()
+        fetched_analysis = true
     })
     .catch(error => {
         // Handle any errors here
@@ -125,7 +126,7 @@ function analyzeAudio() {
 
 function captureSoundtoneGUI() {
     if(fetched_capture===true)
-        return ;
+        return Promise.resolve() ;
     let audio_capture_url = recomputeAudioImageCaptureUrl()    
     //document.getElementById('soundtone_capture').src = audio_capture_url ;
     return fetch(audio_capture_url,{
@@ -141,6 +142,7 @@ function captureSoundtoneGUI() {
         const reader = new FileReader();
         reader.onloadend = () => {
             img_capture.src = reader.result;
+            fetched_capture = true 
         };
         reader.readAsDataURL(blob);    
     })

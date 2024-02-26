@@ -154,18 +154,19 @@ audio {
 }
 
 #soundtone_interface {
-  overflow: hidden;
+  overflow: scroll;
   justify-content: center;
   cursor: pointer;
 }
 
 #soundtone_interface {
-  max-height: 80vh;
+  max-height: 88vh;
   transition: max-height 0.5s ease-in;
 }
 #soundtone_interface.hidden-dyn {
   max-height: 0vh;
   transition: max-height 0.3s ease-out;
+  overflow: hidden;
 }
 
 #soundtone_interface IMG {

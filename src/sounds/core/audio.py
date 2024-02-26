@@ -225,7 +225,14 @@ def get_sound_analysis(source:SoundSource,
     sound_key = get_midi_program_key(bank_msb,bank_lsb,program)
     
     # that should always be here
-    sound_info = instrument_info['programs_info'][sound_key]
+    if sound_key in instrument_info['programs_info']:
+        sound_info = instrument_info['programs_info'][sound_key]
+    else:
+        force_reset(source,instrument)
+        instrument_info['programs_info'][sound_key] = {
+            'parameters' : convert_parameters(instrument) 
+        }
+        sound_info = instrument_info['programs_info'][sound_key]
 
     if 'analysis' not in sound_info:
         sound_info['analysis'] = dict()

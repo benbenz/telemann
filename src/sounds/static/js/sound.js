@@ -166,6 +166,13 @@ function promiseState(p) {
       .then(v => (v === t)? "pending" : "fulfilled", () => "rejected");
 }
 
+function _closeModalPromise() {
+    return new Promise((resolve, reject) => {
+        modalClose();
+        resolve();
+    }) ;
+}
+
 async function _fetchAll(with_extras=true){
     // mark existing promises as aborted
     if(thPromises!==null) {
@@ -196,6 +203,7 @@ async function _fetchAll(with_extras=true){
     }
     funcs = [
         { func : _renderAudio , aborted: false } ,
+        { func : _closeModalPromise , aborted: false } ,
         ...extras ,
         { func : _renderAudio , aborted: false , args: [ +1 ]} ,
         { func : _renderAudio , aborted: false , args: [ -1 ]} ,
@@ -315,6 +323,7 @@ function onSoundToneLoaded(){
     document.getElementById('soundtone_capture').src = "";
     hideSoundtoneCapture() ;
 
+    //modalOpen();
 }
 
 function hideSoundtoneCapture() {

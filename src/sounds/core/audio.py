@@ -87,15 +87,24 @@ def convert_parameters(instrument):
     return result 
 
 def force_reset(source:SoundSource,
-           bank_msb:int|None=None,
-           bank_lsb:int|None=None,
-           program:int|None=None):
-    render_audio(source,
-                  bank_msb=bank_msb,
-                  bank_lsb=bank_lsb,
-                  program=program,
-                  length=1,
-                  reset_plugin=True)
+                instrument,
+                bank_msb:int|None=None,
+                bank_lsb:int|None=None,
+                program:int|None=None
+                ):
+    print("Resetting instrument ...")
+    pgm_events , preset_offset = _get_program_events(source=source,
+                                bank_msb=bank_msb,
+                                bank_lsb=bank_lsb,
+                                program=program)
+    audio0 = instrument(
+    pgm_events,
+    duration=preset_offset+1, 
+    sample_rate=source.audio_device_samplerate,
+    reset=True 
+    )
+    
+    print("Reset instrument")
 
 def render_audio(source:SoundSource,
            bank_msb:int|None=None,
@@ -112,7 +121,6 @@ def render_audio(source:SoundSource,
   if source.type == SoundSource.Type.INSTRUMENT:
 
     instrument_info = None
-    preset_offset = 2
 
     instrument_info = get_intrument_info(source)
 
@@ -124,11 +132,10 @@ def render_audio(source:SoundSource,
         
     # this is also the opportunity to change the program here with minimal data
     # Bank Select MSB
-    pgm_events = []
-    pgm_events.append( Message('control_change', control=0, value=bank_msb,time=0) )
-    if source.midi_bank_use_lsb:
-       pgm_events.append(Message('control_change', control=32, value=bank_lsb,time=0.5))
-    pgm_events.append(Message('program_change', program=program,time=1) )
+    pgm_events , preset_offset = _get_program_events(source=source,
+                                     bank_msb=bank_msb,
+                                     bank_lsb=bank_lsb,
+                                     program=program)
         
     # necessary to avoid locks on future rendering?
     # this doesnt resolve the issue when runserver reloads because of source changes
@@ -166,6 +173,8 @@ def render_audio(source:SoundSource,
     audio_start = math.floor( sample_rate * preset_offset )
     audio = audio[:,audio_start:]
 
+    print("Converting parameters ...")
+
     if save_parameters:    
         sound_key = get_midi_program_key(bank_msb,bank_lsb,program)
         if sound_key in instrument_info['programs_info']:
@@ -179,6 +188,19 @@ def render_audio(source:SoundSource,
     print("Converted parameters")
 
     return audio
+  
+def _get_program_events(source: SoundSource,
+                        bank_msb:int|None=None,
+                        bank_lsb:int|None=None,
+                        program:int|None=None):
+    
+    pgm_events = []
+    preset_offset = 2
+    pgm_events.append( Message('control_change', control=0, value=bank_msb,time=0) )
+    if source.midi_bank_use_lsb:
+       pgm_events.append(Message('control_change', control=32, value=bank_lsb,time=0.5))
+    pgm_events.append(Message('program_change', program=program,time=1) )
+    return pgm_events , preset_offset
   
 def analyze_audio(source:SoundSource,audio,sound_info):
     print("\n\n\n\n\n\nIMPLEMENTATION NEEDED FOR analyze_audio\n\n\n\n\n\n\n\n")
@@ -238,6 +260,7 @@ def get_sound_analysis(source:SoundSource,
     # @TODO: pedalboard/JUCE needs to be investigated to know what is going on
     # @NOTE: Diva.vst is okay
     force_reset(source,
+                instrument,
                 bank_msb=bank_msb,
                 bank_lsb=bank_lsb,
                 program=program)
@@ -262,6 +285,13 @@ def get_image_data(source:SoundSource,
     instrument_info = get_intrument_info(source)
     instrument = instrument_info['instrument']
 
+    # no need for now ... it should follow get_sound_analysis which has already run this
+    # force_reset(source,
+    #             instrument,
+    #             bank_msb=bank_msb,
+    #             bank_lsb=bank_lsb,
+    #             program=program)
+
     try:
         image_data = instrument.capture()
         im = Image.fromarray(image_data)
@@ -278,7 +308,7 @@ def get_image_data(source:SoundSource,
         print("Did you forget the run the server with the --nothreading --noreload options?")
         print("The correct command is:")
         print("python src/manage.py --nothreading --noreload options?")
-    return None
+    return io.BytesIO()
   
 def convert_to_16bits(audio):
     f = lambda x: x * 0x8000 if x < 0 else x * 0x7FFF

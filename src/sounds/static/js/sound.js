@@ -10,7 +10,16 @@ var fetched_analysis = false ;
 
 function recomputeAudioUrl(program_offset=0) {
     let pattern = document.getElementById("midiPattern")
-    return AUDIO_URL_BASE + `bm=${bank_msb}&bl=${bank_lsb}&p=${program+program_offset}&ptn=${pattern.value}`
+    let audio = document.getElementById('soundtone_audio')
+    let audio_wav_mimes = ['audio/vnd.wav','audio/vnd.wave','audio/wave','audio/x-pn-wav','audio/x-wav']
+    for(let i=0 ; i<audio_wav_mimes.length ; i++) {
+        if(audio.canPlayType(audio_wav_mimes[i]))
+            return AUDIO_URL_BASE + `bm=${bank_msb}&bl=${bank_lsb}&p=${program+program_offset}&ptn=${pattern.value}&f=wav`
+    }
+    if(audio.CanPlayType('audio/pcm'))
+        return AUDIO_URL_BASE + `bm=${bank_msb}&bl=${bank_lsb}&p=${program+program_offset}&ptn=${pattern.value}&f=pcm`
+    else
+        return AUDIO_URL_BASE + `bm=${bank_msb}&bl=${bank_lsb}&p=${program+program_offset}&ptn=${pattern.value}`
 }
 function recomputeAudioAnalyzeUrl() {
     let pattern = document.getElementById("midiPattern")

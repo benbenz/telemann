@@ -99,9 +99,13 @@ def render_sound(request,srcid):
 #        'Cache-Control': 'no-cache, no-store, must-revalidate',
 #        'Content-Length': audio.size * audio.itemsize
     }
-    return FileResponse(convert_to_wav(audio,source.audio_device_samplerate),headers=headers)
-    # content_type = f"audio/pcm;rate={source.audio_device_samplerate};encoding=int;bits=16"
-    # return FileResponse(convert_to_pcm(audio,convertto16bits=True),content_type=content_type,headers=headers)
+
+    format = request.GET.get('f','wav')
+    if format == 'wav':
+        return FileResponse(convert_to_wav(audio,source.audio_device_samplerate),headers=headers)
+    elif format == 'pcm':
+        content_type = f"audio/pcm;rate={source.audio_device_samplerate};encoding=int;bits=16"
+        return FileResponse(convert_to_pcm(audio,convertto16bits=True),content_type=content_type,headers=headers)
 
 
 def analyze_sound(request,srcid):

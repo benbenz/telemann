@@ -259,11 +259,16 @@ def get_sound_analysis(source:SoundSource,
     # but we are now skipping the audio analysis and this causes the preset to be one-too-late 
     # @TODO: pedalboard/JUCE needs to be investigated to know what is going on
     # @NOTE: Diva.vst is okay
-    force_reset(source,
-                instrument,
-                bank_msb=bank_msb,
-                bank_lsb=bank_lsb,
-                program=program)
+        
+    # with the new pre-fetching mechanism
+    # we may not render the audio in the previous request
+    # so we need 2 consecutive reset for SynthMaster2 to return the proper program name .....
+    for _ in range(2):
+        force_reset(source,
+                    instrument,
+                    bank_msb=bank_msb,
+                    bank_lsb=bank_lsb,
+                    program=program)
         
     if instrExtension:
         sound_info['description_tech'] = instrExtension.generate_text(sound_info)

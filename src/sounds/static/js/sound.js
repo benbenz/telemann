@@ -25,6 +25,16 @@ function _renderAudio(program_offset=0) {
     //     URL.revokeObjectURL(audioObjectURL)
     //     audioObjectURL = null ;
     // }
+    if(program_offset===0 && blob_current!==null) {
+        _renderToAudioElement(blob_current) ;
+        return Promise.resolve()
+    }
+    else if(program_offset===1 && blob_next!==null) {
+        return Promise.resolve()
+    }
+    else if(program_offset===-1 && blob_prev!==null) {
+        return Promise.resolve()
+    }
     return fetch(audio_url,{
         method: 'GET' ,
     }).then( (response) =>{

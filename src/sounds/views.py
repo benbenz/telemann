@@ -38,13 +38,15 @@ def sounds(request,srcid=None):
                 sound_tone = SoundTone(source=source,midi_program=program,midi_bank_msb=bank_msb,midi_bank_lsb=bank_lsb,category=category)
                 form = SoundToneForm(instance=sound_tone)
 
+            print(pattern)
+
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                 return render(request,"sounds/widgets/soundtone.html",{
                     'source' : source ,
                     'bank_msb':bank_msb,
                     'bank_lsb':bank_lsb,
                     'program':program,
-                    'pattern':pattern,
+                    'pattern':pattern.value.upper(),
                     'patterns':MIDIPattern.__members__.items(),
                     'category':category,
                     'form':form

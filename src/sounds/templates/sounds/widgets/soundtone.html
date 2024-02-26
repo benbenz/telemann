@@ -5,9 +5,9 @@
       <option value="{{ptn.0}}" {% if ptn.0 == pattern %}selected{% endif %}>{{ptn.1}}</option>
       {% endfor %}
   </select>
-  Bank: <input class="midi_editable_input text-lg" value="{{ bank_msb }}" onChange="bank_msb=parseInt(this.value);submitForm()"  tabindex="{% tab_index %}"/>
-  {% if source.midi_bank_use_lsb %}:<input class="midi_editable_input text-lg" value="{{ bank_lsb }}" onChange="bank_lsb=parseInt(this.value);submitForm()" tabindex="{% tab_index %}"/>{% endif %}
-  Program: <input class="midi_editable_input text-lg" value="{{ program }}" onChange="program=parseInt(this.value);submitForm()" tabindex="{% tab_index %}"/>
+  Bank: <input id="bank_msb" class="midi_editable_input text-lg" value="{{ bank_msb }}" tabindex="{% tab_index %}"/>
+  {% if source.midi_bank_use_lsb %}:<input id="bank_lsb" class="midi_editable_input text-lg" value="{{ bank_lsb }}" tabindex="{% tab_index %}"/>{% endif %}
+  Program: <input id="program" class="midi_editable_input text-lg" value="{{ program }}" tabindex="{% tab_index %}"/>
 </h2>
 <div class="form">
   <form method="post" id="soundtone_form">{% csrf_token %}

@@ -1,4 +1,5 @@
 var thRender = null ;
+var thPromises = null ;
 // var audioObjectURL = null ;
 var blob_current = null ;
 var blob_next = null ;
@@ -141,22 +142,38 @@ function _clearThRender() {
         clearTimeout(thRender)
 }
 
-function fetchSound(timeout=200) {
+function resetBlobs() {
+    blob_current = null ;
+    blob_next = null ;
+    blob_prev = null ;    
+}
+
+function fetchSound(timeout=400) {
     _clearThRender()
     thRender = setTimeout( _fetchAll , timeout )
 }
 
 function _fetchAll(){
+    // mark existing promises as aborted
+    if(thPromises!==null) {
+        for(let i=0 ; i<thPromises.length ; i++) {
+            thPromises[i].aborted = true // soft abort
+        }
+        thPromises = null ;
+    }
     funcs = [
-        { func : _renderAudio} ,
-        { func : analyzeAudio} ,
-        { func : captureSoundtoneGUI} ,
-        { func : _renderAudio , args: [ +1 ]} ,
-        { func : _renderAudio , args: [ -1 ]} ,
+        { func : _renderAudio , aborted: false } ,
+        { func : analyzeAudio , aborted: false } ,
+        { func : captureSoundtoneGUI , aborted: false } ,
+        { func : _renderAudio , aborted: false , args: [ +1 ]} ,
+        { func : _renderAudio , aborted: false , args: [ -1 ]} ,
     ]
+    thPromises = funcs
     let current_promise = Promise.resolve()
     for(let i=0 ; i<funcs.length ; i++) {
         current_promise = current_promise.then( (result) => {
+            if(funcs[i].aborted === true)
+                return null ;
             if(typeof  funcs[i].args !== "undefined")
                 return funcs[i].func(...funcs[i].args)
             else
@@ -250,7 +267,11 @@ function onSoundToneLoaded(){
 
     document.querySelectorAll('.midi_editable_input').forEach( (ele) => {
         ele.addEventListener('click',autoSelectInput)
+        
     }) ;
+    document.getElementById('bank_msb').addEventListener('change', ()=> {bank_msb=parseInt(this.value);resetBlobs();submitForm()})
+    if(document.getElementById('bank_lsb')) document.getElementById('bank_lsb').addEventListener('change', ()=> {bank_lsb=parseInt(this.value);resetBlobs();submitForm()})
+    document.getElementById('program').addEventListener('change', ()=> {program=parseInt(this.value);resetBlobs();submitForm()})
 
     document.getElementById('soundtone_capture').src = "";
     hideSoundtoneCapture() ;
@@ -300,20 +321,6 @@ function onKeyPress(event) {
         break 
     }
 }
-
-function prefetchPrevAndNext() {
-    _renderAudio(+1)
-    .then( ()=> _renderAudio(-1) )
-}
-
-function onImageCaptureLoaded(event) {
-    //prefetchPrevAndNext()
-}
-
-function onImageCaptureError(event) {
-    //prefetchPrevAndNext()
-}
-
 // The party that performs a cancelable operation
 // gets the "signal" object
 // and sets the listener to trigger when controller.abort() is called

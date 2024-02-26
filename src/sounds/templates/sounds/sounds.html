@@ -51,9 +51,12 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", (event) => {
-    onSoundControlLoaded();
-    onSoundToneLoaded();
-})
+        let img_capture = document.getElementById('soundtone_capture')
+        img_capture.addEventListener('load',onImageCaptureLoaded) 
+        img_capture.addEventListener('error',onImageCaptureError) 
+        onSoundControlLoaded()
+        onSoundToneLoaded()
+    })
 </script>
 
 </div>

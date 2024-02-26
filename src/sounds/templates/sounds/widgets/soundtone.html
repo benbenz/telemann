@@ -1,6 +1,6 @@
 {% load static i18n crispy_forms_tags random sounds %}
 <h2 class="text-lg mb-2 text-center">
-  <select id="midiPattern" name="midiPattern" onchange="renderAudio()" tabindex="{% tab_index %}">
+  <select id="midiPattern" name="midiPattern" onchange="resetBlobs();fetchSound();" tabindex="{% tab_index %}">
       {% for ptn in patterns %}
       <option value="{{ptn.0}}" {% if ptn.0 == pattern %}selected{% endif %}>{{ptn.1}}</option>
       {% endfor %}

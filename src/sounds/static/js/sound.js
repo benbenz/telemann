@@ -1,24 +1,69 @@
 var thRender = null ;
-var AUDIO_URL ;
-var AUDIO_ANALYZE ;
+// var audioObjectURL = null ;
+var blob_current = null ;
+var blob_next = null ;
+var blob_prev = null ;
 
-function recomputeAudioUrl() {
+function recomputeAudioUrl(program_offset=0) {
     let pattern = document.getElementById("midiPattern")
-    AUDIO_URL = AUDIO_URL_BASE + `bm=${bank_msb}&bl=${bank_lsb}&p=${program}&ptn=${pattern.value}`
+    return AUDIO_URL_BASE + `bm=${bank_msb}&bl=${bank_lsb}&p=${program+program_offset}&ptn=${pattern.value}`
 }
 function recomputeAudioAnalyzeUrl() {
     let pattern = document.getElementById("midiPattern")
-    AUDIO_ANALYZE = AUDIO_ANALYZE_BASE + `bm=${bank_msb}&bl=${bank_lsb}&p=${program}&ptn=${pattern.value}`
+    return AUDIO_ANALYZE_BASE + `bm=${bank_msb}&bl=${bank_lsb}&p=${program}&ptn=${pattern.value}`
 }
 function recomputeAudioImageCaptureUrl() {
-    AUDIO_CAPTURE = AUDIO_CAPTURE_BASE + `bm=${bank_msb}&bl=${bank_lsb}&p=${program}`
+    return AUDIO_CAPTURE_BASE + `bm=${bank_msb}&bl=${bank_lsb}&p=${program}`
 }
-function _renderAudio() {
-    recomputeAudioUrl()
-    let audioSrc = document.getElementById("audioSource")
-    audioSrc.src = AUDIO_URL 
+function _renderAudio(program_offset=0) {
+    let audio_url = recomputeAudioUrl(program_offset)
+    //let audioSrc = document.getElementById("audioSource")
+    //audioSrc.src = audio_url 
+    //let audioEle = document.getElementById('soundtone_audio')
+    //audioEle.load()
+    // if(audioObjectURL!==null) {
+    //     URL.revokeObjectURL(audioObjectURL)
+    //     audioObjectURL = null ;
+    // }
+    return fetch(audio_url,{
+        method: 'GET' ,
+    }).then( (response) =>{
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.blob(); // Parse the response body as JSON
+    })
+    .then(blob => {
+        if(program_offset===0) {
+            blob_current = blob ;
+            _renderToAudioElement(blob) ;
+            // will be obsolete
+            // audioObjectURL = URL.createObjectURL(blob); // HAVE TO RESIVE THIS 
+            // audioEle.src = audioObjectURL
+            // audioEle.play();
+        } 
+        else if(program_offset===+1) {
+            blob_next = blob ;
+        }
+        else if(program_offset===-1) {
+            blob_prev = blob ;
+        }
+    })
+    .catch(error => {
+        // Handle any errors here
+        console.error('There was a problem with the fetch operation:', error);
+    });       
+}
+function _renderToAudioElement(blob) {
     let audioEle = document.getElementById('soundtone_audio')
-    audioEle.load()
+    const reader = new FileReader();
+    reader.onloadend = () => {
+    audioEle.src = reader.result;
+    // autoplay should do its job
+    // audioEle.play()
+    //     .catch(e => console.error('Error playing the audio:', e));
+    };
+    reader.readAsDataURL(blob);
 }
 function setSoundName(name){
     document.getElementById('sound_name').innerHTML = name;
@@ -26,8 +71,8 @@ function setSoundName(name){
 }
 
 function analyzeAudio() {
-    recomputeAudioAnalyzeUrl()    
-    fetch(AUDIO_ANALYZE,{
+    let audio_analyze_url = recomputeAudioAnalyzeUrl()    
+    return fetch(audio_analyze_url,{
         method: 'GET' ,
         headers: {
             "X-Requested-With": "XMLHttpRequest",
@@ -44,7 +89,7 @@ function analyzeAudio() {
         div.innerHTML = json.description_tech
         setSoundName(json.program_name)
         // now time to also get the UI of the instrument
-        captureAudioInterface()
+        //captureSoundtoneGUI()
     })
     .catch(error => {
         // Handle any errors here
@@ -52,13 +97,33 @@ function analyzeAudio() {
     });    
 }
 
-function captureAudioInterface() {
-    recomputeAudioImageCaptureUrl()    
-    document.getElementById('soundtone_capture').src = AUDIO_CAPTURE ;
+function captureSoundtoneGUI() {
+    let audio_capture_url = recomputeAudioImageCaptureUrl()    
+    //document.getElementById('soundtone_capture').src = audio_capture_url ;
+    return fetch(audio_capture_url,{
+        method: 'GET' ,
+    }).then( (response) =>{
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.blob(); // Parse the response body as JSON
+    })
+    .then(blob => {
+        let img_capture = document.getElementById('soundtone_capture')
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            img_capture.src = reader.result;
+        };
+        reader.readAsDataURL(blob);    
+    })
+    .catch(error => {
+        // Handle any errors here
+        console.error('There was a problem with the fetch operation:', error);
+    });          
 }
 
 function onAudioLoaded(event){
-    analyzeAudio();
+    //analyzeAudio();
 }
 
 function _clearThRender() {
@@ -66,19 +131,44 @@ function _clearThRender() {
         clearTimeout(thRender)
 }
 
-function renderAudio() {
+function fetchSound(timeout=200) {
     _clearThRender()
-    thRender = setTimeout( _renderAudio , 200 )
+    thRender = setTimeout( _fetchAll , timeout )
+}
+
+function _fetchAll(){
+    funcs = [
+        { func : _renderAudio} ,
+        { func : analyzeAudio} ,
+        { func : captureSoundtoneGUI} ,
+        { func : _renderAudio , args: [ +1 ]} ,
+        { func : _renderAudio , args: [ -1 ]} ,
+    ]
+    let current_promise = Promise.resolve()
+    for(let i=0 ; i<funcs.length ; i++) {
+        current_promise = current_promise.then( (result) => {
+            if(typeof  funcs[i].args !== "undefined")
+                return funcs[i].func(...funcs[i].args)
+            else
+                return funcs[i].func()
+        })
+    }
 }
 
 function nextSound() {
     _clearThRender()
+    blob_prev = blob_current ;
+    blob_current = blob_next ;
+    blob_next = null ;
     program++;
     submitForm();
 }
 
 function prevSound() {
     _clearThRender()
+    blob_next = blob_current ;
+    blob_current = blob_prev ;
+    blob_prev = null ;
     program--;
     submitForm();
 }
@@ -125,15 +215,13 @@ function submitForm( method='GET' ) {
         return response.text(); // Parse the response body as JSON
     })
     .then(data => {
-        // Handle the parsed data here
-        //console.log(data);
         let div = document.getElementById('soundtone_content')
         div.innerHTML = data 
         var scripts = div.getElementsByTagName('script');
         for (var ix = 0; ix < scripts.length; ix++) {
             eval(scripts[ix].text);
         }        
-        onSoundToneLoaded(true)
+        onSoundToneLoaded()
     })
     .catch(error => {
         // Handle any errors here
@@ -142,12 +230,11 @@ function submitForm( method='GET' ) {
 
 }
 
-function onSoundToneLoaded(with_render=false){
+function onSoundToneLoaded(){
     if(category!==null)
         selectCategory(category) ;
 
-    if(with_render===true)
-        renderAudio()
+    fetchSound()
 
     document.addEventListener("keydown",onKeyPress);
 
@@ -171,7 +258,7 @@ function toggleSoundtoneCapture() {
 }
 
 
-function onSoundControlLoaded(with_render=false) {
+function onSoundControlLoaded() {
         // let audio = document.querySelector('audio')
     // let source = document.getElementById('audioSource');
     // source.src = "{% url 'sounds:render_sound' srcid=source.id %}?b={{bank}}&p={{program}}&r={% random_uuid %}"
@@ -187,9 +274,6 @@ function onSoundControlLoaded(with_render=false) {
         ele.addEventListener('click',animateBeat)
     }) ;
     document.getElementById('soundtone_audio').addEventListener("loadeddata", onAudioLoaded );
-
-    if(with_render===true)
-        renderAudio()    
 
     document.getElementById('capture_view_icon').addEventListener("click", toggleSoundtoneCapture) ;
 
@@ -207,6 +291,18 @@ function onKeyPress(event) {
     }
 }
 
+function prefetchPrevAndNext() {
+    _renderAudio(+1)
+    .then( ()=> _renderAudio(-1) )
+}
+
+function onImageCaptureLoaded(event) {
+    //prefetchPrevAndNext()
+}
+
+function onImageCaptureError(event) {
+    //prefetchPrevAndNext()
+}
 
 // The party that performs a cancelable operation
 // gets the "signal" object

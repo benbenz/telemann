@@ -9,8 +9,10 @@
     <div class="soundcontrol prevsound"><i class="fa-solid fa-circle-left" tabindex="{% tab_index %}"></i></div>
     <div class="soundcontrol audio">
         <audio id="soundtone_audio" autoplay="true" loop controls tabindex="{% tab_index %}">
+            <!--
             <source id="audioSource" type="audio/wav" src="{% url 'sounds:render_sound' srcid=source.id %}?bm={{bank_msb}}&bl={{bank_lsb}}&p={{program}}&r={% random_uuid %}"></source>
+            -->
         </audio>
     </div>
-    <div class="soundcontrol reverse nextsound""><i class="fa-solid fa-circle-right" tabindex="{% tab_index %}"></i></div>
+    <div class="soundcontrol reverse nextsound"><i class="fa-solid fa-circle-right" tabindex="{% tab_index %}"></i></div>
 </div>

@@ -5,6 +5,9 @@ var blob_current = null ;
 var blob_next = null ;
 var blob_prev = null ;
 
+var fetched_capture = false ;
+var fetched_analysis = false ;
+
 function recomputeAudioUrl(program_offset=0) {
     let pattern = document.getElementById("midiPattern")
     return AUDIO_URL_BASE + `bm=${bank_msb}&bl=${bank_lsb}&p=${program+program_offset}&ptn=${pattern.value}`
@@ -82,6 +85,8 @@ function setSoundName(name){
 }
 
 function analyzeAudio() {
+    if(fetched_analysis===true)
+        return ;
     let audio_analyze_url = recomputeAudioAnalyzeUrl()    
     return fetch(audio_analyze_url,{
         method: 'GET' ,
@@ -109,6 +114,8 @@ function analyzeAudio() {
 }
 
 function captureSoundtoneGUI() {
+    if(fetched_capture===true)
+        return ;
     let audio_capture_url = recomputeAudioImageCaptureUrl()    
     //document.getElementById('soundtone_capture').src = audio_capture_url ;
     return fetch(audio_capture_url,{
@@ -148,16 +155,34 @@ function resetBlobs() {
     blob_prev = null ;    
 }
 
-function fetchSound(timeout=400,with_extras=true) {
+function fetchSound(timeout,with_extras) {
     _clearThRender()
     thRender = setTimeout( ()=>_fetchAll(with_extras) , timeout )
 }
 
-function _fetchAll(with_extras=true){
+function promiseState(p) {
+    const t = {};
+    return Promise.race([p, t])
+      .then(v => (v === t)? "pending" : "fulfilled", () => "rejected");
+}
+
+async function _fetchAll(with_extras=true){
     // mark existing promises as aborted
     if(thPromises!==null) {
         for(let i=0 ; i<thPromises.length ; i++) {
             thPromises[i].aborted = true // soft abort
+        }
+        let printed=false
+        for(let i=0 ; i<thPromises.length ; i++) {
+            let state = await promiseState(thPromises[i].promise)
+            while( state==="pending" ) {
+                if(!printed){
+                    console.log("Waiting for existing request to terminate")
+                    printed=true
+                }
+                await new Promise(r => setTimeout(r, 100));
+                state = await promiseState(thPromises[i].promise)
+            }
         }
         thPromises = null ;
     }
@@ -179,14 +204,19 @@ function _fetchAll(with_extras=true){
     let current_promise = Promise.resolve()
     for(let i=0 ; i<funcs.length ; i++) {
         current_promise = current_promise.then( (result) => {
-            if(funcs[i].aborted === true)
+            if(funcs[i].aborted === true) {
+                console.log('request has been aborted')
                 return null ;
-            if(typeof  funcs[i].args !== "undefined")
+            } if(typeof  funcs[i].args !== "undefined")
                 return funcs[i].func(...funcs[i].args)
             else
                 return funcs[i].func()
         })
+        funcs[i].promise = current_promise 
     }
+    // current_promise.then( ()=>{
+    //     thPromises = null ;
+    // })
 }
 
 function nextSound() {
@@ -218,6 +248,8 @@ function submitForm( method='GET' ) {
     // if(controller!==null) 
     //     controller.abort();
     // controller = new AbortController();
+    fetched_capture = false ;
+    fetched_analysis = false ;
     
     const {
         host, hostname, href, origin, pathname, port, protocol, search
@@ -268,7 +300,7 @@ function onSoundToneLoaded(){
     if(category!==null)
         selectCategory(category) ;
 
-    fetchSound(200,true)
+    fetchSound(400,true)
 
     document.addEventListener("keydown",onKeyPress);
 

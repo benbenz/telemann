@@ -6,7 +6,22 @@ var blob_next = null ;
 var blob_prev = null ;
 
 var fetched_capture = false ;
+var fetched_capture_program = null ;
 var fetched_analysis = false ;
+var fetched_analysis_program = null ;
+
+function get_current_program() {
+    return {
+        bank_msb : bank_msb ,
+        bank_lsb : bank_lsb ,
+        program  : program 
+    }
+}
+
+function compare_fetched_program(fetched_program) {
+    let cur_program=get_current_program()
+    return cur_program.bank_msb==fetched_program.bank_msb && cur_program.bank_lsb==fetched_program.bank_lsb && cur_program.program==fetched_program.program
+}
 
 function recomputeAudioUrl(program_offset=0) {
     let pattern = document.getElementById("midiPattern")
@@ -94,10 +109,16 @@ function setSoundName(name){
     document.getElementById('id_name').value = name ;
 }
 
+function _cancelAnalyzeSound() {
+    fetched_analysis = false ;
+    fetched_analysis_program = null ;
+}
+
 function analyzeSound() {
-    if(fetched_analysis===true)
+    if(fetched_analysis===true && compare_fetched_program(fetched_analysis_program))
         return Promise.resolve();
     let audio_analyze_url = recomputeAudioAnalyzeUrl()    
+    let analyzing_program = get_current_program()
     return fetch(audio_analyze_url,{
         method: 'GET' ,
         headers: {
@@ -118,6 +139,7 @@ function analyzeSound() {
         // now time to also get the UI of the instrument
         //captureSoundtoneGUI()
         fetched_analysis = true
+        fetched_analysis_program = analyzing_program
     })
     .catch(error => {
         // Handle any errors here
@@ -125,10 +147,16 @@ function analyzeSound() {
     });    
 }
 
+function _cancelCaptureSoundtoneGUI() {
+    fetched_capture=false ;
+    fetched_capture_program=null;
+}
+
 function captureSoundtoneGUI() {
-    if(fetched_capture===true)
+    if(fetched_capture===true && compare_fetched_program(fetched_capture_program))
         return Promise.resolve() ;
-    let audio_capture_url = recomputeAudioImageCaptureUrl()    
+    let audio_capture_url = recomputeAudioImageCaptureUrl()   
+    let fetching_program = get_current_program()
     //document.getElementById('soundtone_capture').src = audio_capture_url ;
     return fetch(audio_capture_url,{
         method: 'GET' ,
@@ -144,6 +172,7 @@ function captureSoundtoneGUI() {
         reader.onloadend = () => {
             img_capture.src = reader.result;
             fetched_capture = true 
+            fetched_capture_program = fetching_program 
         };
         reader.readAsDataURL(blob);    
     })
@@ -204,12 +233,17 @@ async function _fetchAll(with_extras=true){
                 state = await promiseState(thPromises[i].promise)
             }
         }
+        // make sure we also revert those 
+        // for(let i=0 ; i<thPromises.length ; i++) {
+        //     if(typeof thPromises[i].cancel !== "undefined")
+        //         thPromises[i].cancel()
+        // }
         thPromises = null ;
     }
     if(with_extras) {
         extras = [
-            { func : analyzeSound , aborted: false } ,
-            { func : captureSoundtoneGUI , aborted: false } ,
+            { func : analyzeSound , aborted: false , cancel : _cancelAnalyzeSound } ,
+            { func : captureSoundtoneGUI , aborted: false , cancel : _cancelCaptureSoundtoneGUI} ,
         ]
     } else {
         extras = []
@@ -271,8 +305,8 @@ function submitForm( method='GET' ) {
     // controller = new AbortController();
 
     /// RESET the values before fetch
-    fetched_capture = false ;
-    fetched_analysis = false ;
+    _cancelCaptureSoundtoneGUI() ;
+    _cancelAnalyzeSound() ;
     
     const {
         host, hostname, href, origin, pathname, port, protocol, search

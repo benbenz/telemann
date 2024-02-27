@@ -76,7 +76,8 @@ class SoundToneForm(forms.ModelForm):
         'description_tech',
         'tags',
         'rec_duration',
-        'rec_midi_range'
+        'rec_midi_range',
+        'parameters'
     ]        
 
     class Meta:

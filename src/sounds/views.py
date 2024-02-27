@@ -195,3 +195,17 @@ class SoundSourceUpdateView(UpdateView):
     form_class = SoundSourceForm
     template_name = 'sounds/source_form.html'  # You can use the same template as for creating
     success_url = reverse_lazy('sounds:sources')  # Redirect after a successful form update
+
+def soundsource_post(request,pk):
+    try:
+        sound_source = SoundSource.objects.get(pk=pk)
+        if request.method=='POST':
+            form = SoundSourceForm(request.POST,instance=sound_source)
+            sound_source = form.save()                
+        else:
+            form = SoundSourceForm(instance=sound_source)
+        return render(request,"sounds/source_form.html",{
+            'form' : form
+        })
+    except SoundSource.DoesNotExist:
+        return HttpResponse(status=404)

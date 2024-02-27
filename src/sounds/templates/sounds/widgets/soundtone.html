@@ -9,7 +9,7 @@
   {% if source.midi_bank_use_lsb %}:<input id="bank_lsb" class="midi_editable_input text-lg" value="{{ bank_lsb }}" tabindex="{% tab_index %}"/>{% endif %}
   Program: <input id="program" class="midi_editable_input text-lg" value="{{ program }}" tabindex="{% tab_index %}"/>
 </h2>
-<div class="form">
+<div class="form soundtone">
   <form method="post" id="soundtone_form">
     {% csrf_token %}
     {{ form|crispy }}

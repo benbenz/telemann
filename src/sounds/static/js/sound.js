@@ -94,7 +94,7 @@ function setSoundName(name){
     document.getElementById('id_name').value = name ;
 }
 
-function analyzeAudio() {
+function analyzeSound() {
     if(fetched_analysis===true)
         return Promise.resolve();
     let audio_analyze_url = recomputeAudioAnalyzeUrl()    
@@ -114,6 +114,7 @@ function analyzeAudio() {
         let div = document.getElementById('id_description_tech')
         div.innerHTML = json.description_tech
         setSoundName(json.program_name)
+        document.querySelector("#div_id_parameters textarea").innerHTML = JSON.stringify( json.parameters ) ;
         // now time to also get the UI of the instrument
         //captureSoundtoneGUI()
         fetched_analysis = true
@@ -153,7 +154,7 @@ function captureSoundtoneGUI() {
 }
 
 function onAudioLoaded(event){
-    //analyzeAudio();
+    //analyzeSound();
 }
 
 function _clearThRender() {
@@ -207,7 +208,7 @@ async function _fetchAll(with_extras=true){
     }
     if(with_extras) {
         extras = [
-            { func : analyzeAudio , aborted: false } ,
+            { func : analyzeSound , aborted: false } ,
             { func : captureSoundtoneGUI , aborted: false } ,
         ]
     } else {
@@ -268,6 +269,8 @@ function submitForm( method='GET' ) {
     // if(controller!==null) 
     //     controller.abort();
     // controller = new AbortController();
+
+    /// RESET the values before fetch
     fetched_capture = false ;
     fetched_analysis = false ;
     

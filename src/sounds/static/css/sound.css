@@ -170,7 +170,7 @@ audio {
 }
 
 
-#div_id_name , #div_id_parameters {
+.soundtone #div_id_name , .soundtone #div_id_parameters {
   display: none ;
 }
 

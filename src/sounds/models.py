@@ -227,9 +227,10 @@ class SoundTone(models.Model):
 
     @staticmethod
     def normalize_parameters(instance):
-        if instance.parameters is None:
-            return
-        instance.parameters = json_normalize(json.dumps(instance.parameters))
+        pass
+        # if instance.parameters is None:
+        #     return
+        # instance.parameters = json_normalize(json.dumps(instance.parameters))
 
     @staticmethod
     def pre_save(sender, instance, **kwargs):
@@ -330,9 +331,10 @@ class SoundBite(models.Model):
 
     @staticmethod
     def normalize_parameters(instance):
-        if instance.parameters is None:
-            return
-        instance.parameters = json_normalize(instance.parameters)
+        pass
+        # if instance.parameters is None:
+        #     return
+        # instance.parameters = json_normalize(instance.parameters)
 
     @staticmethod
     def pre_save(sender, instance, **kwargs):

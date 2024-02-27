@@ -229,12 +229,24 @@ def get_sound_analysis(source:SoundSource,
     instrExtension : InstrumentExtension = instrument_info["extension"]
 
     sound_key = get_midi_program_key(bank_msb,bank_lsb,program)
+
+    # There is an issue with SynthMaster2 VST
+    # the program name is lagging by 1 request
+    # when we have the audio analysis on (with reset), it worked
+    # but we are now skipping the audio analysis and this causes the preset to be one-too-late 
+    # @TODO: pedalboard/JUCE needs to be investigated to know what is going on
+    # @NOTE: Diva.vst is okay
+    force_reset(source,
+                instrument,
+                bank_msb=bank_msb,
+                bank_lsb=bank_lsb,
+                program=program)
+        
     
     # that should always be here
     if sound_key in instrument_info['programs_info']:
         sound_info = instrument_info['programs_info'][sound_key]
     else:
-        force_reset(source,instrument)
         instrument_info['programs_info'][sound_key] = {
             'parameters' : convert_parameters(instrument) 
         }
@@ -265,19 +277,6 @@ def get_sound_analysis(source:SoundSource,
         
     #     instrExtension.arp_set(instrument,arp_old_value)    
     #     analyze_audio(source,audio_4_analysis,sound_info)
-        
-    # There is an issue with SynthMaster2 VST
-    # the program name is lagging by 1 request
-    # when we have the audio analysis on (with reset), it worked
-    # but we are now skipping the audio analysis and this causes the preset to be one-too-late 
-    # @TODO: pedalboard/JUCE needs to be investigated to know what is going on
-    # @NOTE: Diva.vst is okay
-        
-    force_reset(source,
-                instrument,
-                bank_msb=bank_msb,
-                bank_lsb=bank_lsb,
-                program=program)
         
     if instrExtension:
         sound_info['description_tech'] = instrExtension.generate_text(sound_info)

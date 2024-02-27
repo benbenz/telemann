@@ -1,16 +1,8 @@
 import mido
 from mido import Message
-from enum import StrEnum , auto
 from ..models import SoundSource
 import math
-
-class MIDIInterface(StrEnum):
-    NONE = "---------"
-    INTERNAL = "Internal MIDI"
-
-class MIDIPattern(StrEnum):
-    SUSTAINED_MIDDLE_C = "sustained middle C"
-    ARPEGGIATED_1 = "arpeggiated 1"
+from .defs import MIDIInterface , MIDIPattern , MIDIRange
 
 def get_midi_output_ports():
     devices = mido.get_output_names()
@@ -51,12 +43,25 @@ def get_midi_pattern(source:SoundSource,pattern:MIDIPattern,preset_offset=0.5):
 
     if pattern == MIDIPattern.SUSTAINED_MIDDLE_C:
         pass # default pattern
+    elif pattern == MIDIPattern.SUSTAINED_LOW_C:
+        notes = [Message("note_on",
+                        velocity=velocity,
+                        note=36,
+                        time=preset_offset),
+            Message("note_off", velocity=velocity,note=60, time=length+preset_offset)]    
+    elif pattern == MIDIPattern.SUSTAINED_HIGH_C:
+        notes = [Message("note_on",
+                        velocity=velocity,
+                        note=84,
+                        time=preset_offset),
+            Message("note_off", velocity=velocity,note=60, time=length+preset_offset)]    
     elif pattern == MIDIPattern.ARPEGGIATED_1:
         length = 20
         num_notes = 20 
         notes = []
         time_inc = length / num_notes
-        notes_values = [ math.floor( (127-0)/length*i) for i in range(num_notes)]
+        note_range = [0,127]
+        notes_values = [ note_range[0]+ math.floor( (note_range[1]-note_range[0])/num_notes*i) for i in range(num_notes)]
         for i in range(num_notes):
             notes.extend([ Message("note_on",
                             velocity=velocity,

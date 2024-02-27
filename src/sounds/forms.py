@@ -74,7 +74,8 @@ class SoundToneForm(forms.ModelForm):
         'description',
         'description_tech',
         'tags',
-        'recommended_rec'
+        'rec_duration',
+        'rec_midi_range'
     ]        
 
     class Meta:
@@ -86,6 +87,10 @@ class SoundToneForm(forms.ModelForm):
 
         if self.instance:
             self.fields['category'].choices = self.instance.get_compatible_categories()
+
+        # for visible in self.visible_fields():
+        #     if visible.name in ['rec_duration','rec_midi_range']:
+        #         visible.field.widget.attrs['class'] = 'half_size'            
         
         # Set initial value for file_path field if instance is provided and has a file_path attribute
         # if self.instance and hasattr(self.instance, 'midi_bank'):

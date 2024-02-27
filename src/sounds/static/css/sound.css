@@ -15,6 +15,28 @@ form div small {
   color: var(--colour-1);
 }
 
+#div_id_rec_duration , #div_id_rec_midi_range {
+  width: 45%;
+  float: left;
+}
+#div_id_rec_duration {
+  margin-right: 5%;
+}
+#div_id_rec_midi_range {
+  margin-left: 5%;
+}
+/*
+#div_id_rec_duration input {
+  width: 90%;
+}
+#div_id_rec_midi_range select {
+  width: 90% ;
+}
+*/
+#div_id_rec_midi_range:after {
+  clear:left;
+}
+
 .source-infos { display: flex; flex-direction: row; padding: 1em; border-radius: 1em; max-width: 70%;
   margin: auto;
 }

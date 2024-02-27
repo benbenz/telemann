@@ -878,6 +878,8 @@ var Tokenfield = function (_EventEmitter) {
             this._minimizeInput()._renderItems().focus()._refreshInput()._refreshSuggestions()._deselectItems();
             // preventDefault only if we just created an item ...
             e.preventDefault();
+          } else {
+            this._minimizeInput();
           }
           break;
         case 'select':

@@ -9,7 +9,7 @@
     display: block;
     width: 100%;
     min-height: 34px;
-    padding: 6px 12px 0;
+    padding: 6px 12px 0 4px;
     line-height: 1.42857;
     color: #555555;
     background-color: #fff;
@@ -42,8 +42,12 @@
     .tokenfield.tokenfield-mode-tokens[disabled],
     fieldset[disabled] .tokenfield.tokenfield-mode-tokens {
       cursor: not-allowed; }
-    .tokenfield.tokenfield-mode-tokens .focused {
-      box-shadow: 0 0 0 1px #337ab7 inset; }
+    .tokenfield.tokenfield-mode-tokens.focused {
+      /*box-shadow: 0 0 0 1px #337ab7 inset;*/
+      border-color: #2563eb;
+      border-width: 2px;
+
+     }
     .tokenfield.tokenfield-mode-tokens .selected {
       background: rgba(0, 0, 0, 0.1); }
   .tokenfield .tokenfield-set > ul {
@@ -76,6 +80,7 @@
     box-shadow: none;
     float: left;
     height: 1.5em;
+    padding-left: 4px;
   }
   .tokenfield .tokenfield-suggest {
     position: absolute;

@@ -219,6 +219,10 @@ button.form-button  , [type="button"].form-button {
   color: rgb(59, 32, 3);
 }
 
-.modal-splash  {
+.modal-splash.shadow  {
   background-color: #f0f3fc; 
-} 
+  box-shadow: rgb(38, 57, 77) 0px 15px 20px -7px;
+}
+#default-modal {
+}
+ 

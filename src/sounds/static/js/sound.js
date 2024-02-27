@@ -356,6 +356,28 @@ function onFormSubmit(event) {
     return false ;
 }
 
+function jumpProgram(event) {
+    program=parseInt(document.getElementById('program').value);
+    resetBlobs();
+    submitForm();
+    event.preventDefault()
+    event.stopPropagation();
+}
+function jumpBankMSB(event) {
+    bank_msb=parseInt(document.getElementById('bank_msb').value);
+    resetBlobs();
+    submitForm();
+    event.preventDefault()
+    event.stopPropagation();
+}
+function jumpBankLSB(event) {
+    bank_lsb=parseInt(document.getElementById('bank_lsb').value);
+    resetBlobs();
+    submitForm();
+    event.preventDefault()
+    event.stopPropagation();
+}
+
 function onSoundToneLoaded(){
     if(category!==null)
         selectCategory(category) ;
@@ -368,9 +390,9 @@ function onSoundToneLoaded(){
         ele.addEventListener('click',autoSelectInput)
         
     }) ;
-    document.getElementById('bank_msb').addEventListener('change', ()=> {bank_msb=parseInt(document.getElementById('bank_msb').value);resetBlobs();submitForm()})
-    if(document.getElementById('bank_lsb')) document.getElementById('bank_lsb').addEventListener('change', ()=> {bank_lsb=parseInt(document.getElementById('bank_lsb').value);resetBlobs();submitForm()})
-    document.getElementById('program').addEventListener('change', ()=> {program=parseInt(document.getElementById('program').value);resetBlobs();submitForm()})
+    document.getElementById('bank_msb').addEventListener('change', jumpBankMSB)
+    if(document.getElementById('bank_lsb')) document.getElementById('bank_lsb').addEventListener('change',jumpBankLSB)
+    document.getElementById('program').addEventListener('change', jumpProgram )
 
     document.getElementById('soundtone_capture').src = "";
     hideSoundtoneCapture() ;
@@ -489,7 +511,8 @@ function onKeyPress(event) {
             document.querySelector('.prevsound').dispatchEvent(new CustomEvent('click',{}))
         break 
         case 'Enter':
-            submitForm(method='POST')
+            if(!event.target.classList.contains('midi_editable_input'))
+                submitForm(method='POST')
         break;
     }
 }

@@ -876,8 +876,9 @@ var Tokenfield = function (_EventEmitter) {
 
           if (item) {
             this._minimizeInput()._renderItems().focus()._refreshInput()._refreshSuggestions()._deselectItems();
+            // preventDefault only if we just created an item ...
+            e.preventDefault();
           }
-          e.preventDefault();
           break;
         case 'select':
           if (!val.length && (e.ctrlKey || e.metaKey)) {

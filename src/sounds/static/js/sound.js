@@ -377,6 +377,8 @@ function onSoundToneLoaded(){
 
     document.querySelector('#soundtone_form').addEventListener('submit',onFormSubmit)
 
+    document.querySelector('#div_id_description textarea').focus()
+
     modalOpen(false);
     addTokenfieldToTagsInput()
 }
@@ -451,7 +453,7 @@ function selectTag(tagId,tagName) {
 
 function serializeTokenfield(tokenfield) {
     var items = tokenfield.getItems();
-    console.log(items);
+    //console.log(items);
     var prop;
     var data=[];
     // items.forEach(function(item) {
@@ -486,6 +488,9 @@ function onKeyPress(event) {
         case 'ArrowLeft':
             document.querySelector('.prevsound').dispatchEvent(new CustomEvent('click',{}))
         break 
+        case 'Enter':
+            submitForm(method='POST')
+        break;
     }
 }
 // The party that performs a cancelable operation

@@ -112,8 +112,11 @@ class SoundToneForm(forms.ModelForm):
         # self.fields['midi_program'].choices = choice_midi_program()      
 
     def save(self, commit=True):
-        instance = super(SoundToneForm, self).save(commit=False)
-        #instance.recording = self.cleaned_data.get('recording')
-        if commit:
-            instance.save()
-        return instance
+        try:
+            instance = super(SoundToneForm, self).save(commit=False)
+            #instance.recording = self.cleaned_data.get('recording')
+            if commit:
+                instance.save()
+            return instance
+        except ValueError as e:
+            print(e)

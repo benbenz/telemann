@@ -55,7 +55,7 @@ def get_midi_pattern(source:SoundSource,pattern:MIDIPattern,preset_offset=0.5):
                         note=84,
                         time=preset_offset),
             Message("note_off", velocity=velocity,note=60, time=length+preset_offset)]    
-    elif pattern == MIDIPattern.ARPEGGIATED_1:
+    elif pattern == MIDIPattern.ARPEGGIATED:
         length = 20
         num_notes = 20 
         notes = []
@@ -67,7 +67,35 @@ def get_midi_pattern(source:SoundSource,pattern:MIDIPattern,preset_offset=0.5):
                             velocity=velocity,
                             note=notes_values[i],
                             time=time_inc*i+preset_offset),
-                        Message("note_off", velocity=velocity,note=notes_values[i], time=time_inc*i+1+preset_offset)])         
+                        Message("note_off", velocity=velocity,note=notes_values[i], time=time_inc*i+1+preset_offset)])     
+
+    elif pattern == MIDIPattern.ARPEGGIATED_FAST:
+        length = 20
+        num_notes = 60
+        notes = []
+        time_inc = length / num_notes
+        note_range = [0,127]
+        notes_values = [ note_range[0]+ math.floor( (note_range[1]-note_range[0])/num_notes*i) for i in range(num_notes)]
+        for i in range(num_notes):
+            notes.extend([ Message("note_on",
+                            velocity=velocity,
+                            note=notes_values[i],
+                            time=time_inc*i+preset_offset),
+                        Message("note_off", velocity=velocity,note=notes_values[i], time=time_inc*i+1+preset_offset)])    
+
+    elif pattern == MIDIPattern.ARPEGGIATED_SUPER_FAST:
+        length = 20
+        num_notes = 100
+        notes = []
+        time_inc = length / num_notes
+        note_range = [0,127]
+        notes_values = [ note_range[0]+ math.floor( (note_range[1]-note_range[0])/num_notes*i) for i in range(num_notes)]
+        for i in range(num_notes):
+            notes.extend([ Message("note_on",
+                            velocity=velocity,
+                            note=notes_values[i],
+                            time=time_inc*i+preset_offset),
+                        Message("note_off", velocity=velocity,note=notes_values[i], time=time_inc*i+1+preset_offset)])                                 
 
     return notes , length
 

@@ -8,7 +8,9 @@ class MIDIPattern(StrEnum):
     SUSTAINED_MIDDLE_C = "sustained middle C"
     SUSTAINED_LOW_C = "sustained low C"
     SUSTAINED_HIGH_C = "sustained high C"
-    ARPEGGIATED_1 = "arpeggiated 1"
+    ARPEGGIATED = "arpeggiated"
+    ARPEGGIATED_FAST = "arpeggiated fast"
+    ARPEGGIATED_SUPER_FAST = "arpeggiated super fast"
 
 class MIDIRange(Enum):
     FULL = 1 , "Full"

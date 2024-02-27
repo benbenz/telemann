@@ -59,16 +59,16 @@ form div small {
 .soundpanel.left .soundpanel-assist {
   flex: 1
 }
-ul.categories li {
+ul.categories li , ul.tags li {
   padding: .1em ;
-  font-size: 17px;
+  font-size: 19px;
 }
-ul.categories li a {
+ul.categories li a , ul.tags li a {
   cursor: pointer;
   padding: .15em .3em;
   border-radius: .2em;
 }
-ul.categories li a:hover {
+ul.categories li a:hover , ul.tags li a:hover  {
   background-color: #444;
   color: white;
 }
@@ -164,6 +164,11 @@ audio {
 #id_tags {
   height: 4em;
 }
+#div_id_tags .tokenfield {
+  min-height: 5em;
+  height: fit-content;
+}
+
 
 #div_id_name , #div_id_parameters {
   display: none ;

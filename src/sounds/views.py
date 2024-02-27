@@ -12,6 +12,8 @@ from .core.audio import convert_to_wav , convert_to_pcm , render_audio , get_sou
 from .core.midi import MIDIPattern , parse_new_program_value
 import io
 import math
+from tags.models import Tag
+from tags.views import get_most_popular_tags
 
 def sounds(request,srcid=None):
     if srcid is None:
@@ -31,7 +33,7 @@ def sounds(request,srcid=None):
 
         if request.method == 'GET':
             try:
-                sound_tone = SoundTone.objects.get(source=source,midi_program=program,midi_bank_msb=bank_msb,midi_bank_lsb=bank_lsb)
+                sound_tone = SoundTone.objects.prefetch_related('tags').get(source=source,midi_program=program,midi_bank_msb=bank_msb,midi_bank_lsb=bank_lsb)
                 category = sound_tone.category
                 form = SoundToneForm(instance=sound_tone)
             except SoundTone.DoesNotExist:
@@ -59,16 +61,27 @@ def sounds(request,srcid=None):
                     'patterns':MIDIPattern.__members__.items(),
                     'category':category,
                     'form':form,
+                    'tags':get_most_popular_tags()
                 })
         elif request.method == 'POST':
             try:
                 sound_tone = SoundTone.objects.get(source=source,midi_program=program,midi_bank_msb=bank_msb,midi_bank_lsb=bank_lsb)
                 form = SoundToneForm(request.POST,instance=sound_tone)
-                form.save()
+                sound_tone = form.save()                
             except SoundTone.DoesNotExist:
                 sound_tone = SoundTone.objects.create(source=source,midi_program=program,midi_bank_msb=bank_msb,midi_bank_lsb=bank_lsb)
                 form = SoundToneForm(request.POST,instance=sound_tone)
-                form.save()
+                sound_tone = form.save()
+                
+            resp = json.loads(form.cleaned_data['tags'])
+            sound_tone.tags.clear()
+            if 'items' in resp:
+                for item in resp['items']:
+                    tagobj , created = Tag.objects.get_or_create(tag=item['name'])
+                    if not sound_tone.tags.contains(tagobj):
+                        sound_tone.tags.add(tagobj)
+            sound_tone.save()
+
             return JsonResponse({"response":"OK","error":None})     
            
     

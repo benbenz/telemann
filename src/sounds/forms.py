@@ -3,6 +3,7 @@ from .models import SoundSource , SoundTone , SoundBite
 from .core.audio import get_audio_input_interfaces
 from .core.midi import get_midi_output_ports , get_midi_input_ports
 from .models import choice_midi_bank , choice_midi_program
+import json
 
 class SoundSourceForm(forms.ModelForm):
     # we need to handle the file path separately so that django doesnt automatically check that it exists...
@@ -64,7 +65,7 @@ class SoundToneForm(forms.ModelForm):
     #recording = forms.CharField(max_length=512, required=False, help_text="File path for recorded sources")
     # midi_bank     = forms.IntegerField(disabled=True,help_text="The MIDI bank of the sound")
     # midi_program  = forms.IntegerField(disabled=True,help_text="The MIDI program of the sound")
-    tags = forms.CharField(max_length=128,widget=forms.Textarea,help_text="Tags associated with the sound")
+    tags = forms.CharField(max_length=128,widget=forms.Textarea,required=False,help_text="Tags associated with the sound")
 
     field_order = [
         # 'midi_bank',
@@ -87,6 +88,14 @@ class SoundToneForm(forms.ModelForm):
 
         if self.instance:
             self.fields['category'].choices = self.instance.get_compatible_categories()
+        try:
+            if self.instance and hasattr(self.instance, 'tags'):
+                tagsvalues = []
+                for tag in self.instance.tags.all():
+                    tagsvalues.append({"id":tag.id,"name":tag.tag})
+                self.fields['tags'].initial = json.dumps(tagsvalues)
+        except:
+            self.fields['tags'].initial = "[]"
 
         # for visible in self.visible_fields():
         #     if visible.name in ['rec_duration','rec_midi_range']:

@@ -1,0 +1,6 @@
+{% load static i18n sounds %}
+<ul class="tags">
+    {% for tag in tags %}
+        <li><a tabindex="{% tab_index %}" onclick="selectTag({{tag.id}},'{{tag.tag}}')">{{ tag.tag }}</a></li>
+    {% endfor %}
+</ul>

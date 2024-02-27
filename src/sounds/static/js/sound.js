@@ -278,6 +278,9 @@ function submitForm( method='GET' ) {
     let data = new FormData(form);
     let pattern = document.getElementById("midiPattern")
 
+    let tagsData = serializeTokenfield(tokenfieldTags)
+    data.append('tags',JSON.stringify(tagsData))
+
     let data_get = { 
         'p' : program ,
         'bm' : bank_msb ,
@@ -288,32 +291,66 @@ function submitForm( method='GET' ) {
     let queryString = new URLSearchParams(data_get).toString();
     let form_url = pathname + '?' + queryString ;
 
-    fetch(form_url,{
-        method: method ,
-        headers: {
-            "X-Requested-With": "XMLHttpRequest",
-        },
-        // signal: controller.signal
-    }).then( (response) =>{
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.text(); // Parse the response body as JSON
-    })
-    .then(data => {
-        let div = document.getElementById('soundtone_content')
-        div.innerHTML = data 
-        var scripts = div.getElementsByTagName('script');
-        for (var ix = 0; ix < scripts.length; ix++) {
-            eval(scripts[ix].text);
-        }        
-        onSoundToneLoaded()
-    })
-    .catch(error => {
-        // Handle any errors here
-        console.error('There was a problem with the fetch operation:', error);
-    });
+    if(method==='GET') {
+        return fetch(form_url,{
+            method: method ,
+            headers: {
+                "X-Requested-With": "XMLHttpRequest",
+            },
+            // signal: controller.signal
+        }).then( (response) =>{
+            if (!response.ok) {
+            throw new Error('Network response was not ok');
+            }
+            return response.text(); // Parse the response body as JSON
+        })
+        .then(data => {
+            let div = document.getElementById('soundtone_content')
+            div.innerHTML = data 
+            var scripts = div.getElementsByTagName('script');
+            for (var ix = 0; ix < scripts.length; ix++) {
+                eval(scripts[ix].text);
+            }        
+            onSoundToneLoaded()
+        })
+        .catch(error => {
+            // Handle any errors here
+            console.error('There was a problem with the fetch operation:', error);
+        });
+    } else {
+        return fetch(form_url,{
+            method: method ,
+            body: data ,
+            headers: {
+                "X-Requested-With": "XMLHttpRequest",
+            },
+            // signal: controller.signal
+        }).then( (response) =>{
+            if (!response.ok) {
+            throw new Error('Network response was not ok');
+            }
+            return response.json(); // Parse the response body as JSON
+        })
+        .then(json => {
+            if(json.error === null)
+                nextSound()
+            else
+                console.error('There was a problem with the fetch operation:', json.error);
+        })
+        .catch(error => {
+            // Handle any errors here
+            console.error('There was a problem with the fetch operation:', error);
+        });        
+    }
 
+}
+
+function onFormSubmit(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    submitForm(method='POST')
+    reloadTags();
+    return false ;
 }
 
 function onSoundToneLoaded(){
@@ -328,14 +365,17 @@ function onSoundToneLoaded(){
         ele.addEventListener('click',autoSelectInput)
         
     }) ;
-    document.getElementById('bank_msb').addEventListener('change', ()=> {bank_msb=parseInt(this.value);resetBlobs();submitForm()})
-    if(document.getElementById('bank_lsb')) document.getElementById('bank_lsb').addEventListener('change', ()=> {bank_lsb=parseInt(this.value);resetBlobs();submitForm()})
-    document.getElementById('program').addEventListener('change', ()=> {program=parseInt(this.value);resetBlobs();submitForm()})
+    document.getElementById('bank_msb').addEventListener('change', ()=> {bank_msb=parseInt(document.getElementById('bank_msb').value);resetBlobs();submitForm()})
+    if(document.getElementById('bank_lsb')) document.getElementById('bank_lsb').addEventListener('change', ()=> {bank_lsb=parseInt(document.getElementById('bank_lsb').value);resetBlobs();submitForm()})
+    document.getElementById('program').addEventListener('change', ()=> {program=parseInt(document.getElementById('program').value);resetBlobs();submitForm()})
 
     document.getElementById('soundtone_capture').src = "";
     hideSoundtoneCapture() ;
 
-    //modalOpen(false);
+    document.querySelector('#soundtone_form').addEventListener('submit',onFormSubmit)
+
+    modalOpen(false);
+    addTokenfieldToTagsInput()
 }
 
 function hideSoundtoneCapture() {
@@ -369,7 +409,71 @@ function onSoundControlLoaded() {
     document.getElementById('capture_view_icon').addEventListener("click", toggleSoundtoneCapture) ;
 
     document.getElementById('soundtone_interface').addEventListener("click", hideSoundtoneCapture) ;
-} 
+}
+
+var tokenfieldTags 
+
+function addTokenfieldToTagsInput() {
+    tokenfieldTags = new Tokenfield({
+        el: document.querySelector('#div_id_tags textarea'), // Attach Tokenfield to the input element with class "text-input"
+//        items: [{id: 1, name: 'JavaScript'}, {id: 2, name:'HTML'}, {id: 3, name: 'CSS'}, {id: 4, name: 'Angular'}, {id: 5, name: 'React'}, {id: 6, name: 'Vue'}],
+        addItemOnBlur: true,
+        addItemsOnPaste: true,
+        minChars: 0,
+        maxSuggestWindow: 5,
+        singleInput: true,
+        singleInputValue: 'name',
+        remote: {
+            url: TAG_SEARCH_URL
+        }
+    });
+
+    let tagsEle = document.getElementById('soundtone_form').tags
+    if(tagsEle.innerText) {
+        let tagsArr = JSON.parse(tagsEle.innerText )
+        let itemsArr = []
+        for(let i=0 ; i<tagsArr.length ; i++)
+            itemsArr.push({name:tagsArr[i].name,id:tagsArr[i].id})
+        tokenfieldTags.addItems( itemsArr  )
+    }
+}
+
+function selectTag(tagId,tagName) {
+    let item = {
+        id:tagId ,
+        name:tagName
+    }
+    tokenfieldTags.addItems(item)
+}
+
+function serializeTokenfield(tokenfield) {
+    var items = tokenfield.getItems();
+    console.log(items);
+    var prop;
+    var data=[];
+    // items.forEach(function(item) {
+    //     data.push(item.name)
+    // })
+    var data = {};
+    items.forEach(function(item) {
+      if (item.isNew) {
+        prop = 'items';//tokenfield._options.newItemName;
+      } else {
+        prop = 'items';//tokenfield._options.itemName;
+      }
+      if (typeof data[prop] === 'undefined') {
+        data[prop] = [];
+      }
+      if (item.isNew) {
+        //data[prop].push(item.name);
+        data[prop].push({name:item.name});
+      } else {
+        //data[prop].push(item[tokenfield._options.itemValue]);
+        data[prop].push({id:item[tokenfield._options.itemValue],name:item.name});
+      }
+    });
+    return data;
+  }    
 
 function onKeyPress(event) {
     switch(event.key) {
@@ -399,4 +503,27 @@ function animateBeat(event){
 
 function autoSelectInput(event){
     event.target.select()
+}
+
+
+function reloadTags() {
+    return fetch(TAGS_URL,{
+        method: 'GET' ,
+        headers: {
+            "X-Requested-With": "XMLHttpRequest",
+        },
+    }).then( (response) =>{
+        if (!response.ok) {
+        throw new Error('Network response was not ok');
+        }
+        return response.text(); // Parse the response body as TEXT
+    })
+    .then(data => {
+        let div = document.getElementById('tags')
+        div.innerHTML = data 
+    })
+    .catch(error => {
+        // Handle any errors here
+        console.error('There was a problem with the fetch operation:', error);
+    });    
 }

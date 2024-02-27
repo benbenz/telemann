@@ -4,6 +4,7 @@
 
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/sound.css' %}">
+<link rel="stylesheet" href="{% static 'css/third_party/tokenfield.css' %}">
 {% endblock %}
 
 {% block javascript_start %}
@@ -12,6 +13,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/speech-commands@0.5.4/dist/speech-commands.min.js"></script>
 {% endif %}
+<script src="{% static 'js/third_party/tokenfield.web.js' %}"></script>
 
 {% endblock %}
 
@@ -36,6 +38,9 @@
     </div>
     <div class="soundpanel-assist">
         <h2 class="text-lg font-bold mb-2">Tags</h2>
+        <div id="tags">
+        {% include 'tags/widgets/tags.html' %}
+        </div>
     </div>
 </div>
 
@@ -50,6 +55,7 @@
 </div>
 
 <script>
+    var TAGS_URL = "{% url 'tags:widget' %}" ;
     document.addEventListener("DOMContentLoaded", (event) => {
         let img_capture = document.getElementById('soundtone_capture')
         onSoundControlLoaded()

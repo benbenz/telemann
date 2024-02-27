@@ -43,8 +43,8 @@ class InstrumentExtension(abc.ABC):
     This should add the field analysis in sound_info and add the following sections:
 
     oscs: [
-            { shapes : [ 'square'|'triangle'|'sine'|'pwm'|'saw'|'sawup'|'sawdown'|'sample'|'additive'|'digital'|'other', ...] , mix: 0.0...1.0 } ,
-            { shapes : ['square'|'triangle'|'sine'|'pwm'|'saw'|'sawup'|'sawdown'|'sample'|'additive'|'digital'|'other', ...] , mix: 0.0...1.0 } ,
+            { shapes : [ 'square'|'triangle'|'sine'|'pwm'|'saw'|'sawup'|'sawdown'|'sample'|'additive'|'digital'|'other', ...] , mix: 0.0...1.0 , sub: true|false, pwm: true|false } ,
+            { shapes : ['square'|'triangle'|'sine'|'pwm'|'saw'|'sawup'|'sawdown'|'sample'|'additive'|'digital'|'other', ...] , mix: 0.0...1.0 , sub: true|false, pwm: true|false } ,
             ...
     ] ,
     filters : [
@@ -53,15 +53,20 @@ class InstrumentExtension(abc.ABC):
         ...        
     ] ,
     envs: { 
-        amp: { attack: 'fast'|'medium'|'slow' , release: 'fast'|'medium'|'slow' , sustain: 'low'|'medium'|'high' , decay:'slow'|'medium'|'fast'} ,
-        filter: { attack: 'fast'|'medium'|'slow' , release: 'fast'|'medium'|'slow' , sustain: 'low'|'medium'|'high', decay:'slow'|'medium'|'fast'} ,
+        { attack: 'fast'|'medium'|'slow' , release: 'fast'|'medium'|'slow' , sustain: 'low'|'medium'|'high' , decay:'slow'|'medium'|'fast'} ,
+        { attack: 'fast'|'medium'|'slow' , release: 'fast'|'medium'|'slow' , sustain: 'low'|'medium'|'high' , decay:'slow'|'medium'|'fast'} ,
+        ...
     } ,
     modulation: {
         cross_modulation: true|false,
-        ring_modulation: true|false,
-        pwm: true|false,
+        ring_modulation: 0.0....1.0,
         sync: true|false,
-        pitch_env: 'strong'|'light'
+        pitch_env: 0.0...1.0
+        pitch_lfo: 0.0...1.0
+        filter_env: 0.0...1.0
+        filter_lfo: 0.0...1.0
+        amp_env: 0.0...1.0
+        amp_lfo: 0.0...1.0
     }
     """
     @abc.abstractmethod

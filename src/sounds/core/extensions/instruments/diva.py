@@ -46,7 +46,7 @@ class DivaExtension(InstrumentExtension):
 
     def _get_oscs(self,params:dict):
         oscs = []
-        model = params['model']['value'] #instrument.parameters['model'].string_value
+        model = params['osc_model']['value'] #instrument.parameters['model'].string_value
         if model == '0': #'Triple VCO':
             oscs = self._get_oscs_triple(params,3)
         elif model == '1': #'Dual VCO':
@@ -79,7 +79,7 @@ class DivaExtension(InstrumentExtension):
     
     def _get_oscs_dual(self,params:dict):
         oscs = []
-        mix = params['oscmix']['raw_value']
+        mix = params['osc_oscmix']['raw_value']
         if mix < 1.0 - VOL_THRESH : # OSC1 has significatn volume
             oscs.append(
                 {
@@ -101,22 +101,22 @@ class DivaExtension(InstrumentExtension):
     
     def _get_oscs_dco(self,params:dict):
         oscs = []
-        pulse_shape = params[f"pulseshape"]["value"]
-        saw_shape = params[f"sawshape"]["value"]
-        sub_shape = params[f"suboscshape"]["value"]
-        if pulse_shape != "off":
+        pulse_shape = params[f"osc_pulseshape"]["value"]
+        saw_shape = params[f"osc_sawshape"]["value"]
+        sub_shape = params[f"osc_suboscshape"]["value"]
+        if pulse_shape != "0":
             oscs.append({
                 "shapes":[OscShape.PULSE] ,
                 "volume": 1.0 ,
                 "sub":False
             })
-        if saw_shape != "off":
+        if saw_shape != "0":
             oscs.append({
                 "shapes":[OscShape.SAWTOOTH] ,
                 "volume": 1.0,
                 "sub":False
             })
-        if sub_shape != "off":
+        if sub_shape != "0":
             oscs.append({
                 "shapes":[OscShape.SAWTOOTH] ,
                 "volume": params[f"volume3"]["raw_value"],
@@ -145,36 +145,41 @@ class DivaExtension(InstrumentExtension):
     
     def _get_osc_shapes_continuous(self,params:dict,i:int) -> List[OscShape]:
         shapes = []
-        osc_shape = params[f"shape{i}"]["value"]
+        osc_shape = params[f"osc_shape{i}"]["value"]
         osc_shape = float(osc_shape)
-        if osc_shape == 1.0:
+        th_offset = 0.2
+        if osc_shape <= 1.0 + th_offset:
             shapes = [ OscShape.SAWUP ]
-        elif osc_shape <= 1.5:
+        elif osc_shape <= 2.0:
             shapes = [ OscShape.SAWUP , OscShape.TRIANGLE ]
-        elif osc_shape <= 2.5:
+        elif osc_shape <= 3.0 - th_offset:
             shapes = [ OscShape.TRIANGLE , OscShape.SAWUP ]
-        elif osc_shape <= 3.0:
+        elif osc_shape <= 3.0 + th_offset:
             shapes = [ OscShape.TRIANGLE ]
-        elif osc_shape <= 3.5:
+        elif osc_shape <= 4.0:
             shapes = [ OscShape.TRIANGLE , OscShape.SAWDOWN ]
-        elif osc_shape <= 4.5:
+        elif osc_shape <= 5.0 - th_offset:
             shapes = [ OscShape.SAWDOWN , OscShape.TRIANGLE ]
-        elif osc_shape <= 5.5:
+        elif osc_shape <= 5.0 + th_offset:
             shapes = [ OscShape.SAWDOWN ]
-        elif osc_shape <= 5.5:
-            shapes = [ OscShape.SAWDOWN , OscShape.SQUARE]
-        elif osc_shape <= 6.5:
-            shapes = [ OscShape.SQUARE , OscShape.SAWDOWN ]
-        elif osc_shape < 9.0:
-            shapes = [ OscShape.SQUARE]
-        elif osc_shape == 9.0:
+        elif osc_shape <= 6.0:
+            shapes = [ OscShape.SAWDOWN , OscShape.PULSE]
+        elif osc_shape <= 7.0 - th_offset:
+            shapes = [ OscShape.PULSE , OscShape.SAWDOWN ]
+        elif osc_shape <= 7.0 + th_offset:
+            shapes = [ OscShape.PULSE]
+        elif osc_shape <= 8.0:
+            shapes = [ OscShape.PULSE , OscShape.PULSE_THIN]
+        elif osc_shape <= 9.0 - th_offset:
+            shapes = [ OscShape.PULSE_THIN , OscShape.PULSE]
+        elif osc_shape >= 9.0 - th_offset:
             shapes = [ OscShape.PULSE_THIN]
 
         return shapes
     
     def _get_osc_shapes_eco(self,params:dict,i:int) -> List[OscShape]:
         shapes = []
-        osc_shape = params[f"shape{i}"]["value"]
+        osc_shape = params[f"osc_shape{i}"]["value"]
         osc_shape = float(osc_shape)
         if i==1:
             if osc_shape == 1.0:
@@ -197,34 +202,34 @@ class DivaExtension(InstrumentExtension):
         return shapes    
     
     def _get_osc_volume(self,params:dict,i_vco:int) -> float:
-        return params[f"volume{i_vco}"]["raw_value"]
+        return params[f"osc_volume{i_vco}"]["raw_value"]
     
     def _get_osc_shapes_additive(self,params,i_vco:int) -> List[OscShape]:
         shapes = []
-        triangle = params[f"triangle{i_vco}on"]["raw_value"]
+        triangle = params[f"osc_triangle{i_vco}on"]["raw_value"]
         if triangle == 1.0:
             shapes.append( OscShape.TRIANGLE )
-        saw = params[f"saw{i_vco}on"]["raw_value"]
+        saw = params[f"osc_saw{i_vco}on"]["raw_value"]
         if saw == 1.0:
             shapes.append( OscShape.SAWUP )
         if i_vco==1:
-            pwm = params[f"pwm{i_vco}on"]["raw_value"]
+            pwm = params[f"osc_pwm{i_vco}on"]["raw_value"]
             if pwm == 1.0:
                 shapes.append( OscShape.PULSE )
-            noise = params[f"noise{i_vco}on"]["raw_value"]
+            noise = params[f"osc_noise{i_vco}on"]["raw_value"]
             if noise == 1.0:
                 shapes.append( OscShape.NOISE )
         if i_vco==2:
-            pulse = params[f"pulse{i_vco}on"]["raw_value"]
+            pulse = params[f"osc_pulse{i_vco}on"]["raw_value"]
             if pulse == 1.0:
                 shapes.append( OscShape.PULSE )
-            sine = params[f"sine{i_vco}on"]["raw_value"]
+            sine = params[f"osc_sine{i_vco}on"]["raw_value"]
             if sine == 1.0:
                 shapes.append( OscShape.SINE )
         return shapes
     
     def _get_osc_volume_simple(self,params,i_vco:int) -> float:
-        mix = params['oscmix']['raw_value']
+        mix = params['osc_oscmix']['raw_value']
         if i_vco==1:
             return 1.0 - mix
         elif i_vco ==2:
@@ -250,7 +255,7 @@ class DivaExtension(InstrumentExtension):
     
     def _get_osc_shapes_digital(self,params:dict,i_vco:int):
         shapes = []
-        osc_shape = params[f"digitaltype{i}"]["value"]
+        osc_shape = params[f"osc_digitaltype{i}"]["value"]
         osc_shape = int(osc_shape)
         if osc_shape == 1:
             shapes = [ OscShape.SAWMULTI ]
@@ -279,7 +284,6 @@ class DivaExtension(InstrumentExtension):
 
         filters = []
 
-        model_osc = params['model']['value']
-        model_hpf = params['model']['value']
+        model_hpf = params['hpf_model']['value']
 
         return filters 

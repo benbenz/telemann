@@ -89,7 +89,7 @@ def choice_midi_value():
     return list
 
 def choice_midi_range():
-    return tuple((i.value[1], i.name) for i in MIDIRange)
+    return tuple((i.value[0], i.value[1]) for i in MIDIRange)
 
 class SoundSource(models.Model):
 

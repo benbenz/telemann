@@ -60,6 +60,11 @@
 </div>
 
 <script>
+    var bank_msb = {{bank_msb}};
+    var bank_lsb = {{bank_lsb}};
+    var program = {{program}};
+    var category = {% if category %}"{{category}}"{% else %}null{% endif %};
+    var TAG_SEARCH_URL = "{% url 'tags:search' %}";
     var TAGS_URL = "{% url 'tags:widget' %}" ;
     document.addEventListener("DOMContentLoaded", (event) => {
         let img_capture = document.getElementById('soundtone_capture')

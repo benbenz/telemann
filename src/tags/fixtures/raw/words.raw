@@ -50,7 +50,6 @@ crescendo|Dynamic|A gradual increase in loudness or intensity in music or sound,
 crisp|Sharp|Describes sounds that are clear, precise, and possibly refreshing, often associated with clarity and energy.
 crunch|Natural|The sound produced by the crushing or grinding of hard materials, often associated with texture and a satisfying sensation.
 dark|Expressive|Sound that is deep, possibly brooding or melancholic, often creating an atmosphere of mystery or depth, potentially invoking feelings of introspection or solemnity.
-deafening|Loud|A sound so loud you cannot hear anything else
 decrescendo|Dynamic|A gradual decrease in loudness or intensity, opposite of crescendo, often used to convey a sense of diminishment or fading away in music or sound.
 delicate|Pleasing|Sound that is light, subtle, and graceful, often associated with finesse and a gentle touch, creating a sense of elegance or fragility.
 dense|Complex|Refers to sounds that are thickly layered or rich in elements, creating a sense of compactness and depth, often with multiple layers overlapping.
@@ -68,7 +67,6 @@ dry|General|Sound that lacks reverberation or echo, often resulting in a flat or
 dulcet|Pleasing|Soft and pleasant
 dull|Noisy|Lacking in sharpness or intensity, often monotonous or uninspiring, characterized by a lack of vibrancy or excitement.
 dynamic|Dynamic|Refers to variations in loudness or intensity within a piece of music or sound, contributing to its expressiveness and emotional impact.
-ear-splitting|Loud|extremely loud
 echo|Dreamy|The repetition of a sound caused by the reflection of sound waves from a surface, creating a sense of space and depth, often associated with emptiness or vastness.
 elegant|Pleasing|Sound that is graceful and refined in quality, often characterized by simplicity and tastefulness, creating a sense of beauty and sophistication.
 ethereal|Dreamy|Extremely delicate and light in a way that seems not to be of this world.
@@ -94,7 +92,7 @@ groaning|Expressive|Similar to groan, emphasizing a prolonged or repeated expres
 growing|Dynamic|Sound that increases in volume, intensity, or presence, often used to convey a sense of development or escalation.
 growl|Noisy|A low, unpleasant noise
 grunt|Short|A short low sound in your throat and nose at the same time
-gurgle|Pleasing|The low sound water makes when it is poured quickly from a bottle
+gurgle|Natural|The low sound water makes when it is poured quickly from a bottle
 harmonic|Pleasing|Sound that is musically consonant, characterized by harmonies that are agreeable and pleasing to the ear, often rich and melodious.
 haunting|Expressive|Sound that lingers in the memory, often eerie or melancholic, creating a lasting emotional impact through their atmospheric quality.
 heavy|Loud|Sound with a sense of weight or depth, often characterized by low frequencies or a powerful impact, conveying a sense of seriousness or intensity.
@@ -241,7 +239,6 @@ uniform|Continuous|Sound that is the same in all instances or occurrences, marke
 unmusical|General|Sound that lacks musical qualities such as melody, harmony, or rhythm, often perceived as noise rather than music, lacking in aesthetic appeal.
 unpredictable|Chaotic|Sound that changes unexpectedly, lacking a consistent pattern or rhythm, often creating a sense of surprise or uncertainty.
 uproarious|Loud|Extremely noisy
-vocal|Expressive|Sound produced by the human voice, ranging from speaking to singing, characterized by their richness, versatility, and ability to convey emotion and language.
 wail|High-Pitched|A long, high-pitched cry or sound, often expressing grief, pain, or despair, marked by its emotional intensity and sustained pitch.
 warm|Pleasing|Sound that is rich, full-bodied, and comforting, often associated with a sense of closeness, intimacy, or emotional warmth, typically pleasant and inviting.
 wheeze|Continuous|A high sound, as though a lot of air is being pushed through it

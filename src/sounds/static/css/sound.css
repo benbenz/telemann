@@ -188,7 +188,7 @@ audio {
   height: 4em;
 }
 #div_id_tags .tokenfield {
-  min-height: 5em;
+  min-height: 4em;
   height: fit-content;
 }
 

@@ -32,5 +32,24 @@ Tasks to do ...
 - [x] Implement PedalBoard VST (v1) handling: https://forum.juce.com/t/midi-program-change-forwarding-for-vst3/47161
       Issue with VST3 and program changes all over the place ...
 
+
+- [ ] Pydantic:
+  - [ ] use custom validation for range 0.0....0.1
+  - [ ] use native json() serialization 
+  - [ ] add abstract .desc() as well
+  - [ ] Use des( style_guide :StyleGuideEnum )
+  - [ ] Use pedantic classes to describe the result of the analysis 
+    - SoundtoneDescription
+    - SoundtoneOscillators
+    - SoundtoneOscillator ....
+    - SoundtoneFilters ...
+    - OscShape = List[Waveforms]
+    - Oscillator = OscShape + sub + pwm
+    - And each of those has the following method:
+    - .json() = return the json value 
+    - .des() = return the description value (randomized)
+
+
+
 ### Done ✓
 

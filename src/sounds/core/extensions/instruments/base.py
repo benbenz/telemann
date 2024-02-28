@@ -1,34 +1,12 @@
 import abc
+import random
 from pedalboard import AudioProcessorParameter , ExternalPlugin
 from sounds.models import SoundSource 
 from enum import StrEnum , auto
-from typing import List
-
-class OscShape(StrEnum):
-    SINE = auto()
-    TRIANGLE = auto()
-    TRISHAPED = auto()
-    SQUARE = auto()
-    PULSE = auto()
-    PULSE_THIN = auto()
-    SAWTOOTH = auto()
-    SAWMULTI = auto()
-    SAWUP = auto()
-    SAWDOWN = auto()
-    NOISE = auto()
-    SAMPLE = auto()
-    ADDITIVE = auto()
-    DIGITAL = auto()
-    FEEDBACK = auto()
-    EXOTIC = auto()
-    OTHER = auto()
+from typing import List , Optional
+from ..schema import SoundToneDescription , StyleGuide
 
 class InstrumentExtension(abc.ABC):
-
-    @abc.abstractmethod
-    def generate_text(self,sound_info):
-        """ Implement me! """
-        pass
 
     @abc.abstractmethod
     def arp_get(self, instrument)->List|float:
@@ -53,8 +31,8 @@ class InstrumentExtension(abc.ABC):
     This should add the field analysis in sound_info and add the following sections:
 
     oscs: [
-            { shapes : [ 'square'|'triangle'|'sine'|'pwm'|'saw'|'sawup'|'sawdown'|'sample'|'additive'|'digital'|'other', ...] , mix: 0.0...1.0 , sub: true|false, pwm: true|false } ,
-            { shapes : ['square'|'triangle'|'sine'|'pwm'|'saw'|'sawup'|'sawdown'|'sample'|'additive'|'digital'|'other', ...] , mix: 0.0...1.0 , sub: true|false, pwm: true|false } ,
+            { shapes : [ 'square'|'triangle'|'sine'|'pwm'|'saw'|'sawup'|'sawdown'|'sample'|'additive'|'digital'|'other'|'sub', ...] , mix: 0.0...1.0 , pwm: true|false } ,
+            { shapes : ['square'|'triangle'|'sine'|'pwm'|'saw'|'sawup'|'sawdown'|'sample'|'additive'|'digital'|'other'|'sub', ...] , mix: 0.0...1.0 , pwm: true|false } ,
             ...
     ] ,
     filters : [
@@ -79,8 +57,19 @@ class InstrumentExtension(abc.ABC):
         amp_lfo: 0.0...1.0
     }
     """
+
     @abc.abstractmethod
-    def analyze_sound(self, source:SoundSource, instrument:ExternalPlugin, sound_info:dict):
+    def analyze_sound(self,parameters:dict) -> Optional[SoundToneDescription]:
         """ Implement me! """
         pass
+
+    def describe_sound(self, description:Optional[SoundToneDescription], style_guide:Optional[StyleGuide]=None):
+        
+        if style_guide is None:
+            style_guide = random.choice(list(StyleGuide))
+
+        if description:
+            return description.desc(style_guide)
+        else:
+            return "No description available"
     

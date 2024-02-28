@@ -19,6 +19,7 @@ import inspect
 from .extensions.instruments.base import InstrumentExtension
 from PIL import Image
 from scipy.io.wavfile import write as scipy_wav_write
+from sounds.core.extensions.schema import StyleGuide
 
 class AudioInterface(StrEnum):
     NONE = "---------"
@@ -277,10 +278,16 @@ def get_sound_analysis(source:SoundSource,
         sound_info['analysis'] = dict()
 
     # perform the analysis based on the preset/tone
+    sound_description = None
     try:
-        instrExtension.analyze_sound(source,instrument,sound_info)
+        sound_description = instrExtension.analyze_sound(sound_info['parameters'])
+        if sound_description is not None:
+            sound_info['analysis'] = sound_description.json()
+    except ValueError as vae:
+        print("There is an issue with the SoundTone descrption generatred: ",str(vae.errors()))
     except Exception as e:
         print(f"There has been an error with the plugin extension: {str(e)}")
+    
 
     #if we have missing information, lets move to an audio analysis
     # if 'envs' not in sound_info['analysis']:
@@ -299,7 +306,7 @@ def get_sound_analysis(source:SoundSource,
     #     analyze_audio(source,audio_4_analysis,sound_info)
         
     if instrExtension:
-        sound_info['description_tech'] = instrExtension.generate_text(sound_info)
+        sound_info['description_tech'] = instrExtension.describe_sound(sound_description)
         sound_info['arp_is_on'] = instrExtension.arp_is_on(instrument)
     else:
         sound_info['description_tech'] = None
@@ -401,6 +408,7 @@ def get_instrument_extension(source:SoundSource):
             return classes[-1]()
         else:
             return None
-    except ImportError:
-        return None
+    except ImportError as e:
+        print("Error importing extension")
+        raise e
     

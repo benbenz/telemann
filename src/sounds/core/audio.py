@@ -8,6 +8,7 @@ import wave
 import math
 import re
 import io
+import time
 from enum import StrEnum , auto
 from sounds.apps import SoundsConfig
 from pedalboard.io import AudioFile
@@ -52,12 +53,13 @@ def get_intrument_info(source:SoundSource):
         # Load a VST3 or Audio Unit plugin from a known path on disk:
         instrument = load_plugin(source.file_path)
         if not source.file_path in SoundsConfig.PLUGINS_CACHE:
-            SoundsConfig.PLUGINS_CACHE[source.file_path] = []      
+            SoundsConfig.PLUGINS_CACHE[source.file_path] = []     
+        extension = get_instrument_extension(source) 
         instrument_info = {
             "instrument":instrument,
             "rendering":True,
             "programs_info":dict(),
-            "extension":get_instrument_extension(source)
+            "extension":extension,
         }
         SoundsConfig.PLUGINS_CACHE[source.file_path].append(instrument_info)
         print("Loaded instrument")
@@ -115,6 +117,7 @@ def render_audio(source:SoundSource,
            bank_lsb:int|None=None,
            program:int|None=None,
            pattern:MIDIPattern|None=None,
+           arp_on:bool|None=None,
            length:int|None=None,
            save_parameters=True,
            reset_plugin=True):
@@ -154,6 +157,16 @@ def render_audio(source:SoundSource,
 
     if length is None:
         length = length_p 
+    
+    extension = instrument_info["extension"]
+    sound_key = get_midi_program_key(bank_msb,bank_lsb,program)
+
+    if arp_on is not None:
+        if extension is not None and sound_key in instrument_info['programs_info']:
+            arpval = 1.0 if arp_on else 0.0
+            extension.arp_set(instrument,arpval)
+        else:
+            print("Skipping ARP command cause we dont have an extension or we didnt capture the default ARP value yet")
 
     audio = instrument(
       [ *pgm_events,
@@ -162,6 +175,10 @@ def render_audio(source:SoundSource,
       sample_rate=sample_rate,
       reset=reset_plugin # resolves the program name issue ?
     )
+
+    if arp_on is not None:
+        if extension is not None and sound_key in instrument_info['programs_info']:
+            extension.arp_set(instrument,instrument_info['programs_info'][sound_key]["arp_value"])
 
     # audio = instrument(
     #   [Message("note_on", note=60), Message("note_off", note=60, time=length)],
@@ -179,15 +196,17 @@ def render_audio(source:SoundSource,
 
     print("Converting parameters ...")
 
+    # we save now cause we prerender the audio and that part may take time too ...
     if save_parameters:    
-        sound_key = get_midi_program_key(bank_msb,bank_lsb,program)
         if sound_key in instrument_info['programs_info']:
             sound_info = instrument_info['programs_info'][sound_key]
             if not 'parameters' in sound_info:
                 sound_info['parameters'] = convert_parameters(instrument)
+                sound_info['arp_value'] = extension.arp_get(instrument) if extension else None
         else:
             instrument_info['programs_info'][sound_key] = {
                 'parameters' : convert_parameters(instrument) ,
+                "arp_value": extension.arp_get(instrument) if extension else None
             }
 
     print("Converted parameters")
@@ -264,7 +283,9 @@ def get_sound_analysis(source:SoundSource,
     # if we have missing information, lets move to an audio analysis
     # if 'envs' not in sound_info['analysis']:
 
-    #     arp_old_value = instrExtension.arp_off(instrument)
+    #     arp_old_value = instrExtension.get_arp_value(instrument)
+        
+    #     instrExtension.arp_set(instrument,0.0)
 
     #     audio_4_analysis = render_audio(source=source,
     #                         bank_msb=bank_msb,
@@ -280,8 +301,10 @@ def get_sound_analysis(source:SoundSource,
         
     if instrExtension:
         sound_info['description_tech'] = instrExtension.generate_text(sound_info)
+        sound_info['arp_is_on'] = (instrExtension.arp_get(instrument) == 1.0)
     else:
         sound_info['description_tech'] = None
+        sound_info['arp_is_on'] = None
 
     sound_info['program_name'] = instrument.current_program_name
 

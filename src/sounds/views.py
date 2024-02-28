@@ -23,7 +23,7 @@ def sounds(request,srcid=None):
         })
     else:
         source   = SoundSource.objects.get(id=srcid)
-        bank_msb0 , bank_lsb0 , program0 , pattern = get_program_info(request)
+        bank_msb0 , bank_lsb0 , program0 , pattern , _ = get_program_info(request)
         category = request.GET.get('c',None)
 
         # looping feature
@@ -98,7 +98,7 @@ def stream_audio(audio,framerate):
 
 def render_sound(request,srcid):
     
-    bank_msb0 , bank_lsb0 , program0 , pattern = get_program_info(request)
+    bank_msb0 , bank_lsb0 , program0 , pattern , arp_on = get_program_info(request)
 
     source:SoundSource = SoundSource.objects.get(id=srcid)
 
@@ -108,7 +108,8 @@ def render_sound(request,srcid):
                          bank_msb=bank_msb,
                          bank_lsb=bank_lsb,
                          program=program,
-                         pattern=pattern)
+                         pattern=pattern,
+                         arp_on=arp_on)
     headers = {
 #        'Cache-Control': 'no-cache, no-store, must-revalidate',
 #        'Content-Length': audio.size * audio.itemsize
@@ -135,7 +136,7 @@ def render_sound(request,srcid):
 
 def analyze_sound(request,srcid):
 
-    bank_msb0 , bank_lsb0 , program0 , _ = get_program_info(request)
+    bank_msb0 , bank_lsb0 , program0 , _ , _ = get_program_info(request)
 
     source:SoundSource = SoundSource.objects.get(id=srcid)
 
@@ -156,7 +157,7 @@ def analyze_sound(request,srcid):
 
 def capture_sound_image(request,srcid):
 
-    bank_msb0 , bank_lsb0 , program0 , _ = get_program_info(request)
+    bank_msb0 , bank_lsb0 , program0 , _ , _ = get_program_info(request)
 
     source:SoundSource = SoundSource.objects.get(id=srcid)
 
@@ -180,6 +181,7 @@ def get_program_info(request):
     bank_lsb = request.GET.get('bl',0)
     program  = request.GET.get('p',0)
     pattern  = request.GET.get('ptn')
+    arp_on   = request.GET.get('a',None)
 
     if isinstance(bank_msb,str):
         bank_msb = int(bank_msb)
@@ -189,8 +191,10 @@ def get_program_info(request):
         program = int(program)
     if pattern is not None:
         pattern = MIDIPattern[pattern]
+    if arp_on is not None:
+        arp_on = {'':None,'0':False,'1':True,0:False,1:True}[arp_on]
 
-    return bank_msb , bank_lsb , program , pattern
+    return bank_msb , bank_lsb , program , pattern , arp_on
 
 
 def get_program_header(bank_msb0,

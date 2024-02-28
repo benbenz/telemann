@@ -37,14 +37,19 @@ function recomputeAudioUrl(program_offset=0) {
     let pattern = document.getElementById("midiPattern")
     let audio = document.getElementById('soundtone_audio')
     let audio_wav_mimes = ['audio/vnd.wav','audio/vnd.wave','audio/wave','audio/x-pn-wav','audio/x-wav']
+    let arpval = ''
+    if(fetched_analysis!==null) {
+        let arp_input = document.querySelector("#arp-ctrl:not(.disabled) input")
+        arpval = arp_input ? (arp_input.checked?1:0) : ''
+    }
     for(let i=0 ; i<audio_wav_mimes.length ; i++) {
         if(audio.canPlayType(audio_wav_mimes[i]))
-            return AUDIO_URL_BASE + `bm=${bank_msb}&bl=${bank_lsb}&p=${program+program_offset}&ptn=${pattern.value}&f=wav&mt=${audio_wav_mimes[i]}`
+            return AUDIO_URL_BASE + `bm=${bank_msb}&bl=${bank_lsb}&p=${program+program_offset}&ptn=${pattern.value}&a=${arpval}&f=wav&mt=${audio_wav_mimes[i]}`
     }
     if(audio.CanPlayType('audio/pcm'))
-        return AUDIO_URL_BASE + `bm=${bank_msb}&bl=${bank_lsb}&p=${program+program_offset}&ptn=${pattern.value}&f=pcm`
+        return AUDIO_URL_BASE + `bm=${bank_msb}&bl=${bank_lsb}&p=${program+program_offset}&ptn=${pattern.value}&a=${arpval}&f=pcm`
     else
-        return AUDIO_URL_BASE + `bm=${bank_msb}&bl=${bank_lsb}&p=${program+program_offset}&ptn=${pattern.value}`
+        return AUDIO_URL_BASE + `bm=${bank_msb}&bl=${bank_lsb}&p=${program+program_offset}&ptn=${pattern.value}&a=${arpval}`
 }
 function recomputeAudioAnalyzeUrl() {
     let pattern = document.getElementById("midiPattern")
@@ -167,6 +172,12 @@ function analyzeSound() {
             div.innerHTML = json.description_tech
             setSoundName(json.program_name)
             document.querySelector("#div_id_parameters textarea").innerHTML = JSON.stringify( json.parameters ) ;
+            if(typeof json.arp_is_on !== "undefined" && json.arp_is_on!==null) {
+                document.querySelector("#arp-ctrl input").checked =  json.arp_is_on 
+                document.querySelector("#arp-ctrl").classList.remove('disabled')
+            } else {
+                document.querySelector("#arp-ctrl").classList.add('disabled')
+            }
             // now time to also get the UI of the instrument
             fetched_analysis = { program : ref_program }
         }
@@ -472,6 +483,8 @@ function onSoundToneLoaded(){
     document.querySelector('#soundtone_form').addEventListener('submit',onFormSubmit)
 
     document.querySelector('#div_id_description textarea').focus()
+
+    document.querySelector('#arp-ctrl input').addEventListener('change',()=>{resetBlobs();fetchSound(0,false);})
 
     modalOpen(false);
     addTokenfieldToTagsInput()

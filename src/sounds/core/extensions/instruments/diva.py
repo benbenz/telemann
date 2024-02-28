@@ -12,13 +12,12 @@ class DivaExtension(InstrumentExtension):
 
     def generate_text(self,sound_info):
         return "not implemented"
-
-    def arp_off(self, instrument)->float:
+    
+    def arp_get(self, instrument)->float:     
         if 'arp_onoff' in instrument.parameters: # VST plugin
             return instrument.parameters['arp_onoff'].raw_value
         elif 'arpeggiator_onoff' in instrument.parameters: # AudioUnit
             return instrument.parameters['arpeggiator_onoff'].raw_value
-        return None
 
     def arp_set(self, instrument, value: float):
         if 'arp_onoff' in instrument.parameters: # VST plugin

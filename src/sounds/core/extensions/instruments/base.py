@@ -30,7 +30,7 @@ class InstrumentExtension(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def arp_off(self, instrument)->float:
+    def arp_get(self, instrument)->float:
         """ Implement me! """
         pass
 

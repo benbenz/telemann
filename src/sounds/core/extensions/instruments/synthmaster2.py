@@ -9,7 +9,7 @@ class SynthMaster2Extension(InstrumentExtension):
     def generate_text(self,sound_info):
         return "not implemented"
 
-    def arp_off(self, instrument)->float:
+    def arp_get(self, instrument)->float:
         pass
 
     def arp_set(self, instrument, value: float):

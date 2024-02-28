@@ -15,6 +15,30 @@ form div small {
   color: var(--colour-1);
 }
 
+#arp-ctrl.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+#arp-ctrl {
+  display: inline-block;
+  top: 7px;
+  margin-right: 10px;
+}
+#arp-ctrl > label input:focus {
+  outline: none;
+}
+#arp-ctrl > label div {
+  border: thin solid gray;
+  background: gray;
+}
+#arp-ctrl > label div:after {
+  background: white ;
+  top:1px;
+}
+#arp-ctrl > label [type=checkbox]:checked + div {
+  background: blue ;
+}
+
 #div_id_rec_duration , #div_id_rec_midi_range {
   width: 45%;
   float: left;

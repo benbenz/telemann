@@ -30,8 +30,13 @@ class DivaExtension(InstrumentExtension):
 
     def analyze_sound(self, parameters:dict) -> SoundToneDescription:
 
+        # create the modulation matrix
+        mod_matrix = ModulationMatrix()
+
+        # retrieve basic oscillator information
         oscs = self._get_oscs(parameters)
 
+        # get the filters
         filters = self._get_filters(parameters)
 
         return SoundToneDescription(
@@ -246,6 +251,7 @@ class DivaExtension(InstrumentExtension):
             shapes = [ OscillatorShape(shape=OscillatorShapeEnum.TRIANGLE) ]
 
         return shapes
+    
 
 ############################################################################################################
 #

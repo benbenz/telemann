@@ -17,9 +17,21 @@ def get_most_popular_tags(num_tags=20):
     
     return popular_tags
 
-def get_words():
+def get_words(with_groups=True):
+    if with_groups:
+        tags = Tag.objects.filter(select=True).order_by('group','tag').all()
+        group = None
+        result = []
+        for tag in tags:
+            if group is None or group != tag.group:
+                result.append({'group_name':tag.group})
+                group = tag.group
+            result.append(tag)
+        tags = result 
+    else:
+        tags = Tag.objects.filter(select=True).order_by('tags').all()
     
-    return Tag.objects.filter(select=True).all()
+    return tags
 
 def tags_search(request):
     if request.method == 'GET':

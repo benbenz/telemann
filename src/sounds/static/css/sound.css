@@ -78,16 +78,23 @@ ul.categories li a:hover , ul.tags li a:hover , ul.words li a:hover   {
   color: white;
 }
 
+ul.words li.group-name {
+  font-weight: 800;
+  font-size: 120%;
+  position: relative;
+  top: -4px;
+  color: blue;
+}
 
 .soundpanel.left .soundpanel-assist.words-panel {
-  flex: 3 ;
+  flex: 5 ;
 }
 ul.words {
   display: flex;
   flex-wrap: wrap;  
 }
 ul.words li {
-  font-size: 16px;
+  font-size: 15px;
 }
 
 .soundcontrols {

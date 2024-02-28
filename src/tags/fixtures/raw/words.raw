@@ -3,21 +3,18 @@ airy|Pleasing|Light sound. This denotes a sound that is light, gentle, and possi
 almighty|Loud|Used for emphasising how loud something is
 antagonistic|General|In a sound context, it could refer to sounds that seem confrontational or conflicting, creating a sense of tension.
 asymmetric|General|A lack of symmetry or balance, which, when applied to sound, might refer to irregular or uneven patterns of rhythm or melody that don't follow a conventional structure.
-at full blast|Loud|as loudly as possible
 atmosphere|Dreamy|Atmospheric sounds refer to background noises that create a sense of space or environment, often used to generate a specific mood or setting, ranging from calming to eerie.
 atonal|Complex|Atonal music lacks a key or tonal center, often resulting in a sound that can be perceived as discordant or challenging to listen to due to its lack of traditional harmonic structures.
 babble|Natural|A gentle, pleasant sound of water as it moves along in a river
 balanced|Pleasing|A sound that is well-proportioned and harmonious across its elements, often considered aesthetically pleasing or satisfying to listen to.
 bang|Loud|Making loud noises
-bass|General|Low-frequency sounds, often rich and deep in tone, considered fundamental to the harmony and rhythm in music and soundscapes.
 beating|Noisy|A pulsating or thumping sound, often repetitive, which can be either a physical sensation or an auditory one, depending on the context.
 beep|Short|A short high sound or several short high sounds
-bitter|Harsh|Although more commonly used to describe a taste sensation, when applied to sound, it could metaphorically describe an acrid, unpleasant, or unwelcome sound.
 blare|Noisy|A loud and unpleasant noise
 blast|Noisy|A loud, intense sound, often sudden and overwhelming, akin to an explosion or a loud burst of sound.
 bleep|Short|A short high sound or several short high sounds
 boom|Loud|A deep, resonant sound with a low pitch, often associated with something large and imposing, like thunder or an explosion.
-bouncy|Lively|A rhythmical, upbeat sound that can invoke a sense of movement or dance, often cheerful and energetic.
+bouncy|Rhythmic|A rhythmical, upbeat sound that can invoke a sense of movement or dance, often cheerful and energetic.
 brassy|Noisy|A sound that is loud and unpleasant
 bright|Pleasing|A sound quality that is clear, sharp, and vibrant, often associated with higher pitches or a lively presence in the sound.
 broken|Rhythmic|Sound that is intermittent or disrupted, creating a sense of disconnection or fragmentation, often resulting in a jarring listening experience.
@@ -39,10 +36,8 @@ clash|Loud|A loud, metallic sound
 clatter|Noisy|A series of short, sharp noises
 clear|Pleasing|Sound that is easily perceptible and free from distortion or any form of ambiguity, often associated with purity and precision.
 cliche|General|While primarily a literary term, when applied to sound, it suggests something that is overused and lacks originality, potentially leading to predictability or a lack of freshness in music or sound design.
-click|Short|A short sound like the sound when you press a switch
-clicking|Repetitive|A short, sharp sound made by a mechanism or by parts coming into contact, often repetitive and mechanical in nature.
+click|Short|A short, sharp sound made by a mechanism or by parts coming into contact, often repetitive and mechanical in nature.
 clink|Pleasing|A short high sound of glass or metal objects hitting each other, or to cause objects to make this sound
-clinking|Light|The light, sharp sound of glass or metal objects touching, often associated with toasts or celebrations, considered pleasant or festive.
 cluck|Short|A short, low sound with your tongue
 coarse|Harsh|Rough or grating in quality, often used to describe sounds that are unpleasantly rough or abrasive to the ears.
 cohesive|General|Describes sounds that are well-integrated or unified, creating a sense of completeness and harmony, often used in the context of music or soundscapes that are well-organized.
@@ -52,12 +47,11 @@ constant|Continuous|Describes a sound that persists over time without significan
 continuous|Continuous|Similar to constant, it refers to sounds that proceed uninterrupted, without breaks or pauses, potentially leading to a sensation of unending noise.
 cracking|Sharp|A sudden, sharp sound made by something breaking or snapping, often abrupt and startling.
 crash|Loud|A sudden loud noise, as if something is being hit
-crashing|Explosive|Describes a loud, forceful sound made by a collision or the breaking of something, often associated with destruction or impact.
 creak|Natural|A high noise when it moves or when you put weight on it
 crescendo|Dynamic|A gradual increase in loudness or intensity in music or sound, often used to build anticipation or highlight a climax.
 crisp|Sharp|Describes sounds that are clear, precise, and possibly refreshing, often associated with clarity and energy.
-crunch|Textured|The sound produced by the crushing or grinding of hard materials, often associated with texture and a satisfying sensation.
-dark|Mysterious|Sound that is deep, possibly brooding or melancholic, often creating an atmosphere of mystery or depth, potentially invoking feelings of introspection or solemnity.
+crunch|Natural|The sound produced by the crushing or grinding of hard materials, often associated with texture and a satisfying sensation.
+dark|Expressive|Sound that is deep, possibly brooding or melancholic, often creating an atmosphere of mystery or depth, potentially invoking feelings of introspection or solemnity.
 deafening|Loud|A sound so loud you cannot hear anything else
 decrescendo|Dynamic|A gradual decrease in loudness or intensity, opposite of crescendo, often used to convey a sense of diminishment or fading away in music or sound.
 delicate|Pleasing|Sound that is light, subtle, and graceful, often associated with finesse and a gentle touch, creating a sense of elegance or fragility.
@@ -69,7 +63,7 @@ disharmonic|Harsh|Similar to discordant, it refers to a lack of harmony or agree
 disjointed|Disordered|Sound that lacks a smooth or logical progression, appearing fragmented or uncoordinated, often leading to a disjointed or chaotic auditory experience.
 distant|Dreamy|Sound that seems to be coming from far away, creating a sense of space or remoteness, often imbued with a sense of nostalgia or detachment.
 drip|General|The sound of liquid falling drop by drop, often repetitive and rhythmic, associated with water or rain, can be soothing or monotonous depending on the context.
-drone|Sustained|A low continuous noise
+drone|Continuous|A low continuous noise
 droning|Continuous|A continuous, low hum or buzz, often monotonous and lacking in variation, sometimes inducing a hypnotic or soporific effect.
 drumming|Rhythmic|The sound produced by striking a drum or similar surface, characterized by rhythm and repetition, often energetic or martial in nature.
 dry|General|Sound that lacks reverberation or echo, often resulting in a flat or stark auditory experience, typically associated with clarity and directness.
@@ -92,7 +86,7 @@ fast|Rhythmic|Describes sounds or tempos that are quick in pace, often associate
 feeling|Expressive|A broad category referring to sounds that convey or evoke emotional responses, emphasizing the affective impact of music or soundscapes.
 fizz|Pleasing|A soft sound that small gas bubbles make when they burst
 flavor|General|Metaphorically describes the distinctive quality or 'taste' of a sound, suggesting a unique style or essence that characterizes it.
-forceful|Powerful|Sound that has a strong impact or intensity, often commanding attention with their power and assertiveness.
+forceful|Loud|Sound that has a strong impact or intensity, often commanding attention with their power and assertiveness.
 fragmented|Disordered|Sound that appears broken or incomplete, characterized by abrupt changes or discontinuities, often creating a sense of fragmentation or disjointedness.
 frantic|Noisy|Rapid and frenzied sounds, often chaotic and marked by a high level of activity or agitation, conveying a sense of urgency or hysteria.
 full|Rich|Sound that is complete and well-rounded, often characterized by depth, complexity, and a satisfying sense of completeness or wholeness.
@@ -106,9 +100,9 @@ grunt|Short|A short low sound in your throat and nose at the same time
 gurgle|Pleasing|The low sound water makes when it is poured quickly from a bottle
 harmonic|Pleasing|Sound that is musically consonant, characterized by harmonies that are agreeable and pleasing to the ear, often rich and melodious.
 haunting|Expressive|Sound that lingers in the memory, often eerie or melancholic, creating a lasting emotional impact through their atmospheric quality.
-heavy|Intense|Sound with a sense of weight or depth, often characterized by low frequencies or a powerful impact, conveying a sense of seriousness or intensity.
+heavy|Loud|Sound with a sense of weight or depth, often characterized by low frequencies or a powerful impact, conveying a sense of seriousness or intensity.
 hiss|Noisy|A sharp, sibilant sound similar to that of steam or a snake, often associated with leakage, pressure, or the sound of recording noise, typically unpleasant or distracting.
-hollow|Empty|Sound that lacks depth or richness, often characterized by a sense of emptiness or void, conveying a lack of substance or fullness.
+hollow|General|Sound that lacks depth or richness, often characterized by a sense of emptiness or void, conveying a lack of substance or fullness.
 honk|Loud|A loud noise using a horn, especially the horn of a car
 hoot|Loud|A short loud sound as a warning
 howl|Expressive|A long, loud, doleful sound made by an animal or a person, conveying a sense of sorrow, pain, or desolation.
@@ -116,12 +110,12 @@ howling|Loud|A continuous, low, loud noise
 hum|Continuous|A low, steady continuous sound, like that made by machinery or by people singing with closed lips, often soothing or monotonous.
 hushed|Quiet|A Sound that is quiet or subdued, often marked by a whisper or a soft tone, conveying a sense of calm, secrecy, or intimacy.
 hypnotic|Dreamy|Sound that induces a trance-like state, often repetitive or mesmerizing, leading to a sense of relaxation or focused attention.
-impact|Intense|Sound characterized by force or a strong effect, often sudden and powerful, conveying a sense of collision or dramatic effect.
+impact|Loud|Sound characterized by force or a strong effect, often sudden and powerful, conveying a sense of collision or dramatic effect.
 improvised|General|Sound that is created spontaneously, without preparation, often showcasing creativity and adaptability, varying widely in quality and style.
 industrial|Harsh|Sound associated with machinery, factories, or industrial processes, often mechanical, repetitive, and lacking in musicality, typically harsh or noisy.
 insistent|Loud|A continuous, loud, strong noise
 instrumental|General|Sound that is produced by instruments, without vocal accompaniment, focusing on musical instruments' sounds and interactions.
-intense|Intense|Sound that is powerful and deeply felt, often characterized by a high level of energy or emotional impact, commanding attention.
+intense|Loud|Sound that is powerful and deeply felt, often characterized by a high level of energy or emotional impact, commanding attention.
 invigorating|Energizing|Sound that stimulates energy and vitality, often lively and refreshing, inspiring action or a heightened state of awareness.
 irregular|Disordered|Sound that lacks a consistent pattern or rhythm, often unpredictable or erratic, leading to a sense of instability or unpredictability.
 jarring|Harsh|Sound that is shockingly discordant or unpleasant, often causing a sense of disturbance or discomfort due to their abruptness or dissonance.
@@ -137,9 +131,9 @@ mellow|Pleasing|A soft, smooth, pleasant sound
 melodic|Pleasing|Sound characterized by a pleasing sequence of notes forming a melody, often tuneful and easy to remember, creating a sense of harmony and beauty.
 mewl|Pleasing|Crying with a soft, high sound
 midrange|General|Sound that falls within the middle range of the auditory spectrum, neither high nor low, often crucial for understanding speech and music's harmonic content.
-moan|Sustained|A long, low sound
+moan|Continuous|A long, low sound
 monotonic|Noisy|Sound characterized by a lack of variation in tone or pitch, often monotonous and dull, lacking in diversity or interest.
-monotonous|Sustained|A sound that is always the same and never gets louder or quieter, or higher or lower
+monotonous|Continuous|A sound that is always the same and never gets louder or quieter, or higher or lower
 mood|General|The emotional feeling or atmosphere that a sound or piece of music evokes, often setting the tone or context for the listening experience.
 moving|Expressive|Sound that evoke a strong emotional response, often deeply affecting or stirring, capable of touching the listener's emotions.
 muffled|Quiet|Sound that is dampened or softened, often unclear, lacking clarity.
@@ -168,13 +162,13 @@ pleasing|Pleasing|Sound that is enjoyable and pleasant to the ear, often harmoni
 polluted|Noisy|Metaphorically describes sounds that are cluttered or contaminated with unwanted noise, reducing the clarity or quality of the auditory environment.
 polyphonic|Complex|Music or sounds consisting of multiple independent melodic lines or voices, creating a rich, textured sonic tapestry, often intricate and harmonically complex.
 pop|Short|A sudden noise like a small explosion
-pounding|Intense|A heavy, thumping sound, often repetitive and forceful, reminiscent of a heartbeat or heavy footsteps, conveying a sense of power or urgency.
-powerful|Intense|Sound that has a strong impact or force, conveying a sense of strength, energy, and dynamism, often emotionally moving or physically impactful.
+pounding|Loud|A heavy, thumping sound, often repetitive and forceful, reminiscent of a heartbeat or heavy footsteps, conveying a sense of power or urgency.
+powerful|Loud|Sound that has a strong impact or force, conveying a sense of strength, energy, and dynamism, often emotionally moving or physically impactful.
 pulsating|Rhythmic|Sound that beats or throb in a steady rhythm, often creating a sense of movement or life, reminiscent of the rhythmic pulsing of the heart or music.
-punch|Intense|A short, explosive sound or burst of sound, often used to describe a sudden impact or the powerful effect of music or sound.
+punch|Dynamic|A short, explosive sound or burst of sound, often used to describe a sudden impact or the powerful effect of music or sound.
 pure|Pleasing|Sound that is clear, clean, beautiful and free of any distortion or unwanted noise, often associated with simplicity and beauty, producing a sense of clarity and precision.
 purring|Pleasing|A soft, low, continuous rumbling sound, often associated with contentment and comfort, typically produced by cats but also used to describe similar comforting sounds.
-putter|Sustained|A short, quiet, low sound at a slow speed
+putter|Continuous|A short, quiet, low sound at a slow speed
 quiet|Quiet|Sound that is low in volume, soft or subtle, often creating a peaceful or calm atmosphere, conducive to relaxation or contemplation.
 range|General|The extent of variation in pitch, volume, or tone that a sound, voice, or musical instrument can produce, indicating the scope or breadth of auditory capabilities.
 rapid|Rhythmic|Fast-moving sounds or sequences, often characterized by speed and agility, creating a sense of urgency or briskness.
@@ -189,7 +183,7 @@ resounding|Loud|A sound that is loud and that continues for a while
 revving|Noisy|The sound of an engine increasing in speed, often associated with power and energy, characterized by a rising pitch and intensity.
 rhythmic|Rhythmic|A sound that has a clear, regular pattern
 rich|Pleasing|Sound characterized by depth and complexity, often warm and full-bodied, providing a satisfying and layered listening experience.
-ring|Sustained|A clear, resonant sound that continues to echo, like that of a bell, often carrying a sense of clarity and persistence.
+ring|Continuous|A clear, resonant sound that continues to echo, like that of a bell, often carrying a sense of clarity and persistence.
 riotous|Loud|Lively and noisy
 ripple|Light|A gentle, soft sound reminiscent of small waves or undulations, often soothing and associated with water or subtle movement.
 roar|Loud|A deep, loud, and powerful sound, like that of a lion or large crowd, conveying a sense of strength, ferocity, or overwhelming force.
@@ -200,7 +194,7 @@ rush|General|A sound characterized by rapid movement, often a swishing or sweepi
 rustling|Light|The sound of light, soft movements, such as leaves or paper, creating a delicate and often soothing auditory texture.
 scream|High-Pitched|A loud, high-pitched sound expressing fear, excitement, or anguish, often startling and conveying strong emotion.
 screech|High-Pitched|A high-pitched, piercing sound, often unpleasant and grating, typically associated with abruptness or distress.
-scrunch|Textured|A sound produced by compressing something crunchy or crinkly, offering a sense of texture and compactness.
+scrunch|Natural|A sound produced by compressing something crunchy or crinkly, offering a sense of texture and compactness.
 sharp|Dynamic|Sound that is acute and well-defined, often cutting or piercing in quality, leading to a sense of clarity or intensity.
 shriek|High-Pitched|A high-pitched, sharp sound, similar to a scream but often more urgent or terror-filled, conveying extreme emotion or reaction.
 shrill|High-Pitched|A high-pitched, piercing sound, often uncomfortable to hear, characterized by its intensity and sharpness.
@@ -244,7 +238,6 @@ thin|Light|Sound that lacks body or fullness, often high-pitched or weak, possib
 thrum|Continuous|A soft, humming sound, often repetitive and rhythmic, creating a sense of gentle movement or vibration.
 thud|Heavy|A dull sound when falling or hitting something
 thump|Heavy|Similar to a thud, a deep, dull sound made by a heavy object striking a surface, conveying a sense of solidity and force.
-thundering|Loud|Extremely loud
 thunderous|Loud|Extremely loud and powerful sounds, reminiscent of thunder, often conveying a sense of awe or overwhelming force.
 tick|Light|A light, repetitive sound, like that of a clock, often indicating the passage of time, marked by its consistency and regularity.
 timbre|General|The quality or color of a sound that distinguishes it from others, even if they have the same pitch and loudness, contributing to its uniqueness.
@@ -253,27 +246,25 @@ tinkle|Pleasing|A high, ringing sound
 tint|General|Similar to tinge, a slight variation or shade in the quality of a sound, adding nuance or a particular character.
 tone|General|The quality or character of a sound, often referring to its musical or vocal quality, encompassing pitch, strength, and timbre.
 toneless|Flat|Sound that lacks musical quality or variations in pitch, often perceived as monotonous or dull, lacking in expressiveness.
-treble|High-pitched|Sound that is high in pitch, often bright and sharp, contrasting with lower-pitched bass sounds.
+treble|High-Pitched|Sound that is high in pitch, often bright and sharp, contrasting with lower-pitched bass sounds.
 tumultuous|Loud|A sound that includes noise, excitement, activity, or violence
-tuned|Harmonious|Adjusted to the correct pitch or frequency, allowing them to produce notes in harmony with others.
-tuneless|Dissonant|Sound that lacks a clear melody or harmony, often perceived as discordant or lacking in musical structure, creating a sense of randomness or absence of tune.
-twang|Distinctive|A sharp, vibrating sound, often associated with strings being plucked or the accent in spoken voice, characterized by its resonance and slight nasal quality.
-uncommon|Unique|Sound that is rare or unusual, not often heard, offering a unique auditory experience due to their distinctiveness or rarity.
+tuned|General|Adjusted to the correct pitch or frequency, allowing them to produce notes in harmony with others.
+tuneless|General|Sound that lacks a clear melody or harmony, often perceived as discordant or lacking in musical structure, creating a sense of randomness or absence of tune.
+twang|Sharp|A sharp, vibrating sound, often associated with strings being plucked or the accent in spoken voice, characterized by its resonance and slight nasal quality.
+uncommon|General|Sound that is rare or unusual, not often heard, offering a unique auditory experience due to their distinctiveness or rarity.
 unending|Continuous|Sound that seems to go on without stopping, creating a sense of infinity or ceaselessness, often contributing to a feeling of monotony or eternity.
-uniform|Consistent|Sound that is the same in all instances or occurrences, marked by a lack of variation in tone, pitch, or intensity, offering a sense of stability and consistency.
-unintelligible|Incomprehensible|Sound or speech that cannot be understood, often due to distortion, lack of clarity, or being in a foreign language, leading to a sense of confusion or ambiguity.
-unmusical|Dissonant|Sound that lacks musical qualities such as melody, harmony, or rhythm, often perceived as noise rather than music, lacking in aesthetic appeal.
-unpredictable|Variable|Sound that changes unexpectedly, lacking a consistent pattern or rhythm, often creating a sense of surprise or uncertainty.
+uniform|Continuous|Sound that is the same in all instances or occurrences, marked by a lack of variation in tone, pitch, or intensity, offering a sense of stability and consistency.
+unmusical|General|Sound that lacks musical qualities such as melody, harmony, or rhythm, often perceived as noise rather than music, lacking in aesthetic appeal.
+unpredictable|Chaotic|Sound that changes unexpectedly, lacking a consistent pattern or rhythm, often creating a sense of surprise or uncertainty.
 uproarious|Loud|Extremely noisy
-velocity|General|While typically a physical term referring to speed, in sound, it can describe the rate at which sound waves or musical notes are played or heard, influencing the energy or intensity of the sound.
 vocal|Expressive|Sound produced by the human voice, ranging from speaking to singing, characterized by their richness, versatility, and ability to convey emotion and language.
 wail|High-Pitched|A long, high-pitched cry or sound, often expressing grief, pain, or despair, marked by its emotional intensity and sustained pitch.
 warm|Pleasing|Sound that is rich, full-bodied, and comforting, often associated with a sense of closeness, intimacy, or emotional warmth, typically pleasant and inviting.
-wheeze|Sustained|A high sound, as though a lot of air is being pushed through it
+wheeze|Continuous|A high sound, as though a lot of air is being pushed through it
 whine|High-Pitched|A high-pitched, complaining sound, often grating or nagging, characterized by its persistence and discomforting effect.
 whirr|Continuous|A fast, low, repeated, continuous and quiet sound, often associated with the operation of machinery or electronics, characterized by its smooth, humming quality.
 whisper|Quiet|A soft, quiet, hushed, gentle sound
 whistle|High|A high sound by forcing air through your mouth in order to get someone’s attention
-whoosh|Sudden|A sudden, rapid sound, resembling something moving swiftly through the air, characterized by its speed and smoothness, often conveying a sense of movement or force.
+whoosh|Short|A sudden, rapid sound, resembling something moving swiftly through the air, characterized by its speed and smoothness, often conveying a sense of movement or force.
 yelp|Short|A short, loud, high sound, usually caused by excitement, anger, or pain
 yowl|Loud|A long, loud, unhappy sound or complaint

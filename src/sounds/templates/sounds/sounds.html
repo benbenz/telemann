@@ -44,11 +44,8 @@
     </div>
     <div class="soundpanel-assist words-panel">
         <h2 class="text-lg font-bold mb-2">Words</h2>
-        <ul class="words">
-            {% for word in words %}
-            <li><a tabindex="{% tab_index %}" onclick="selectTag(null,'{{word}}')">{{ word }}</a></li>
-            {% endfor %}
-        </ul>
+        {% include 'tags/widgets/words.html' %}
+
     </div>
 </div>
 

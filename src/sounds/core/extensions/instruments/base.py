@@ -2,6 +2,7 @@ import abc
 from pedalboard import AudioProcessorParameter , ExternalPlugin
 from sounds.models import SoundSource 
 from enum import StrEnum , auto
+from typing import List
 
 class OscShape(StrEnum):
     SINE = auto()
@@ -30,14 +31,23 @@ class InstrumentExtension(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def arp_get(self, instrument)->float:
+    def arp_get(self, instrument)->List|float:
         """ Implement me! """
         pass
 
     @abc.abstractmethod
-    def arp_set(self, instrument, value: float):
+    def arp_set(self, instrument, value: List|float):
         """ Implement me! """
         pass
+
+    @abc.abstractmethod
+    def arp_disable(self, instrument):
+        """ Implement me! """
+        pass
+
+    @abc.abstractmethod
+    def arp_is_on(self, instrument)->bool:  
+        pass   
 
     """
     This should add the field analysis in sound_info and add the following sections:

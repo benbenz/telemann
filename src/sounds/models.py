@@ -248,7 +248,7 @@ class SoundTone(models.Model):
     midi_bank_lsb = models.IntegerField(choices=choice_midi_bank,null=True,default=None,blank=True,help_text="The MIDI bank LSB of the sound")
     midi_program  = models.SmallIntegerField(choices=choice_midi_program,null=True,default=None,blank=True,help_text="The MIDI program of the sound")
     recording     = models.FilePathField(max_length=512,null=True,default=None,help_text="File path for recorded sources")
-    last_modified = models.DateTimeField(default=None,null=True,help_text="the date/time the file was modified")
+    last_modified = models.DateTimeField(auto_now=True,null=True,help_text="the date/time the file was modified")
     record_date   = models.DateTimeField(auto_now_add=True,help_text="the date/time the file was entered in the database")
     # relations
     source        = models.ForeignKey(SoundSource,default=None,null=False,on_delete=models.CASCADE)
@@ -289,7 +289,7 @@ class Dataset(models.Model):
     id            = models.AutoField(primary_key=True) 
     name          = models.CharField(max_length=64,null=False,help_text="The name of the sound dataset")
     description   = models.CharField(max_length=256,null=True,default=None,help_text="A short description")
-    last_modified = models.DateTimeField(default=None,null=True,help_text="the date/time the file was modified")
+    last_modified = models.DateTimeField(auto_now=True,null=True,help_text="the date/time the file was modified")
     record_date   = models.DateTimeField(auto_now_add=True,help_text="the date/time the file was entered in the database")
 
     class Meta:
@@ -313,7 +313,7 @@ class SoundBite(models.Model):
     duration_snd  = models.FloatField(null=True,default=None,blank=True,help_text="The actual duration of the sound")
     # format = { "source : { ...params... } , processors: [ { ...params... } ]"}
     parameters    = models.JSONField(default=None,null=True,blank=True,help_text="Parameters for this specific soundbite (source(if+processor parameters)")
-    last_modified = models.DateTimeField(default=None,null=True,help_text="the date/time the file was modified")
+    last_modified = models.DateTimeField(auto_now=True,null=True,help_text="the date/time the file was modified")
     record_date   = models.DateTimeField(auto_now_add=True,help_text="the date/time the file was entered in the database")
 
     # relation

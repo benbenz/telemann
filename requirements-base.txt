@@ -20,3 +20,4 @@ json-normalize
 scipy
 #matplotlib
 Pillow
+pydantic

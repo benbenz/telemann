@@ -192,7 +192,7 @@ def get_program_info(request):
     if pattern is not None:
         pattern = MIDIPattern[pattern]
     if arp_on is not None:
-        arp_on = {'':None,'0':False,'1':True,0:False,1:True}[arp_on]
+        arp_on = {'':None,'0':False,'1':True,0:False,1:True}.get(arp_on,None)
 
     return bank_msb , bank_lsb , program , pattern , arp_on
 

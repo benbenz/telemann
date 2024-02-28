@@ -8,7 +8,6 @@ import wave
 import math
 import re
 import io
-import time
 from enum import StrEnum , auto
 from sounds.apps import SoundsConfig
 from pedalboard.io import AudioFile
@@ -162,9 +161,11 @@ def render_audio(source:SoundSource,
     sound_key = get_midi_program_key(bank_msb,bank_lsb,program)
 
     if arp_on is not None:
-        if extension is not None and sound_key in instrument_info['programs_info']:
-            arpval = 1.0 if arp_on else 0.0
-            extension.arp_set(instrument,arpval)
+        if extension is not None and sound_key in instrument_info['programs_info'] and instrument_info['programs_info'][sound_key]["arp_value"] is not None:
+            if arp_on:
+                extension.arp_set(instrument,instrument_info['programs_info'][sound_key]["arp_value"])
+            else:
+                extension.arp_disable(instrument)
         else:
             print("Skipping ARP command cause we dont have an extension or we didnt capture the default ARP value yet")
 
@@ -177,7 +178,7 @@ def render_audio(source:SoundSource,
     )
 
     if arp_on is not None:
-        if extension is not None and sound_key in instrument_info['programs_info']:
+        if extension is not None and sound_key in instrument_info['programs_info'] and instrument_info['programs_info'][sound_key]["arp_value"] is not None:
             extension.arp_set(instrument,instrument_info['programs_info'][sound_key]["arp_value"])
 
     # audio = instrument(
@@ -267,7 +268,8 @@ def get_sound_analysis(source:SoundSource,
         sound_info = instrument_info['programs_info'][sound_key]
     else:
         instrument_info['programs_info'][sound_key] = {
-            'parameters' : convert_parameters(instrument) 
+            'parameters' : convert_parameters(instrument) ,
+            'arp_value' : instrExtension.arp_get(instrument) if instrExtension else None
         }
         sound_info = instrument_info['programs_info'][sound_key]
 
@@ -280,13 +282,10 @@ def get_sound_analysis(source:SoundSource,
     except Exception as e:
         print(f"There has been an error with the plugin extension: {str(e)}")
 
-    # if we have missing information, lets move to an audio analysis
+    #if we have missing information, lets move to an audio analysis
     # if 'envs' not in sound_info['analysis']:
-
-    #     arp_old_value = instrExtension.get_arp_value(instrument)
-        
-    #     instrExtension.arp_set(instrument,0.0)
-
+    #     if sound_info["arp_value"] is not None:
+    #         instrExtension.arp_disable(instrument)
     #     audio_4_analysis = render_audio(source=source,
     #                         bank_msb=bank_msb,
     #                         bank_lsb=bank_lsb,
@@ -295,13 +294,13 @@ def get_sound_analysis(source:SoundSource,
     #                         length=2,
     #                         save_parameters=False, # do not save the parameters as we altered the sound ! They shoul be already there from the rendering that occured before
     #                         reset_plugin=False) # the plugin should have been reset before by render_sound
-        
-    #     instrExtension.arp_set(instrument,arp_old_value)    
+    #     if sound_info["arp_value"] is not None:
+    #         instrExtension.arp_set(instrument,sound_info["arp_value"])    
     #     analyze_audio(source,audio_4_analysis,sound_info)
         
     if instrExtension:
         sound_info['description_tech'] = instrExtension.generate_text(sound_info)
-        sound_info['arp_is_on'] = (instrExtension.arp_get(instrument) == 1.0)
+        sound_info['arp_is_on'] = instrExtension.arp_is_on(instrument)
     else:
         sound_info['description_tech'] = None
         sound_info['arp_is_on'] = None

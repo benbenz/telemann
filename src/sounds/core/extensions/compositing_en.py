@@ -50,10 +50,11 @@ sentences = {
                 ],
                 "plural" : [
                     "A mix of {oscillators_desc}" ,
+                    "The mix of {oscillators_desc}" ,
                     "The sum of {oscillators_desc}" ,
                     "A blend of {oscillators_desc}" ,
                     "A mixture of {oscillators_desc}" ,
-                    "Mix {oscillators_desc}" ,
+                    "Mix of {oscillators_desc}" ,
                     "A melange of {oscillators_desc}"
                 ] ,
                 "balanced" : [

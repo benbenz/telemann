@@ -164,7 +164,8 @@ class Oscillator(ExtensionComponent):
     volume : confloat(ge=0.0,le=1.0)
     sub : bool 
 
-    def desc(self,style_guide:StyleGuide)->Optional[str]:
+    # when we used balanced writing, we won't output the volumes ...
+    def desc(self,style_guide:StyleGuide,used_balanced:bool)->Optional[str]:
         return "an oscillator"
     
 class Filter(ExtensionComponent):
@@ -226,7 +227,9 @@ class SoundToneDescription(ExtensionComponent):
         if self.oscillators is None or len(self.oscillators)==0:
             return None
         
-        oscillators_descs : List = [osc.desc(style_guide) for osc in self.oscillators]
+        balanced_mix = self._is_osc_mix_balanced() and "balanced" in sentences_osc["compositing"][style_guide.value] and random.random()>0.7
+
+        oscillators_descs : List = [osc.desc(style_guide,used_balanced=balanced_mix) for osc in self.oscillators]
 
         sentences_osc = sentences['oscillators']
 
@@ -236,12 +239,7 @@ class SoundToneDescription(ExtensionComponent):
 
         plurality = "plural" if len(oscillators_descs)>1 else "singular"
 
-        balanced_mix = self._is_osc_mix_balanced() and "balanced" in sentences_osc["compositing"][style_guide.value]
-
-        if balanced_mix is True:
-            compositing_choices = sentences_osc["compositing"][style_guide.value][plurality] + sentences_osc["compositing"][style_guide.value]["balanced"]
-        else:
-            compositing_choices = sentences_osc["compositing"][style_guide.value][plurality]
+        compositing_choices = sentences_osc["compositing"][style_guide.value]["balanced"] if balanced_mix else sentences_osc["compositing"][style_guide.value][plurality]
         
         compositing = random.choice( compositing_choices )
         

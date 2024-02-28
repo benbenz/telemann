@@ -2472,7 +2472,7 @@
     {
         "fields" : {
             "tag" : "toneless",
-            "group" : "Flat" ,
+            "group" : "General" ,
             "explanation" : "Sound that lacks musical quality or variations in pitch, often perceived as monotonous or dull, lacking in expressiveness." ,
             "select": true 
         } ,

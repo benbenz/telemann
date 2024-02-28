@@ -81,8 +81,7 @@ ul.categories li a:hover , ul.tags li a:hover , ul.words li a:hover   {
 ul.words li.group-name {
   font-weight: 800;
   font-size: 120%;
-  position: relative;
-  top: -4px;
+  margin-top: -4px;
   color: blue;
 }
 

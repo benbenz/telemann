@@ -170,7 +170,7 @@ class DivaExtension(InstrumentExtension):
     
     def _get_osc_shapes_eco(self,params:dict,i:int) -> List[OscillatorShape]:
         shapes = []
-        osc_shape = params[f"osc_shape{i}"]["value"]
+        osc_shape = params[f"osc_ecowave{i}"]["value"]
         osc_shape = float(osc_shape)
         if i==1:
             if osc_shape == 1.0:
@@ -189,7 +189,7 @@ class DivaExtension(InstrumentExtension):
             elif osc_shape == 3.0:
                 shapes = [ OscillatorShape(shape=OscillatorShapeEnum.PULSE_THIN) ]
             elif osc_shape == 4.0:
-                shapes = None # ring mod
+                shapes = [ OscillatorShape(shape=OscillatorShapeEnum.SQUARE) ] # ring mod. page 28 manual: SQUARE + RINGMOD
         return shapes
     
     def _get_osc_volume(self,params:dict,i_vco:int) -> float:

@@ -27,6 +27,8 @@ Tasks to do ...
   - [ ] Randomize decription tech for each soundbite
   - [ ] save note(s) played separately
 
+- [ ] At generation, use sometimes paraphrasing with ChatGPT (for the technical and human description)
+
 ### In Progress 🕑
 
 - [x] Implement PedalBoard VST (v1) handling: https://forum.juce.com/t/midi-program-change-forwarding-for-vst3/47161

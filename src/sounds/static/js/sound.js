@@ -1,25 +1,35 @@
 var thRender = null ;
 var thPromises = null ;
 // var audioObjectURL = null ;
-var blob_current = null ;
-var blob_next = null ;
-var blob_prev = null ;
 
-var fetched_capture = false ;
-var fetched_capture_program = null ;
-var fetched_analysis = false ;
-var fetched_analysis_program = null ;
+// Objects: { program : ... , data : ?.... }
+var fetched_audio_current = null ;
+var fetched_audio_next = null ;
+var fetched_audio_prev = null ;
+var fetched_capture = null ;
+var fetched_analysis = null ;
 
-function get_current_program() {
+function get_current_program(offset=0) {
     return {
         bank_msb : bank_msb ,
         bank_lsb : bank_lsb ,
-        program  : program 
+        program  : program + offset 
     }
 }
 
-function compare_fetched_program(fetched_program) {
-    let cur_program=get_current_program()
+function parse_program_header(response) {
+    if(response.headers && response.headers.has('X-Program-Data')) {
+        let program_header = response.headers.get('X-Program-Data')
+        try {
+            let program_data = JSON.parse(program_header)
+            return program_data 
+        } catch(error) {}
+    }
+    return null ;
+}
+
+function compare_fetched_program(fetched_program,offset=0) {
+    let cur_program=get_current_program(offset)
     return cur_program.bank_msb==fetched_program.bank_msb && cur_program.bank_lsb==fetched_program.bank_lsb && cur_program.program==fetched_program.program
 }
 
@@ -53,14 +63,16 @@ function _renderAudio(program_offset=0) {
     //     URL.revokeObjectURL(audioObjectURL)
     //     audioObjectURL = null ;
     // }
-    if(program_offset===0 && blob_current!==null) {
-        _renderToAudioElement(blob_current) ;
+    let rendering_program = get_current_program()
+
+    if(program_offset===0 && fetched_audio_current!==null && compare_fetched_program(fetched_audio_current.program)) {
+        _renderToAudioElement(fetched_audio_current.data) ;
         return Promise.resolve()
     }
-    else if(program_offset===1 && blob_next!==null) {
+    else if(program_offset===1 && fetched_audio_next!==null && compare_fetched_program(fetched_audio_next.program)) {
         return Promise.resolve()
     }
-    else if(program_offset===-1 && blob_prev!==null) {
+    else if(program_offset===-1 && fetched_audio_prev!==null && compare_fetched_program(fetched_audio_prev.program)) {
         return Promise.resolve()
     }
     return fetch(audio_url,{
@@ -69,22 +81,32 @@ function _renderAudio(program_offset=0) {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-        return response.blob(); // Parse the response body as JSON
+        let program = parse_program_header(response)
+        return response.blob().then( blob => {
+            return [program,blob]
+        }); 
     })
-    .then(blob => {
-        if(program_offset===0) {
-            blob_current = blob ;
-            _renderToAudioElement(blob) ;
+    .then( ([program,blob]) => {
+
+        // lets use the header to check if we have a match
+        // we use the "dumb" version of the program: program_orig (with only +/-1 to program value)
+        let check_program = program ? program.program_orig : rendering_program
+        program_match = compare_fetched_program(check_program,program_offset)
+        let store_program = program ? program.program : rendering_program
+
+        if(program_offset===0 && program_match) {
+            fetched_audio_current = { data : blob , program : store_program } ;
+            _renderToAudioElement(fetched_audio_current.data) ;
             // will be obsolete
             // audioObjectURL = URL.createObjectURL(blob); // HAVE TO RESIVE THIS 
             // audioEle.src = audioObjectURL
             // audioEle.play();
         } 
-        else if(program_offset===+1) {
-            blob_next = blob ;
+        else if(program_offset===+1 && program_match) {
+            fetched_audio_next = { data : blob , program : store_program } ;
         }
-        else if(program_offset===-1) {
-            blob_prev = blob ;
+        else if(program_offset===-1 && program_match) {
+            fetched_audio_prev = { data : blob , program : store_program } ;
         }
     })
     .catch(error => {
@@ -110,12 +132,11 @@ function setSoundName(name){
 }
 
 function _cancelAnalyzeSound() {
-    fetched_analysis = false ;
-    fetched_analysis_program = null ;
+    fetched_analysis = null ;
 }
 
 function analyzeSound() {
-    if(fetched_analysis===true && compare_fetched_program(fetched_analysis_program))
+    if(fetched_analysis!==null && compare_fetched_program(fetched_analysis.program))
         return Promise.resolve();
     let audio_analyze_url = recomputeAudioAnalyzeUrl()    
     let analyzing_program = get_current_program()
@@ -129,17 +150,26 @@ function analyzeSound() {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-        return response.json(); // Parse the response body as JSON
+        let program = parse_program_header(response)
+        return response.json().then( blob => {
+            return [program,blob]
+        }); 
     })
-    .then(json => {
-        let div = document.getElementById('id_description_tech')
-        div.innerHTML = json.description_tech
-        setSoundName(json.program_name)
-        document.querySelector("#div_id_parameters textarea").innerHTML = JSON.stringify( json.parameters ) ;
-        // now time to also get the UI of the instrument
-        //captureSoundtoneGUI()
-        fetched_analysis = true
-        fetched_analysis_program = analyzing_program
+    .then( ([program,json]) => {
+
+        // if the program is not present in the header
+        // let's rely on the local scope variable
+        // if it is present, we use the corrected program (with modulos etc. actually existing program, not just the +1 program)
+        let ref_program = program ? program.program : analyzing_program
+
+        if(compare_fetched_program(ref_program)) {
+            let div = document.getElementById('id_description_tech')
+            div.innerHTML = json.description_tech
+            setSoundName(json.program_name)
+            document.querySelector("#div_id_parameters textarea").innerHTML = JSON.stringify( json.parameters ) ;
+            // now time to also get the UI of the instrument
+            fetched_analysis = { program : ref_program }
+        }
     })
     .catch(error => {
         // Handle any errors here
@@ -147,16 +177,15 @@ function analyzeSound() {
     });    
 }
 
-function _cancelCaptureSoundtoneGUI() {
-    fetched_capture=false ;
-    fetched_capture_program=null;
+function _cancelCaptureSoundToneGUI() {
+    fetched_capture=null ;
 }
 
-function captureSoundtoneGUI() {
-    if(fetched_capture===true && compare_fetched_program(fetched_capture_program))
+function captureSoundToneGUI() {
+    if(fetched_capture!==null && compare_fetched_program(fetched_capture.program))
         return Promise.resolve() ;
     let audio_capture_url = recomputeAudioImageCaptureUrl()   
-    let fetching_program = get_current_program()
+    let capturing_program = get_current_program()
     //document.getElementById('soundtone_capture').src = audio_capture_url ;
     return fetch(audio_capture_url,{
         method: 'GET' ,
@@ -164,15 +193,24 @@ function captureSoundtoneGUI() {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-        return response.blob(); // Parse the response body as JSON
+        let program = parse_program_header(response)
+        return response.blob().then( blob => {
+            return [program,blob]
+        });
     })
-    .then(blob => {
-        let img_capture = document.getElementById('soundtone_capture')
+    .then( ([program,blob]) => {
+        // if the program is not present in the header
+        // let's rely on the local scope variable
+        // if it is present, we use the corrected program (with modulos etc. actually existing program, not just the +1 program)
+        let ref_program = program ? program.program : capturing_program
+
         const reader = new FileReader();
         reader.onloadend = () => {
-            img_capture.src = reader.result;
-            fetched_capture = true 
-            fetched_capture_program = fetching_program 
+            let img_capture = document.getElementById('soundtone_capture')
+            if(compare_fetched_program(ref_program)) {
+                img_capture.src = reader.result;
+                fetched_capture = { program : ref_program }
+            }
         };
         reader.readAsDataURL(blob);    
     })
@@ -192,9 +230,9 @@ function _clearThRender() {
 }
 
 function resetBlobs() {
-    blob_current = null ;
-    blob_next = null ;
-    blob_prev = null ;    
+    fetched_audio_current = null ;
+    fetched_audio_next = null ;
+    fetched_audio_prev = null ;    
 }
 
 function fetchSound(timeout,with_extras) {
@@ -243,7 +281,7 @@ async function _fetchAll(with_extras=true){
     if(with_extras) {
         extras = [
             { func : analyzeSound , aborted: false , cancel : _cancelAnalyzeSound } ,
-            { func : captureSoundtoneGUI , aborted: false , cancel : _cancelCaptureSoundtoneGUI} ,
+            { func : captureSoundToneGUI , aborted: false , cancel : _cancelCaptureSoundToneGUI} ,
         ]
     } else {
         extras = []
@@ -276,18 +314,18 @@ async function _fetchAll(with_extras=true){
 
 function nextSound() {
     _clearThRender()
-    blob_prev = blob_current ;
-    blob_current = blob_next ;
-    blob_next = null ;
+    fetched_audio_prev = fetched_audio_current ;
+    fetched_audio_current = fetched_audio_next ;
+    fetched_audio_next = null ;
     program++;
     submitForm();
 }
 
 function prevSound() {
     _clearThRender()
-    blob_next = blob_current ;
-    blob_current = blob_prev ;
-    blob_prev = null ;
+    fetched_audio_next = fetched_audio_current ;
+    fetched_audio_current = fetched_audio_prev ;
+    fetched_audio_prev = null ;
     program--;
     submitForm();
 }
@@ -305,7 +343,7 @@ function submitForm( method='GET' ) {
     // controller = new AbortController();
 
     /// RESET the values before fetch
-    _cancelCaptureSoundtoneGUI() ;
+    _cancelCaptureSoundToneGUI() ;
     _cancelAnalyzeSound() ;
     
     const {
@@ -429,7 +467,7 @@ function onSoundToneLoaded(){
     document.getElementById('program').addEventListener('change', jumpProgram )
 
     document.getElementById('soundtone_capture').src = "";
-    hideSoundtoneCapture() ;
+    hideSoundToneCapture() ;
 
     document.querySelector('#soundtone_form').addEventListener('submit',onFormSubmit)
 
@@ -439,13 +477,13 @@ function onSoundToneLoaded(){
     addTokenfieldToTagsInput()
 }
 
-function hideSoundtoneCapture() {
+function hideSoundToneCapture() {
     document.getElementById('soundtone_interface').classList.add('hidden-dyn') ;
 }
-function showSoundtoneCapture() {
+function showSoundToneCapture() {
     document.getElementById('soundtone_interface').classList.remove('hidden-dyn') ;
 }
-function toggleSoundtoneCapture() {
+function toggleSoundToneCapture() {
     document.getElementById('soundtone_interface').classList.toggle('hidden-dyn') ;
 }
 
@@ -467,9 +505,9 @@ function onSoundControlLoaded() {
     }) ;
     document.getElementById('soundtone_audio').addEventListener("loadeddata", onAudioLoaded );
 
-    document.getElementById('capture_view_icon').addEventListener("click", toggleSoundtoneCapture) ;
+    document.getElementById('capture_view_icon').addEventListener("click", toggleSoundToneCapture) ;
 
-    document.getElementById('soundtone_interface').addEventListener("click", hideSoundtoneCapture) ;
+    document.getElementById('soundtone_interface').addEventListener("click", hideSoundToneCapture) ;
 }
 
 var tokenfieldTags 

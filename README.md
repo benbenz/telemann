@@ -21,6 +21,7 @@ pip install -r requirements.txt
 python src/manage.py migrate
 # populate the database
 python src/manage.py initsources
+python src/manage.py initwords
 # run the server
 # IT IS ESSENTIAL to run the server without threading NOR reload if you want to use the IMAGE CAPTURE feature
 python src/manage.py runserver --nothreading --noreload

@@ -13,7 +13,7 @@ from .core.midi import MIDIPattern , parse_new_program_value
 import io
 import math
 from tags.models import Tag
-from tags.views import get_most_popular_tags
+from tags.views import get_most_popular_tags , get_words
 
 def sounds(request,srcid=None):
     if srcid is None:
@@ -23,13 +23,13 @@ def sounds(request,srcid=None):
         })
     else:
         source   = SoundSource.objects.get(id=srcid)
-        bank_msb , bank_lsb , program , pattern = get_program_info(request)
+        bank_msb0 , bank_lsb0 , program0 , pattern = get_program_info(request)
         category = request.GET.get('c',None)
 
         # looping feature
         # we let the UI be "ignorant" (only increment/decrement program...)
         # and the view is handling the computation of bank+program
-        bank_msb , bank_lsb , program = parse_new_program_value(source,bank_msb,bank_lsb,program)
+        bank_msb , bank_lsb , program = parse_new_program_value(source,bank_msb0,bank_lsb0,program0)
 
         if request.method == 'GET':
             try:
@@ -61,7 +61,8 @@ def sounds(request,srcid=None):
                     'patterns':MIDIPattern.__members__.items(),
                     'category':category,
                     'form':form,
-                    'tags':get_most_popular_tags()
+                    'tags':get_most_popular_tags(),
+                    'words':get_words()
                 })
         elif request.method == 'POST':
             try:
@@ -83,8 +84,8 @@ def sounds(request,srcid=None):
             sound_tone.save()
 
             return JsonResponse({"response":"OK","error":None})     
-           
-    
+        
+        
 def stream_audio(audio,framerate):
     # for frame in np.nditer(audio):
     #     bytes = frame.tobytes()
@@ -97,11 +98,11 @@ def stream_audio(audio,framerate):
 
 def render_sound(request,srcid):
     
-    bank_msb , bank_lsb , program , pattern = get_program_info(request)
+    bank_msb0 , bank_lsb0 , program0 , pattern = get_program_info(request)
 
     source:SoundSource = SoundSource.objects.get(id=srcid)
 
-    bank_msb , bank_lsb , program = parse_new_program_value(source,bank_msb,bank_lsb,program)
+    bank_msb , bank_lsb , program = parse_new_program_value(source,bank_msb0,bank_lsb0,program0)
 
     audio = render_audio(source,
                          bank_msb=bank_msb,
@@ -112,6 +113,15 @@ def render_sound(request,srcid):
 #        'Cache-Control': 'no-cache, no-store, must-revalidate',
 #        'Content-Length': audio.size * audio.itemsize
     }
+    program_header = get_program_header(bank_msb0 = bank_msb0,
+                                        bank_lsb0 = bank_lsb0,
+                                        program0  = program0,
+                                        bank_msb  = bank_msb,
+                                        bank_lsb  = bank_lsb,
+                                        program   = program,
+                                        )
+
+    headers = headers | program_header 
 
     format = request.GET.get('f','wav')
     mime = request.GET.get('mt',None)
@@ -125,29 +135,45 @@ def render_sound(request,srcid):
 
 def analyze_sound(request,srcid):
 
-    bank_msb , bank_lsb , program , _ = get_program_info(request)
+    bank_msb0 , bank_lsb0 , program0 , _ = get_program_info(request)
 
     source:SoundSource = SoundSource.objects.get(id=srcid)
 
-    bank_msb , bank_lsb , program = parse_new_program_value(source,bank_msb,bank_lsb,program)
+    bank_msb , bank_lsb , program = parse_new_program_value(source,bank_msb0,bank_lsb0,program0)
 
     sound_info = get_sound_analysis(source,bank_msb=bank_msb,bank_lsb=bank_lsb,program=program)
 
-    return JsonResponse(sound_info)
+    program_header = get_program_header(bank_msb0 = bank_msb0,
+                                        bank_lsb0 = bank_lsb0,
+                                        program0  = program0,
+                                        bank_msb  = bank_msb,
+                                        bank_lsb  = bank_lsb,
+                                        program   = program,
+                                        )
+
+    return JsonResponse(sound_info,headers=program_header)
 
 
 def capture_sound_image(request,srcid):
 
-    bank_msb , bank_lsb , program , _ = get_program_info(request)
+    bank_msb0 , bank_lsb0 , program0 , _ = get_program_info(request)
 
     source:SoundSource = SoundSource.objects.get(id=srcid)
 
-    bank_msb , bank_lsb , program = parse_new_program_value(source,bank_msb,bank_lsb,program)
+    bank_msb , bank_lsb , program = parse_new_program_value(source,bank_msb0,bank_lsb0,program0)
 
     image_data = get_image_data(source,bank_msb=bank_msb,bank_lsb=bank_lsb,program=program)
 
+    program_header = get_program_header(bank_msb0 = bank_msb0,
+                                        bank_lsb0 = bank_lsb0,
+                                        program0  = program0,
+                                        bank_msb  = bank_msb,
+                                        bank_lsb  = bank_lsb,
+                                        program   = program,
+                                        )
+
     #return JsonResponse({"image":image_data,"error":None})
-    return FileResponse(image_data,content_type='image/jpeg')
+    return FileResponse(image_data,content_type='image/jpeg',headers=program_header)
 
 def get_program_info(request):
     bank_msb = request.GET.get('bm',0)
@@ -165,6 +191,29 @@ def get_program_info(request):
         pattern = MIDIPattern[pattern]
 
     return bank_msb , bank_lsb , program , pattern
+
+
+def get_program_header(bank_msb0,
+                        bank_lsb0,
+                        program0,
+                        bank_msb,
+                        bank_lsb,
+                        program):
+    
+    header_obj = {
+        "program_orig" : {
+            "bank_msb" : bank_msb0 ,
+            "bank_lsb" : bank_lsb0 ,
+            "program"  : program0
+        } ,
+        "program" : {
+            "bank_msb" : bank_msb ,
+            "bank_lsb" : bank_lsb ,
+            "program"  : program
+        }
+    }
+
+    return { 'X-Program-Data' : json.dumps(header_obj) }
 
     
 def sources(request):

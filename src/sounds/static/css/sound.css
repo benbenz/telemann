@@ -54,23 +54,40 @@ form div small {
 .soundpanel.left {
   display: flex;
   flex-direction: row;
+  flex: 3;
+}
+.soundpanel.right {
+  flex: 2;
+  margin-left: 2em;
 }
 
 .soundpanel.left .soundpanel-assist {
   flex: 1
 }
-ul.categories li , ul.tags li {
+ul.categories li , ul.tags li , ul.words li {
   padding: .1em ;
   font-size: 19px;
 }
-ul.categories li a , ul.tags li a {
+ul.categories li a , ul.tags li a , ul.words li a {
   cursor: pointer;
   padding: .15em .3em;
   border-radius: .2em;
 }
-ul.categories li a:hover , ul.tags li a:hover  {
+ul.categories li a:hover , ul.tags li a:hover , ul.words li a:hover   {
   background-color: #444;
   color: white;
+}
+
+
+.soundpanel.left .soundpanel-assist.words-panel {
+  flex: 3 ;
+}
+ul.words {
+  display: flex;
+  flex-wrap: wrap;  
+}
+ul.words li {
+  font-size: 16px;
 }
 
 .soundcontrols {

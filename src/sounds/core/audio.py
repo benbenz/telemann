@@ -362,7 +362,7 @@ def get_instrument_extension(source:SoundSource):
     if not source.extension:
         return None
     try:
-        module_name = f"sounds.core.extensions.{source.extension}"
+        module_name = f"{source.extension}"
         module = import_module(module_name)
         classes = []
         for _, member in inspect.getmembers(module):

@@ -33,6 +33,20 @@
             },
             "django": true,
             "host": "localhost"
+        },
+        {
+            "name": "django:initwords",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/manage.py",
+            "args": [
+                "initwords",
+            ],
+            "justMyCode": false,
+            "env": {
+            },
+            "django": true,
+            "host": "localhost"
         },        
     ]
 }

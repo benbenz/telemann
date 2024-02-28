@@ -18,10 +18,18 @@ Tasks to do ...
 - [ ] Issue with Collapsing "model" in Diva: not the case in the VST plugin: Problem with AU parameters parsing ? in pedalboard or JUCE ?
 - [ ] Use Diva.vst if not resolved
 - [ ] Issue with VST Preset Name being offset with SynthMaster ... (not Diva VST ...) No idea why
+- [ ] This one should be moved to the Sound bite so that we can randomize across soundbites during génération time 
+- [x] compare landing program for prev,next,current,capture and analyze
+- [x] more robust landing program comparison with header
+- [x] fetching objects with program data + payload
+
+- [ ] Generation:
+  - [ ] Randomize decription tech for each soundbite
+  - [ ] save note(s) played separately
 
 ### In Progress 🕑
 
-- [ ] Implement PedalBoard VST (v1) handling: https://forum.juce.com/t/midi-program-change-forwarding-for-vst3/47161
+- [x] Implement PedalBoard VST (v1) handling: https://forum.juce.com/t/midi-program-change-forwarding-for-vst3/47161
       Issue with VST3 and program changes all over the place ...
 
 ### Done ✓

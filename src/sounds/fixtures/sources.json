@@ -63,7 +63,7 @@
                     ]
                 }
             },
-            "extension" : "instruments.synthmaster2"
+            "extension" : "sounds.core.extensions.instruments.synthmaster2"
         } ,
         "model": "sounds.SoundSource" ,
         "pk": 3
@@ -109,7 +109,7 @@
                     ]
                 }
             },
-            "extension" : "instruments.diva"
+            "extension" : "sounds.core.extensions.instruments.diva"
         } ,
         "model": "sounds.SoundSource" ,
         "pk": 4

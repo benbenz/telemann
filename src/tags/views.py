@@ -12,9 +12,14 @@ def get_most_popular_tags(num_tags=20):
     tag_counts = Tag.objects.annotate(num_sounds=Count('sounds'))
     
     # Order the tags by the number of associated sounds in descending order
-    popular_tags = tag_counts.order_by('-num_sounds')[:num_tags]
+    # do not select the "words"/pre-selected tags, only the new ones from the user ...
+    popular_tags = tag_counts.filter(select=False).order_by('-num_sounds')[:num_tags]
     
     return popular_tags
+
+def get_words():
+    
+    return Tag.objects.filter(select=True).all()
 
 def tags_search(request):
     if request.method == 'GET':

@@ -1,0 +1,126 @@
+from enum import StrEnum , IntFlag , auto
+
+class OscillatorShapeEnum(StrEnum):
+    SINE = auto()
+    TRIANGLE = auto()
+    TRISHAPED = auto()
+    SQUARE = auto()
+    PULSE = auto()
+    PULSE_THIN = auto()
+    SAWTOOTH = auto()
+    SAWMULTI = auto()
+    SAWUP = auto()
+    SAWDOWN = auto()
+    NOISE = auto()
+    SAMPLE = auto()
+    ADDITIVE = auto()
+    DIGITAL = auto()
+    FEEDBACK = auto()
+    EXOTIC = auto()
+    S_H = auto()
+    OTHER = auto()
+
+class ModulationSourceID(StrEnum):
+    ENV1 = auto()
+    ENV2 = auto() 
+    ENV3 = auto() 
+    ENV4 = auto()
+    ENV5 = auto()
+    ENV6 = auto()
+    ENV7 = auto() 
+    ENV8 = auto()
+    ENV9 = auto()
+    ENV10 = auto()
+    LFO1 = auto() 
+    LFO2 = auto() 
+    LFO3 = auto() 
+    LFO4 = auto() 
+    LFO5 = auto() 
+    LFO6 = auto() 
+    LFO7 = auto() 
+    LFO8 = auto() 
+    LFO9 = auto() 
+    LF10 = auto() 
+    OSC1 = auto()
+    OSC2 = auto()
+    OSC3 = auto()
+    OSC4 = auto()
+    OSC5 = auto()
+    OSC6 = auto()
+    OTHER = auto()
+
+class ModulationDestID(StrEnum):
+    ENV1 = auto()
+    ENV2 = auto() 
+    ENV3 = auto() 
+    ENV4 = auto()
+    ENV5 = auto()
+    ENV6 = auto()
+    ENV7 = auto() 
+    ENV8 = auto()
+    ENV9 = auto()
+    ENV10 = auto()
+    LFO1 = auto() 
+    LFO2 = auto() 
+    LFO3 = auto() 
+    LFO4 = auto() 
+    LFO5 = auto() 
+    LFO6 = auto() 
+    LFO7 = auto() 
+    LFO8 = auto() 
+    LFO9 = auto() 
+    LF10 = auto() 
+    OSC1 = auto()
+    OSC2 = auto()
+    OSC3 = auto()
+    OSC4 = auto()
+    OSC5 = auto()
+    OSC6 = auto()
+    FILT1 = auto()
+    FILT2 = auto()
+    FILT3 = auto()
+    OTHER = auto()  
+
+class ModulationDestParam(StrEnum):
+    # OSC mods
+    PITCH = auto() 
+    PWM   = auto()
+    RING  = auto() 
+    CROSS = auto()
+    SYNC  = auto()
+    # FILTER
+    CUTOFF = auto()
+    RESONANCE = auto()
+    # ENVELOPE
+    RATE = auto()
+    # AMP
+    AMP = auto()
+
+class EnvelopeType(StrEnum):
+    ADSR = auto()     
+    AR = auto()
+    GATE = auto()
+
+class EffectType(StrEnum):
+    DISTORTION = auto()     
+    WAVESHAPER = auto()
+    SATURATION = auto()
+    OVERDRIVE = auto()
+    CHORUS = auto()
+    FLANGER = auto()   
+    PHASER = auto()    
+    REVERB = auto()    
+    DELAY = auto()   
+    COMPRESSION = auto()
+    OTHER = auto()
+
+class StyleGuide(StrEnum):
+    BASIC = auto()
+    SUCCINT = auto()
+    CONCISE = auto() 
+    DETAILED = auto()
+
+class DeclarationsMask(IntFlag):
+    NONE = 0 
+    OSC_MIX = auto() # means that the mix of oscillators has been declared
+    ALL = OSC_MIX

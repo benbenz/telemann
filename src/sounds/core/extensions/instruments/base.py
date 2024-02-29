@@ -38,7 +38,8 @@ class InstrumentExtension(abc.ABC):
             style_guide = random.choice(list(StyleGuide))
 
         if description:
-            return description.desc(style_guide)
+            desc , _ = description.desc(style_guide)
+            return desc
         else:
             return "No description available"
     

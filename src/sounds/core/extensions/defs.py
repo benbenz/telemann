@@ -1,6 +1,6 @@
 from enum import StrEnum , IntFlag , auto
 
-class OscillatorShapeEnum(StrEnum):
+class WaveformEnum(StrEnum):
     SINE = auto()
     TRIANGLE = auto()
     TRISHAPED = auto()
@@ -12,6 +12,8 @@ class OscillatorShapeEnum(StrEnum):
     SAWUP = auto()
     SAWDOWN = auto()
     NOISE = auto()
+    NOISE_WHITE = auto()
+    NOISE_PINK = auto()
     SAMPLE = auto()
     ADDITIVE = auto()
     DIGITAL = auto()
@@ -114,13 +116,36 @@ class EffectType(StrEnum):
     COMPRESSION = auto()
     OTHER = auto()
 
+class CompositingKey(StrEnum):
+    OSCILLATORS = auto()
+    OSCILLATOR = auto()
+    SHAPE = auto()
+    GLUE = auto()
+    COMPOSITING = auto()
+    OSCS_SINGULAR = auto()
+    OSCS_PLURAL   = auto()
+    OSCS_MIX_BALANCED = auto()
+    OSCS_MIX_FORWARD  = auto()
+    OSC_VOL_SINGULAR = auto()
+    OSC_VOL_PLURAL  = auto()
+    OSC_SINGULAR = auto()
+    OSC_PLURAL   = auto()
+    OSC_SUB  = auto()
+    OSC_SUB_NOT  = auto()
+    OSC_TYPE = auto()
+    OSC_ARTICLE = auto()
+    SHAPE_WITH_VOL = auto()
+    SHAPE_NO_VOL = auto()
+
 class StyleGuide(StrEnum):
     BASIC = auto()
     SUCCINT = auto()
     CONCISE = auto() 
     DETAILED = auto()
+    SPECIFICATION = auto()
 
 class DeclarationsMask(IntFlag):
     NONE = 0 
-    OSC_MIX = auto() # means that the mix of oscillators has been declared
-    ALL = OSC_MIX
+    OSC_LEVEL = auto() # means that the mix of oscillators has been declared
+    SHAPE_LEVEL = auto() # means that the level of the shapes has been declared
+    ALL = OSC_LEVEL | SHAPE_LEVEL

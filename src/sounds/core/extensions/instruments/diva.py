@@ -96,17 +96,17 @@ class DivaExtension(InstrumentExtension):
         pulse_shape = params[f"osc_pulseshape"]["value"]
         saw_shape = params[f"osc_sawshape"]["value"]
         sub_shape = params[f"osc_suboscshape"]["value"]
-        sub_vol = params[f"volume3"]["raw_value"]
+        sub_vol = params[f"osc_volume3"]["raw_value"]
         if pulse_shape != "0":
-            oscs.append(Oscillator(shapes=[OscillatorShape(shape=OscillatorShapeEnum.PULSE,volume=1.0)],
+            oscs.append(Oscillator(shapes=[OscillatorShape(waveform=WaveformEnum.PULSE,volume=1.0)],
                                 volume=1.0,
                                 sub=False))
         if saw_shape != "0":
-            oscs.append(Oscillator(shapes=[OscillatorShape(shape=OscillatorShapeEnum.SAWTOOTH,volume=1.0)],
+            oscs.append(Oscillator(shapes=[OscillatorShape(waveform=WaveformEnum.SAWTOOTH,volume=1.0)],
                                 volume=1.0,
                                 sub=False))
         if sub_vol > VOL_THRESH:
-            oscs.append(Oscillator(shapes=[OscillatorShape(shape=OscillatorShapeEnum.SAWTOOTH,volume=1.0)],
+            oscs.append(Oscillator(shapes=[OscillatorShape(waveform=WaveformEnum.PULSE,volume=1.0)],
                                 volume=sub_vol,
                                 sub=True))
         return oscs
@@ -143,47 +143,47 @@ class DivaExtension(InstrumentExtension):
         osc_shape = params[f"osc_shape{i}"]["value"]
         osc_shape = float(osc_shape)
         if osc_shape <= 1.0 + VOL_THRESH:
-            shapes = [ OscillatorShape(shape=OscillatorShapeEnum.SAWUP,volume=1.0) ]
+            shapes = [ OscillatorShape(waveform=WaveformEnum.SAWUP,volume=1.0) ]
         elif osc_shape <= 2.0:
             vol1 = ( 3.0 - osc_shape ) / 2
             vol2 = ( osc_shape - 1.0 ) / 2
-            shapes = [ OscillatorShape(shape=OscillatorShapeEnum.SAWUP, volume=vol1) , OscillatorShape(shape=OscillatorShapeEnum.TRIANGLE, volume=vol2) ]
+            shapes = [ OscillatorShape(waveform=WaveformEnum.SAWUP, volume=vol1) , OscillatorShape(waveform=WaveformEnum.TRIANGLE, volume=vol2) ]
         elif osc_shape <= 3.0 - VOL_THRESH:
             vol1 = ( 3.0 - osc_shape ) / 2
             vol2 = ( osc_shape - 1.0 ) / 2
-            shapes = [ OscillatorShape(shape=OscillatorShapeEnum.TRIANGLE, volume=vol2) , OscillatorShape(shape=OscillatorShapeEnum.SAWUP, volume=vol1) ]
+            shapes = [ OscillatorShape(waveform=WaveformEnum.TRIANGLE, volume=vol2) , OscillatorShape(waveform=WaveformEnum.SAWUP, volume=vol1) ]
         elif osc_shape <= 3.0 + VOL_THRESH:
-            shapes = [ OscillatorShape(shape=OscillatorShapeEnum.TRIANGLE, volume=1.0) ]
+            shapes = [ OscillatorShape(waveform=WaveformEnum.TRIANGLE, volume=1.0) ]
         elif osc_shape <= 4.0:
             vol1 = ( 5.0 - osc_shape ) / 2
             vol2 = ( osc_shape - 3.0 ) / 2
-            shapes = [ OscillatorShape(shape=OscillatorShapeEnum.TRIANGLE, volume=vol1) , OscillatorShape(shape=OscillatorShapeEnum.SAWDOWN, volume=vol2) ]
+            shapes = [ OscillatorShape(waveform=WaveformEnum.TRIANGLE, volume=vol1) , OscillatorShape(waveform=WaveformEnum.SAWDOWN, volume=vol2) ]
         elif osc_shape <= 5.0 - VOL_THRESH:
             vol1 = ( 5.0 - osc_shape ) / 2
             vol2 = ( osc_shape - 3.0 ) / 2
-            shapes = [ OscillatorShape(shape=OscillatorShapeEnum.SAWDOWN, volume=vol2) , OscillatorShape(shape=OscillatorShapeEnum.TRIANGLE, volume=vol1) ]
+            shapes = [ OscillatorShape(waveform=WaveformEnum.SAWDOWN, volume=vol2) , OscillatorShape(waveform=WaveformEnum.TRIANGLE, volume=vol1) ]
         elif osc_shape <= 5.0 + VOL_THRESH:
-            shapes = [ OscillatorShape(shape=OscillatorShapeEnum.SAWDOWN, volume=1.0) ]
+            shapes = [ OscillatorShape(waveform=WaveformEnum.SAWDOWN, volume=1.0) ]
         elif osc_shape <= 6.0:
             vol1 = ( 7.0 - osc_shape ) / 2
             vol2 = ( osc_shape - 5.0 ) / 2
-            shapes = [ OscillatorShape(shape=OscillatorShapeEnum.SAWDOWN, volume=vol1) , OscillatorShape(shape=OscillatorShapeEnum.PULSE, volume=vol2) ]
+            shapes = [ OscillatorShape(waveform=WaveformEnum.SAWDOWN, volume=vol1) , OscillatorShape(waveform=WaveformEnum.PULSE, volume=vol2) ]
         elif osc_shape <= 7.0 - VOL_THRESH:
             vol1 = ( 7.0 - osc_shape ) / 2
             vol2 = ( osc_shape - 5.0 ) / 2
-            shapes = [ OscillatorShape(shape=OscillatorShapeEnum.PULSE, volume=vol2) , OscillatorShape(shape=OscillatorShapeEnum.SAWDOWN, volume=vol1) ]
+            shapes = [ OscillatorShape(waveform=WaveformEnum.PULSE, volume=vol2) , OscillatorShape(waveform=WaveformEnum.SAWDOWN, volume=vol1) ]
         elif osc_shape <= 7.0 + VOL_THRESH:
-            shapes = [ OscillatorShape(shape=OscillatorShapeEnum.PULSE, volume=1.0)]
+            shapes = [ OscillatorShape(waveform=WaveformEnum.PULSE, volume=1.0)]
         elif osc_shape <= 8.0:
             vol1 = ( 9.0 - osc_shape ) / 2
             vol2 = ( osc_shape - 7.0 ) / 2
-            shapes = [ OscillatorShape(shape=OscillatorShapeEnum.PULSE, volume=vol1) , OscillatorShape(shape=OscillatorShapeEnum.PULSE_THIN, volume=vol2)]
+            shapes = [ OscillatorShape(waveform=WaveformEnum.PULSE, volume=vol1) , OscillatorShape(waveform=WaveformEnum.PULSE_THIN, volume=vol2)]
         elif osc_shape <= 9.0 - VOL_THRESH:
             vol1 = ( 9.0 - osc_shape ) / 2
             vol2 = ( osc_shape - 7.0 ) / 2
-            shapes = [ OscillatorShape(shape=OscillatorShapeEnum.PULSE_THIN, volume=vol2) , OscillatorShape(shape=OscillatorShapeEnum.PULSE, volume=vol1)]
+            shapes = [ OscillatorShape(waveform=WaveformEnum.PULSE_THIN, volume=vol2) , OscillatorShape(waveform=WaveformEnum.PULSE, volume=vol1)]
         elif osc_shape >= 9.0 - VOL_THRESH:
-            shapes = [ OscillatorShape(shape=OscillatorShapeEnum.PULSE_THIN,volume=1.0)]
+            shapes = [ OscillatorShape(waveform=WaveformEnum.PULSE_THIN,volume=1.0)]
 
         return shapes
     
@@ -193,46 +193,46 @@ class DivaExtension(InstrumentExtension):
         osc_shape = float(osc_shape)
         if i==1:
             if osc_shape == 1.0:
-                shapes = [ OscillatorShape(shape=OscillatorShapeEnum.TRIANGLE, volume=1.0) ]
+                shapes = [ OscillatorShape(waveform=WaveformEnum.TRIANGLE, volume=1.0) ]
             elif osc_shape == 2.0:
-                shapes = [ OscillatorShape(shape=OscillatorShapeEnum.SAWDOWN, volume=1.0) ]
+                shapes = [ OscillatorShape(waveform=WaveformEnum.SAWDOWN, volume=1.0) ]
             elif osc_shape == 3.0:
-                shapes = [ OscillatorShape(shape=OscillatorShapeEnum.PULSE, volume=1.0) ]
+                shapes = [ OscillatorShape(waveform=WaveformEnum.PULSE, volume=1.0) ]
             elif osc_shape == 4.0:
-                shapes = [ OscillatorShape(shape=OscillatorShapeEnum.NOISE, volume=1.0) ]
+                shapes = [ OscillatorShape(waveform=WaveformEnum.NOISE, volume=1.0) ]
         elif i==2:
             if osc_shape == 1.0:
-                shapes = [ OscillatorShape(shape=OscillatorShapeEnum.SAWDOWN, volume=1.0) ]
+                shapes = [ OscillatorShape(waveform=WaveformEnum.SAWDOWN, volume=1.0) ]
             elif osc_shape == 2.0:
-                shapes = [ OscillatorShape(shape=OscillatorShapeEnum.PULSE, volume=1.0) ]
+                shapes = [ OscillatorShape(waveform=WaveformEnum.PULSE, volume=1.0) ]
             elif osc_shape == 3.0:
-                shapes = [ OscillatorShape(shape=OscillatorShapeEnum.PULSE_THIN, volume=1.0) ]
+                shapes = [ OscillatorShape(waveform=WaveformEnum.PULSE_THIN, volume=1.0) ]
             elif osc_shape == 4.0:
-                shapes = [ OscillatorShape(shape=OscillatorShapeEnum.SQUARE, volume=1.0) ] # ring mod. page 28 manual: SQUARE + RINGMOD
+                shapes = [ OscillatorShape(waveform=WaveformEnum.SQUARE, volume=1.0) ] # ring mod. page 28 manual: SQUARE + RINGMOD
         return shapes
     
     def _get_osc_shapes_additive(self,params,i_vco:int,mod_matrix:ModulationMatrix) -> List[OscillatorShape]:
         shapes = []
         triangle = params[f"osc_triangle{i_vco}on"]["raw_value"]
         if triangle == 1.0:
-            shapes.append( OscillatorShape(shape=OscillatorShapeEnum.TRIANGLE,volume=1.0) )
+            shapes.append( OscillatorShape(waveform=WaveformEnum.TRIANGLE,volume=1.0) )
         saw = params[f"osc_saw{i_vco}on"]["raw_value"]
         if saw == 1.0:
-            shapes.append( OscillatorShape(shape=OscillatorShapeEnum.SAWUP,volume=1.0) )
+            shapes.append( OscillatorShape(waveform=WaveformEnum.SAWUP,volume=1.0) )
         if i_vco==1:
             pwm = params[f"osc_pwm{i_vco}on"]["raw_value"]
             if pwm == 1.0:
-                shapes.append( OscillatorShape(shape=OscillatorShapeEnum.PULSE,volume=1.0) )
+                shapes.append( OscillatorShape(waveform=WaveformEnum.PULSE,volume=1.0) )
             noise = params[f"osc_noise{i_vco}on"]["raw_value"]
             if noise == 1.0:
-                shapes.append( OscillatorShape(shape=OscillatorShapeEnum.NOISE,volume=1.0) )
+                shapes.append( OscillatorShape(waveform=WaveformEnum.NOISE,volume=1.0) )
         if i_vco==2:
             pulse = params[f"osc_pulse{i_vco}on"]["raw_value"]
             if pulse == 1.0:
-                shapes.append( OscillatorShape(shape=OscillatorShapeEnum.PULSE,volume=1.0) )
+                shapes.append( OscillatorShape(waveform=WaveformEnum.PULSE,volume=1.0) )
             sine = params[f"osc_sine{i_vco}on"]["raw_value"]
             if sine == 1.0:
-                shapes.append( OscillatorShape(shape=OscillatorShapeEnum.SINE,volume=1.0) )
+                shapes.append( OscillatorShape(waveform=WaveformEnum.SINE,volume=1.0) )
         return shapes
     
     def _get_osc_shapes_digital(self,params:dict,i_vco:int,mod_matrix:ModulationMatrix) -> List[OscillatorShape]:
@@ -240,19 +240,19 @@ class DivaExtension(InstrumentExtension):
         osc_shape = params[f"osc_digitaltype{i}"]["value"]
         osc_shape = int(osc_shape)
         if osc_shape == 1:
-            shapes = [ OscillatorShape(shape=OscillatorShapeEnum.SAWMULTI,volume=1.0) ]
+            shapes = [ OscillatorShape(waveform=WaveformEnum.SAWMULTI,volume=1.0) ]
         elif osc_shape == 2:
-            shapes = [ OscillatorShape(shape=OscillatorShapeEnum.TRISHAPED,volume=1.0) ]
+            shapes = [ OscillatorShape(waveform=WaveformEnum.TRISHAPED,volume=1.0) ]
         elif osc_shape == 3:
-            shapes = [ OscillatorShape(shape=OscillatorShapeEnum.NOISE,volume=1.0) ]
+            shapes = [ OscillatorShape(waveform=WaveformEnum.NOISE,volume=1.0) ]
         elif osc_shape == 4:
-            shapes = [ OscillatorShape(shape=OscillatorShapeEnum.FEEDBACK,volume=1.0) ]
+            shapes = [ OscillatorShape(waveform=WaveformEnum.FEEDBACK,volume=1.0) ]
         elif osc_shape == 5:
-            shapes = [ OscillatorShape(shape=OscillatorShapeEnum.PULSE,volume=1.0) ]
+            shapes = [ OscillatorShape(waveform=WaveformEnum.PULSE,volume=1.0) ]
         elif osc_shape == 6:
-            shapes = [ OscillatorShape(shape=OscillatorShapeEnum.SAWTOOTH,volume=1.0) ]
+            shapes = [ OscillatorShape(waveform=WaveformEnum.SAWTOOTH,volume=1.0) ]
         elif osc_shape == 7:
-            shapes = [ OscillatorShape(shape=OscillatorShapeEnum.TRIANGLE,volume=1.0) ]
+            shapes = [ OscillatorShape(waveform=WaveformEnum.TRIANGLE,volume=1.0) ]
 
         return shapes    
     

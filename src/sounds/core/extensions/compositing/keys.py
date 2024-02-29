@@ -1,5 +1,5 @@
 from enum import StrEnum , auto
-from ..defs import StyleGuide , WaveformEnum , CompositingKey
+from ..defs import StyleGuide , WaveformEnum , WaveformWidthEnum, CompositingKey
 
 # access keys
 k_oscillators       = CompositingKey.OSCILLATORS.value
@@ -52,3 +52,11 @@ k_wave_feedback    = WaveformEnum.FEEDBACK.value
 k_wave_exotic      = WaveformEnum.EXOTIC.value
 k_wave_s_h         = WaveformEnum.S_H.value
 k_wave_other       = WaveformEnum.OTHER.value
+
+# waveform keys
+k_wave_width_narrow  = WaveformWidthEnum.NARROW.value
+k_wave_width_thin    = WaveformWidthEnum.THIN.value
+k_wave_width_normal  = WaveformWidthEnum.NORMAL.value
+k_wave_width_wide    = WaveformWidthEnum.WIDE.value
+k_wave_width_very_wide = WaveformWidthEnum.VERY_WIDE.value
+k_wave_width_silence = WaveformWidthEnum.SILENCE.value

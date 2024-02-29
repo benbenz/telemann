@@ -85,6 +85,7 @@ class OscillatorShape(ExtensionComponent):
 
     waveform : WaveformEnum
     volume : confloat(ge=0.0,le=1.0)|None=None
+    width: WaveformWidthEnum|None = None
 
     def desc(self,style_guide:StyleGuide,declarations:DeclarationsMask=DeclarationsMask.ALL)->Tuple[Optional[str],DeclarationsMask]:
 
@@ -107,8 +108,10 @@ class OscillatorShape(ExtensionComponent):
 
         # compose sentence
         waveform_name = words[self.waveform.value]
+        waveform_width = words[self.width.value] if self.width is not None else None
+        waveform_width = f"{waveform_width} " if waveform_width is not None else ""
         volume_desc = self._get_volume_desc(style_guide,declarations) # in case we need it
-        shape_desc = compose_loc.format(waveform_name=waveform_name,volume_desc=volume_desc)
+        shape_desc = compose_loc.format(waveform_name=waveform_name,volume_desc=volume_desc,waveform_width=waveform_width)
 
         return shape_desc , declarations   
 
@@ -241,7 +244,7 @@ class Modulation(ExtensionComponent):
     dest_id    : ModulationDestID
     dest       : Optional[Oscillator|Filter|LFO|Envelope]=None
     dest_param : ModulationDestParam
-    level      : confloat(ge=0.0,le=1.0)
+    depth      : float
 
     def desc(self,style_guide:StyleGuide,declarations:DeclarationsMask=DeclarationsMask.ALL)->Tuple[Optional[str],DeclarationsMask]:
         return None , declarations

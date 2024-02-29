@@ -22,6 +22,14 @@ class WaveformEnum(StrEnum):
     S_H = auto()
     OTHER = auto()
 
+class WaveformWidthEnum(StrEnum):
+    NORMAL = auto()
+    NARROW = auto()
+    THIN = auto()
+    WIDE = auto()
+    VERY_WIDE = auto()
+    SILENCE = auto() 
+
 class ModulationSourceID(StrEnum):
     ENV1 = auto()
     ENV2 = auto() 
@@ -49,6 +57,9 @@ class ModulationSourceID(StrEnum):
     OSC4 = auto()
     OSC5 = auto()
     OSC6 = auto()
+    KEYBOARD = auto()
+    VELOCITY = auto()
+    AFTERTOUCH = auto()
     OTHER = auto()
 
 class ModulationDestID(StrEnum):
@@ -86,10 +97,15 @@ class ModulationDestID(StrEnum):
 class ModulationDestParam(StrEnum):
     # OSC mods
     PITCH = auto() 
+    FM    = auto()
+    FM_AMOUNT = auto()
+    SHAPE = auto()
     PWM   = auto()
-    RING  = auto() 
-    CROSS = auto()
-    SYNC  = auto()
+    RING_MOD  = auto() 
+    CROSS_MOD = auto() # equivalent to FM but lets differentiate the vocabulary
+    CROSS_MOD_AMOUNT = auto()  # equivalent to FM_AMOUNT but lets differentiate the vocabulary
+    SYNC_SOFT = auto()
+    SYNC_HARD = auto()
     # FILTER
     CUTOFF = auto()
     RESONANCE = auto()

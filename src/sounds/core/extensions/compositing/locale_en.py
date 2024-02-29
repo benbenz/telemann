@@ -222,44 +222,44 @@ sentences = {
         k_compositing : {
             k_style_basic : {
                 k_shape_no_vol : [ 
-                    "{waveform_name}",
+                    "{waveform_width}{waveform_name}",
                 ] ,
                 # lets never show the volume in BASIC mode
                 k_shape_w_vol : [
-                    "{waveform_name}" ,
+                    "{waveform_width}{waveform_name}" ,
                 ] ,
             },
             k_style_succint : {
                 k_shape_no_vol : [ 
-                    "{waveform_name}",
+                    "{waveform_width}{waveform_name}",
                 ] ,
                 k_shape_w_vol : [
-                    "{waveform_name}({volume_desc})" ,
+                    "{waveform_width}{waveform_name}({volume_desc})" ,
                 ] ,
                          
             },
             k_style_concise : {
                 k_shape_no_vol : [ 
-                    "{waveform_name}",
+                    "{waveform_width}{waveform_name}",
                 ] ,
                 k_shape_w_vol : [
-                    "{waveform_name}({volume_desc})" ,
+                    "{waveform_width}{waveform_name}({volume_desc})" ,
                 ] ,
             },
             k_style_detailed: {
                 k_shape_no_vol : [ 
-                    "a {waveform_name}",
+                    "a {waveform_width}{waveform_name}",
                 ] ,
                 k_shape_w_vol : [
-                    "a {waveform_name}({volume_desc})" ,
+                    "a {waveform_width}{waveform_name}({volume_desc})" ,
                 ] ,                          
             },
             k_style_specification: {
                 k_shape_no_vol : [ 
-                    "{waveform_name}",
+                    "{waveform_width}{waveform_name}",
                 ] ,
                 k_shape_w_vol : [
-                    "{waveform_name}@{volume_desc}" ,
+                    "{waveform_width}{waveform_name}@{volume_desc}" ,
                 ] ,                                                     
             }
         }
@@ -288,6 +288,13 @@ words = {
     k_wave_feedback : "Feedback",
     k_wave_exotic : "Exotic",
     k_wave_s_h : "S/H",
-    k_wave_other : "Generic"
+    k_wave_other : "Generic" ,
+
+    k_wave_width_narrow : "narrow" ,
+    k_wave_width_thin : "thin" ,
+    k_wave_width_normal : None ,
+    k_wave_width_wide : "wide" ,
+    k_wave_width_very_wide : "wide" ,
+    k_wave_width_silence : "silenced" ,
 
 }

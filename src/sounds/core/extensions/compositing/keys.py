@@ -2,27 +2,28 @@ from enum import StrEnum , auto
 from ..defs import StyleGuide , WaveformEnum , WaveformWidthEnum, CompositingKey
 
 # access keys
+k_description       = CompositingKey.DESCRIPTION.value
 k_oscillators       = CompositingKey.OSCILLATORS.value
 k_oscillator        = CompositingKey.OSCILLATOR.value
 k_shape             = CompositingKey.SHAPE.value
 # global keys
 k_compositing       = CompositingKey.COMPOSITING.value
 k_glue              = CompositingKey.GLUE.value
-# classes keys
-k_oscs_singular     = CompositingKey.OSCS_SINGULAR.value
-k_oscs_plural       = CompositingKey.OSCS_PLURAL.value
-k_oscs_mix_balanced = CompositingKey.OSCS_MIX_BALANCED.value
-k_oscs_mix_forward  = CompositingKey.OSCS_MIX_FORWARD.value
-k_osc_singular      = CompositingKey.OSC_SINGULAR.value
-k_osc_plural        = CompositingKey.OSC_PLURAL.value
-k_osc_vol_singular  = CompositingKey.OSC_VOL_SINGULAR.value
-k_osc_vol_plural    = CompositingKey.OSC_VOL_PLURAL.value
 k_osc_type          = CompositingKey.OSC_TYPE.value
 k_osc_article       = CompositingKey.OSC_ARTICLE.value
-k_osc_sub           = CompositingKey.OSC_SUB.value
-k_osc_sub_not       = CompositingKey.OSC_SUB_NOT.value
-k_shape_w_vol       = CompositingKey.SHAPE_WITH_VOL.value
-k_shape_no_vol      = CompositingKey.SHAPE_NO_VOL.value
+# compositing keys
+k_comp_oscs_singular     = CompositingKey.OSCS_SINGULAR.value
+k_comp_oscs_plural       = CompositingKey.OSCS_PLURAL.value
+k_comp_oscs_mix_balanced = CompositingKey.OSCS_MIX_BALANCED.value
+k_comp_oscs_mix_forward  = CompositingKey.OSCS_MIX_FORWARD.value
+k_comp_osc_singular      = CompositingKey.OSC_SINGULAR.value
+k_comp_osc_plural        = CompositingKey.OSC_PLURAL.value
+k_comp_osc_vol_text      = CompositingKey.OSC_COMPOSITING_VOL_TEXT.value
+k_comp_osc_vol_number    = CompositingKey.OSC_COMPOSITING_VOL_NUMBER.value
+k_comp_osc_sub           = CompositingKey.OSC_SUB.value
+k_comp_osc_sub_not       = CompositingKey.OSC_SUB_NOT.value
+k_comp_shape_default     = CompositingKey.SHAPE_COMPOSITING_DEFAULT.value
+k_comp_shape_vol         = CompositingKey.SHAPE_COMPOSITING_VOL.value
 
 # style guide keys
 k_style_basic        = StyleGuide.BASIC.value
@@ -60,3 +61,11 @@ k_wave_width_normal  = WaveformWidthEnum.NORMAL.value
 k_wave_width_wide    = WaveformWidthEnum.WIDE.value
 k_wave_width_very_wide = WaveformWidthEnum.VERY_WIDE.value
 k_wave_width_silence = WaveformWidthEnum.SILENCE.value
+
+k_volume_grp0 = "k_volume_grp0" # =0%
+k_volume_grp1 = "k_volume_grp1" #  0-20%
+k_volume_grp2 = "k_volume_grp2" # 20-40%
+k_volume_grp3 = "k_volume_grp3" # 40-60%
+k_volume_grp4 = "k_volume_grp4" # 60-80%
+k_volume_grp5 = "k_volume_grp5" # 80-100%
+k_volume_grp6 = "k_volume_grp6" # =100%

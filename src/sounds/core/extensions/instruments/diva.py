@@ -310,25 +310,36 @@ class DivaExtension(InstrumentExtension):
     
     # for now, this wont link the objects
     def _add_oscs_mod_triple(self,params:dict,mod_matrix:ModulationMatrix) -> NoReturn:
+
+        # ORDER IS IMPORTANT ! The first mod may be composited with the oscillator declaration
         
-        # check classic MOD routings
-        self._check_oscs_mod_triple(params,mod_matrix)
+        # check Sync
+        self._check_oscs_sync(params,[2,3],mod_matrix)              
 
         # check FM mod
         self._check_oscs_fm(params,[2,3],mod_matrix)
 
-        self._check_oscs_sync(params,[2,3],mod_matrix)              
+        # check classic MOD routings
+        self._check_oscs_mod_triple(params,mod_matrix)
+
     
     def _add_oscs_mod_dual(self,params:dict,mod_matrix:ModulationMatrix)-> NoReturn:
 
+        # ORDER IS IMPORTANT ! The first mod may be composited with the oscillator declaration
+        
         # check pwm mod
-        self._check_oscs_pwm(params,[1,2],mod_matrix)
+        pwm_select = params[f"osc_pwm2on"]["raw_value"]
+        pulse1 = params[f"osc_pwm1on"]["raw_value"]
+        pulse2 = params[f"osc_pulse2on"]["raw_value"]
+        oscs_is = []
+        if (pwm_select == 0.0 or pwm_select == 1.0) and pulse1==1.0:
+            oscs_is.append(1)
+        if pwm_select == 1.0 and pulse2==1.0:
+            oscs_is.append(2)
+        self._check_oscs_pwm(params,oscs_is,mod_matrix)
 
         # check sync mod
         self._check_oscs_sync(params,[2],mod_matrix)
-
-        # check main modulation
-        self._check_oscs_dual_mod(params,mod_matrix)
 
         # check FM / CrossMod
         self._check_oscs_fm(params,[2],mod_matrix,save_as=ModulationDestParam.CROSS_MOD)
@@ -336,10 +347,13 @@ class DivaExtension(InstrumentExtension):
         # check FM / CrossMod modulation
         self._check_oscs_fm_mod(params,[2],mod_matrix,save_as=ModulationDestParam.CROSS_MOD_AMOUNT)
 
+        # check main modulation
+        self._check_oscs_dual_mod(params,mod_matrix)
+
     
     def _add_oscs_mod_dco(self,params:dict,mod_matrix:ModulationMatrix)-> NoReturn:
-        
-        CURRENTLY WORKING on PWMMODDEPTH    
+        pass
+        #CURRENTLY WORKING on PWMMODDEPTH    
 
     def _add_oscs_mod_eco(self,params:dict,mod_matrix:ModulationMatrix)-> NoReturn:
         pass   
@@ -376,27 +390,17 @@ class DivaExtension(InstrumentExtension):
                     mod_matrix.add_modulation(modulation)              
 
     def _check_oscs_pwm(self,params:dict,vco_is:list,mod_matrix:ModulationMatrix)->NoReturn:
-        pwm_select = params[f"osc_pwm2on"]["raw_value"]
         for i_vco in vco_is:
-            if i_vco==1:
-                pulse = params[f"osc_pwm{i_vco}on"]["raw_value"]
-            elif i_vco==2:
-                pulse = params[f"osc_pulse{i_vco}on"]["raw_value"]
-            
-            if pulse!=1.0:
-                continue
-
-            if (i_vco==1 and (pwm_select == 0.0 or pwm_select == 1.0)) or (i_vco==2 and pwm_select == 1.0):
-                moddepth = float(params[f"osc_pwmmoddepth"]["value"])
-                source_id = self._identify_mod_source_id(params,"osc_pwmmodsrc")
-                if moddepth != 0.0 and source_id is not None:
-                    modulation = Modulation(
-                        source_id=source_id,
-                        dest_id=ModulationDestID[f"OSC{i_vco}"],
-                        dest_param=ModulationDestParam.PWM,
-                        depth=moddepth
-                    )
-                    mod_matrix.add_modulation(modulation)
+            moddepth = float(params[f"osc_pwmoddepth"]["value"])
+            source_id = self._identify_mod_source_id(params,"osc_pwmodsrc")
+            if moddepth != 0.0 and source_id is not None:
+                modulation = Modulation(
+                    source_id=source_id,
+                    dest_id=ModulationDestID[f"OSC{i_vco}"],
+                    dest_param=ModulationDestParam.PWM,
+                    depth=moddepth
+                )
+                mod_matrix.add_modulation(modulation)
 
     def _check_oscs_sync(self,params:dict,vco_is:list,mod_matrix:ModulationMatrix)-> NoReturn:
         # check SYNC
@@ -412,7 +416,7 @@ class DivaExtension(InstrumentExtension):
                 mod_matrix.add_modulation(modulation)    
 
     def _check_oscs_fm(self,params:dict,vco_is:list,mod_matrix:ModulationMatrix,save_as:ModulationDestParam=ModulationDestParam.FM)->NoReturn:
-        mod_fm = params[f"osc_fm"]["raw_value"]
+        mod_fm = float(params[f"osc_fm"]["value"])
         # lets not use a threshold, FM is very sensitive
         if mod_fm > 0.0:
             for vco_i in vco_is:
@@ -425,7 +429,7 @@ class DivaExtension(InstrumentExtension):
                 mod_matrix.add_modulation(modulation)   
 
     def _check_oscs_fm_mod(self,params:dict,vco_is:list,mod_matrix:ModulationMatrix,save_as:ModulationDestParam=ModulationDestParam.FM_AMOUNT)->NoReturn:
-        mod_fm = params[f"osc_fmmoddepth"]["raw_value"]
+        mod_fm = float(params[f"osc_fmmoddepth"]["value"])
         fm_mod_src_id = self._identify_mod_source_id(params,"osc_fmmodsrc")
         # lets not use a threshold, FM is very sensitive
         if mod_fm > 0.0 and fm_mod_src_id is not None:

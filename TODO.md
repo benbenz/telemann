@@ -15,7 +15,20 @@ Tasks to do ...
      - [ ] FILT >> rule by looking at parameters 
      - [ ] ENV  >> rule by looking at parameters 
 
-- [ ] Issue with Collapsing "model" in Diva: not the case in the VST plugin: Problem with AU parameters parsing ? in pedalboard or JUCE ?
+- [ ] SoftwareInstrumentHandler (has the plugin map) / MIDIInstrumentHandler:
+  - [ ] separate well core audio 
+  - [ ] Handler: render, analyze, capture 
+- [ ] BIG TODO: SoundToneController. Normalized way of controlling parameters (software and midi) a la Andromachine >> normalize Andromachine Map >> generates random sounds too ... 
+- [ ] Add VCA, VCO, VCF chips informations: Add info field to sources?Or maybe info_hardware and info_software (version included)
+
+- [ ] Modifier le JUCE pour vraiment avoir les string values ? Would be better to have the string values so that it's more robust to plugin version change. Also check the plugin version. ...
+- [ ] Add sub_osc octave: Possible values: [-1,-2,-3,-4]
+- [ ] Add OSC octave et tuning
+- [ ] Add level as string: Max, Max volume, max level, High level, high volume, Half, Low, High, etc. etc
+- [ ] Criss-Cross declarations: use declarations mask to allow splitting of MOD declarations ... MOD_OSC_PT1, MOD_OSC_PT2, MOD_FILTER, MOD_AMP, etc... 
+- [ ] words as arrays...
+
+JUCE ?
 - [ ] Use Diva.vst if not resolved
 - [ ] Issue with VST Preset Name being offset with SynthMaster ... (not Diva VST ...) No idea why
 - [ ] This one should be moved to the Sound bite so that we can randomize across soundbites during génération time 
@@ -55,3 +68,4 @@ Tasks to do ...
 
 ### Done ✓
 
+- [x] Issue with Collapsing "model" in Diva: not the case in the VST plugin: Problem with AU parameters parsing ? in pedalboard or 

@@ -1,4 +1,4 @@
-from enum import StrEnum , IntFlag , auto
+from enum import StrEnum , IntFlag , IntEnum , auto
 
 class WaveformEnum(StrEnum):
     SINE = auto()
@@ -92,6 +92,7 @@ class ModulationDestID(StrEnum):
     FILT1 = auto()
     FILT2 = auto()
     FILT3 = auto()
+    AMP  = auto()
     OTHER = auto()  
 
 class ModulationDestParam(StrEnum):
@@ -112,7 +113,7 @@ class ModulationDestParam(StrEnum):
     # ENVELOPE
     RATE = auto()
     # AMP
-    AMP = auto()
+    VOLUME = auto()
 
 class EnvelopeType(StrEnum):
     ADSR = auto()     
@@ -124,6 +125,8 @@ class EffectType(StrEnum):
     WAVESHAPER = auto()
     SATURATION = auto()
     OVERDRIVE = auto()
+    TREMOLO = auto()
+    AUTOPAN = auto()
     CHORUS = auto()
     FLANGER = auto()   
     PHASER = auto()    
@@ -133,6 +136,7 @@ class EffectType(StrEnum):
     OTHER = auto()
 
 class CompositingKey(StrEnum):
+    DESCRIPTION = auto()
     OSCILLATORS = auto()
     OSCILLATOR = auto()
     SHAPE = auto()
@@ -142,16 +146,16 @@ class CompositingKey(StrEnum):
     OSCS_PLURAL   = auto()
     OSCS_MIX_BALANCED = auto()
     OSCS_MIX_FORWARD  = auto()
-    OSC_VOL_SINGULAR = auto()
-    OSC_VOL_PLURAL  = auto()
+    OSC_COMPOSITING_VOL_TEXT = auto()
+    OSC_COMPOSITING_VOL_NUMBER = auto()
     OSC_SINGULAR = auto()
     OSC_PLURAL   = auto()
     OSC_SUB  = auto()
     OSC_SUB_NOT  = auto()
     OSC_TYPE = auto()
     OSC_ARTICLE = auto()
-    SHAPE_WITH_VOL = auto()
-    SHAPE_NO_VOL = auto()
+    SHAPE_COMPOSITING_DEFAULT = auto()
+    SHAPE_COMPOSITING_VOL = auto()
 
 class StyleGuide(StrEnum):
     BASIC = auto()
@@ -162,6 +166,25 @@ class StyleGuide(StrEnum):
 
 class DeclarationsMask(IntFlag):
     NONE = 0 
-    OSC_LEVEL = auto() # means that the mix of oscillators has been declared
-    SHAPE_LEVEL = auto() # means that the level of the shapes has been declared
-    ALL = OSC_LEVEL | SHAPE_LEVEL
+    OSC_VOLUME = auto() # means that the mix of oscillators has been declared
+    SHAPE_VOLUME = auto() # means that the level of the shapes has been declared
+    ALL = OSC_VOLUME | SHAPE_VOLUME
+
+# to uniformize style accross entities
+class DeclarationFlavour(IntFlag):
+    NONE = 0
+    # OSC
+    OSC_VOLUME_NONE = auto()
+    OSC_VOLUME_NUMBER = auto() # always POST
+    OSC_VOLUME_TEXT_PRE = auto()
+    OSC_VOLUME_TEXT_POST = auto()
+    # SHAPE
+    SHAPE_VOLUME_NONE = auto()
+    SHAPE_VOLUME_NUMBER = auto() # always POST and always NUMBER
+    # Groups
+    GRP_OSC_VOLUME_PRESENT = OSC_VOLUME_NUMBER | OSC_VOLUME_TEXT_PRE | OSC_VOLUME_TEXT_POST
+    GRP_OSC_VOLUME_ALL = OSC_VOLUME_NONE | GRP_OSC_VOLUME_PRESENT
+    GRP_SHAPE_VOLUME_PRESENT = SHAPE_VOLUME_NUMBER
+    GRP_SHAPE_VOLUME_ALL = SHAPE_VOLUME_NONE | GRP_SHAPE_VOLUME_PRESENT
+    # ALL 
+    ALL = NONE | GRP_SHAPE_VOLUME_ALL | GRP_OSC_VOLUME_ALL

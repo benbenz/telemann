@@ -20,6 +20,7 @@ from .extensions.instruments.base import InstrumentExtension
 from PIL import Image
 from scipy.io.wavfile import write as scipy_wav_write
 from sounds.core.extensions.schema import StyleGuide
+import traceback
 
 class AudioInterface(StrEnum):
     NONE = "---------"
@@ -287,6 +288,7 @@ def get_sound_analysis(source:SoundSource,
         print("There is an issue with the SoundTone descrption generatred: ",str(vae.errors()))
     except Exception as e:
         print(f"There has been an error with the plugin extension: {str(e)}")
+        traceback.print_exc()
     
 
     #if we have missing information, lets move to an audio analysis

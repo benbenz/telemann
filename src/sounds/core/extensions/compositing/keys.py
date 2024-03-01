@@ -14,9 +14,10 @@ k_osc_article       = CompositingKey.OSC_ARTICLE.value
 # compositing keys
 k_comp_oscs_singular     = CompositingKey.OSCS_SINGULAR.value
 k_comp_oscs_plural       = CompositingKey.OSCS_PLURAL.value
-k_comp_oscs_mix_balanced = CompositingKey.OSCS_MIX_BALANCED.value
-k_comp_oscs_mix_forward  = CompositingKey.OSCS_MIX_FORWARD.value
-k_comp_oscs_tuning_afterward = CompositingKey.OSCS_TUNING_AFTERWARD.value
+k_comp_oscs_mix_balanced = CompositingKey.OSCS_COMPOSITING_MIX_BALANCED.value
+k_comp_oscs_mix_forward  = CompositingKey.OSCS_COMPOSITING_MIX_FORWARD.value
+k_comp_oscs_mix_default  = CompositingKey.OSCS_COMPOSITING_MIX_DEFAULT.value
+k_comp_oscs_tuning_afterward = CompositingKey.OSCS_COMPOSITING_TUNING_AFTERWARD.value
 k_comp_osc_singular      = CompositingKey.OSC_SINGULAR.value
 k_comp_osc_plural        = CompositingKey.OSC_PLURAL.value
 k_comp_osc_vol_text_post      = CompositingKey.OSC_COMPOSITING_VOL_TEXT_POST.value

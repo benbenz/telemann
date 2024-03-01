@@ -7,6 +7,7 @@ from .defs import *
 import random
 import math
 import re
+from functools import partial
 
 """
 This should add the field analysis in sound_info and add the following sections:
@@ -157,13 +158,13 @@ class OscillatorShape(ExtensionComponent):
                          declarations:DeclarationsMask)->Tuple[str,DeclarationFlavour]:
         
         if flavour & DeclarationFlavour.SHAPE_VOLUME_NUMBER:
-            flavour = (flavour & DeclarationFlavour.ALL - DeclarationFlavour.GRP_SHAPE_VOLUME_ALL) | DeclarationFlavour.SHAPE_VOLUME_NUMBER
+            flavour = flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_SHAPE_VOLUME_ALL) | DeclarationFlavour.SHAPE_VOLUME_NUMBER
             vol_value = self._get_volume_desc_as_number(style_guide,flavour,declarations)
             compositing_vol = random.choice( sentences[k_shape][k_comp_shape_vol][style_guide.value] )
             volume_value = compositing_vol.format(volume_value=vol_value)
             return volume_value , flavour
         elif flavour & DeclarationFlavour.SHAPE_VOLUME_NONE:
-            flavour = (flavour & DeclarationFlavour.ALL - DeclarationFlavour.GRP_SHAPE_VOLUME_ALL) | DeclarationFlavour.SHAPE_VOLUME_NONE
+            flavour = flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_SHAPE_VOLUME_ALL) | DeclarationFlavour.SHAPE_VOLUME_NONE
             volume_value = ""
             return volume_value , flavour
         else:
@@ -173,7 +174,7 @@ class OscillatorShape(ExtensionComponent):
                 DeclarationFlavour.SHAPE_VOLUME_NUMBER ,
             ]
             flavour_select = random.choice(flavours)
-            flavour = (flavour & DeclarationFlavour.ALL - DeclarationFlavour.GRP_SHAPE_VOLUME_ALL) | flavour_select
+            flavour = flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_SHAPE_VOLUME_ALL) | flavour_select
             return self._get_volume_desc(style_guide=style_guide,flavour=flavour,declarations=declarations)    
 
     def _get_volume_desc_as_number(self,
@@ -255,8 +256,14 @@ class Oscillator(ExtensionComponent):
         declarations = declarations & (DeclarationsMask.ALL - DeclarationsMask.SHAPE_VOLUME) if dont_use_shape_vol  else declarations        
 
         # update the flavour with what we will actually be outputting (some compositing may not include the volume)
-        if (flavour & (DeclarationFlavour.OSC_VOLUME_NUMBER|DeclarationFlavour.OSC_VOLUME_TEXT_POST) !=0 and "{volume_desc_post}" not in compose_loc) \
-          or (flavour&DeclarationFlavour.OSC_VOLUME_TEXT_PRE!=0 and "{volume_desc_pre}" not in compose_loc):
+        # if (flavour & (DeclarationFlavour.OSC_VOLUME_NUMBER|DeclarationFlavour.OSC_VOLUME_TEXT_POST) !=0 and "{volume_desc_post}" not in compose_loc) \
+        #   or (flavour&DeclarationFlavour.OSC_VOLUME_TEXT_PRE!=0 and "{volume_desc_pre}" not in compose_loc):
+        #     flavour = flavour & ( DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_VOLUME_ALL ) | DeclarationFlavour.OSC_VOLUME_NONE
+        vol_desc_post , vol_desc_pre , vol_value ,flavour = self._get_volume_comps(style_guide,flavour,declarations)
+        composte_temp = compose_loc.format(volume_desc_post=vol_desc_post,volume_desc_pre=vol_desc_pre)
+        
+        # update the flavour with what we will actually be outputting (some compositing may not include the volume)
+        if flavour & DeclarationFlavour.GRP_OSC_VOLUME_PRESENT !=0 and "{volume_value}" not in composte_temp:
             flavour = flavour & ( DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_VOLUME_ALL ) | DeclarationFlavour.OSC_VOLUME_NONE
 
         # recurse
@@ -264,11 +271,9 @@ class Oscillator(ExtensionComponent):
         shapes_desc , flavour , declarations = self.recurse(shapes,style_guide=style_guide,flavour=flavour,declarations=declarations,limit=limit)
 
         # compose sentence
-        vol_desc_post , vol_desc_pre , flavour = self._get_volume_descs(style_guide,flavour,declarations)
         shapes_desc = glue.join(shapes_desc)
-        shapes_desc = compose_loc.format(shapes_desc=shapes_desc,
-                                        volume_desc_post=vol_desc_post,
-                                        volume_desc_pre=vol_desc_pre,
+        shapes_desc = composte_temp.format(shapes_desc=shapes_desc,
+                                        volume_value=vol_value,
                                         osc_type=osc_type,
                                         osc_article=osc_article)
         
@@ -290,28 +295,28 @@ class Oscillator(ExtensionComponent):
                          declarations:DeclarationsMask)->Tuple[str,DeclarationFlavour]:
         
         if flavour & DeclarationFlavour.OSC_VOLUME_NUMBER:
-            flavour = (flavour & DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_VOLUME_ALL) | DeclarationFlavour.OSC_VOLUME_NUMBER
+            flavour = flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_VOLUME_ALL) | DeclarationFlavour.OSC_VOLUME_NUMBER
             vol_value = self._get_volume_desc_as_number(style_guide,flavour,declarations)
             compositing_vol = random.choice( sentences[k_oscillator][k_comp_osc_vol_number][style_guide.value] )
             vol_desc_post = compositing_vol.format(volume_value=vol_value)
             vol_desc_pre  = ""
             return vol_desc_post , vol_desc_pre , flavour
         elif flavour & DeclarationFlavour.OSC_VOLUME_TEXT_POST:
-            flavour = (flavour & DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_VOLUME_ALL) | DeclarationFlavour.OSC_VOLUME_TEXT_POST
+            flavour = flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_VOLUME_ALL) | DeclarationFlavour.OSC_VOLUME_TEXT_POST
             vol_text = self._get_volume_desc_as_text(style_guide,flavour,declarations)
             compositing_vol = random.choice( sentences[k_oscillator][k_comp_osc_vol_text_post][style_guide.value] )
             vol_desc_post = compositing_vol.format(volume_text=vol_text)
             vol_desc_pre  = ""
             return vol_desc_post , vol_desc_pre , flavour
         elif flavour & DeclarationFlavour.OSC_VOLUME_TEXT_PRE:
-            flavour = (flavour & DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_VOLUME_ALL) | DeclarationFlavour.OSC_VOLUME_TEXT_PRE
+            flavour = flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_VOLUME_ALL) | DeclarationFlavour.OSC_VOLUME_TEXT_PRE
             vol_text = self._get_volume_desc_as_text(style_guide,flavour,declarations)
             compositing_vol = random.choice( sentences[k_oscillator][k_comp_osc_vol_text_pre][style_guide.value] )
             vol_desc_post = ""
             vol_desc_pre  = compositing_vol.format(volume_text=vol_text)
-            return vol_desc_post , vol_desc_pre , flavour
+            return vol_desc_post , vol_desc_pre, flavour
         elif flavour & DeclarationFlavour.OSC_VOLUME_NONE:
-            flavour = (flavour & DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_VOLUME_ALL) | DeclarationFlavour.OSC_VOLUME_NONE
+            flavour = flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_VOLUME_ALL) | DeclarationFlavour.OSC_VOLUME_NONE
             vol_desc_post = ""
             vol_desc_pre  = ""
             return vol_desc_post , vol_desc_pre , flavour
@@ -324,8 +329,51 @@ class Oscillator(ExtensionComponent):
                 DeclarationFlavour.OSC_VOLUME_TEXT_PRE
             ]
             flavour_select = random.choice(flavours)
-            flavour = (flavour & DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_VOLUME_ALL) | flavour_select
+            flavour = flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_VOLUME_ALL) | flavour_select
             return self._get_volume_descs(style_guide=style_guide,flavour=flavour,declarations=declarations)
+        
+    def _get_volume_comps(self,
+                         style_guide:StyleGuide,
+                         flavour:DeclarationFlavour,
+                         declarations:DeclarationsMask)->Tuple[str,DeclarationFlavour]:
+        
+        if flavour & DeclarationFlavour.OSC_VOLUME_NUMBER:
+            flavour = flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_VOLUME_ALL) | DeclarationFlavour.OSC_VOLUME_NUMBER
+            vol_value = self._get_volume_desc_as_number(style_guide,flavour,declarations)
+            compositing_vol = random.choice( sentences[k_oscillator][k_comp_osc_vol_number][style_guide.value] )
+            vol_desc_post = compositing_vol #.format(volume_value=vol_value)
+            vol_desc_pre  = ""
+            return vol_desc_post , vol_desc_pre , vol_value , flavour
+        elif flavour & DeclarationFlavour.OSC_VOLUME_TEXT_POST:
+            flavour = flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_VOLUME_ALL) | DeclarationFlavour.OSC_VOLUME_TEXT_POST
+            vol_text = self._get_volume_desc_as_text(style_guide,flavour,declarations)
+            compositing_vol = random.choice( sentences[k_oscillator][k_comp_osc_vol_text_post][style_guide.value] )
+            vol_desc_post = compositing_vol #.format(volume_text=vol_text)
+            vol_desc_pre  = ""
+            return vol_desc_post , vol_desc_pre , vol_text, flavour
+        elif flavour & DeclarationFlavour.OSC_VOLUME_TEXT_PRE:
+            flavour = flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_VOLUME_ALL) | DeclarationFlavour.OSC_VOLUME_TEXT_PRE
+            vol_text = self._get_volume_desc_as_text(style_guide,flavour,declarations)
+            compositing_vol = random.choice( sentences[k_oscillator][k_comp_osc_vol_text_pre][style_guide.value] )
+            vol_desc_post = ""
+            vol_desc_pre  = compositing_vol #.format(volume_text=vol_text)
+            return vol_desc_post , vol_desc_pre , vol_text, flavour
+        elif flavour & DeclarationFlavour.OSC_VOLUME_NONE:
+            flavour = flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_VOLUME_ALL) | DeclarationFlavour.OSC_VOLUME_NONE
+            vol_desc_post = ""
+            vol_desc_pre  = ""
+            return vol_desc_post , vol_desc_pre , None , flavour
+        else:
+            # we haven't pick a volume flavour yet, pick one now
+            flavours = [ 
+                DeclarationFlavour.OSC_VOLUME_NONE ,
+                DeclarationFlavour.OSC_VOLUME_NUMBER ,
+                DeclarationFlavour.OSC_VOLUME_TEXT_POST ,
+                DeclarationFlavour.OSC_VOLUME_TEXT_PRE
+            ]
+            flavour_select = random.choice(flavours)
+            flavour = flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_VOLUME_ALL) | flavour_select
+            return self._get_volume_comps(style_guide=style_guide,flavour=flavour,declarations=declarations)        
         
     def _get_volume_desc_as_number(self,
                                    style_guide:StyleGuide,
@@ -517,21 +565,74 @@ class SoundToneDescription(ExtensionComponent):
         flavour_key = random.choice( compose_keys )
         compose_loc = random.choice( compositing[flavour_key] )
 
+        # update flavour according to existing declarations
+        if declarations & DeclarationsMask.OSC_VOLUME == 0: # should rarely happen unless explicitly specify at the root call
+            flavour = flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSCS_MIX_ALL) | DeclarationFlavour.OSCS_MIX_NONE
+        
         # update declarations: if we used "mix_balanced" or "mix", this is a forward declaration and we should consider OSC_LEVEL declared
-        is_forward_decl = flavour_key in [k_comp_oscs_mix_balanced,k_comp_oscs_mix_forward]
-        declarations    = declarations & (DeclarationsMask.ALL - DeclarationsMask.OSC_VOLUME) if is_forward_decl  else declarations
+        # is_forward_decl = flavour_key in [k_comp_oscs_mix_balanced,k_comp_oscs_mix_forward]
+        # has_volume   = flavour_key in [k_comp_oscs_plural] and (flavour & DeclarationFlavour.GRP_OSCS_MIX_PRESENT != 0)
+        has_volume = "{oscillators_mix_desc}" in compose_loc and (flavour & DeclarationFlavour.GRP_OSCS_MIX_PRESENT != 0)
+        declarations    = declarations & (DeclarationsMask.ALL - DeclarationsMask.OSC_VOLUME) if has_volume  else declarations
+
+        # update the flavour with what we will actually be outputting (some compositing may not include the mixing)
+        if (flavour & (DeclarationFlavour.OSCS_MIX_BALANCED|DeclarationFlavour.OSCS_MIX_FORWARD) !=0 and "{oscillators_mix_desc}" not in compose_loc):
+            flavour = flavour & ( DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSCS_MIX_ALL ) | DeclarationFlavour.OSCS_MIX_NONE
 
         # recurse
         oscillators_descs , flavour , declarations = self.recurse(oscillators,style_guide=style_guide,flavour=flavour,declarations=declarations)
 
         # compose sentence
         oscillators_desc = glue.join(oscillators_descs)
-        oscillators_mix  = self._get_oscillators_mix(style_guide,declarations) # in case we need it
-        oscillators_desc = compose_loc.format(oscillators_desc=oscillators_desc,oscillators_mix=oscillators_mix)
+        mix_value = self._get_oscillators_mix(style_guide,flavour,declarations)
+        oscillators_mix_desc , flavour = self.__get_oscillators_mix_desc(style_guide,flavour,declarations) # in case we need it
+        oscillators_desc = compose_loc.format(oscillators_desc=oscillators_desc,oscillators_mix_desc=oscillators_mix_desc)
 
         return oscillators_desc , flavour , declarations
     
-    def _get_oscillators_mix(self,style_guide:StyleGuide,declarations:DeclarationsMask)->str:
+    def __get_oscillators_mix_desc(self,style_guide:StyleGuide,flavour:DeclarationFlavour,declarations:DeclarationsMask)->str:
+
+        # we choose a balanced mix flavour but the mix is not balanced ... remove it ...
+        if flavour & DeclarationFlavour.OSCS_MIX_BALANCED != 0 and not self._is_osc_mix_balanced():
+            flavour = flavour & (DeclarationFlavour.ALL - DeclarationFlavour.OSCS_MIX_BALANCED) 
+
+        if flavour & DeclarationFlavour.OSCS_MIX_FORWARD:
+            flavour = flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSCS_MIX_ALL) | DeclarationFlavour.OSCS_MIX_FORWARD
+            #mix_value = self._get_oscillators_mix(style_guide,flavour,declarations)
+            compositing_mix = random.choice( sentences[k_oscillators][k_comp_oscs_mix_forward][style_guide.value] )
+            mix_desc = compositing_mix.format(oscillators_mix=mix_value)
+            return mix_desc , flavour
+        elif flavour & DeclarationFlavour.OSCS_MIX_BALANCED:
+            flavour = flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSCS_MIX_ALL) | DeclarationFlavour.OSCS_MIX_BALANCED
+            #mix_value = self._get_oscillators_mix(style_guide,flavour,declarations)
+            compositing_mix = random.choice( sentences[k_oscillators][k_comp_oscs_mix_balanced][style_guide.value] )
+            mix_desc = compositing_mix.format(oscillators_mix=mix_value)
+            return mix_desc , flavour
+        elif flavour & DeclarationFlavour.OSCS_MIX_DEFAULT:
+            flavour = flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSCS_MIX_ALL) | DeclarationFlavour.OSCS_MIX_DEFAULT
+            #mix_value = self._get_oscillators_mix(style_guide,flavour,declarations)
+            compositing_mix = random.choice( sentences[k_oscillators][k_comp_oscs_mix_default][style_guide.value] )
+            mix_desc  = compositing_mix.format(oscillators_mix=mix_value)
+            return mix_desc , flavour
+        elif flavour & DeclarationFlavour.OSCS_MIX_NONE:
+            flavour = flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSCS_MIX_ALL) | DeclarationFlavour.OSCS_MIX_NONE
+            mix_desc = ""
+            return mix_desc , flavour
+        else:
+            # we haven't pick a mix flavour yet, pick one now
+            flavours = [ 
+                DeclarationFlavour.OSCS_MIX_NONE,
+                DeclarationFlavour.OSCS_MIX_FORWARD ,
+                DeclarationFlavour.OSCS_MIX_DEFAULT
+            ]
+            if self._is_osc_mix_balanced():
+                flavours.append(DeclarationFlavour.OSCS_MIX_BALANCED) 
+
+            flavour_select = random.choice(flavours)
+            flavour = flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSCS_MIX_ALL) | flavour_select
+            return self.__get_oscillators_mix_desc(style_guide=style_guide,flavour=flavour,declarations=declarations)    
+    
+    def _get_oscillators_mix(self,style_guide:StyleGuide,flavour:DeclarationFlavour,declarations:DeclarationsMask)->str:
         total_vol = 0.0
         for osc in self.oscillators:
             total_vol += osc.volume
@@ -571,20 +672,20 @@ class SoundToneDescription(ExtensionComponent):
         return True
     
     def _filter_compositing_keys(self,compositing:dict,declarations:DeclarationsMask):
-        use_mix = (declarations & DeclarationsMask.OSC_VOLUME != 0)
-        use_balanced = self._is_osc_mix_balanced()
+        # use_mix = (declarations & DeclarationsMask.OSC_VOLUME != 0)
+        # use_balanced = self._is_osc_mix_balanced()
         compositing_copy = compositing.copy()
         if len(self.oscillators)==1:
             compositing_copy.pop(k_comp_oscs_plural,None)
-            compositing_copy.pop(k_comp_oscs_mix_forward,None)
-            compositing_copy.pop(k_comp_oscs_mix_balanced,None)
+            compositing_copy.pop(k_comp_oscs_mix_forward,None) # should not be present anymore
+            compositing_copy.pop(k_comp_oscs_mix_balanced,None) # should not be present anymore
         else:
             compositing_copy.pop(k_comp_oscs_singular,None)
-        if not use_mix:
-            compositing_copy.pop(k_comp_oscs_mix_forward,None)
-            compositing_copy.pop(k_comp_oscs_mix_balanced)
-        if not use_balanced:
-            compositing_copy.pop(k_comp_oscs_mix_balanced,None)
+        # if not use_mix:
+        #     compositing_copy.pop(k_comp_oscs_mix_forward,None) # should not be present anymore
+        #     compositing_copy.pop(k_comp_oscs_mix_balanced) # should not be present anymore
+        # if not use_balanced:
+        #     compositing_copy.pop(k_comp_oscs_mix_balanced,None) # should not be present anymore
         assert len(compositing_copy) > 0
         return list(compositing_copy.keys())     
 

@@ -24,96 +24,112 @@ sentences = {
             k_style_specification: [ '\n' ],
         } ,
 
+        k_comp_oscs_mix_balanced : {
+            k_style_basic: [ "" ] ,
+            k_style_succint: [
+                "An equal mix of " ,
+                "The sum of " ,
+                "An equal blend of " ,
+                "An equal mixture of " ,
+                "An equal dose of ",
+                "An equal dosage of ",
+            ] ,
+            k_style_concise: [
+                "An equal mix of " ,
+                "The sum of " ,
+                "An equal blend of " ,
+                "An equal mixture of " ,
+                "An equal dose of ",
+                "An equal dosage of ",
+            ] ,
+            k_style_detailed: [
+                "An equal mix of " ,
+                "The sum of " ,
+                "An equal blend of " ,
+                "An equal mixture of " ,
+                "An equal combo of " ,
+            ],
+        } ,
+
+        k_comp_oscs_mix_forward : {
+            k_style_basic: ["{oscillators_mix}"] ,
+            k_style_succint : [
+                "A {oscillators_mix} mix of " ,
+                "A {oscillators_mix} melange of " ,
+                "{oscillators_mix} ",
+            ] ,
+            k_style_concise: [
+                "A {oscillators_mix} mix of " ,
+                "A {oscillators_mix} melange of " ,
+                "{oscillators_mix} of ",
+            ] ,
+            k_style_detailed : [
+                "A {oscillators_mix} mix of " ,
+                "A {oscillators_mix} melange of " ,
+            ],
+        } ,
+
+        k_comp_oscs_mix_default : {
+            k_style_basic: [ "" ] ,
+            k_style_succint : [ "" ] ,
+            k_style_concise: [
+                "A mix of " ,
+                "The sum of " ,
+                "A blend of " ,
+                "A mixture of " ,
+                "Mix " ,
+                "The combination of ",
+                "Combination of " ,
+                "Sound with " ,
+                "Preset with " ,                
+            ] ,
+            k_style_detailed : [
+                "A mix of " ,
+                "The mix of " ,
+                "The sum of " ,
+                "A blend of " ,
+                "A mixture of " ,
+                "Mix of " ,
+                "A melange of " ,
+                "The combination of ",
+                "Combination of " ,
+                "Sound mixing " ,
+                "Preset with " ,                
+            ],
+        } ,
+
         k_compositing : {
             k_style_basic : {
                 k_comp_oscs_singular : [
                      "{oscillators_desc}" ,
                      ]  ,
                 k_comp_oscs_plural : [ 
-                    "{oscillators_desc}" ,
+                    "{oscillators_mix_desc} {oscillators_desc}" ,
                     ] ,
-                k_comp_oscs_mix_forward : [
-                    "{oscillators_mix} {oscillators_desc}",
-                ]                             
             },
             k_style_succint : {
                 k_comp_oscs_singular : [ 
                     "{oscillators_desc}",
                 ] ,
                 k_comp_oscs_plural : [
-                    "{oscillators_desc}",
+                    "{oscillators_mix_desc} {oscillators_desc}",
                 ] ,
-                k_comp_oscs_mix_balanced : [
-                    "An equal mix of {oscillators_desc}" ,
-                    "The sum of {oscillators_desc}" ,
-                    "An equal blend of {oscillators_desc}" ,
-                    "An equal mixture of {oscillators_desc}" ,
-                    "An equal dose of {oscillators_desc}",
-                    "An equal dosage of {oscillators_desc}",
-                ],
-                k_comp_oscs_mix_forward : [
-                    "A {oscillators_mix} mix of {oscillators_desc}" ,
-                    "A {oscillators_mix} melange of {oscillators_desc}" ,
-                    "{oscillators_mix} {oscillators_desc}",
-                ]                             
             },
             k_style_concise : {
                 k_comp_oscs_singular : [ 
                     "{oscillators_desc}",
                 ] ,
                 k_comp_oscs_plural : [
-                    "A mix of {oscillators_desc}" ,
-                    "The sum of {oscillators_desc}" ,
-                    "A blend of {oscillators_desc}" ,
-                    "A mixture of {oscillators_desc}" ,
-                    "Mix {oscillators_desc}" ,
-                    "The combination of {oscillators_desc}",
-                    "Combination of {oscillators_desc}" ,
-                    "Sound with {oscillators_desc}" ,
-                    "Preset with {oscillators_desc}" ,
+                    "{oscillators_mix_desc} {oscillators_desc}" ,
                 ] ,
-                k_comp_oscs_mix_balanced : [
-                    "An equal mix of {oscillators_desc}" ,
-                    "The sum of {oscillators_desc}" ,
-                    "An equal blend of {oscillators_desc}" ,
-                    "An equal mixture of {oscillators_desc}" ,
-                    "An equal dose of {oscillators_desc}",
-                    "An equal dosage of {oscillators_desc}",
-                ],
-                k_comp_oscs_mix_forward : [
-                    "A {oscillators_mix} mix of {oscillators_desc}" ,
-                    "A {oscillators_mix} melange of {oscillators_desc}" ,
-                    "{oscillators_mix} of {oscillators_desc}",
-                ]
             },
             k_style_detailed: {
                 k_comp_oscs_singular : [
                     "{oscillators_desc}",
                 ],
                 k_comp_oscs_plural : [
-                    "A mix of {oscillators_desc}" ,
-                    "The mix of {oscillators_desc}" ,
-                    "The sum of {oscillators_desc}" ,
-                    "A blend of {oscillators_desc}" ,
-                    "A mixture of {oscillators_desc}" ,
-                    "Mix of {oscillators_desc}" ,
-                    "A melange of {oscillators_desc}" ,
-                    "The combination of {oscillators_desc}",
-                    "Combination of {oscillators_desc}" ,
-                    "Sound mixing {oscillators_desc}" ,
-                    "Preset with {oscillators_desc}" ,
+                    "{oscillators_mix_desc} {oscillators_desc}" ,
                 ] ,
-                k_comp_oscs_mix_balanced : [
-                    "An equal mix of {oscillators_desc}" ,
-                    "The sum of {oscillators_desc}" ,
-                    "An equal blend of {oscillators_desc}" ,
-                    "An equal mixture of {oscillators_desc}" ,
-                    "An equal combo of {oscillators_desc}" ,
-                ] ,
-                k_comp_oscs_mix_forward : [
-                    "A {oscillators_mix} mix of {oscillators_desc}" ,
-                    "A {oscillators_mix} melange of {oscillators_desc}" ,
-                ]
             },
             k_style_specification: {
                 k_comp_oscs_singular : [
@@ -138,18 +154,18 @@ sentences = {
             k_style_specification: [ '/' ],
         } ,
         k_comp_osc_vol_text_post : {
-            k_style_basic :   [" @ {volume_text} "] ,
-            k_style_succint : [ " at {volume_text}"] ,
-            k_style_concise : [ " at {volume_text}"] ,
-            k_style_detailed: [ " at {volume_text}"] ,
-            k_style_specification: [ " @ {volume_text}" ],
+            k_style_basic :   [" @ {volume_value} "] ,
+            k_style_succint : [ " at {volume_value}"] ,
+            k_style_concise : [ " at {volume_value}"] ,
+            k_style_detailed: [ " at {volume_value}"] ,
+            k_style_specification: [ " @ {volume_value}" ],
         } ,
         k_comp_osc_vol_text_pre : {
-            k_style_basic :   ["{volume_text} "] ,
-            k_style_succint : [ "{volume_text} "] ,
-            k_style_concise : [ "{volume_text} "] ,
-            k_style_detailed: [ "{volume_text} "] ,
-            k_style_specification: [ "{volume_text} " ],
+            k_style_basic :   ["{volume_value} "] ,
+            k_style_succint : [ "{volume_value} "] ,
+            k_style_concise : [ "{volume_value} "] ,
+            k_style_detailed: [ "{volume_value} "] ,
+            k_style_specification: [ "{volume_value} " ],
         } ,
         k_comp_osc_vol_number: {
             k_style_basic :   ["@{volume_value}"] ,
@@ -162,47 +178,47 @@ sentences = {
         k_compositing : {
             k_style_basic : {
                 k_comp_osc_singular : [
-                    "{volume_desc_pre}{shapes_desc}{volume_desc_post}" ,
+                    "{volume_desc_pre}{{shapes_desc}}{volume_desc_post}" ,
                 ] ,
                 k_comp_osc_plural : [
-                    "{volume_desc_pre}{shapes_desc}{volume_desc_post}" ,
+                    "{volume_desc_pre}{{shapes_desc}}{volume_desc_post}" ,
                 ] ,
             },
             k_style_succint : {
                 k_comp_osc_singular : [
-                    "{volume_desc_pre}{shapes_desc}{volume_desc_post}" ,
+                    "{volume_desc_pre}{{shapes_desc}}{volume_desc_post}" ,
                 ] ,                           
                 k_comp_osc_plural : [
-                    "{volume_desc_pre}{shapes_desc}{volume_desc_post}" ,
+                    "{volume_desc_pre}{{shapes_desc}}{volume_desc_post}" ,
                 ]                              
             },
             k_style_concise : {
                 k_comp_osc_singular : [
-                    "{osc_article} {volume_desc_pre}{shapes_desc} {osc_type}{volume_desc_post}",
-                    "{volume_desc_pre}{shapes_desc}{volume_desc_post}",
+                    "{{osc_article}} {volume_desc_pre}{{shapes_desc}} {{osc_type}}{volume_desc_post}",
+                    "{volume_desc_pre}{{shapes_desc}}{volume_desc_post}",
                 ] ,                            
                 k_comp_osc_plural : [
-                    "{osc_article} {volume_desc_pre}{osc_type} of {shapes_desc}{volume_desc_post}",
-                    "{volume_desc_pre}{shapes_desc}{volume_desc_post}",
-                    "{volume_desc_pre}mix of {shapes_desc}{volume_desc_post}",
-                    "{volume_desc_pre}blend of {shapes_desc}{volume_desc_post}",
+                    "{{osc_article}} {volume_desc_pre}{{osc_type}} of {{shapes_desc}}{volume_desc_post}",
+                    "{volume_desc_pre}{{shapes_desc}}{volume_desc_post}",
+                    "{volume_desc_pre}mix of {{shapes_desc}}{volume_desc_post}",
+                    "{volume_desc_pre}blend of {{shapes_desc}}{volume_desc_post}",
                 ]                            
             },
             k_style_detailed: {
                 k_comp_osc_singular : [
-                    "{osc_article} {volume_desc_pre}{shapes_desc} {osc_type}{volume_desc_post}",
+                    "{{osc_article}} {volume_desc_pre}{{shapes_desc}} {{osc_type}}{volume_desc_post}",
                 ] ,                            
                 k_comp_osc_plural : [
-                    "{osc_article} {volume_desc_pre}{osc_type} using a combination of {shapes_desc}{volume_desc_post}",
-                    "{osc_article} {volume_desc_pre}{osc_type} mixing a {shapes_desc}{volume_desc_post}",
+                    "{{osc_article}} {volume_desc_pre}{{osc_type}} using a combination of {{shapes_desc}}{volume_desc_post}",
+                    "{{osc_article}} {volume_desc_pre}{{osc_type}} mixing a {{shapes_desc}}{volume_desc_post}",
                 ]                                
             },
             k_style_specification: {
                 k_comp_osc_singular : [
-                    "- {osc_article} {volume_desc_pre}{shapes_desc}{volume_desc_post}" ,
+                    "- {{osc_article}} {volume_desc_pre}{{shapes_desc}}{volume_desc_post}" ,
                 ] ,                            
                 k_comp_osc_plural : [
-                    "- {osc_article} {volume_desc_pre}{shapes_desc}{volume_desc_post}" ,
+                    "- {{osc_article}} {volume_desc_pre}{{shapes_desc}}{volume_desc_post}" ,
                 ]                               
             }
         } ,

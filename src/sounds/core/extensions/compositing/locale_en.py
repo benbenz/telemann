@@ -137,12 +137,19 @@ sentences = {
             k_style_detailed: [ '-', '|' , '/' , ' blended with '] ,
             k_style_specification: [ '/' ],
         } ,
-        k_comp_osc_vol_text : {
+        k_comp_osc_vol_text_post : {
             k_style_basic :   [" @ {volume_text} "] ,
             k_style_succint : [ " at {volume_text}"] ,
             k_style_concise : [ " at {volume_text}"] ,
             k_style_detailed: [ " at {volume_text}"] ,
             k_style_specification: [ " @ {volume_text}" ],
+        } ,
+        k_comp_osc_vol_text_pre : {
+            k_style_basic :   ["{volume_text} "] ,
+            k_style_succint : [ "{volume_text} "] ,
+            k_style_concise : [ "{volume_text} "] ,
+            k_style_detailed: [ "{volume_text} "] ,
+            k_style_specification: [ "{volume_text} " ],
         } ,
         k_comp_osc_vol_number: {
             k_style_basic :   ["@{volume_value}"] ,
@@ -172,9 +179,13 @@ sentences = {
             k_style_concise : {
                 k_comp_osc_singular : [
                     "{osc_article} {volume_desc_pre}{shapes_desc} {osc_type}{volume_desc_post}",
+                    "{volume_desc_pre}{shapes_desc}{volume_desc_post}",
                 ] ,                            
                 k_comp_osc_plural : [
                     "{osc_article} {volume_desc_pre}{osc_type} of {shapes_desc}{volume_desc_post}",
+                    "{volume_desc_pre}{shapes_desc}{volume_desc_post}",
+                    "{volume_desc_pre}mix of {shapes_desc}{volume_desc_post}",
+                    "{volume_desc_pre}blend of {shapes_desc}{volume_desc_post}",
                 ]                            
             },
             k_style_detailed: {
@@ -183,6 +194,7 @@ sentences = {
                 ] ,                            
                 k_comp_osc_plural : [
                     "{osc_article} {volume_desc_pre}{osc_type} using a combination of {shapes_desc}{volume_desc_post}",
+                    "{osc_article} {volume_desc_pre}{osc_type} mixing a {shapes_desc}{volume_desc_post}",
                 ]                                
             },
             k_style_specification: {
@@ -248,26 +260,26 @@ cleanup = {
 
 words = {
 
-    k_wave_sine : ["Sine" , "Sine-wave"],
-    k_wave_triangle : ["Triangle" , "Triangle-wave"],
-    k_wave_trishaped : ["TriShape","Trishape-wave"],
-    k_wave_square : ["Square","Square-wave"],
-    k_wave_pulse : ["Pulse","Pulse-wave"],
-    k_wave_pulse_thin : "ThinPulse",
-    k_wave_sawtooth : ["SawTooth","Saw","Sawtooth-wave"],
-    k_wave_sawmulti : "MultiSaw",
-    k_wave_sawup : ["SawUp","upward Sawtooth"],
-    k_wave_sawdown : ["SawDown","downward Sawtooth"],
-    k_wave_noise : "Noise",
-    k_wave_noise_white : "White Noise",
-    k_wave_noise_pink : "Pink Noise",
-    k_wave_sample : "Sample",
-    k_wave_additive : "Additive",
-    k_wave_digital : ["Digital","Digital wave"],
-    k_wave_feedback : "Feedback",
-    k_wave_exotic : "Exotic",
-    k_wave_s_h : ["S/H","Sample & Hold"],
-    k_wave_other : ["Generic","Some waveform"] ,
+    k_wave_sine : ["sine" , "sine-wave"],
+    k_wave_triangle : ["triangle" , "triangle-wave"],
+    k_wave_trishaped : ["trishape","trishape-wave"],
+    k_wave_square : ["square","square-wave"],
+    k_wave_pulse : ["pulse","pulse-wave"],
+    k_wave_pulse_thin : "thin-pulse",
+    k_wave_sawtooth : ["sawtooth","saw","sawtooth-wave"],
+    k_wave_sawmulti : "multisaw",
+    k_wave_sawup : ["sawup","upward sawtooth"],
+    k_wave_sawdown : ["sawdown","downward sawtooth"],
+    k_wave_noise : "noise",
+    k_wave_noise_white : "white noise",
+    k_wave_noise_pink : "pink noise",
+    k_wave_sample : "sample",
+    k_wave_additive : "additive",
+    k_wave_digital : ["digital","digital wave"],
+    k_wave_feedback : "feedback",
+    k_wave_exotic : "exotic",
+    k_wave_s_h : ["s/h","sample & hold"],
+    k_wave_other : ["generic","some waveform"] ,
 
     k_wave_width_narrow : "narrow" ,
     k_wave_width_thin : "thin" ,

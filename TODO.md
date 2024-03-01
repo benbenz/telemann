@@ -19,7 +19,8 @@ Tasks to do ...
   - [ ] separate well core audio 
   - [ ] Handler: render, analyze, capture 
 - [ ] BIG TODO: SoundToneController. Normalized way of controlling parameters (software and midi) a la Andromachine >> normalize Andromachine Map >> generates random sounds too ... 
-- [ ] Add VCA, VCO, VCF chips informations: Add info field to sources?Or maybe info_hardware and info_software (version included)
+- [ ] Add VCA, VCO, VCF chips informations: Add info field to sources?
+      Or maybe info_hardware and info_software (version included)
 
 - [ ] Modifier le JUCE pour vraiment avoir les string values ? Would be better to have the string values so that it's more robust to plugin version change. Also check the plugin version. ...
 - [ ] Add sub_osc octave: Possible values: [-1,-2,-3,-4]

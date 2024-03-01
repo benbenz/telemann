@@ -146,8 +146,11 @@ class CompositingKey(StrEnum):
     OSCS_PLURAL   = auto()
     OSCS_MIX_BALANCED = auto()
     OSCS_MIX_FORWARD  = auto()
-    OSC_COMPOSITING_VOL_TEXT = auto()
+    OSCS_TUNING_AFTERWARD = auto()
+    OSC_COMPOSITING_VOL_TEXT_POST = auto()
+    OSC_COMPOSITING_VOL_TEXT_PRE = auto()
     OSC_COMPOSITING_VOL_NUMBER = auto()
+    OSC_COMPOSITING_TUNING   = auto()
     OSC_SINGULAR = auto()
     OSC_PLURAL   = auto()
     OSC_SUB  = auto()
@@ -167,8 +170,9 @@ class StyleGuide(StrEnum):
 class DeclarationsMask(IntFlag):
     NONE = 0 
     OSC_VOLUME = auto() # means that the mix of oscillators has been declared
+    OSC_TUNING = auto()
     SHAPE_VOLUME = auto() # means that the level of the shapes has been declared
-    ALL = OSC_VOLUME | SHAPE_VOLUME
+    ALL = OSC_VOLUME | OSC_TUNING | SHAPE_VOLUME
 
 # to uniformize style accross entities
 class DeclarationFlavour(IntFlag):

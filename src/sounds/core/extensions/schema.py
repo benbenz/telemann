@@ -1,6 +1,6 @@
 from typing import List , Optional , Tuple
 from abc import ABC , abstractmethod
-from pydantic import BaseModel , confloat
+from pydantic import BaseModel , confloat , conint
 from .compositing.locale_en import sentences , words , cleanup
 from .compositing.keys import * # import the k_*** keys
 from .defs import *
@@ -68,10 +68,11 @@ class ExtensionComponent(BaseModel,ABC):
         for child in children:
             if limit is not None and count>limit:
                 break 
-            desc , flavour , declaration_= child.desc(style_guide,flavour,declarations)
+            desc , flavour , declaration_ = child.desc(style_guide,flavour,declarations)
             if desc is not None:
                 declarations_.append(declaration_)
                 descs.append(desc)
+        # update cross-level declarations, after the fact
         for declaration_  in declarations_:
             declarations &= declaration_
         return descs , flavour , declarations
@@ -144,7 +145,7 @@ class OscillatorShape(ExtensionComponent):
         # compose sentence
         waveform_name = get_word(self.waveform.value)
         waveform_width = get_word(self.width.value) if self.width is not None else None
-        waveform_width = f"{waveform_width} " if waveform_width is not None else ""
+        waveform_width = f"{waveform_width}-" if waveform_width is not None else ""
         volume_desc , flavour = self._get_volume_desc(style_guide,flavour,declarations) # in case we need it
         shape_desc = compose_loc.format(waveform_name=waveform_name,volume_desc=volume_desc,waveform_width=waveform_width)
 
@@ -206,7 +207,11 @@ class Oscillator(ExtensionComponent):
 
     shapes : List[OscillatorShape]=[]
     volume : confloat(ge=0.0,le=1.0)
-    sub : bool 
+    tune_coarse :  Optional[conint(multiple_of=12,ge=-24,le=24)]=None # = range = octave
+    tune_fine : Optional[confloat(ge=-6.0,le=6.0)]=None
+    detune : Optional[confloat(ge=0.0,le=1.0)]=None
+    sub : bool=False
+    sub_octave : Optional[conint(ge=-4,le=-1)]=None # [-4,-1] suboscillator octave range
 
     # when we used balanced writing, we won't output the volumes ...
     def desc(self,
@@ -294,15 +299,16 @@ class Oscillator(ExtensionComponent):
         elif flavour & DeclarationFlavour.OSC_VOLUME_TEXT_POST:
             flavour = (flavour & DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_VOLUME_ALL) | DeclarationFlavour.OSC_VOLUME_TEXT_POST
             vol_text = self._get_volume_desc_as_text(style_guide,flavour,declarations)
-            compositing_vol = random.choice( sentences[k_oscillator][k_comp_osc_vol_text][style_guide.value] )
+            compositing_vol = random.choice( sentences[k_oscillator][k_comp_osc_vol_text_post][style_guide.value] )
             vol_desc_post = compositing_vol.format(volume_text=vol_text)
             vol_desc_pre  = ""
             return vol_desc_post , vol_desc_pre , flavour
         elif flavour & DeclarationFlavour.OSC_VOLUME_TEXT_PRE:
-            flavour = (flavour & DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_VOLUME_ALL) | DeclarationFlavour.OSC_VOLUME_TEXT_POST
+            flavour = (flavour & DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_VOLUME_ALL) | DeclarationFlavour.OSC_VOLUME_TEXT_PRE
             vol_text = self._get_volume_desc_as_text(style_guide,flavour,declarations)
+            compositing_vol = random.choice( sentences[k_oscillator][k_comp_osc_vol_text_pre][style_guide.value] )
             vol_desc_post = ""
-            vol_desc_pre  = f"{vol_text} "
+            vol_desc_pre  = compositing_vol.format(volume_text=vol_text)
             return vol_desc_post , vol_desc_pre , flavour
         elif flavour & DeclarationFlavour.OSC_VOLUME_NONE:
             flavour = (flavour & DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_VOLUME_ALL) | DeclarationFlavour.OSC_VOLUME_NONE
@@ -437,8 +443,18 @@ class Effect(ExtensionComponent):
              declarations:DeclarationsMask=DeclarationsMask.ALL,
              )->Tuple[Optional[str],DeclarationFlavour,DeclarationsMask]:
         return None , flavour , declarations
+    
 
+class GlobalSettings(ExtensionComponent):
+    
+    detune : Optional[confloat(ge=0.0,le=1.0)]=None
 
+    def desc(self,
+             style_guide:StyleGuide,
+             flavour:DeclarationFlavour=DeclarationFlavour.NONE,
+             declarations:DeclarationsMask=DeclarationsMask.ALL,
+             )->Tuple[Optional[str],DeclarationFlavour,DeclarationsMask]:
+        return None , flavour , declarations    
 
 class SoundToneDescription(ExtensionComponent):
 
@@ -449,6 +465,7 @@ class SoundToneDescription(ExtensionComponent):
     lfos: Optional[List[LFO]]=None
     effects: Optional[List[Effect]]=None
     mod_matrix: Optional[ModulationMatrix]=None
+    settings: Optional[GlobalSettings]=None
 
     def desc(self,
              style_guide:StyleGuide,

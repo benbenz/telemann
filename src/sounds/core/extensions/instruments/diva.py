@@ -78,10 +78,15 @@ class DivaExtension(InstrumentExtension):
         for i in range(3):
             i_vco = i+1
             vol = self._get_osc_volume(params,i_vco)
+            tune_coarse = self._get_osc_tune_coarse(params,i_vco)
+            tune_fine = self._get_osc_tune_fine(params,i_vco)
             if vol > THRESH:
                 oscs.append(Oscillator(shapes=self._get_osc_shapes_continuous(params,i_vco),
                                sub=False,
-                               volume=vol))
+                               volume=vol,
+                               tune_coarse=tune_coarse,
+                               tune_fine=tune_fine
+                               ))
         
         return oscs 
     
@@ -93,9 +98,13 @@ class DivaExtension(InstrumentExtension):
                                volume=self._get_osc_volume_simple(params,1),
                                 sub=False))
         if mix > THRESH : # OSC2 has significant volume
+            tune_coarse = self._get_osc_tune_coarse(params,2)
+            tune_fine = self._get_osc_tune_fine(params,2)
             oscs.append(Oscillator(shapes=self._get_osc_shapes_additive(params,2),
                                volume=self._get_osc_volume_simple(params,2),
-                                sub=False))
+                                sub=False,
+                                tune_coarse=tune_coarse,
+                                tune_fine=tune_fine))
         return oscs     
     
     def _get_oscs_dco(self,params:dict) -> List[Oscillator] :
@@ -104,19 +113,23 @@ class DivaExtension(InstrumentExtension):
         saw_shape = params[f"osc_sawshape"]["value"]
         sub_shape = params[f"osc_suboscshape"]["value"]
         sub_vol = params[f"osc_volume3"]["raw_value"]
+        tune_coarse = self._get_osc_tune_coarse(params,1)
         if pulse_shape != "0":
             pulsewidth = self._get_osc_pwm_width(params)
             oscs.append(Oscillator(shapes=[OscillatorShape(waveform=WaveformEnum.PULSE,volume=1.0,width=pulsewidth)],
                                 volume=1.0,
-                                sub=False))
+                                sub=False,
+                                tune_coarse=tune_coarse))
         if saw_shape != "0":
             oscs.append(Oscillator(shapes=[OscillatorShape(waveform=WaveformEnum.SAWTOOTH,volume=1.0)],
                                 volume=1.0,
-                                sub=False))
+                                sub=False,
+                                tune_coarse=tune_coarse))
         if sub_vol > THRESH:
             oscs.append(Oscillator(shapes=[OscillatorShape(waveform=WaveformEnum.PULSE,volume=1.0)],
                                 volume=sub_vol,
-                                sub=True))
+                                sub=True,
+                                tune_coarse=tune_coarse))
         return oscs
     
     def _get_oscs_eco(self,params:dict) -> List[Oscillator] :
@@ -124,11 +137,17 @@ class DivaExtension(InstrumentExtension):
         for i in range(2):
             i_vco = i+1
             vol = self._get_osc_volume(params,i_vco)
+            tune_coarse = self._get_osc_tune_coarse(params,1) if i_vco==2 else None
+            tune_fine = self._get_osc_tune_fine(params,1) if i_vco==2 else None
             if vol > THRESH: 
                 shapes = self._get_osc_shapes_eco(params,i_vco)
                 if shapes is not None:
                     oscs.append(
-                        Oscillator(shapes=shapes,volume=vol,sub=False)
+                        Oscillator(shapes=shapes,
+                                   volume=vol,
+                                   sub=False,
+                                   tune_coarse=tune_coarse,
+                                   tune_fine=tune_fine)
                     )
         return oscs     
     
@@ -137,11 +156,19 @@ class DivaExtension(InstrumentExtension):
         for i in range(2):
             i_vco = i+1
             vol = self._get_osc_volume_simple(params,i_vco)
+            tune_coarse = self._get_osc_tune_coarse(params,i_vco)
+            tune_fine = self._get_osc_tune_fine(params,i_vco) if i_vco == 2 else None
+            detune = params["osc_pulsewidth"]["value"] if i_vco == 1 else params["osc_digitalshape3"]["value"]
             if vol > THRESH: 
                 shapes = self._get_osc_shapes_digital(params,i_vco)
                 if shapes is not None:
                     oscs.append(
-                            Oscillator(shapes=shapes,volume=vol,sub=False)
+                            Oscillator(shapes=shapes,
+                                       volume=vol,
+                                       sub=False,
+                                       tune_coarse=tune_coarse,
+                                       tune_fine=tune_fine,
+                                       detune=detune)
                     )
         return oscs        
 
@@ -278,6 +305,17 @@ class DivaExtension(InstrumentExtension):
     def _get_osc_volume(self,params:dict,i_vco:int) -> float:
         return params[f"osc_volume{i_vco}"]["raw_value"]
         
+    def _get_osc_tune_coarse(self,params:dict,i_vco:int) -> float:
+        tune = float(params[f"osc_tune{i_vco}"]["value"])
+        tune_coarse = round(tune / 12) * 12.0 
+        return int(tune_coarse)
+
+    def _get_osc_tune_fine(self,params:dict,i_vco:int) -> float:
+        tune = float(params[f"osc_tune{i_vco}"]["value"])
+        tune_coarse = round(tune / 12) * 12.0 
+        sign = 1 if tune_coarse - tune >= 0 else -1
+        return (tune - tune_coarse)*sign
+
     def _get_osc_volume_simple(self,params,i_vco:int) -> float:
         mix = params['osc_oscmix']['raw_value']
         if i_vco==1:

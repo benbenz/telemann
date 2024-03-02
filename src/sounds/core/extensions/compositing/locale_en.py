@@ -124,10 +124,10 @@ sentences = {
         },    
         k_comp_osc_tuning : {
             k_style_concise: [
-                "OSC{osc_i} set at {tuning_coarse} {tuning_fine}" ,
+                "OSC{osc_i} set {tuning_coarse} {tuning_fine}" ,
             ] ,
             k_style_detailed : [
-                "OSC{osc_i} set at {tuning_coarse} {tuning_fine}" ,
+                "OSC{osc_i} set {tuning_coarse} {tuning_fine}" ,
             ],
         },
         k_compositing : {
@@ -226,37 +226,37 @@ sentences = {
         # tuples returned
         k_comp_osc_tuning_pitch : {
             k_style_basic: [
-                ("coarse pitch {tune_coarse}", "fine pitch {tune_fine}"),
+                ("with coarse pitch {tune_coarse}", "fine pitch {tune_fine}"),
             ],
             k_style_succint: [
-                ("coarse pitch {tune_coarse}", "fine pitch {tune_fine}"),
+                ("with coarse pitch {tune_coarse}", "fine pitch {tune_fine}"),
             ],
             k_style_concise: [
-                ("coarse pitch {tune_coarse}", "fine pitch {tune_fine}"),
+                ("with coarse pitch {tune_coarse}", "fine pitch {tune_fine}"),
             ] ,
             k_style_detailed : [
-                ("coarse pitch {tune_coarse}", "fine pitch {tune_fine}"),
+                ("with coarse pitch {tune_coarse}", "fine pitch {tune_fine}"),
             ],
             k_style_specification: [
-                ("coarse pitch {tune_coarse}", "fine pitch {tune_fine}"),
+                ("with coarse pitch {tune_coarse}", "fine pitch {tune_fine}"),
             ]
         },
         # tuples returned
         k_comp_osc_tuning_oct : {
             k_style_basic: [
-                ("at {tune_coarse} oct.","{tune_fine} cent."),
+                ("{tune_coarse} oct.","{tune_fine} cent."),
             ],
             k_style_succint: [
-                ("at {tune_coarse} oct.","{tune_fine} cent."),
+                ("{tune_coarse} oct.","{tune_fine} cent."),
             ],
             k_style_concise: [
-                ("at {tune_coarse} oct.","{tune_fine} cent."),
+                ("{tune_coarse} oct.","{tune_fine} cent."),
             ] ,
             k_style_detailed : [
-                ("at {tune_coarse} oct.","{tune_fine} cent."),
+                ("{tune_coarse} oct.","{tune_fine} cent."),
             ],
             k_style_specification: [
-                ("at {tune_coarse} oct.","{tune_fine} cent."),
+                ("{tune_coarse} oct.","{tune_fine} cent."),
             ]
         },        
         # Constraint: when we have volume_desc_post, we need to always have volume_desc_pre

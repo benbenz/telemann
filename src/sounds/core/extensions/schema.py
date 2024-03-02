@@ -614,7 +614,7 @@ class SoundToneDescription(ExtensionComponent):
         # prepare the sub-parts
         oscillators_mix_desc , flavour = self.__get_oscillators_mix_desc(style_guide,flavour,declarations) # in case we need it
         oscillators_tuning_desc , tuning_flavour = self.desc_oscs_tuning(style_guide,flavour,declarations) # in case we need it
-        #flavour = tuning_flavour # ???
+        flavour = tuning_flavour # ???
 
         # update the flavour with what we will actually be outputting (some compositing may not include the mixing)
         if (flavour & (DeclarationFlavour.OSCS_MIX_BALANCED|DeclarationFlavour.OSCS_MIX_FORWARD) !=0 and "{oscillators_mix_desc}" not in compose_loc):
@@ -625,9 +625,10 @@ class SoundToneDescription(ExtensionComponent):
             flavour = flavour & ( DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSCS_TUNING_ALL ) | DeclarationFlavour.OSCS_TUNING_NONE
             # cancel any declaration of osc tuning
             declarations = declarations & (DeclarationsMask.ALL - DeclarationsMask.OSC_TUNING)
-        if oscillators_tuning_desc is None:
+        if oscillators_tuning_desc is None or oscillators_tuning_desc=="":
             oscillators_tuning_desc = ""
             flavour = flavour & ( DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSCS_TUNING_ALL ) | DeclarationFlavour.OSCS_TUNING_NONE
+            flavour = flavour & ( DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_TUNING_ALL ) # reset also for the OSC
             declarations = declarations & (DeclarationsMask.ALL - DeclarationsMask.OSC_TUNING)
 
         # recurse

@@ -220,7 +220,7 @@ sentences = {
                 " - tuned {tuning_coarse} {tuning_fine} - " ,
             ],
             k_style_specification : [
-                ": tuning @ {tuning_coarse} {tuning_fine}" ,
+                ": tuning {tuning_coarse} {tuning_fine}" ,
             ],
         },
         # tuples returned
@@ -238,7 +238,7 @@ sentences = {
                 ("with coarse pitch {tune_coarse}", "fine pitch {tune_fine}"),
             ],
             k_style_specification: [
-                ("with coarse pitch {tune_coarse}", "fine pitch {tune_fine}"),
+                ("pitch {tune_coarse}", "fine pitch {tune_fine}"),
             ]
         },
         # tuples returned

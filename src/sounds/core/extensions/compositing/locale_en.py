@@ -244,19 +244,19 @@ sentences = {
         # tuples returned
         k_comp_osc_tuning_oct : {
             k_style_basic: [
-                ("{tune_coarse} oct.","{tune_fine} cent."),
+                ("{tune_coarse} oct","{tune_fine} cent"),
             ],
             k_style_succint: [
-                ("{tune_coarse} oct.","{tune_fine} cent."),
+                ("{tune_coarse} oct","{tune_fine} cent"),
             ],
             k_style_concise: [
-                ("{tune_coarse} oct.","{tune_fine} cent."),
+                ("{tune_coarse} oct","{tune_fine} cent"),
             ] ,
             k_style_detailed : [
-                ("{tune_coarse} oct.","{tune_fine} cent."),
+                ("{tune_coarse} oct","{tune_fine} cent"),
             ],
             k_style_specification: [
-                ("{tune_coarse} oct.","{tune_fine} cent."),
+                ("{tune_coarse} oct","{tune_fine} cent"),
             ]
         },        
         # Constraint: when we have volume_desc_post, we need to always have volume_desc_pre

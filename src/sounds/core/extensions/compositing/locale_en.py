@@ -154,18 +154,18 @@ sentences = {
             k_style_specification: [ '/' ],
         } ,
         k_comp_osc_vol_text_post : {
-            k_style_basic :   [" @ {volume_value} "] ,
-            k_style_succint : [ " at {volume_value}"] ,
-            k_style_concise : [ " at {volume_value}"] ,
-            k_style_detailed: [ " at {volume_value}"] ,
-            k_style_specification: [ " @ {volume_value}" ],
+            k_style_basic :   [" @ {volume_text} "] ,
+            k_style_succint : [ " at {volume_text}"] ,
+            k_style_concise : [ " at {volume_text}"] ,
+            k_style_detailed: [ " at {volume_text}"] ,
+            k_style_specification: [ " @ {volume_text}" ],
         } ,
         k_comp_osc_vol_text_pre : {
-            k_style_basic :   ["{volume_value} "] ,
-            k_style_succint : [ "{volume_value} "] ,
-            k_style_concise : [ "{volume_value} "] ,
-            k_style_detailed: [ "{volume_value} "] ,
-            k_style_specification: [ "{volume_value} " ],
+            k_style_basic :   ["{volume_text} "] ,
+            k_style_succint : [ "{volume_text} "] ,
+            k_style_concise : [ "{volume_text} "] ,
+            k_style_detailed: [ "{volume_text} "] ,
+            k_style_specification: [ "{volume_text} " ],
         } ,
         k_comp_osc_vol_number: {
             k_style_basic :   ["@{volume_value}"] ,
@@ -178,47 +178,47 @@ sentences = {
         k_compositing : {
             k_style_basic : {
                 k_comp_osc_singular : [
-                    "{volume_desc_pre}{{shapes_desc}}{volume_desc_post}" ,
+                    "{volume_desc_pre}{shapes_desc}{volume_desc_post}" ,
                 ] ,
                 k_comp_osc_plural : [
-                    "{volume_desc_pre}{{shapes_desc}}{volume_desc_post}" ,
+                    "{volume_desc_pre}{shapes_desc}{volume_desc_post}" ,
                 ] ,
             },
             k_style_succint : {
                 k_comp_osc_singular : [
-                    "{volume_desc_pre}{{shapes_desc}}{volume_desc_post}" ,
+                    "{volume_desc_pre}{shapes_desc}{volume_desc_post}" ,
                 ] ,                           
                 k_comp_osc_plural : [
-                    "{volume_desc_pre}{{shapes_desc}}{volume_desc_post}" ,
+                    "{volume_desc_pre}{shapes_desc}{volume_desc_post}" ,
                 ]                              
             },
             k_style_concise : {
                 k_comp_osc_singular : [
-                    "{{osc_article}} {volume_desc_pre}{{shapes_desc}} {{osc_type}}{volume_desc_post}",
-                    "{volume_desc_pre}{{shapes_desc}}{volume_desc_post}",
+                    "{osc_article} {volume_desc_pre}{shapes_desc} {osc_type}{volume_desc_post}",
+                    "{volume_desc_pre}{shapes_desc}{volume_desc_post}",
                 ] ,                            
                 k_comp_osc_plural : [
-                    "{{osc_article}} {volume_desc_pre}{{osc_type}} of {{shapes_desc}}{volume_desc_post}",
-                    "{volume_desc_pre}{{shapes_desc}}{volume_desc_post}",
-                    "{volume_desc_pre}mix of {{shapes_desc}}{volume_desc_post}",
-                    "{volume_desc_pre}blend of {{shapes_desc}}{volume_desc_post}",
+                    "{osc_article} {volume_desc_pre}{osc_type} of {shapes_desc}{volume_desc_post}",
+                    "{volume_desc_pre}{shapes_desc}{volume_desc_post}",
+                    "{volume_desc_pre}mix of {shapes_desc}{volume_desc_post}",
+                    "{volume_desc_pre}blend of {shapes_desc}{volume_desc_post}",
                 ]                            
             },
             k_style_detailed: {
                 k_comp_osc_singular : [
-                    "{{osc_article}} {volume_desc_pre}{{shapes_desc}} {{osc_type}}{volume_desc_post}",
+                    "{osc_article} {volume_desc_pre}{shapes_desc} {osc_type}{volume_desc_post}",
                 ] ,                            
                 k_comp_osc_plural : [
-                    "{{osc_article}} {volume_desc_pre}{{osc_type}} using a combination of {{shapes_desc}}{volume_desc_post}",
-                    "{{osc_article}} {volume_desc_pre}{{osc_type}} mixing a {{shapes_desc}}{volume_desc_post}",
+                    "{osc_article} {volume_desc_pre}{osc_type} using a combination of {shapes_desc}{volume_desc_post}",
+                    "{osc_article} {volume_desc_pre}{osc_type} mixing a {shapes_desc}{volume_desc_post}",
                 ]                                
             },
             k_style_specification: {
                 k_comp_osc_singular : [
-                    "- {{osc_article}} {volume_desc_pre}{{shapes_desc}}{volume_desc_post}" ,
+                    "- {osc_article} {volume_desc_pre}{shapes_desc}{volume_desc_post}" ,
                 ] ,                            
                 k_comp_osc_plural : [
-                    "- {{osc_article}} {volume_desc_pre}{{shapes_desc}}{volume_desc_post}" ,
+                    "- {osc_article} {volume_desc_pre}{shapes_desc}{volume_desc_post}" ,
                 ]                               
             }
         } ,

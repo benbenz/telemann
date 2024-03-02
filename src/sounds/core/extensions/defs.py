@@ -147,7 +147,10 @@ class CompositingKey(StrEnum):
     OSCS_COMPOSITING_MIX_BALANCED = auto()
     OSCS_COMPOSITING_MIX_FORWARD  = auto()
     OSCS_COMPOSITING_MIX_DEFAULT = auto()
-    OSCS_COMPOSITING_TUNING_AFTERWARD = auto()
+    OSCS_COMPOSITING_TUNING = auto()
+    OSCS_COMPOSITING_TUNING_GLUE = auto()
+    OSCS_COMPOSITING_TUNING_AFTERWARD_OCT = auto()
+    OSCS_COMPOSITING_TUNING_AFTERWARD_PITCH = auto()
     OSC_COMPOSITING_VOL_TEXT_POST = auto()
     OSC_COMPOSITING_VOL_TEXT_PRE = auto()
     OSC_COMPOSITING_VOL_NUMBER = auto()
@@ -170,12 +173,12 @@ class StyleGuide(StrEnum):
 
 class DeclarationsMask(IntFlag):
     NONE = 0 
-    OSC_VOLUME = auto() # means that the mix of oscillators has been declared
-    OSC_TUNING = auto()
-    SHAPE_VOLUME = auto() # means that the level of the shapes has been declared
+    OSC_VOLUME = auto() # means that the mix of oscillators has been declared (OSCs | OSC level)
+    OSC_TUNING = auto() # means that the tining of oscillators has been declared (OSCs | OSC level)
+    SHAPE_VOLUME = auto() # means that the level of the shapes has been declared (Shape level)
     ALL = OSC_VOLUME | OSC_TUNING | SHAPE_VOLUME
 
-# to uniformize style accross entities
+# to uniformize style accross entities/siblings
 class DeclarationFlavour(IntFlag):
     NONE = 0
     # OSCS
@@ -183,20 +186,29 @@ class DeclarationFlavour(IntFlag):
     OSCS_MIX_BALANCED = auto()
     OSCS_MIX_FORWARD = auto()
     OSCS_MIX_DEFAULT = auto()
+    OSCS_TUNING_AFTERWARD_PITCH = auto()
+    OSCS_TUNING_AFTERWARD_OCT = auto()
+    OSCS_TUNING_NONE = auto()
     # OSC
     OSC_VOLUME_NONE = auto()
     OSC_VOLUME_NUMBER = auto() # always POST
     OSC_VOLUME_TEXT_PRE = auto()
     OSC_VOLUME_TEXT_POST = auto()
+    OSC_TUNING_DEFAULT = auto()
+    OSC_TUNING_NONE = auto()
     # SHAPE
     SHAPE_VOLUME_NONE = auto()
     SHAPE_VOLUME_NUMBER = auto() # always POST and always NUMBER
     # Groups
     GRP_OSCS_MIX_PRESENT = OSCS_MIX_BALANCED | OSCS_MIX_FORWARD
     GRP_OSCS_MIX_ALL = OSCS_MIX_NONE | OSCS_MIX_DEFAULT | GRP_OSCS_MIX_PRESENT
+    GRP_OSCS_TUNING_PRESENT = OSCS_TUNING_AFTERWARD_PITCH | OSCS_TUNING_AFTERWARD_OCT 
+    GRP_OSCS_TUNING_ALL = GRP_OSCS_TUNING_PRESENT | OSCS_TUNING_NONE 
     GRP_OSC_VOLUME_PRESENT = OSC_VOLUME_NUMBER | OSC_VOLUME_TEXT_PRE | OSC_VOLUME_TEXT_POST
     GRP_OSC_VOLUME_ALL = OSC_VOLUME_NONE | GRP_OSC_VOLUME_PRESENT
+    GRP_OSC_TUNING_PRESENT = OSC_TUNING_DEFAULT
+    GRP_OSC_TUNING_ALL = OSC_TUNING_NONE | OSC_TUNING_DEFAULT
     GRP_SHAPE_VOLUME_PRESENT = SHAPE_VOLUME_NUMBER
     GRP_SHAPE_VOLUME_ALL = SHAPE_VOLUME_NONE | GRP_SHAPE_VOLUME_PRESENT
     # ALL 
-    ALL = NONE | GRP_SHAPE_VOLUME_ALL | GRP_OSC_VOLUME_ALL | GRP_OSCS_MIX_ALL
+    ALL = NONE | GRP_SHAPE_VOLUME_ALL | GRP_OSC_VOLUME_ALL | GRP_OSC_TUNING_ALL | GRP_OSCS_MIX_ALL | GRP_OSCS_TUNING_ALL

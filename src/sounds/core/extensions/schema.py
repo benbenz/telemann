@@ -299,6 +299,8 @@ class Oscillator(ExtensionComponent):
         if flavour & DeclarationFlavour.OSC_VOLUME_NUMBER:
             flavour = flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_VOLUME_ALL) | DeclarationFlavour.OSC_VOLUME_NUMBER
             vol_value = self._get_volume_desc_as_number(style_guide,flavour,declarations)
+            if style_guide.value not in sentences[k_oscillator][k_comp_osc_vol_number]:
+                return "" , "" , flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_VOLUME_ALL) | DeclarationFlavour.OSC_VOLUME_NONE
             compositing_vol = random.choice( sentences[k_oscillator][k_comp_osc_vol_number][style_guide.value] )
             vol_desc_post = compositing_vol.format(volume_value=vol_value)
             vol_desc_pre  = ""
@@ -306,6 +308,8 @@ class Oscillator(ExtensionComponent):
         elif flavour & DeclarationFlavour.OSC_VOLUME_TEXT_POST:
             flavour = flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_VOLUME_ALL) | DeclarationFlavour.OSC_VOLUME_TEXT_POST
             vol_text = self._get_volume_desc_as_text(style_guide,flavour,declarations)
+            if style_guide.value not in sentences[k_oscillator][k_comp_osc_vol_number]:
+                return "" , "" , flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_VOLUME_ALL) | DeclarationFlavour.OSC_VOLUME_NONE
             compositing_vol = random.choice( sentences[k_oscillator][k_comp_osc_vol_text_post][style_guide.value] )
             vol_desc_post = compositing_vol.format(volume_text=vol_text)
             vol_desc_pre  = ""
@@ -313,6 +317,8 @@ class Oscillator(ExtensionComponent):
         elif flavour & DeclarationFlavour.OSC_VOLUME_TEXT_PRE:
             flavour = flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_VOLUME_ALL) | DeclarationFlavour.OSC_VOLUME_TEXT_PRE
             vol_text = self._get_volume_desc_as_text(style_guide,flavour,declarations)
+            if style_guide.value not in sentences[k_oscillator][k_comp_osc_vol_number]:
+                return "" , "" , flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_VOLUME_ALL) | DeclarationFlavour.OSC_VOLUME_NONE
             compositing_vol = random.choice( sentences[k_oscillator][k_comp_osc_vol_text_pre][style_guide.value] )
             vol_desc_post = ""
             vol_desc_pre  = compositing_vol.format(volume_text=vol_text)
@@ -536,18 +542,28 @@ class SoundToneDescription(ExtensionComponent):
 
         # prepare the sub-parts
         oscillators_mix_desc , flavour = self.__get_oscillators_mix_desc(style_guide,flavour,declarations) # in case we need it
+        oscillators_tuning_desc , flavour = self.__get_oscillators_tuning_desc(style_guide,flavour,declarations) # in case we need it
 
         # update the flavour with what we will actually be outputting (some compositing may not include the mixing)
         if (flavour & (DeclarationFlavour.OSCS_MIX_BALANCED|DeclarationFlavour.OSCS_MIX_FORWARD) !=0 and "{oscillators_mix_desc}" not in compose_loc):
             flavour = flavour & ( DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSCS_MIX_ALL ) | DeclarationFlavour.OSCS_MIX_NONE
             declarations = declarations & (DeclarationsMask.ALL - DeclarationsMask.OSC_VOLUME)
+        if (flavour & (DeclarationFlavour.OSCS_TUNING_AFTERWARD_PITCH|DeclarationFlavour.OSCS_TUNING_AFTERWARD_OCT) !=0 and "{oscillators_tuning_desc}" not in compose_loc):
+            flavour = flavour & ( DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSCS_TUNING_ALL ) | DeclarationFlavour.OSCS_TUNING_NONE
+            declarations = declarations & (DeclarationsMask.ALL - DeclarationsMask.OSC_TUNING)
+        if oscillators_tuning_desc is None:
+            oscillators_tuning_desc = ""
+            flavour = flavour & ( DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSCS_TUNING_ALL ) | DeclarationFlavour.OSCS_TUNING_NONE
+            declarations = declarations & (DeclarationsMask.ALL - DeclarationsMask.OSC_TUNING)
 
         # recurse
         oscillators_descs , flavour , declarations = self.recurse(oscillators,style_guide=style_guide,flavour=flavour,declarations=declarations)
 
         # compose sentence
         oscillators_desc = glue.join(oscillators_descs)
-        oscillators_desc = compose_loc.format(oscillators_desc=oscillators_desc,oscillators_mix_desc=oscillators_mix_desc)
+        oscillators_desc = compose_loc.format(oscillators_desc=oscillators_desc,
+                                              oscillators_mix_desc=oscillators_mix_desc,
+                                              oscillators_tuning_desc=oscillators_tuning_desc)
 
         return oscillators_desc , flavour , declarations
     
@@ -637,6 +653,74 @@ class SoundToneDescription(ExtensionComponent):
                 return False
             
         return True
+    
+    def __get_oscillators_tuning_desc(self,style_guide:StyleGuide,flavour:DeclarationFlavour,declarations:DeclarationsMask)->str:
+
+        if flavour & DeclarationFlavour.OSCS_TUNING_AFTERWARD_PITCH:
+            flavour = flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSCS_TUNING_ALL) | DeclarationFlavour.OSCS_TUNING_AFTERWARD_PITCH
+            tuning_values = self._get_oscillators_tuning(style_guide,flavour,declarations)
+            if style_guide.value not in sentences[k_oscillators][k_comp_oscs_tuning_afterward_pitch] or tuning_values is None:
+                return None , flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSCS_TUNING_ALL) | DeclarationFlavour.OSCS_TUNING_NONE
+            compositing_tuning = random.choice( sentences[k_oscillators][k_comp_oscs_tuning_afterward_pitch][style_guide.value] )
+            tuning_desc = compositing_tuning.format(oscillators_tuning=tuning_values)
+            return tuning_desc , flavour
+        if flavour & DeclarationFlavour.OSCS_TUNING_AFTERWARD_OCT:
+            flavour = flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSCS_TUNING_ALL) | DeclarationFlavour.OSCS_TUNING_AFTERWARD_OCT
+            tuning_values = self._get_oscillators_tuning(style_guide,flavour,declarations)
+            if style_guide.value not in sentences[k_oscillators][k_comp_oscs_tuning_afterward_oct]  or tuning_values is None:
+                return None , flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSCS_TUNING_ALL) | DeclarationFlavour.OSCS_TUNING_NONE
+            compositing_tuning = random.choice( sentences[k_oscillators][k_comp_oscs_tuning_afterward_oct][style_guide.value] )
+            tuning_desc = compositing_tuning.format(oscillators_tuning=tuning_values)
+            return tuning_desc , flavour
+        elif flavour & DeclarationFlavour.OSCS_TUNING_NONE:
+            flavour = flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSCS_TUNING_ALL) | DeclarationFlavour.OSCS_TUNING_NONE
+            tuning_values = ""
+            return tuning_values , flavour
+        else:
+            # we haven't pick a mix flavour yet, pick one now
+            flavours = [ 
+                DeclarationFlavour.OSCS_TUNING_NONE,
+                DeclarationFlavour.OSCS_TUNING_AFTERWARD_OCT,
+                DeclarationFlavour.OSCS_TUNING_AFTERWARD_PITCH,
+            ]
+            flavour_select = random.choice(flavours)
+            flavour = flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSCS_TUNING_ALL) | flavour_select
+            return self.__get_oscillators_tuning_desc(style_guide=style_guide,flavour=flavour,declarations=declarations)  
+
+    def _get_oscillators_tuning(self,style_guide:StyleGuide,flavour:DeclarationFlavour,declarations:DeclarationsMask)->str:
+        tunings = []
+        for i,osc in enumerate(self.oscillators):
+            osc_i = i+1
+            if style_guide.value not in sentences[k_oscillators][k_comp_oscs_tuning]:
+                continue 
+            compositing_tuning = random.choice( sentences[k_oscillators][k_comp_oscs_tuning][style_guide.value] )
+            if not osc.sub:
+                tune_coarse = osc.tune_coarse
+                tune_fine   = osc.tune_fine
+            else:
+                tune_coarse = osc.sub_octave
+                tune_fine   = None
+            if flavour & DeclarationFlavour.OSCS_TUNING_AFTERWARD_PITCH:
+                if tune_coarse is not None:
+                    tune_fine = "" if not tune_fine else str(round(tune_fine,2))
+                    tuning_value = f"coarse pitch {tune_coarse} fine pitch {tune_fine}"
+                    tune_str = compositing_tuning.format(osc_i=osc_i,tuning_value=tuning_value)
+                    tunings.append(tune_str)
+            else: 
+                if tune_coarse is not None:
+                    tune_coarse = round(tune_coarse/12.0)
+                    if tune_fine is not None and tune_fine != 0.0:
+                        tune_fine = str(round(tune_fine/12.0*100.0,2))
+                        tuning_value = f"{tune_coarse} oct. {tune_fine} cent."
+                    else:
+                        tuning_value = f"{tune_coarse} oct. {tune_fine} cent."
+                    tune_str = compositing_tuning.format(osc_i=osc_i,tuning_value=tuning_value)
+                    tunings.append(tune_str)
+        
+        if len(tunings)==0:
+            return None
+        tuning_glue = random.choice( sentences[k_oscillators][k_comp_oscs_tuning_glue][style_guide.value] )
+        return tuning_glue.join(tunings)      
     
     def _filter_compositing_keys(self,compositing:dict,declarations:DeclarationsMask):
         # use_mix = (declarations & DeclarationsMask.OSC_VOLUME != 0)

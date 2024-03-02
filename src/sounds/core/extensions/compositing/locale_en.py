@@ -98,37 +98,75 @@ sentences = {
             ],
         } ,
 
+        k_comp_oscs_tuning_afterward_oct : {
+            k_style_concise: [
+                "Oscillators tuning as follow: {oscillators_tuning}" ,
+                "Oscillators are tuned as follow: {oscillators_tuning}" ,
+            ] ,
+            k_style_detailed : [
+                "Oscillators tuning as follow: {oscillators_tuning}" ,
+                "Oscillators are tuned as follow: {oscillators_tuning}" ,
+            ],
+        } ,
+        k_comp_oscs_tuning_afterward_pitch : {
+            k_style_concise: [
+                "Oscillators tuning as follow: {oscillators_tuning}" ,
+                "Oscillators are tuned as follow: {oscillators_tuning}" ,
+            ] ,
+            k_style_detailed : [
+                "Oscillators tuning as follow: {oscillators_tuning}" ,
+                "Oscillators are tuned as follow: {oscillators_tuning}" ,
+            ],
+        } ,
+        k_comp_oscs_tuning : {
+            k_style_concise: [
+                "OSC{osc_i} set at {tuning_value}" ,
+            ] ,
+            k_style_detailed : [
+                "OSC{osc_i} set at {tuning_value}" ,
+            ],
+        },
+        k_comp_oscs_tuning_glue : {
+            k_style_concise: [
+                ", " ,
+                " and "
+            ] ,
+            k_style_detailed : [
+                ", " ,
+                " and "
+            ],
+        },
         k_compositing : {
             k_style_basic : {
                 k_comp_oscs_singular : [
-                     "{oscillators_desc}" ,
+                     "{oscillators_desc}. " ,
                      ]  ,
                 k_comp_oscs_plural : [ 
-                    "{oscillators_mix_desc} {oscillators_desc}" ,
+                    "{oscillators_mix_desc} {oscillators_desc}. {oscillators_tuning_desc}" ,
                     ] ,
             },
             k_style_succint : {
                 k_comp_oscs_singular : [ 
-                    "{oscillators_desc}",
+                    "{oscillators_desc}. ",
                 ] ,
                 k_comp_oscs_plural : [
-                    "{oscillators_mix_desc} {oscillators_desc}",
+                    "{oscillators_mix_desc} {oscillators_desc}. {oscillators_tuning_desc}",
                 ] ,
             },
             k_style_concise : {
                 k_comp_oscs_singular : [ 
-                    "{oscillators_desc}",
+                    "{oscillators_desc}. ",
                 ] ,
                 k_comp_oscs_plural : [
-                    "{oscillators_mix_desc} {oscillators_desc}" ,
+                    "{oscillators_mix_desc} {oscillators_desc}. {oscillators_tuning_desc}" ,
                 ] ,
             },
             k_style_detailed: {
                 k_comp_oscs_singular : [
-                    "{oscillators_desc}",
+                    "{oscillators_desc}. ",
                 ],
                 k_comp_oscs_plural : [
-                    "{oscillators_mix_desc} {oscillators_desc}" ,
+                    "{oscillators_mix_desc} {oscillators_desc}. {oscillators_tuning_desc}" ,
                 ] ,
             },
             k_style_specification: {

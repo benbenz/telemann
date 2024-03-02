@@ -98,34 +98,20 @@ sentences = {
             ],
         } ,
 
-        k_comp_oscs_tuning_afterward_oct : {
+        k_comp_oscs_tuning_afterwards : {
             k_style_concise: [
-                "Oscillators tuning as follow: {oscillators_tuning}" ,
+                "Oscillators tuning is as follow: {oscillators_tuning}" ,
+                "Oscillators tuning: {oscillators_tuning}" ,
                 "Oscillators are tuned as follow: {oscillators_tuning}" ,
+                "Oscillators are tuned with {oscillators_tuning}" ,
             ] ,
             k_style_detailed : [
-                "Oscillators tuning as follow: {oscillators_tuning}" ,
+                "Oscillators tuning is as follow: {oscillators_tuning}" ,
+                "Oscillators tuning: {oscillators_tuning}" ,
                 "Oscillators are tuned as follow: {oscillators_tuning}" ,
+                "Oscillators are tuned with {oscillators_tuning}" ,
             ],
         } ,
-        k_comp_oscs_tuning_afterward_pitch : {
-            k_style_concise: [
-                "Oscillators tuning as follow: {oscillators_tuning}" ,
-                "Oscillators are tuned as follow: {oscillators_tuning}" ,
-            ] ,
-            k_style_detailed : [
-                "Oscillators tuning as follow: {oscillators_tuning}" ,
-                "Oscillators are tuned as follow: {oscillators_tuning}" ,
-            ],
-        } ,
-        k_comp_oscs_tuning : {
-            k_style_concise: [
-                "OSC{osc_i} set at {tuning_value}" ,
-            ] ,
-            k_style_detailed : [
-                "OSC{osc_i} set at {tuning_value}" ,
-            ],
-        },
         k_comp_oscs_tuning_glue : {
             k_style_concise: [
                 ", " ,
@@ -134,6 +120,14 @@ sentences = {
             k_style_detailed : [
                 ", " ,
                 " and "
+            ],
+        },    
+        k_comp_osc_tuning : {
+            k_style_concise: [
+                "OSC{osc_i} set at {tuning_coarse} {tuning_fine}" ,
+            ] ,
+            k_style_detailed : [
+                "OSC{osc_i} set at {tuning_coarse} {tuning_fine}" ,
             ],
         },
         k_compositing : {
@@ -212,51 +206,104 @@ sentences = {
             k_style_detailed: [ " at {volume_value}" ,  " at level {volume_value}" ,  " at volume {volume_value}"] ,
             k_style_specification: [ " @ {volume_value}" ],
         } ,     
+        k_comp_osc_tuning : {
+            k_style_basic: [
+                " (tuned {tuning_coarse})" ,
+            ] ,
+            k_style_succint : [
+                " (tuned {tuning_coarse} {tuning_fine})" ,
+            ],
+            k_style_concise: [
+                " (tuned {tuning_coarse} {tuning_fine})" ,
+            ] ,
+            k_style_detailed : [
+                " - tuned {tuning_coarse} {tuning_fine} - " ,
+            ],
+            k_style_specification : [
+                ": tuning @ {tuning_coarse} {tuning_fine}" ,
+            ],
+        },
+        # tuples returned
+        k_comp_osc_tuning_pitch : {
+            k_style_basic: [
+                ("coarse pitch {tune_coarse}", "fine pitch {tune_fine}"),
+            ],
+            k_style_succint: [
+                ("coarse pitch {tune_coarse}", "fine pitch {tune_fine}"),
+            ],
+            k_style_concise: [
+                ("coarse pitch {tune_coarse}", "fine pitch {tune_fine}"),
+            ] ,
+            k_style_detailed : [
+                ("coarse pitch {tune_coarse}", "fine pitch {tune_fine}"),
+            ],
+            k_style_specification: [
+                ("coarse pitch {tune_coarse}", "fine pitch {tune_fine}"),
+            ]
+        },
+        # tuples returned
+        k_comp_osc_tuning_oct : {
+            k_style_basic: [
+                ("at {tune_coarse} oct.","{tune_fine} cent."),
+            ],
+            k_style_succint: [
+                ("at {tune_coarse} oct.","{tune_fine} cent."),
+            ],
+            k_style_concise: [
+                ("at {tune_coarse} oct.","{tune_fine} cent."),
+            ] ,
+            k_style_detailed : [
+                ("at {tune_coarse} oct.","{tune_fine} cent."),
+            ],
+            k_style_specification: [
+                ("at {tune_coarse} oct.","{tune_fine} cent."),
+            ]
+        },        
         # Constraint: when we have volume_desc_post, we need to always have volume_desc_pre
         k_compositing : {
             k_style_basic : {
                 k_comp_osc_singular : [
-                    "{volume_desc_pre}{shapes_desc}{volume_desc_post}" ,
+                    "{volume_desc_pre}{shapes_desc}{tuning_desc}{volume_desc_post}" ,
                 ] ,
                 k_comp_osc_plural : [
-                    "{volume_desc_pre}{shapes_desc}{volume_desc_post}" ,
+                    "{volume_desc_pre}{shapes_desc}{tuning_desc}{volume_desc_post}" ,
                 ] ,
             },
             k_style_succint : {
                 k_comp_osc_singular : [
-                    "{volume_desc_pre}{shapes_desc}{volume_desc_post}" ,
+                    "{volume_desc_pre}{shapes_desc}{tuning_desc}{volume_desc_post}" ,
                 ] ,                           
                 k_comp_osc_plural : [
-                    "{volume_desc_pre}{shapes_desc}{volume_desc_post}" ,
+                    "{volume_desc_pre}{shapes_desc}{tuning_desc}{volume_desc_post}" ,
                 ]                              
             },
             k_style_concise : {
                 k_comp_osc_singular : [
-                    "{osc_article} {volume_desc_pre}{shapes_desc} {osc_type}{volume_desc_post}",
-                    "{volume_desc_pre}{shapes_desc}{volume_desc_post}",
+                    "{osc_article} {volume_desc_pre}{shapes_desc} {osc_type}{tuning_desc}{volume_desc_post}",
+                    "{volume_desc_pre}{shapes_desc}{tuning_desc}{volume_desc_post}",
                 ] ,                            
                 k_comp_osc_plural : [
-                    "{osc_article} {volume_desc_pre}{osc_type} of {shapes_desc}{volume_desc_post}",
-                    "{volume_desc_pre}{shapes_desc}{volume_desc_post}",
-                    "{volume_desc_pre}mix of {shapes_desc}{volume_desc_post}",
-                    "{volume_desc_pre}blend of {shapes_desc}{volume_desc_post}",
+                    "{osc_article} {volume_desc_pre}{osc_type} of {shapes_desc}{tuning_desc}{volume_desc_post}",
+                    "{volume_desc_pre}{shapes_desc}{tuning_desc}{volume_desc_post}",
+                    "{volume_desc_pre}mix of {shapes_desc}{tuning_desc}{volume_desc_post}",
+                    "{volume_desc_pre}blend of {shapes_desc}{tuning_desc}{volume_desc_post}",
                 ]                            
             },
             k_style_detailed: {
                 k_comp_osc_singular : [
-                    "{osc_article} {volume_desc_pre}{shapes_desc} {osc_type}{volume_desc_post}",
+                    "{osc_article} {volume_desc_pre}{shapes_desc} {osc_type}{tuning_desc}{volume_desc_post}",
                 ] ,                            
                 k_comp_osc_plural : [
-                    "{osc_article} {volume_desc_pre}{osc_type} using a combination of {shapes_desc}{volume_desc_post}",
-                    "{osc_article} {volume_desc_pre}{osc_type} mixing a {shapes_desc}{volume_desc_post}",
+                    "{osc_article} {volume_desc_pre}{osc_type} using a combination of {shapes_desc}{tuning_desc}{volume_desc_post}",
+                    "{osc_article} {volume_desc_pre}{osc_type} mixing a {shapes_desc}{tuning_desc}{volume_desc_post}",
                 ]                                
             },
             k_style_specification: {
                 k_comp_osc_singular : [
-                    "- {osc_article} {volume_desc_pre}{shapes_desc}{volume_desc_post}" ,
+                    "- {osc_article} {volume_desc_pre}{shapes_desc}{volume_desc_post}{tuning_desc}" ,
                 ] ,                            
                 k_comp_osc_plural : [
-                    "- {osc_article} {volume_desc_pre}{shapes_desc}{volume_desc_post}" ,
+                    "- {osc_article} {volume_desc_pre}{shapes_desc}{volume_desc_post}{tuning_desc}" ,
                 ]                               
             }
         } ,

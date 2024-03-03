@@ -228,22 +228,26 @@ sentences = {
         k_comp_osc_vol_number: {
             k_style_basic :   ["@{volume_value}"] ,
             k_style_succint : [ " at {volume_value}"] ,
-            k_style_concise : [ " at {volume_value}" ,  " at vol. {volume_value}"] ,
-            k_style_detailed: [ " at {volume_value}" ,  " at level {volume_value}" ,  " at volume {volume_value}"] ,
-            k_style_specification: [ " @ {volume_value}" ],
+            k_style_concise : [ " at {volume_value}" ,  " at vol. {volume_value}" , " vol. {volume_value}"] ,
+            k_style_detailed: [ " at {volume_value}" ,  " at level {volume_value}" ,  " at volume {volume_value}" , " volume {volume_value}"] ,
+            k_style_specification: [ " @ {volume_value}" , " {volume_value}" ],
         } ,     
         k_comp_osc_tuning : {
             k_style_basic: [
                 " (tuned {tuning_coarse})" ,
+                " tuned {tuning_coarse} " ,
             ] ,
             k_style_succint : [
                 " (tuned {tuning_coarse} {tuning_fine})" ,
+                " tuned {tuning_coarse} {tuning_fine} " ,
             ],
             k_style_concise: [
                 " (tuned {tuning_coarse} {tuning_fine})" ,
+                " tuned {tuning_coarse} {tuning_fine} " ,
             ] ,
             k_style_detailed : [
                 " - tuned {tuning_coarse} {tuning_fine} - " ,
+                " tuned {tuning_coarse} {tuning_fine} " ,
             ],
             k_style_specification : [
                 ": tuning {tuning_coarse} {tuning_fine}" ,

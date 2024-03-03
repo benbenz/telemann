@@ -3,6 +3,7 @@ from ..defs import StyleGuide , WaveformEnum , WaveformWidthEnum, CompositingKey
 
 # access keys
 k_description       = CompositingKey.DESCRIPTION.value
+k_architecture      = CompositingKey.ARCHITECTURE.value
 k_oscillators       = CompositingKey.OSCILLATORS.value
 k_oscillator        = CompositingKey.OSCILLATOR.value
 k_shape             = CompositingKey.SHAPE.value
@@ -12,6 +13,8 @@ k_glue              = CompositingKey.GLUE.value
 k_osc_type          = CompositingKey.OSC_TYPE.value
 k_osc_article       = CompositingKey.OSC_ARTICLE.value
 # compositing keys
+k_comp_archs_singular = CompositingKey.ARCHS_SINGULAR.value
+k_comp_archs_plural = CompositingKey.ARCHS_PLURAL.value
 k_comp_oscs_singular     = CompositingKey.OSCS_SINGULAR.value
 k_comp_oscs_plural       = CompositingKey.OSCS_PLURAL.value
 k_comp_oscs_mix_balanced = CompositingKey.OSCS_COMPOSITING_MIX_BALANCED.value

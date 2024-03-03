@@ -38,11 +38,15 @@ class DivaExtension(InstrumentExtension):
         # get the filters
         filters = self._get_filters(parameters,mod_matrix)
 
-        return SoundToneDescription(
+        arch = SubstractiveArchitecture(
+            name='Main Routing',
+            rank=1,
             oscillators=oscs,
             filters=filters,
             mod_matrix=mod_matrix
         )
+
+        return SoundToneDescription(architectures=[arch])
 
 
 

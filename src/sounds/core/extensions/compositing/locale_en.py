@@ -5,12 +5,38 @@ sentences = {
 
     k_description : {
 
+        k_glue : {
+            k_style_basic :   ["\n\n"],
+            k_style_succint :  ["\n\n"],
+            k_style_concise :  ["\n\n"],
+            k_style_detailed:  ["\n\n"],
+            k_style_specification:  ["\n\n"],
+        } ,
+
         k_compositing : {
+            k_style_basic :   ["{architectures_desc}"],
+            k_style_succint :  ["{architectures_desc}"],
+            k_style_concise :  ["{architectures_desc}"],
+            k_style_detailed:  ["{architectures_desc}"],
+            k_style_specification:  ["{architectures_desc}"],
+        },
+    },
+
+    k_architecture : {
+
+        k_comp_archs_singular : {
             k_style_basic :   ["{oscs_desc}"],
             k_style_succint :  ["{oscs_desc}"],
             k_style_concise :  ["{oscs_desc}"],
             k_style_detailed:  ["{oscs_desc}"],
             k_style_specification:  ["Oscillators:\n{oscs_desc}"],
+        },
+        k_comp_archs_plural : {
+            k_style_basic :   ["{architecture_name}{architecture_rank}{oscs_desc}"],
+            k_style_succint :  ["{architecture_name}{architecture_rank}{oscs_desc}"],
+            k_style_concise :  ["{architecture_name}{architecture_rank}{oscs_desc}"],
+            k_style_detailed:  ["{architecture_name}{architecture_rank}{oscs_desc}"],
+            k_style_specification:  ["**{architecture_name}{architecture_rank}**:\nOscillators:\n{oscs_desc}"],
         }
     },
 

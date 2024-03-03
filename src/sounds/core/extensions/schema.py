@@ -537,16 +537,21 @@ class GlobalSettings(ExtensionComponent):
              )->Tuple[Optional[str],DeclarationFlavour,DeclarationsMask]:
         return None , flavour , declarations    
 
-class SoundToneDescription(ExtensionComponent):
+# this is to handler Layers of SynthMaster
+class Architecture(ExtensionComponent):
+
+    name : str 
+    rank : conint(ge=1)
+
+
+class SubstractiveArchitecture(Architecture):
 
     oscillators:Optional[List[Oscillator]]=None
     filters: Optional[List[Filter]]=None
     amplifier: Optional[Amplifier]=None
     envelopes: Optional[List[Envelope]]=None 
     lfos: Optional[List[LFO]]=None
-    effects: Optional[List[Effect]]=None
     mod_matrix: Optional[ModulationMatrix]=None
-    settings: Optional[GlobalSettings]=None
 
     def desc(self,
              style_guide:StyleGuide,
@@ -554,8 +559,10 @@ class SoundToneDescription(ExtensionComponent):
              declarations:DeclarationsMask=DeclarationsMask.ALL
              )->Tuple[Optional[str],DeclarationFlavour,DeclarationsMask]:
         
+        k_self_compositing = k_comp_archs_plural if flavour & DeclarationFlavour.ARCHS_PLURAL else k_comp_archs_singular
+        
         # select proper formats
-        compositing = sentences[k_description][k_compositing][style_guide.value]
+        compositing = sentences[k_architecture][k_self_compositing][style_guide.value]
 
         # pick compisiting format
         compose_loc = random.choice( compositing )
@@ -583,7 +590,7 @@ class SoundToneDescription(ExtensionComponent):
                           flavour:DeclarationFlavour=DeclarationFlavour.NONE,
                           declarations:DeclarationsMask=DeclarationsMask.ALL
                           )->Tuple[Optional[str],DeclarationFlavour,DeclarationsMask]:
-
+        
         oscillators = list(filter(None,self.oscillators))
 
         if oscillators is None or len(oscillators)==0:
@@ -830,6 +837,43 @@ class SoundToneDescription(ExtensionComponent):
         return list(compositing_copy.keys())     
 
 
+class SoundToneDescription(ExtensionComponent):
 
+    architectures:Optional[List[Architecture]]=None
+    effects: Optional[List[Effect]]=None
+    settings: Optional[GlobalSettings]=None
 
+    def desc(self,
+             style_guide:StyleGuide,
+             flavour:DeclarationFlavour=DeclarationFlavour.NONE,
+             declarations:DeclarationsMask=DeclarationsMask.ALL
+             )->Tuple[Optional[str],DeclarationFlavour,DeclarationsMask]:
+        
 
+        architectures = list(filter(None,self.architectures))
+
+        if architectures is None or len(architectures)==0:
+            return "everythin is off"
+        
+        # select proper formats
+        compositing = sentences[k_description][k_compositing][style_guide.value]
+        glues       = sentences[k_description][k_glue][style_guide.value]
+
+        # pick compisiting format
+        glue        = random.choice( glues )
+        compose_loc = random.choice( compositing )
+
+        # set the flavour for the architecture
+        if len(self.architectures)>1:
+            flavour = flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_ARCHS_ALL) | DeclarationFlavour.ARCHS_PLURAL
+        else:
+            flavour = flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_ARCHS_ALL) | DeclarationFlavour.ARCHS_SINGULAR
+
+        # recurse
+        architectures_descs , flavour , declarations = self.recurse(architectures,style_guide=style_guide,flavour=flavour,declarations=declarations)
+
+        # compose sentence
+        architectures_desc = glue.join(architectures_descs)
+        architectures_desc = compose_loc.format(architectures_desc=architectures_desc)    
+
+        return architectures_desc , flavour , declarations

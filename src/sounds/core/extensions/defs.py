@@ -137,11 +137,14 @@ class EffectType(StrEnum):
 
 class CompositingKey(StrEnum):
     DESCRIPTION = auto()
+    ARCHITECTURE = auto()
     OSCILLATORS = auto()
     OSCILLATOR = auto()
     SHAPE = auto()
     GLUE = auto()
     COMPOSITING = auto()
+    ARCHS_SINGULAR = auto()
+    ARCHS_PLURAL   = auto()
     OSCS_SINGULAR = auto()
     OSCS_PLURAL   = auto()
     OSCS_COMPOSITING_MIX_BALANCED = auto()
@@ -181,6 +184,9 @@ class DeclarationsMask(IntFlag):
 # to uniformize style accross entities/siblings
 class DeclarationFlavour(IntFlag):
     NONE = 0
+    #ARCHS
+    ARCHS_SINGULAR = auto()
+    ARCHS_PLURAL = auto()
     # OSCS
     OSCS_MIX_NONE = auto()
     OSCS_MIX_BALANCED = auto()
@@ -201,6 +207,7 @@ class DeclarationFlavour(IntFlag):
     SHAPE_VOLUME_NONE = auto()
     SHAPE_VOLUME_NUMBER = auto() # always POST and always NUMBER
     # Groups
+    GRP_ARCHS_ALL = ARCHS_PLURAL | ARCHS_SINGULAR
     GRP_OSCS_MIX_PRESENT = OSCS_MIX_BALANCED | OSCS_MIX_FORWARD
     GRP_OSCS_MIX_ALL = OSCS_MIX_NONE | OSCS_MIX_DEFAULT | GRP_OSCS_MIX_PRESENT
     GRP_OSCS_TUNING_PRESENT = OSCS_TUNING_AFTERWARDS
@@ -212,4 +219,4 @@ class DeclarationFlavour(IntFlag):
     GRP_SHAPE_VOLUME_PRESENT = SHAPE_VOLUME_NUMBER
     GRP_SHAPE_VOLUME_ALL = SHAPE_VOLUME_NONE | GRP_SHAPE_VOLUME_PRESENT
     # ALL 
-    ALL = NONE | GRP_SHAPE_VOLUME_ALL | GRP_OSC_VOLUME_ALL | GRP_OSC_TUNING_ALL | GRP_OSCS_MIX_ALL | GRP_OSCS_TUNING_ALL
+    ALL = NONE | GRP_SHAPE_VOLUME_ALL | GRP_OSC_VOLUME_ALL | GRP_OSC_TUNING_ALL | GRP_OSCS_MIX_ALL | GRP_OSCS_TUNING_ALL | GRP_ARCHS_ALL

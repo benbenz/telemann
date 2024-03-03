@@ -3,7 +3,7 @@ from ..defs import StyleGuide , WaveformEnum , WaveformWidthEnum, CompositingKey
 
 # access keys
 k_description       = CompositingKey.DESCRIPTION.value
-k_architecture      = CompositingKey.ARCHITECTURE.value
+k_architecture_sub      = CompositingKey.ARCHITECTURE_SUB.value
 k_oscillators       = CompositingKey.OSCILLATORS.value
 k_oscillator        = CompositingKey.OSCILLATOR.value
 k_shape             = CompositingKey.SHAPE.value

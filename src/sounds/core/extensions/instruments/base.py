@@ -5,6 +5,7 @@ from sounds.models import SoundSource
 from enum import StrEnum , auto
 from typing import List , Optional
 from ..schema import SoundToneDescription , StyleGuide
+from ..compositing.descriptor import Descriptor
 
 class InstrumentExtension(abc.ABC):
 
@@ -38,7 +39,8 @@ class InstrumentExtension(abc.ABC):
             style_guide = random.choice(list(StyleGuide))
 
         if description:
-            desc , _ , _ = description.desc(style_guide)
+            descriptor = Descriptor()
+            desc , _ , _ = descriptor.desc(description,style_guide)
             return desc
         else:
             return "No description available"

@@ -137,7 +137,7 @@ class EffectType(StrEnum):
 
 class CompositingKey(StrEnum):
     DESCRIPTION = auto()
-    ARCHITECTURE = auto()
+    ARCHITECTURE_SUB = auto()
     OSCILLATORS = auto()
     OSCILLATOR = auto()
     SHAPE = auto()

@@ -38,7 +38,7 @@ class DivaExtension(InstrumentExtension):
         # get the filters
         filters = self._get_filters(parameters,mod_matrix)
 
-        arch = SubstractiveArchitecture(
+        arch = SubtractiveArchitecture(
             name='Main Routing',
             rank=1,
             oscillators=oscs,

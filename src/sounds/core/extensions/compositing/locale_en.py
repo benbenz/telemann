@@ -22,7 +22,7 @@ sentences = {
         },
     },
 
-    k_architecture : {
+    k_architecture_sub : {
 
         k_comp_archs_singular : {
             k_style_basic :   ["{oscs_desc}"],

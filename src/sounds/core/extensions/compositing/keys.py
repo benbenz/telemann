@@ -1,39 +1,47 @@
 from enum import StrEnum , auto
-from ..defs import StyleGuide , WaveformEnum , WaveformWidthEnum, CompositingKey
+from ..defs import StyleGuide , WaveformEnum , WaveformWidthEnum
 
 # access keys
-k_description       = CompositingKey.DESCRIPTION.value
-k_architecture_sub      = CompositingKey.ARCHITECTURE_SUB.value
-k_oscillators       = CompositingKey.OSCILLATORS.value
-k_oscillator        = CompositingKey.OSCILLATOR.value
-k_shape             = CompositingKey.SHAPE.value
+k_description	= "k_description"
+k_architecture_sub	= "k_architecture_sub"
+k_oscillators	= "k_oscillators"
+k_oscillator	= "k_oscillator"
+k_operator	= "k_operator"
+k_shape	= "k_shape"
 # global keys
-k_compositing       = CompositingKey.COMPOSITING.value
-k_glue              = CompositingKey.GLUE.value
-k_osc_type          = CompositingKey.OSC_TYPE.value
-k_osc_article       = CompositingKey.OSC_ARTICLE.value
+k_compositing	= "k_compositing"
+k_glue	= "k_glue"
+k_osc_type	= "k_osc_type"
+k_osc_article	= "k_osc_article"
 # compositing keys
-k_comp_archs_singular = CompositingKey.ARCHS_SINGULAR.value
-k_comp_archs_plural = CompositingKey.ARCHS_PLURAL.value
-k_comp_oscs_singular     = CompositingKey.OSCS_SINGULAR.value
-k_comp_oscs_plural       = CompositingKey.OSCS_PLURAL.value
-k_comp_oscs_mix_balanced = CompositingKey.OSCS_COMPOSITING_MIX_BALANCED.value
-k_comp_oscs_mix_forward  = CompositingKey.OSCS_COMPOSITING_MIX_FORWARD.value
-k_comp_oscs_mix_default  = CompositingKey.OSCS_COMPOSITING_MIX_DEFAULT.value
-k_comp_oscs_tuning_glue = CompositingKey.OSCS_COMPOSITING_TUNING_GLUE.value
-k_comp_oscs_tuning_afterwards = CompositingKey.OSCS_COMPOSITING_TUNING_AFTERWARDS.value
-k_comp_osc_singular      = CompositingKey.OSC_SINGULAR.value
-k_comp_osc_plural        = CompositingKey.OSC_PLURAL.value
-k_comp_osc_vol_text_post      = CompositingKey.OSC_COMPOSITING_VOL_TEXT_POST.value
-k_comp_osc_vol_text_pre     = CompositingKey.OSC_COMPOSITING_VOL_TEXT_PRE.value
-k_comp_osc_vol_number    = CompositingKey.OSC_COMPOSITING_VOL_NUMBER.value
-k_comp_osc_tuning_pitch        = CompositingKey.OSC_COMPOSITING_TUNING_PITCH.value
-k_comp_osc_tuning_oct        = CompositingKey.OSC_COMPOSITING_TUNING_OCT.value
-k_comp_osc_tuning = CompositingKey.OSC_COMPOSITING_TUNING.value
-k_comp_osc_sub           = CompositingKey.OSC_SUB.value
-k_comp_osc_sub_not       = CompositingKey.OSC_SUB_NOT.value
-k_comp_shape_default     = CompositingKey.SHAPE_COMPOSITING_DEFAULT.value
-k_comp_shape_vol         = CompositingKey.SHAPE_COMPOSITING_VOL.value
+k_comp_archs_singular	= "k_comp_archs_singular"
+k_comp_archs_plural	= "k_comp_archs_plural"
+k_comp_oscs_singular	= "k_comp_oscs_singular"
+k_comp_oscs_plural	= "k_comp_oscs_plural"
+k_comp_oscs_mix_balanced	= "k_comp_oscs_mix_balanced"
+k_comp_oscs_mix_forward	= "k_comp_oscs_mix_forward"
+k_comp_oscs_mix_default	= "k_comp_oscs_mix_default"
+k_comp_oscs_tuning_glue	= "k_comp_oscs_tuning_glue"
+k_comp_oscs_tuning_afterwards	= "k_comp_oscs_tuning_afterwards"
+k_comp_osc_singular	= "k_comp_osc_singular"
+k_comp_osc_plural	= "k_comp_osc_plural"
+k_comp_osc_for_operator = "k_comp_osc_for_operator"
+k_comp_osc_vol_text_post	= "k_comp_osc_vol_text_post"
+k_comp_osc_vol_text_pre	= "k_comp_osc_vol_text_pre"
+k_comp_osc_vol_number	= "k_comp_osc_vol_number"
+k_comp_osc_tuning_pitch	= "k_comp_osc_tuning_pitch"
+k_comp_osc_tuning_oct	= "k_comp_osc_tuning_oct"
+k_comp_osc_tuning	= "k_comp_osc_tuning"
+k_comp_osc_id = "k_comp_osc_id"
+k_comp_osc_sub	= "k_comp_osc_sub"
+k_comp_osc_sub_not	= "k_comp_osc_sub_not"
+k_comp_op_one_operand	= "k_comp_op_one_operand"
+k_comp_op_two_operands	= "k_comp_op_two_operands"
+k_comp_op_more_operands	= "k_comp_op_more_operands"
+k_comp_op_feedback	= "k_comp_op_feedback"
+
+k_comp_shape_default	= "k_comp_shape_default"
+k_comp_shape_vol	= "k_comp_shape_vol"
 
 # style guide keys
 k_style_basic        = StyleGuide.BASIC.value
@@ -59,7 +67,7 @@ k_wave_noise_pink  = WaveformEnum.NOISE_PINK.value
 k_wave_sample      = WaveformEnum.SAMPLE.value
 k_wave_additive    = WaveformEnum.ADDITIVE.value
 k_wave_digital     = WaveformEnum.DIGITAL.value
-k_wave_feedback    = WaveformEnum.FEEDBACK.value
+k_wave_fbk_saw    = WaveformEnum.FBK_SAW.value
 k_wave_exotic      = WaveformEnum.EXOTIC.value
 k_wave_s_h         = WaveformEnum.S_H.value
 k_wave_other       = WaveformEnum.OTHER.value
@@ -79,3 +87,10 @@ k_volume_grp3 = "k_volume_grp3" # 40-60%
 k_volume_grp4 = "k_volume_grp4" # 60-80%
 k_volume_grp5 = "k_volume_grp5" # 80-100%
 k_volume_grp6 = "k_volume_grp6" # =100%
+
+k_operation_fm = "k_operation_fm"
+k_operation_add = "k_operation_add"
+k_operation_substract = "k_operation_substract"
+k_operation_multiply = "k_operation_multiply"
+k_operation_ringmod = "k_operation_ringmod"
+k_operation_feedback = "k_operation_feedback"

@@ -17,7 +17,7 @@ class WaveformEnum(StrEnum):
     SAMPLE = auto()
     ADDITIVE = auto()
     DIGITAL = auto()
-    FEEDBACK = auto()
+    FBK_SAW = auto() # feedback saw (for Diva)
     EXOTIC = auto()
     S_H = auto()
     OTHER = auto()
@@ -29,6 +29,41 @@ class WaveformWidthEnum(StrEnum):
     WIDE = auto()
     VERY_WIDE = auto()
     SILENCE = auto() 
+
+class ComponentID(StrEnum):
+    ENV1 = auto()
+    ENV2 = auto() 
+    ENV3 = auto() 
+    ENV4 = auto()
+    ENV5 = auto()
+    ENV6 = auto()
+    ENV7 = auto() 
+    ENV8 = auto()
+    ENV9 = auto()
+    ENV10 = auto()
+    LFO1 = auto() 
+    LFO2 = auto() 
+    LFO3 = auto() 
+    LFO4 = auto() 
+    LFO5 = auto() 
+    LFO6 = auto() 
+    LFO7 = auto() 
+    LFO8 = auto() 
+    LFO9 = auto() 
+    LF10 = auto() 
+    OSC1 = auto()
+    OSC2 = auto()
+    OSC3 = auto()
+    OSC4 = auto()
+    OSC5 = auto()
+    OSC6 = auto()
+    FILT1 = auto()
+    FILT2 = auto()
+    FILT3 = auto()
+    FILT4 = auto()
+    FILT5 = auto()
+    FILT6 = auto()
+    AMP  = auto()  
 
 class ModulationSourceID(StrEnum):
     ENV1 = auto()
@@ -57,6 +92,13 @@ class ModulationSourceID(StrEnum):
     OSC4 = auto()
     OSC5 = auto()
     OSC6 = auto()
+    FILT1 = auto()
+    FILT2 = auto()
+    FILT3 = auto()
+    FILT4 = auto()
+    FILT5 = auto()
+    FILT6 = auto()
+    AMP  = auto()      
     KEYBOARD = auto()
     VELOCITY = auto()
     AFTERTOUCH = auto()
@@ -92,17 +134,20 @@ class ModulationDestID(StrEnum):
     FILT1 = auto()
     FILT2 = auto()
     FILT3 = auto()
-    AMP  = auto()
+    FILT4 = auto()
+    FILT5 = auto()
+    FILT6 = auto()
+    AMP  = auto()      
     OTHER = auto()  
 
 class ModulationDestParam(StrEnum):
     # OSC mods
+    SIGNAL= auto() # = SIGNAL PATH = AMPLITUDE = RINGMOD = multiply of signal => value of signal1 modulates the ampliture of signal 2 (dest) => param = AMP
     PITCH = auto() 
-    FM    = auto()
-    FM_AMOUNT = auto()
     SHAPE = auto()
     PWM   = auto()
-    RING_MOD  = auto() 
+    FM    = auto()
+    FM_AMOUNT = auto()
     CROSS_MOD = auto() # equivalent to FM but lets differentiate the vocabulary
     CROSS_MOD_AMOUNT = auto()  # equivalent to FM_AMOUNT but lets differentiate the vocabulary
     SYNC_SOFT = auto()
@@ -114,6 +159,14 @@ class ModulationDestParam(StrEnum):
     RATE = auto()
     # AMP
     VOLUME = auto()
+
+class Operation(StrEnum):
+    FM = auto()
+    ADD = auto()
+    SUBSTRACT = auto()
+    RINGMOD = auto() # RINGMOD is MULTIPLY but we sematically differentiate it here to simplify text generation later on ...
+    MULTIPLY = auto()
+    FEEDBACK = auto() # for single input/operand identity with volume/feedback
 
 class EnvelopeType(StrEnum):
     ADSR = auto()     
@@ -135,37 +188,9 @@ class EffectType(StrEnum):
     COMPRESSION = auto()
     OTHER = auto()
 
-class CompositingKey(StrEnum):
-    DESCRIPTION = auto()
-    ARCHITECTURE_SUB = auto()
-    OSCILLATORS = auto()
-    OSCILLATOR = auto()
-    SHAPE = auto()
-    GLUE = auto()
-    COMPOSITING = auto()
-    ARCHS_SINGULAR = auto()
-    ARCHS_PLURAL   = auto()
-    OSCS_SINGULAR = auto()
-    OSCS_PLURAL   = auto()
-    OSCS_COMPOSITING_MIX_BALANCED = auto()
-    OSCS_COMPOSITING_MIX_FORWARD  = auto()
-    OSCS_COMPOSITING_MIX_DEFAULT = auto()
-    OSCS_COMPOSITING_TUNING_AFTERWARDS = auto()
-    OSCS_COMPOSITING_TUNING_GLUE = auto()
-    OSC_COMPOSITING_VOL_TEXT_POST = auto()
-    OSC_COMPOSITING_VOL_TEXT_PRE = auto()
-    OSC_COMPOSITING_VOL_NUMBER = auto()
-    OSC_COMPOSITING_TUNING_PITCH = auto()
-    OSC_COMPOSITING_TUNING_OCT = auto()
-    OSC_COMPOSITING_TUNING = auto()
-    OSC_SINGULAR = auto()
-    OSC_PLURAL   = auto()
-    OSC_SUB  = auto()
-    OSC_SUB_NOT  = auto()
-    OSC_TYPE = auto()
-    OSC_ARTICLE = auto()
-    SHAPE_COMPOSITING_DEFAULT = auto()
-    SHAPE_COMPOSITING_VOL = auto()
+
+class ArchitectureType(StrEnum):
+    SUBTRACTIVE = auto()
 
 class StyleGuide(StrEnum):
     BASIC = auto()
@@ -202,6 +227,9 @@ class DeclarationFlavour(IntFlag):
     OSC_TUNING_PITCH = auto()
     OSC_TUNING_OCT = auto()
     OSC_TUNING_NONE = auto()
+    OSC_OTHER_WITH_ID = auto()
+    OSC_OTHER_FOR_OPERATOR = auto()
+    
 
     # SHAPE
     SHAPE_VOLUME_NONE = auto()
@@ -214,9 +242,10 @@ class DeclarationFlavour(IntFlag):
     GRP_OSCS_TUNING_ALL = GRP_OSCS_TUNING_PRESENT | OSCS_TUNING_NONE 
     GRP_OSC_VOLUME_PRESENT = OSC_VOLUME_NUMBER | OSC_VOLUME_TEXT_PRE | OSC_VOLUME_TEXT_POST
     GRP_OSC_VOLUME_ALL = OSC_VOLUME_NONE | GRP_OSC_VOLUME_PRESENT
+    GRP_OSC_OTHER = OSC_OTHER_WITH_ID | OSC_OTHER_FOR_OPERATOR
     GRP_OSC_TUNING_PRESENT = OSC_TUNING_OCT | OSC_TUNING_PITCH
     GRP_OSC_TUNING_ALL = OSC_TUNING_NONE | GRP_OSC_TUNING_PRESENT
     GRP_SHAPE_VOLUME_PRESENT = SHAPE_VOLUME_NUMBER
     GRP_SHAPE_VOLUME_ALL = SHAPE_VOLUME_NONE | GRP_SHAPE_VOLUME_PRESENT
     # ALL 
-    ALL = NONE | GRP_SHAPE_VOLUME_ALL | GRP_OSC_VOLUME_ALL | GRP_OSC_TUNING_ALL | GRP_OSCS_MIX_ALL | GRP_OSCS_TUNING_ALL | GRP_ARCHS_ALL
+    ALL = NONE | GRP_SHAPE_VOLUME_ALL | GRP_OSC_OTHER | GRP_OSC_VOLUME_ALL | GRP_OSC_TUNING_ALL | GRP_OSCS_MIX_ALL | GRP_OSCS_TUNING_ALL | GRP_ARCHS_ALL

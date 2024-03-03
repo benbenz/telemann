@@ -1,4 +1,4 @@
-from typing import List , Optional , Tuple
+from typing import List , Optional , Tuple , Any
 from abc import ABC , abstractmethod
 from pydantic import BaseModel , confloat , conint
 from .compositing.locale_en import sentences , words , cleanup
@@ -39,12 +39,25 @@ modulation: {
 }
 """
 
-class ExtensionComponent(BaseModel,ABC):
+class Component(BaseModel,ABC):
 
     pass
 
+class MixableComponent(Component):
 
-class Envelope(ExtensionComponent):
+    # we set Oscillators has MixedComponent for convenience purpose (to generate pre/post volume desc)
+    # but we may want to have the default volume to None (when its actually not really used as a mixed component)
+    volume : Optional[confloat(ge=0.0,le=1.0)]=None
+
+class Mixer(Component): # SUM
+    # re-type inputs
+    inputs: Optional[List[MixableComponent]] = None
+
+    def __iter__(self):
+        for input in self.inputs:
+            yield input
+
+class Envelope(Component):
 
     attack : confloat(ge=0.0,le=1.0)
     decay  : confloat(ge=0.0,le=1.0)
@@ -52,39 +65,42 @@ class Envelope(ExtensionComponent):
     release: confloat(ge=0.0,le=1.0)
     type   : EnvelopeType
     
-class LFO(ExtensionComponent):
+class LFO(Component):
 
     waveform: WaveformEnum
     frequency : confloat(ge=0.0,le=1.0)
     delay : confloat(ge=0.0,le=1.0)
 
-class OscillatorShape(ExtensionComponent):
+class OscillatorShape(MixableComponent):
 
     waveform : WaveformEnum
-    volume : confloat(ge=0.0,le=1.0)|None=None
     width: WaveformWidthEnum|None = None
-
     
-class Oscillator(ExtensionComponent):
+class Oscillator(MixableComponent):
 
     rank : conint(ge=1)
     shapes : List[OscillatorShape]=[]
-    volume : confloat(ge=0.0,le=1.0)
     tune_coarse :  Optional[conint(multiple_of=12,ge=-24,le=24)]=None # = range = octave
     tune_fine : Optional[confloat(ge=-6.0,le=6.0)]=None
     detune : Optional[confloat(ge=0.0,le=1.0)]=None
     sub : bool=False
     sub_octave : Optional[conint(ge=-4,le=-1)]=None # [-4,-1] suboscillator octave range
-    
-class Filter(ExtensionComponent):
+
+class Operator(MixableComponent):
+
+    type: Operation
+    operands : Optional[List[ComponentID|Component]]=None
+    bias : Optional[Any]=None
+
+class Filter(MixableComponent):
 
     pass
 
-class Amplifier(ExtensionComponent):
+class Amplifier(Component):
 
     volume: confloat(ge=0.0,le=1.0)
 
-class Modulation(ExtensionComponent):
+class Modulation(Component):
 
     source_id  : ModulationSourceID
     source     : Optional[Oscillator|LFO|Envelope]=None
@@ -92,8 +108,8 @@ class Modulation(ExtensionComponent):
     dest       : Optional[Oscillator|Filter|LFO|Envelope]=None
     dest_param : ModulationDestParam
     depth      : float
-        
-class ModulationMatrix(ExtensionComponent):
+
+class ModulationMatrix(Component):
 
     modulations : List[Modulation]=[]
     # pwm   : Optional[List[Modulation]]=None
@@ -105,34 +121,39 @@ class ModulationMatrix(ExtensionComponent):
     def add_modulation(self,modulation:Modulation):
         self.modulations.append(modulation)
 
-class Effect(ExtensionComponent):
+class Effect(Component):
 
     type : EffectType
 
 
-
-class GlobalSettings(ExtensionComponent):
+class GlobalSettings(Component):
     
     detune : Optional[confloat(ge=0.0,le=1.0)]=None
 
 
 # this is to handler Layers of SynthMaster
-class Architecture(ExtensionComponent):
+class Architecture(Component):
 
+    # meta info ("Layer1")
     name : str 
     rank : conint(ge=1)
+    type: ArchitectureType
 
-class SubtractiveArchitecture(Architecture):
-
-    oscillators:Optional[List[Oscillator]]=None
-    filters: Optional[List[Filter]]=None
-    amplifier: Optional[Amplifier]=None
+    # common elements
     envelopes: Optional[List[Envelope]]=None 
     lfos: Optional[List[LFO]]=None
     mod_matrix: Optional[ModulationMatrix]=None
 
+class SubtractiveArchitecture(Architecture):
 
-class SoundToneDescription(ExtensionComponent):
+    def __init__(self,**kwargs):
+        super().__init__(type=ArchitectureType.SUBTRACTIVE,**kwargs)
+
+    oscillators : Optional[List[Oscillator|Operator]|Mixer]=None
+    filters: Optional[List[Filter]|Mixer]=None
+    amplifier: Optional[Amplifier]=None
+
+class SoundToneDescription(Component):
 
     architectures:Optional[List[Architecture]]=None
     effects: Optional[List[Effect]]=None

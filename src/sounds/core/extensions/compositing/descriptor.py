@@ -160,7 +160,7 @@ class Descriptor():
                 volume = f"{round(100.0*shape.volume,2)}%"
                 return volume
             case StyleGuide.SPECIFICATION:
-                volume = f"{round(100.0*self.volume,2)}%"
+                volume = f"{round(100.0*shape.volume,2)}%"
                 return volume
         
     def _filter_osc_shape_compositing_keys(self,shape:OscillatorShape,compositing:dict,declarations:DeclarationsMask):
@@ -171,10 +171,27 @@ class Descriptor():
     
     ##############
     #
-    # OSC
+    # OSC/OP
     #
     ##############
 
+    def desc_osc_or_op(self,
+             oscillator: Oscillator|Operator,
+             style_guide:StyleGuide,
+             flavour:DeclarationFlavour=DeclarationFlavour.NONE,
+             declarations:DeclarationsMask=DeclarationsMask.ALL,
+             )->Tuple[Optional[str],DeclarationFlavour,DeclarationsMask]:  
+
+        if isinstance(oscillator,Oscillator):
+            return self.desc_osc(oscillator,style_guide,flavour,declarations)  
+        elif isinstance(oscillator,Operator):
+            return self.desc_op(oscillator,style_guide,flavour,declarations)  
+        
+    ##############
+    #
+    # OSC
+    #
+    ##############
 
     # when we used balanced writing, we won't output the volumes ...
     def desc_osc(self,
@@ -188,13 +205,15 @@ class Descriptor():
         compositing = sentences[k_oscillator][k_compositing][style_guide.value]
         osc_type    = sentences[k_oscillator][k_osc_type]
         osc_article = sentences[k_oscillator][k_osc_article]
+        comp_osc_id = sentences[k_oscillator][k_comp_osc_id][style_guide.value]
 
         # select which flavour of mix declaration we will take ...
-        compose_keys = self._filter_osc_compositing_keys(oscillator,compositing,declarations)
+        compose_keys = self._filter_osc_compositing_keys(oscillator,compositing,flavour,declarations)
         
         # pick compisiting formats and strings
         flavour_key = random.choice( compose_keys ) 
         compose_loc = random.choice( compositing[flavour_key] )
+        compose_id  = random.choice( comp_osc_id[flavour_key] )
         osc_type    = random.choice( osc_type[k_comp_osc_sub] if oscillator.sub else osc_type[k_comp_osc_sub_not])
         osc_article = random.choice( osc_article[k_comp_osc_sub] if oscillator.sub else osc_article[k_comp_osc_sub_not])
 
@@ -221,23 +240,33 @@ class Descriptor():
         vol_desc_post , vol_desc_pre ,flavour = self.desc_osc_volume(oscillator,style_guide,flavour,declarations)
         desc_tuning ,flavour = self.desc_osc_tuning(oscillator,style_guide,flavour,declarations)
         shapes_desc , flavour = self.desc_osc_shapes(oscillator,style_guide,flavour,declarations)
+        osc_id = compose_id.format(rank=oscillator.rank) if flavour & DeclarationFlavour.OSC_OTHER_WITH_ID else ""
         
         osc_desc = compose_loc.format(shapes_desc=shapes_desc,
                                         volume_desc_post=vol_desc_post,
                                         volume_desc_pre=vol_desc_pre,
                                         osc_type=osc_type,
                                         osc_article=osc_article,
-                                        tuning_desc=desc_tuning)
+                                        tuning_desc=desc_tuning,
+                                        osc_id=osc_id)
         
         return osc_desc , flavour , declarations
     
-    def _filter_osc_compositing_keys(self,oscillator:Oscillator,compositing:dict,declarations:DeclarationsMask):
+    def _filter_osc_compositing_keys(self,oscillator:Oscillator,
+                                     compositing:dict,
+                                     flavour:DeclarationFlavour,
+                                     declarations:DeclarationsMask):
         # lets add the volume info if we want it
         compositing_copy = compositing.copy()
-        if len(oscillator.shapes)==1:
-            compositing_copy.pop(k_comp_osc_plural,None)
+        if flavour & DeclarationFlavour.OSC_OTHER_FOR_OPERATOR == 0:
+            compositing_copy.pop(k_comp_osc_for_operator,None)
+            if len(oscillator.shapes)==1:
+                compositing_copy.pop(k_comp_osc_plural,None)
+            else:
+                compositing_copy.pop(k_comp_osc_singular,None)
         else:
             compositing_copy.pop(k_comp_osc_singular,None)
+            compositing_copy.pop(k_comp_osc_plural,None)
         assert len(compositing_copy) > 0
         return list(compositing_copy.keys())
 
@@ -427,6 +456,110 @@ class Descriptor():
         glue        = random.choice( glues )
         shapes_desc = glue.join(shapes_desc)
         return shapes_desc , flavour 
+    
+
+    ##############
+    #
+    # OP
+    #
+    ##############
+
+    # when we used balanced writing, we won't output the volumes ...
+    def desc_op(self,
+             operator: Operator,
+             style_guide:StyleGuide,
+             flavour:DeclarationFlavour=DeclarationFlavour.NONE,
+             declarations:DeclarationsMask=DeclarationsMask.ALL,
+             )->Tuple[Optional[str],DeclarationFlavour,DeclarationsMask]:
+
+        # select proper formats
+        compositing = sentences[k_operator][k_compositing][style_guide.value]
+        glues       = sentences[k_operator][k_glue][style_guide.value]
+
+        # select which flavours of mix declaration we will pick from ...
+        compose_keys = self._filter_op_compositing_keys(operator,compositing,declarations)
+
+        # pick compisiting formats and strings
+        flavour_key = random.choice( compose_keys )
+        glue        = random.choice( glues[flavour_key] )
+        compose_loc = random.choice( compositing[flavour_key] )
+
+        # lets simplify declarations here ...
+        declarations_local = declarations & (DeclarationsMask.ALL - DeclarationsMask.OSC_VOLUME - DeclarationsMask.SHAPE_VOLUME)
+        flavour_local = flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_VOLUME_ALL) | DeclarationFlavour.OSC_VOLUME_NONE
+        flavour_local = flavour_local & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_SHAPE_VOLUME_ALL) | DeclarationFlavour.SHAPE_VOLUME_NONE
+        flavour_local = flavour_local & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_OTHER) | DeclarationFlavour.OSC_OTHER_WITH_ID | DeclarationFlavour.OSC_OTHER_FOR_OPERATOR
+
+        # sub-compositing
+        operands_descs , flavour_local , declarations_local = self.recurse(self.desc_op_id_or_component,
+                                                               operator.operands,
+                                                               style_guide=style_guide,
+                                                               flavour=flavour_local,
+                                                               declarations=declarations_local)
+
+        # compose sentence
+        operands_desc = glue.join(operands_descs)
+        op_type = self._get_op_type(operator,style_guide,flavour,declarations)
+        operator_desc = compose_loc.format(operands_desc=operands_desc,operator_type=op_type)
+
+        return operator_desc , flavour , declarations
+    
+    def _filter_op_compositing_keys(self,operator:Operator,compositing:dict,declarations:DeclarationsMask):
+        # use_mix = (declarations & DeclarationsMask.OSC_VOLUME != 0)
+        # use_balanced = self._is_osc_mix_balanced()
+        compositing_copy = compositing.copy()
+        if operator.type == Operation.FEEDBACK:
+            compositing_copy.pop(k_comp_op_more_operands,None)
+            compositing_copy.pop(k_comp_op_two_operands,None)
+            compositing_copy.pop(k_comp_op_one_operand,None)
+
+        elif len(operator.operands)==1:
+            compositing_copy.pop(k_comp_op_feedback,None)
+            compositing_copy.pop(k_comp_op_two_operands,None)
+            compositing_copy.pop(k_comp_op_more_operands,None)
+        else:
+            compositing_copy.pop(k_comp_op_feedback,None)
+            compositing_copy.pop(k_comp_op_one_operand,None)
+        assert len(compositing_copy) > 0
+        return list(compositing_copy.keys())         
+    
+    def desc_op_id_or_component(
+            self,
+            obj:ComponentID|Component,
+            style_guide:StyleGuide,
+            flavour:DeclarationFlavour=DeclarationFlavour.NONE,
+            declarations:DeclarationsMask=DeclarationsMask.ALL,
+        ):
+        if isinstance(obj,ComponentID):
+            return str(obj.name),flavour,declarations
+        else:
+            return self.desc(obj,style_guide,flavour,declarations)
+        
+    def _get_op_type(self,
+                                     operator:Operator,
+                                 style_guide:StyleGuide,
+                                 flavour:DeclarationFlavour,
+                                 declarations:DeclarationsMask)->str:
+
+        operation_name = operator.type.lower()
+        
+        match style_guide:
+            case StyleGuide.BASIC:
+                op_type = get_word(f"k_operation_{operation_name}")
+                return op_type
+            case StyleGuide.SUCCINT:
+                op_type = get_word(f"k_operation_{operation_name}")
+                return op_type
+            case StyleGuide.CONCISE:
+                op_type = get_word(f"k_operation_{operation_name}")
+                return op_type
+            case StyleGuide.DETAILED:
+                op_type = get_word(f"k_operation_{operation_name}")
+                return op_type
+            case StyleGuide.SPECIFICATION:
+                op_type = get_word(f"k_operation_{operation_name}")
+                return op_type               
+
 
     ##############
     #
@@ -550,6 +683,11 @@ class Descriptor():
              )->Tuple[Optional[str],DeclarationFlavour,DeclarationsMask]:
         
         k_self_compositing = k_comp_archs_plural if flavour & DeclarationFlavour.ARCHS_PLURAL else k_comp_archs_singular
+
+        # if we have some operators, lets add the ID in the description of the oscillators, to know what we're referring to
+        has_operators = self._arch_sub_has_operators(architecture)
+        if has_operators:
+            flavour = flavour & (DeclarationFlavour.ALL - DeclarationFlavour.OSC_OTHER_WITH_ID) | DeclarationFlavour.OSC_OTHER_WITH_ID
         
         # select proper formats
         compositing = sentences[k_architecture_sub][k_self_compositing][style_guide.value]
@@ -574,7 +712,13 @@ class Descriptor():
         for regex , repl in cleanup.items():
             desc = re.sub(regex,repl,desc)
 
-        return desc , flavour , declarations        
+        return desc , flavour , declarations   
+
+    def _arch_sub_has_operators(self,architecture:SubtractiveArchitecture)->bool:
+        for osc_op in architecture.oscillators:
+            if isinstance(osc_op,Operator):
+                return True
+        return False     
 
 
     def desc_arch_sub_oscillators(self,
@@ -584,7 +728,11 @@ class Descriptor():
                           declarations:DeclarationsMask=DeclarationsMask.ALL
                           )->Tuple[Optional[str],DeclarationFlavour,DeclarationsMask]:
         
-        oscillators = list(filter(None,architecture.oscillators))
+        # list of oscillators
+        if isinstance(architecture.oscillators,list):
+            oscillators = list(filter(None,architecture.oscillators))
+        elif isinstance(architecture.oscillators,Mixer):
+            oscillators = list(filter(None,architecture.oscillators.inputs))
 
         if oscillators is None or len(oscillators)==0:
             return None , flavour , declarations
@@ -635,13 +783,13 @@ class Descriptor():
             flavour = flavour & ( DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_TUNING_ALL ) | DeclarationFlavour.OSC_TUNING_NONE
 
         # recurse
-        oscillators_descs , flavour , declarations = self.recurse(self.desc_osc,oscillators,style_guide=style_guide,flavour=flavour,declarations=declarations)
+        oscillators_descs , flavour , declarations = self.recurse(self.desc_osc_or_op,oscillators,style_guide=style_guide,flavour=flavour,declarations=declarations)
 
         # compose sentence
         oscillators_desc = glue.join(oscillators_descs)
         oscillators_desc = compose_loc.format(oscillators_desc=oscillators_desc,
-                                              oscillators_mix_desc=oscillators_mix_desc,
-                                              oscillators_tuning_desc=oscillators_tuning_desc)
+                                            oscillators_mix_desc=oscillators_mix_desc,
+                                            oscillators_tuning_desc=oscillators_tuning_desc)
 
         return oscillators_desc , flavour , declarations
     
@@ -806,10 +954,20 @@ class Descriptor():
         tunings = []
         # dont update master flavour
         # lets see globally what is going on and depending on final result, the sub-calls can re-generate
-        for osc in architecture.oscillators:
-            desc_tuning , flavour = self.desc_arch_sub_osc_tuning(architecture,osc,style_guide,flavour,declarations)
-            if desc_tuning is not None and desc_tuning!= "":
-                tunings.append(desc_tuning)
+        for osc in architecture.oscillators: # if this is a mixer, this will iterate as well ...
+            # we may have some operands that are actual objects of Oscillators instead of References (ComponentID)
+            if isinstance(osc,Operator):
+                for osc_ in osc.operands:
+                    if isinstance(osc_,ComponentID):
+                        continue # the matching OSC should be defined in the usual oscillators list ...
+                    elif isinstance(osc_,Oscillator):
+                        desc_tuning , flavour = self.desc_arch_sub_osc_tuning(architecture,osc_,style_guide,flavour,declarations)
+                        if desc_tuning is not None and desc_tuning!= "":
+                            tunings.append(desc_tuning)
+            else:
+                desc_tuning , flavour = self.desc_arch_sub_osc_tuning(architecture,osc,style_guide,flavour,declarations)
+                if desc_tuning is not None and desc_tuning!= "":
+                    tunings.append(desc_tuning)
         if len(tunings)==0:
             return None , flavour
         if style_guide.value not in sentences[k_oscillators][k_comp_oscs_tuning_glue]:
@@ -843,7 +1001,7 @@ class Descriptor():
     ##############
 
 
-    def desc(self,
+    def desc_desc(self,
             soundtonedesc:SoundToneDescription,
              style_guide:StyleGuide,
              flavour:DeclarationFlavour=DeclarationFlavour.NONE,
@@ -878,3 +1036,21 @@ class Descriptor():
         architectures_desc = compose_loc.format(architectures_desc=architectures_desc)    
 
         return architectures_desc , flavour , declarations
+    
+
+    def desc(
+             self,
+             obj: Component,
+             style_guide:StyleGuide,
+             flavour:DeclarationFlavour=DeclarationFlavour.NONE,
+             declarations:DeclarationsMask=DeclarationsMask.ALL,
+             )->Tuple[Optional[str],DeclarationFlavour,DeclarationsMask]:  
+    
+        if isinstance(obj,Oscillator):
+            return self.desc_osc(obj,style_guide,flavour,declarations)
+        elif isinstance(obj,Filter):
+            return self.desc_filter(obj,style_guide,flavour,declarations)
+        elif isinstance(obj,SubtractiveArchitecture):
+            return self.desc_arch_sub(obj,style_guide,flavour,declarations)
+        elif isinstance(obj,SoundToneDescription):
+            return self.desc_desc(obj,style_guide,flavour,declarations)

@@ -293,53 +293,127 @@ sentences = {
                 ("{tune_coarse} oct","{tune_fine} cent"),
                 ("{tune_coarse} octave","{tune_fine} cent"),
             ]
-        },        
+        },    
+        k_comp_osc_id : {
+            k_style_basic: {
+                k_comp_osc_singular : [
+                    " (OSC {rank})",
+                ] ,                           
+                k_comp_osc_plural : [
+                   " (OSC {rank})",
+                ] ,                           
+                k_comp_osc_for_operator : [
+                   " (OSC {rank})",
+                ]                              
+            },
+            k_style_succint: {
+                k_comp_osc_singular : [
+                    " (OSC {rank})",
+                ] ,                           
+                k_comp_osc_plural : [
+                   " (OSC {rank})",
+                ] ,                           
+                k_comp_osc_for_operator : [
+                   " (OSC {rank})",
+                ]                              
+            },
+
+            k_style_concise: {
+                k_comp_osc_singular : [
+                    " (OSC {rank})",
+                ] ,                           
+                k_comp_osc_plural : [
+                   " (OSC {rank})",
+                ] ,                           
+                k_comp_osc_for_operator : [
+                   " (OSC {rank})",
+                ]                              
+            },
+
+            k_style_detailed :{
+                k_comp_osc_singular : [
+                    " (OSC {rank})",
+                ] ,                           
+                k_comp_osc_plural : [
+                   " (OSC {rank})",
+                ] ,                           
+                k_comp_osc_for_operator : [
+                   " (OSC {rank})",
+                ]                              
+            },
+            k_style_specification: {
+                k_comp_osc_singular : [
+                    "OSC {rank}: ",
+                ] ,                           
+                k_comp_osc_plural : [
+                   "OSC {rank}: ",
+                ] ,                           
+                k_comp_osc_for_operator : [
+                   "OSC {rank}",
+                ]                              
+            }
+        },
         # Constraint: when we have volume_desc_post, we need to always have volume_desc_pre
         k_compositing : {
             k_style_basic : {
                 k_comp_osc_singular : [
-                    "{volume_desc_pre}{shapes_desc}{tuning_desc}{volume_desc_post}" ,
+                    "{volume_desc_pre}{shapes_desc}{tuning_desc}{volume_desc_post}{osc_id}" ,
                 ] ,
                 k_comp_osc_plural : [
-                    "{volume_desc_pre}{shapes_desc}{tuning_desc}{volume_desc_post}" ,
+                    "{volume_desc_pre}{shapes_desc}{tuning_desc}{volume_desc_post}{osc_id}" ,
                 ] ,
+                k_comp_osc_for_operator : {
+                    "the {shapes_desc} of {osc_id} {tuning_desc}" ,
+                }
             },
             k_style_succint : {
                 k_comp_osc_singular : [
-                    "{volume_desc_pre}{shapes_desc}{tuning_desc}{volume_desc_post}" ,
+                    "{volume_desc_pre}{shapes_desc}{tuning_desc}{volume_desc_post}{osc_id}" ,
                 ] ,                           
                 k_comp_osc_plural : [
-                    "{volume_desc_pre}{shapes_desc}{tuning_desc}{volume_desc_post}" ,
+                    "{volume_desc_pre}{shapes_desc}{tuning_desc}{volume_desc_post}{osc_id}" ,
+                ] ,                           
+                k_comp_osc_for_operator : [
+                    "the {shapes_desc} of {osc_id} {tuning_desc}" ,
                 ]                              
             },
             k_style_concise : {
                 k_comp_osc_singular : [
-                    "{osc_article} {volume_desc_pre}{shapes_desc} {osc_type}{tuning_desc}{volume_desc_post}",
-                    "{volume_desc_pre}{shapes_desc}{tuning_desc}{volume_desc_post}",
+                    "{osc_article} {volume_desc_pre}{shapes_desc} {osc_type}{tuning_desc}{volume_desc_post}{osc_id}",
+                    "{volume_desc_pre}{shapes_desc}{tuning_desc}{volume_desc_post}{osc_id}",
                 ] ,                            
                 k_comp_osc_plural : [
-                    "{osc_article} {volume_desc_pre}{osc_type} of {shapes_desc}{tuning_desc}{volume_desc_post}",
-                    "{volume_desc_pre}{shapes_desc}{tuning_desc}{volume_desc_post}",
-                    "{volume_desc_pre}mix of {shapes_desc}{tuning_desc}{volume_desc_post}",
-                    "{volume_desc_pre}blend of {shapes_desc}{tuning_desc}{volume_desc_post}",
-                ]                            
+                    "{osc_article} {volume_desc_pre}{osc_type} of {shapes_desc}{tuning_desc}{volume_desc_post}{osc_id}",
+                    "{volume_desc_pre}{shapes_desc}{tuning_desc}{volume_desc_post}{osc_id}",
+                    "{volume_desc_pre}mix of {shapes_desc}{tuning_desc}{volume_desc_post}{osc_id}",
+                    "{volume_desc_pre}blend of {shapes_desc}{tuning_desc}{volume_desc_post}{osc_id}",
+                ],
+                k_comp_osc_for_operator : [
+                    "the {shapes_desc} of {osc_id} {tuning_desc}" ,
+                ]                              
             },
             k_style_detailed: {
                 k_comp_osc_singular : [
-                    "{osc_article} {volume_desc_pre}{shapes_desc} {osc_type}{tuning_desc}{volume_desc_post}",
+                    "{osc_article} {volume_desc_pre}{shapes_desc} {osc_type}{tuning_desc}{volume_desc_post}{osc_id}",
                 ] ,                            
                 k_comp_osc_plural : [
-                    "{osc_article} {volume_desc_pre}{osc_type} using a combination of {shapes_desc}{tuning_desc}{volume_desc_post}",
-                    "{osc_article} {volume_desc_pre}{osc_type} mixing a {shapes_desc}{tuning_desc}{volume_desc_post}",
-                ]                                
+                    "{osc_article} {volume_desc_pre}{osc_type} using a combination of {shapes_desc}{tuning_desc}{volume_desc_post}{osc_id}",
+                    "{osc_article} {volume_desc_pre}{osc_type} mixing a {shapes_desc}{tuning_desc}{volume_desc_post}{osc_id}",
+                ],
+                k_comp_osc_for_operator : [
+                    "the {shapes_desc} of {osc_id} {tuning_desc}" ,
+                ] ,                            
             },
             k_style_specification: {
                 k_comp_osc_singular : [
-                    "- {osc_article} {volume_desc_pre}{shapes_desc}{volume_desc_post}{tuning_desc}" ,
+                    "- {osc_id}{osc_article} {volume_desc_pre}{shapes_desc}{volume_desc_post}{tuning_desc}" ,
                 ] ,                            
                 k_comp_osc_plural : [
-                    "- {osc_article} {volume_desc_pre}{shapes_desc}{volume_desc_post}{tuning_desc}" ,
-                ]                               
+                    "- {osc_id}{osc_article} {volume_desc_pre}{shapes_desc}{volume_desc_post}{tuning_desc}" ,
+                ] ,                            
+                k_comp_osc_for_operator : [
+                    "the {shapes_desc} of {osc_id} {tuning_desc}" ,
+                ] ,                            
             }
         } ,
         k_osc_type : {
@@ -357,7 +431,7 @@ sentences = {
             k_comp_osc_sub_not : [
                 "an",
             ]
-        }
+        } ,
     } ,
 
     k_shape : {
@@ -385,7 +459,115 @@ sentences = {
                 k_comp_shape_default: ["{waveform_width}{waveform_name}{volume_desc}"] ,
             } ,                                                     
         }
-    }    
+    }    ,
+
+    k_operator : {
+        k_glue : {
+            k_style_basic : {
+                k_comp_op_one_operand : [ '' ] ,
+                k_comp_op_two_operands : [ ' with '  ] ,
+                k_comp_op_more_operands : [ ' and '  ] ,
+                k_comp_op_feedback : [ ' into '  ] ,
+            },
+            k_style_succint : {
+                k_comp_op_one_operand : [ '' ] ,
+                k_comp_op_two_operands : [ ' with '  ] ,
+                k_comp_op_more_operands : [ ' and '  ] ,
+                k_comp_op_feedback : [ ' into '  ] ,
+            },
+            k_style_concise : {
+                k_comp_op_one_operand : [ '' ] ,
+                k_comp_op_two_operands : [ ' with '  ] ,
+                k_comp_op_more_operands : [ ' and '  ] ,
+                k_comp_op_feedback : [ ' into '  ] ,
+            },
+            k_style_detailed: {
+                k_comp_op_one_operand : [ '' ] ,
+                k_comp_op_two_operands : [ ' with '  ] ,
+                k_comp_op_more_operands : [ ' and '  ] ,
+                k_comp_op_feedback : [ ' into '  ] ,
+            },
+            k_style_specification: {
+                k_comp_op_one_operand : [ '' ] ,
+                k_comp_op_two_operands : [ ' with '  ] ,
+                k_comp_op_more_operands : [ ' and '  ] ,
+                k_comp_op_feedback : [ ' into '  ] ,
+            },
+        } ,
+        # Constraint: when we have volume_desc_post, we need to always have volume_desc_pre
+        k_compositing : {
+            k_style_basic : {
+                k_comp_op_one_operand : [
+                    "the {operator_type} of {operands_desc}" ,
+                ] ,
+                k_comp_op_two_operands : [
+                    "the {operator_type} of {operands_desc}" ,
+                ] ,
+                k_comp_op_more_operands : [
+                    "the {operator_type} of {operands_desc}" ,
+                ] ,
+                k_comp_op_feedback : [
+                    "the {operator_type} of {operands_desc}" ,
+                ]
+            },
+            k_style_succint : {
+                k_comp_op_one_operand : [
+                    "the {operator_type} of {operands_desc}" ,
+                ] ,
+                k_comp_op_two_operands : [
+                    "the {operator_type} of {operands_desc}" ,
+                ] ,
+                k_comp_op_more_operands : [
+                    "the {operator_type} of {operands_desc}" ,
+                ] ,
+                k_comp_op_feedback : [
+                    "the {operator_type} of {operands_desc}" ,
+                ] ,
+            },
+            k_style_concise : {
+                k_comp_op_one_operand : [
+                    "the {operator_type} of {operands_desc}" ,
+                ] ,
+                k_comp_op_two_operands : [
+                    "the {operator_type} of {operands_desc}" ,
+                ] ,
+                k_comp_op_more_operands : [
+                    "the {operator_type} of {operands_desc}" ,
+                ] ,
+                k_comp_op_feedback : [
+                    "the {operator_type} of {operands_desc}" ,
+                ] ,                    
+            },
+            k_style_detailed: {
+                k_comp_op_one_operand : [
+                    "the {operator_type} of {operands_desc}" ,
+                ] ,
+                k_comp_op_two_operands : [
+                    "the {operator_type} of {operands_desc}" ,
+                ] ,
+                k_comp_op_more_operands : [
+                    "the {operator_type} of {operands_desc}" ,
+                ] ,
+                k_comp_op_feedback : [
+                    "the {operator_type} of {operands_desc}" ,
+                ] ,                            
+            },
+            k_style_specification: {
+                k_comp_op_one_operand : [
+                    "- {operator_type} of {operands_desc}" ,
+                ] ,
+                k_comp_op_two_operands : [
+                    "- {operator_type} of {operands_desc}" ,
+                ] ,
+                k_comp_op_more_operands : [
+                    "- {operator_type} of {operands_desc}" ,
+                ] ,
+                k_comp_op_feedback : [
+                    "- {operator_type} of {operands_desc}" ,
+                ] ,                         
+            }
+        } ,        
+    }
 }
 
 cleanup = {
@@ -412,7 +594,7 @@ words = {
     k_wave_sample : "sample",
     k_wave_additive : "additive",
     k_wave_digital : ["digital","digital wave"],
-    k_wave_feedback : "feedback",
+    k_wave_fbk_saw : "feedbacked sawtooth",
     k_wave_exotic : "exotic",
     k_wave_s_h : ["s/h","sample & hold"],
     k_wave_other : ["generic","some waveform"] ,
@@ -431,4 +613,11 @@ words = {
     k_volume_grp4 : ["high level","high volume"],
     k_volume_grp5 : ["really high level","really high volume"],
     k_volume_grp6 : ["maximum level","maximum volume"],
+
+    k_operation_fm : ["FM modulation"] ,
+    k_operation_add : ["addition"] ,
+    k_operation_substract : ["substraction"] ,
+    k_operation_multiply : ["multiplication"],
+    k_operation_ringmod : ["ring-modulation"],
+    k_operation_feedback : ["feedback"], 
 }

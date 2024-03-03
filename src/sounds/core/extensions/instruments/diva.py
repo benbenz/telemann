@@ -113,46 +113,65 @@ class DivaExtension(InstrumentExtension):
     
     def _get_oscs_dco(self,params:dict) -> List[Oscillator] :
         oscs = []
-        pulse_shape = params[f"osc_pulseshape"]["value"]
-        saw_shape = params[f"osc_sawshape"]["value"]
-        sub_shape = params[f"osc_suboscshape"]["value"]
+        pulse_shape = int(params[f"osc_pulseshape"]["value"])
+        saw_shape = int(params[f"osc_sawshape"]["value"])
+        sub_shape = int(params[f"osc_suboscshape"]["value"])
         sub_vol = params[f"osc_volume3"]["raw_value"]
+        noise_vol = params[f"osc_noisevol"]["raw_value"]
         tune_coarse = self._get_osc_tune_coarse(params,1)
-        if pulse_shape != "0":
-            pulsewidth = self._get_osc_pwm_width(params)
+        if pulse_shape != 0:
+            pulsewidth = self._get_osc_pulse_width(params) if pulse_shape == 3 else None
             oscs.append(Oscillator(rank=1,shapes=[OscillatorShape(waveform=WaveformEnum.PULSE,volume=1.0,width=pulsewidth)],
                                 volume=1.0,
                                 sub=False,
                                 tune_coarse=tune_coarse))
-        if saw_shape != "0":
-            oscs.append(Oscillator(rank=2,shapes=[OscillatorShape(waveform=WaveformEnum.SAWTOOTH,volume=1.0)],
+        if saw_shape != 0:
+            pulsewidth = self._get_osc_pulse_width(params) if saw_shape == 3 else None
+            oscs.append(Oscillator(rank=2,shapes=[OscillatorShape(waveform=WaveformEnum.SAWTOOTH,volume=1.0,width=pulsewidth)],
                                 volume=1.0,
                                 sub=False,
                                 tune_coarse=tune_coarse))
         if sub_vol > THRESH:
+            sub_oct = -1 if sub_shape not in [4,5] else -2
             oscs.append(Oscillator(rank=3,shapes=[OscillatorShape(waveform=WaveformEnum.PULSE,volume=1.0)],
                                 volume=sub_vol,
                                 sub=True,
+                                sub_oct=sub_oct,
                                 tune_coarse=tune_coarse))
+            
+        if noise_vol > THRESH:
+            oscs.append(Oscillator(rank=4,shapes=[OscillatorShape(waveform=WaveformEnum.NOISE,volume=1.0)],
+                                volume=noise_vol))
+            
         return oscs
     
     def _get_oscs_eco(self,params:dict) -> List[Oscillator] :
         oscs = []
         for i in range(2):
             i_vco = i+1
+            osc_shape = int(params[f"osc_ecowave{i_vco}"]["value"])
             vol = self._get_osc_volume(params,i_vco)
-            tune_coarse = self._get_osc_tune_coarse(params,1) if i_vco==2 else None
-            tune_fine = self._get_osc_tune_fine(params,1) if i_vco==2 else None
+            tune_coarse = self._get_osc_tune_coarse(params,i_vco)
+            tune_fine = self._get_osc_tune_fine(params,i_vco) if i_vco==2 else None
             if vol > THRESH: 
                 shapes = self._get_osc_shapes_eco(params,i_vco)
                 if shapes is not None:
-                    oscs.append(
-                        Oscillator(rank=i_vco,shapes=shapes,
+                    osc = Oscillator(rank=i_vco,shapes=shapes,
                                    volume=vol,
                                    sub=False,
                                    tune_coarse=tune_coarse,
                                    tune_fine=tune_fine)
-                    )
+                    if i_vco==2 and osc_shape==4:
+                        oscs.append(
+                            Operator(
+                                type=Operation.RINGMOD,
+                                volume=vol,
+                                operands=[ComponentID.OSC1,osc]
+                            )
+                        )
+                    else:
+                        oscs.append(osc)
+
         return oscs     
     
     def _get_oscs_digital(self,params:dict) -> List[Oscillator]:
@@ -166,16 +185,15 @@ class DivaExtension(InstrumentExtension):
             if vol > THRESH: 
                 shapes = self._get_osc_shapes_digital(params,i_vco)
                 if shapes is not None:
-                    oscs.append(
-                            Oscillator(
-                                       rank=i_vco,
-                                       shapes=shapes,
-                                       volume=vol,
-                                       sub=False,
-                                       tune_coarse=tune_coarse,
-                                       tune_fine=tune_fine,
-                                       detune=detune)
-                    )
+                    osc = Oscillator(
+                                rank=i_vco,
+                                shapes=shapes,
+                                volume=vol,
+                                sub=False,
+                                tune_coarse=tune_coarse,
+                                tune_fine=tune_fine,
+                                detune=detune)   
+                    oscs.append(osc)                 
         return oscs        
 
     
@@ -231,24 +249,25 @@ class DivaExtension(InstrumentExtension):
     def _get_osc_shapes_eco(self,params:dict,i:int) -> List[OscillatorShape]:
         shapes = []
         osc_shape = params[f"osc_ecowave{i}"]["value"]
-        osc_shape = float(osc_shape)
+        osc_shape = int(osc_shape)
         if i==1:
-            if osc_shape == 1.0:
+            if osc_shape == 1:
                 shapes = [ OscillatorShape(waveform=WaveformEnum.TRIANGLE, volume=1.0) ]
-            elif osc_shape == 2.0:
+            elif osc_shape == 2:
                 shapes = [ OscillatorShape(waveform=WaveformEnum.SAWDOWN, volume=1.0) ]
-            elif osc_shape == 3.0:
-                shapes = [ OscillatorShape(waveform=WaveformEnum.PULSE, volume=1.0) ]
-            elif osc_shape == 4.0:
+            elif osc_shape == 3:
+                pulsewidth = self._get_osc_pulse_width(params)
+                shapes = [ OscillatorShape(waveform=WaveformEnum.PULSE, volume=1.0, width=pulsewidth) ]
+            elif osc_shape == 4:
                 shapes = [ OscillatorShape(waveform=WaveformEnum.NOISE, volume=1.0) ]
         elif i==2:
-            if osc_shape == 1.0:
+            if osc_shape == 1:
                 shapes = [ OscillatorShape(waveform=WaveformEnum.SAWDOWN, volume=1.0) ]
-            elif osc_shape == 2.0:
+            elif osc_shape == 2:
                 shapes = [ OscillatorShape(waveform=WaveformEnum.PULSE, volume=1.0) ]
-            elif osc_shape == 3.0:
+            elif osc_shape == 3:
                 shapes = [ OscillatorShape(waveform=WaveformEnum.PULSE_THIN, volume=1.0) ]
-            elif osc_shape == 4.0:
+            elif osc_shape == 4:
                 shapes = [ OscillatorShape(waveform=WaveformEnum.SQUARE, volume=1.0) ] # ring mod. page 28 manual: SQUARE + RINGMOD
         return shapes
     
@@ -266,7 +285,7 @@ class DivaExtension(InstrumentExtension):
             if pwm == 1.0:
                 # check its width too
                 if (i_vco==1 and (pwm_select == 0.0 or pwm_select == 1.0)) or (i_vco==2 and pwm_select == 1.0):
-                    pulse_width = self._get_osc_pwm_width(params)
+                    pulse_width = self._get_osc_pulse_width(params)
                 else:
                     pulse_width = None
                 shapes.append( OscillatorShape(waveform=WaveformEnum.PULSE,volume=1.0,width=pulse_width) )
@@ -278,7 +297,7 @@ class DivaExtension(InstrumentExtension):
             if pulse == 1.0:
                 # check its width too
                 if (i_vco==1 and (pwm_select == 0.0 or pwm_select == 1.0)) or (i_vco==2 and pwm_select == 1.0):
-                    pulse_width = self._get_osc_pwm_width(params)
+                    pulse_width = self._get_osc_pulse_width(params)
                 else:
                     pulse_width = None
                 shapes.append( OscillatorShape(waveform=WaveformEnum.PULSE,volume=1.0,width=pulse_width) )
@@ -298,7 +317,7 @@ class DivaExtension(InstrumentExtension):
         elif osc_shape == 3:
             shapes = [ OscillatorShape(waveform=WaveformEnum.NOISE,volume=1.0) ]
         elif osc_shape == 4:
-            shapes = [ OscillatorShape(waveform=WaveformEnum.FEEDBACK,volume=1.0) ]
+            shapes = [ OscillatorShape(waveform=WaveformEnum.FBK_SAW,volume=1.0) ]
         elif osc_shape == 5:
             shapes = [ OscillatorShape(waveform=WaveformEnum.PULSE,volume=1.0) ]
         elif osc_shape == 6:
@@ -329,7 +348,7 @@ class DivaExtension(InstrumentExtension):
         elif i_vco ==2:
             return mix 
         
-    def _get_osc_pwm_width(self,params:dict) -> WaveformWidthEnum:
+    def _get_osc_pulse_width(self,params:dict) -> WaveformWidthEnum:
         pulsedwith = params[f"osc_pulsewidth"]["raw_value"]
         if pulsedwith < .10:
             return WaveformWidthEnum.NARROW
@@ -396,11 +415,31 @@ class DivaExtension(InstrumentExtension):
 
     
     def _add_oscs_mod_dco(self,params:dict,mod_matrix:ModulationMatrix)-> NoReturn:
-        pass
-        #CURRENTLY WORKING on PWMMODDEPTH    
+        pulse_shape = int(params[f"osc_pulseshape"]["value"])
+        saw_shape = int(params[f"osc_sawshape"]["value"])
+        sub_shape = int(params[f"osc_suboscshape"]["value"])
+        oscs_is = []
+        if pulse_shape == 3:
+            oscs_is.append(1)
+        if saw_shape == 3:
+            oscs_is.append(2)
+        self._check_oscs_pwm(params,oscs_is,mod_matrix)
+
+        mod_map = {
+            1 : [1,2,3] ,
+            2 : [1,2,3]
+        }
+        self._check_oscs_tunemod(params,mod_map=mod_map,mod_matrix=mod_matrix)
+
 
     def _add_oscs_mod_eco(self,params:dict,mod_matrix:ModulationMatrix)-> NoReturn:
-        pass   
+
+        # there is no pwm 
+        mod_map = {
+            1 : [1,2] ,
+            2 : [1,2]
+        }
+        self._check_oscs_tunemod(params,mod_map=mod_map,mod_matrix=mod_matrix)
 
     def _add_oscs_mod_digital(self,params:dict,mod_matrix:ModulationMatrix)-> NoReturn:
         pass   
@@ -488,7 +527,24 @@ class DivaExtension(InstrumentExtension):
 
     def _check_oscs_dual_mod(self,params:dict,mod_matrix:ModulationMatrix) -> NoReturn:
         # TuneModMod: 0 = 1, 1 = both , 2 = 2 , 3 = split
-        tunemod_mode = params["osc_tunemodmode"]["value"]
+        tunemod_mode = int(params["osc_tunemodmode"]["value"])
+        mod_map = dict()
+        match tunemod_mode:
+            case 0:
+                mod_map[1] = [1]
+                mod_map[2] = [1]
+            case 1:
+                mod_map[1] = [1,2]
+                mod_map[2] = [1,2]
+            case 2:
+                mod_map[1] = [2]
+                mod_map[2] = [2]
+            case 3:
+                mod_map[1] = [1]
+                mod_map[2] = [2]
+        self._check_oscs_tunemod(params,mod_map=mod_map,mod_matrix=mod_matrix)
+        
+    def _check_oscs_tunemod(self,params:dict,mod_map:dict,mod_matrix:ModulationMatrix)->NoReturn:
         sources = {
             1 : self._identify_mod_source_id(params,"osc_tune1modsrc") ,
             2 : self._identify_mod_source_id(params,"osc_tune2modsrc")
@@ -497,21 +553,6 @@ class DivaExtension(InstrumentExtension):
             1 : float(params["osc_tune1moddepth"]["value"]) ,
             2 : float(params["osc_tune2moddepth"]["value"])
         }
-        mod_map = dict()
-        match tunemod_mode:
-            case "0":
-                mod_map[1] = [1]
-                mod_map[2] = [1]
-            case "1":
-                mod_map[1] = [1,2]
-                mod_map[2] = [1,2]
-            case "2":
-                mod_map[1] = [2]
-                mod_map[2] = [2]
-            case "3":
-                mod_map[1] = [1]
-                mod_map[2] = [2]
-        
         for src_i,dest_js in mod_map.items():
             for dest_j in dest_js:
                 source_id = sources[src_i]
@@ -524,7 +565,7 @@ class DivaExtension(InstrumentExtension):
                                 dest_param=ModulationDestParam.PITCH,
                                 depth=depth
                             )
-                mod_matrix.add_modulation(modulation)
+                mod_matrix.add_modulation(modulation)        
 
     def _identify_mod_source_id(self,params:dict,param_name:str) -> ModulationSourceID:
         mod_source = params[param_name]["value"]

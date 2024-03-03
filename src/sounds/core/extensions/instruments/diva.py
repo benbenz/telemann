@@ -162,7 +162,7 @@ class DivaExtension(InstrumentExtension):
             vol = self._get_osc_volume_simple(params,i_vco)
             tune_coarse = self._get_osc_tune_coarse(params,i_vco)
             tune_fine = self._get_osc_tune_fine(params,i_vco) if i_vco == 2 else None
-            detune = params["osc_pulsewidth"]["value"] if i_vco == 1 else params["osc_digitalshape3"]["value"]
+            detune = params["osc_pulsewidth"]["raw_value"] if i_vco == 1 else params["osc_digitalshape3"]["raw_value"]
             if vol > THRESH: 
                 shapes = self._get_osc_shapes_digital(params,i_vco)
                 if shapes is not None:
@@ -289,7 +289,7 @@ class DivaExtension(InstrumentExtension):
     
     def _get_osc_shapes_digital(self,params:dict,i_vco:int) -> List[OscillatorShape]:
         shapes = []
-        osc_shape = params[f"osc_digitaltype{i}"]["value"]
+        osc_shape = params[f"osc_digitaltype{i_vco}"]["value"]
         osc_shape = int(osc_shape)
         if osc_shape == 1:
             shapes = [ OscillatorShape(waveform=WaveformEnum.SAWMULTI,volume=1.0) ]

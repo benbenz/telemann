@@ -396,15 +396,19 @@ class Descriptor():
             if style_guide.value not in sentences[k_oscillator][k_comp_osc_tuning_pitch]:
                 return "",""
             comp_tuning_coarse , comop_tuning_fine = random.choice( sentences[k_oscillator][k_comp_osc_tuning_pitch][style_guide.value] )
-            tune_coarse_str = comp_tuning_coarse.format(tune_coarse=tune_coarse) if tune_coarse is not None else ""
-            tune_fine_str   = comop_tuning_fine.format(tune_fine= str(round(tune_fine,2))) if tune_fine is not None and tune_fine != 0.0 else ""
+            tune_coarse_sign = (f"{tune_coarse}" if tune_coarse==0 else f"{tune_coarse:+}").format(tune_coarse=tune_coarse) if tune_coarse is not None else None
+            tune_coarse_str = comp_tuning_coarse.format(tune_coarse=tune_coarse_sign) if tune_coarse_sign is not None else ""
+            tune_fine_sign = (f"{tune_fine:.2}" if tune_fine==0 else f"{tune_fine:+.2}").format(tune_fine=round(tune_fine,2)) if tune_fine is not None else None
+            tune_fine_str   = comop_tuning_fine.format(tune_fine=tune_fine_sign) if tune_fine_sign is not None and tune_fine != 0.0 else ""
             return tune_coarse_str , tune_fine_str
         else: 
             if style_guide.value not in sentences[k_oscillator][k_comp_osc_tuning_oct]:
                 return "",""
             comp_tuning_coarse , comop_tuning_fine = random.choice( sentences[k_oscillator][k_comp_osc_tuning_oct][style_guide.value] )
-            tune_coarse_str = comp_tuning_coarse.format(tune_coarse=round(tune_coarse/12.0)) if tune_coarse is not None else ""
-            tune_fine_str   = comop_tuning_fine.format(tune_fine=str(round(tune_fine/12.0*100.0,2))) if tune_fine is not None and tune_fine != 0.0 else ""
+            tune_coarse_sign = (f"{tune_coarse}" if tune_coarse==0 else f"{tune_coarse:+}").format(tune_coarse=round(tune_coarse/12.0)) if tune_coarse is not None else None
+            tune_coarse_str = comp_tuning_coarse.format(tune_coarse=tune_coarse_sign) if tune_coarse_sign is not None else ""
+            tune_fine_sign = (f"{tune_fine:.2}" if tune_fine==0 else f"{tune_fine:+.2}").format(tune_fine=round(tune_fine/12.0*100.0,2)) if tune_fine is not None else None
+            tune_fine_str   = comop_tuning_fine.format(tune_fine=tune_fine_sign) if tune_fine_sign is not None and tune_fine != 0.0 else ""
             return tune_coarse_str , tune_fine_str    
 
     def desc_osc_shapes(self,oscillator:Oscillator,style_guide:StyleGuide,flavour:DeclarationFlavour,declarations:DeclarationsMask)->Tuple[str,DeclarationFlavour]:
@@ -619,6 +623,7 @@ class Descriptor():
             declarations = declarations & (DeclarationsMask.ALL - DeclarationsMask.OSC_VOLUME)
         if (flavour & (DeclarationFlavour.OSCS_TUNING_AFTERWARDS) !=0 and "{oscillators_tuning_desc}" not in compose_loc):
             flavour = flavour & ( DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSCS_TUNING_ALL ) | DeclarationFlavour.OSCS_TUNING_NONE
+            flavour = flavour & ( DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_TUNING_ALL ) 
             # cancel any declaration of osc tuning
             declarations = declarations & (DeclarationsMask.ALL - DeclarationsMask.OSC_TUNING)
         if oscillators_tuning_desc is None or oscillators_tuning_desc=="":
@@ -626,6 +631,8 @@ class Descriptor():
             flavour = flavour & ( DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSCS_TUNING_ALL ) | DeclarationFlavour.OSCS_TUNING_NONE
             flavour = flavour & ( DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_TUNING_ALL ) # reset also for the OSC
             declarations = declarations & (DeclarationsMask.ALL - DeclarationsMask.OSC_TUNING)
+        if flavour & (DeclarationFlavour.OSCS_TUNING_AFTERWARDS) !=0:
+            flavour = flavour & ( DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_TUNING_ALL ) | DeclarationFlavour.OSC_TUNING_NONE
 
         # recurse
         oscillators_descs , flavour , declarations = self.recurse(self.desc_osc,oscillators,style_guide=style_guide,flavour=flavour,declarations=declarations)

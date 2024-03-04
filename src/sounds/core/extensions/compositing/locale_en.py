@@ -204,36 +204,36 @@ sentences = {
         k_glue : {
             k_style_basic : {
                 k_comp_op_one_operand : [ '' ] ,
-                k_comp_op_two_operands : [ ' with '  ] ,
-                k_comp_op_two_operands_adj : [ ' {op_type_adj} '  ] ,
+                k_comp_op_two_operands : [ ', with '  ] ,
+                k_comp_op_two_operands_adj : [ ', {op_type_adj} '  ] ,
                 k_comp_op_more_operands : [ ' and '  ] ,
                 k_comp_op_feedback : [ ' into '  ] ,
             },
             k_style_succint : {
                 k_comp_op_one_operand : [ '' ] ,
-                k_comp_op_two_operands : [ ' with '  ] ,
-                k_comp_op_two_operands_adj : [ ' {op_type_adj} '  ] ,
+                k_comp_op_two_operands : [ ', with '  ] ,
+                k_comp_op_two_operands_adj : [ ', {op_type_adj} '  ] ,
                 k_comp_op_more_operands : [ ' and '  ] ,
                 k_comp_op_feedback : [ ' into '  ] ,
             },
             k_style_concise : {
                 k_comp_op_one_operand : [ '' ] ,
-                k_comp_op_two_operands : [ ' with '  ] ,
-                k_comp_op_two_operands_adj : [ ' {op_type_adj} '  ] ,
+                k_comp_op_two_operands : [ ', with '  ] ,
+                k_comp_op_two_operands_adj : [ ', {op_type_adj} '  ] ,
                 k_comp_op_more_operands : [ ' and '  ] ,
                 k_comp_op_feedback : [ ' into '  ] ,
             },
             k_style_detailed: {
                 k_comp_op_one_operand : [ '' ] ,
-                k_comp_op_two_operands : [ ' with '  ] ,
-                k_comp_op_two_operands_adj : [ ' {op_type_adj} '  ] ,
+                k_comp_op_two_operands : [ ', with '  ] ,
+                k_comp_op_two_operands_adj : [ ', {op_type_adj} '  ] ,
                 k_comp_op_more_operands : [ ' and '  ] ,
                 k_comp_op_feedback : [ ' into '  ] ,
             },
             k_style_specification: {
                 k_comp_op_one_operand : [ '' ] ,
-                k_comp_op_two_operands : [ ' with '  ] ,
-                k_comp_op_two_operands_adj : [ ' {op_type_adj} '  ] ,
+                k_comp_op_two_operands : [ ', with '  ] ,
+                k_comp_op_two_operands_adj : [ ', {op_type_adj} '  ] ,
                 k_comp_op_more_operands : [ ' and '  ] ,
                 k_comp_op_feedback : [ ' into '  ] ,
             },
@@ -316,7 +316,7 @@ sentences = {
                     "- {operator_type} of {operands_desc}" ,
                 ] ,
                 k_comp_op_two_operands_adj : [
-                    "{operands_desc}" ,
+                    "- {operands_desc}" ,
                 ] ,
                 k_comp_op_more_operands : [
                     "- {operator_type} of {operands_desc}" ,
@@ -374,11 +374,11 @@ sentences = {
                 " tuned {tuning_coarse} {tuning_fine} " ,
             ] ,
             k_style_detailed : [
-                " - tuned {tuning_coarse} {tuning_fine} - " ,
+                " (tuned {tuning_coarse} {tuning_fine})" ,
                 " tuned {tuning_coarse} {tuning_fine} " ,
             ],
             k_style_specification : [
-                ": tuning {tuning_coarse} {tuning_fine}" ,
+                " (tuning {tuning_coarse} {tuning_fine})" ,
             ],
         },
         # tuples returned

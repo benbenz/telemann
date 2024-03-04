@@ -43,13 +43,18 @@ class Component(BaseModel,ABC):
 
     pass
 
+class RankedComponent(Component):
+
+    rank : conint(ge=1)
+
+
 class MixableComponent(Component):
 
     # we set Oscillators has MixedComponent for convenience purpose (to generate pre/post volume desc)
     # but we may want to have the default volume to None (when its actually not really used as a mixed component)
     volume : Optional[confloat(ge=0.0,le=1.0)]=None
 
-class Mixer(Component): # SUM
+class Mixer(RankedComponent): # SUM
     # re-type inputs
     inputs: Optional[List[MixableComponent]] = None
 
@@ -57,7 +62,7 @@ class Mixer(Component): # SUM
         for input in self.inputs:
             yield input
 
-class Envelope(Component):
+class Envelope(RankedComponent):
 
     attack : confloat(ge=0.0,le=1.0)
     decay  : confloat(ge=0.0,le=1.0)
@@ -65,7 +70,7 @@ class Envelope(Component):
     release: confloat(ge=0.0,le=1.0)
     type   : EnvelopeType
     
-class LFO(Component):
+class LFO(RankedComponent):
 
     waveform: WaveformEnum
     frequency : confloat(ge=0.0,le=1.0)
@@ -76,9 +81,8 @@ class OscillatorShape(MixableComponent):
     waveform : WaveformEnum
     width: WaveformWidthEnum|None = None
     
-class Oscillator(MixableComponent):
+class Oscillator(MixableComponent,RankedComponent):
 
-    rank : conint(ge=1)
     shapes : List[OscillatorShape]=[]
     tune_coarse :  Optional[conint(multiple_of=12,ge=-24,le=24)]=None # = range = octave
     tune_fine : Optional[confloat(ge=-6.0,le=6.0)]=None
@@ -86,13 +90,13 @@ class Oscillator(MixableComponent):
     sub : bool=False
     sub_octave : Optional[conint(ge=-4,le=-1)]=None # [-4,-1] suboscillator octave range
 
-class Operator(MixableComponent):
+class Operator(MixableComponent,RankedComponent):
 
     type: Operation
     operands : Optional[List[ComponentID|Component]]=None
     bias : Optional[Any]=None
 
-class Filter(MixableComponent):
+class Filter(MixableComponent,RankedComponent):
 
     pass
 
@@ -121,7 +125,7 @@ class ModulationMatrix(Component):
     def add_modulation(self,modulation:Modulation):
         self.modulations.append(modulation)
 
-class Effect(Component):
+class Effect(RankedComponent):
 
     type : EffectType
 
@@ -132,11 +136,10 @@ class GlobalSettings(Component):
 
 
 # this is to handler Layers of SynthMaster
-class Architecture(Component):
+class Architecture(RankedComponent):
 
     # meta info ("Layer1")
     name : str 
-    rank : conint(ge=1)
     type: ArchitectureType
 
     # common elements

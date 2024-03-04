@@ -109,7 +109,7 @@ class Descriptor():
         # compose sentence
         waveform_name = get_word(shape.waveform.value)
         waveform_width = get_word(shape.width.value) if shape.width is not None else None
-        waveform_width = f"{waveform_width}-" if waveform_width is not None else ""
+        waveform_width = f"{waveform_width} " if waveform_width is not None else ""
         volume_desc , flavour = self._get_osc_shape_volume_desc(shape,style_guide,flavour,declarations) # in case we need it
         shape_desc = compose_loc.format(waveform_name=waveform_name,volume_desc=volume_desc,waveform_width=waveform_width)
 
@@ -492,7 +492,7 @@ class Descriptor():
 
         # sub-compositing
         operands_descs , flavour_local , declarations_local = self.recurse(self.desc_op_id_or_component,
-                                                               operator.operands,
+                                                               self._sort_op_components_first(operator),
                                                                style_guide=style_guide,
                                                                flavour=flavour_local,
                                                                declarations=declarations_local)
@@ -503,6 +503,19 @@ class Descriptor():
         operator_desc = compose_loc.format(operands_desc=operands_desc,operator_type=op_type)
 
         return operator_desc , flavour , declarations
+    
+    def _sort_op_components_first(self,operator:Operator):
+
+        def component_sort_key(e:ComponentID|Component):
+            if isinstance(e,ComponentID):
+                renamed = re.sub(r'^(\w+)([\d]{1,1})$',r'\g<1>0\2',e.name)
+                key = f"z_{renamed}"
+                return key
+            else:
+                key = f"a_{e.__class__.__name__}{e.rank:02d}"
+                return key 
+        
+        return sorted(operator.operands,key=component_sort_key )
     
     def _filter_op_compositing_keys(self,operator:Operator,compositing:dict,declarations:DeclarationsMask):
         # use_mix = (declarations & DeclarationsMask.OSC_VOLUME != 0)
@@ -743,7 +756,7 @@ class Descriptor():
 
         # select which flavours of mix declaration we will pick from ...
         compose_keys = self._filter_arch_sub_compositing_keys(architecture,compositing,declarations)
-        
+
         # pick compisiting format
         glue        = random.choice( glues )
         flavour_key = random.choice( compose_keys )
@@ -769,7 +782,7 @@ class Descriptor():
             flavour = flavour & ( DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSCS_MIX_ALL ) | DeclarationFlavour.OSCS_MIX_NONE
             # cancel any declaration of osc volume
             declarations = declarations & (DeclarationsMask.ALL - DeclarationsMask.OSC_VOLUME)
-        if (flavour & (DeclarationFlavour.OSCS_TUNING_AFTERWARDS) !=0 and "{oscillators_tuning_desc}" not in compose_loc):
+        if (flavour & DeclarationFlavour.OSCS_TUNING_AFTERWARDS !=0 and "{oscillators_tuning_desc}" not in compose_loc):
             flavour = flavour & ( DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSCS_TUNING_ALL ) | DeclarationFlavour.OSCS_TUNING_NONE
             flavour = flavour & ( DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_TUNING_ALL ) 
             # cancel any declaration of osc tuning
@@ -793,7 +806,7 @@ class Descriptor():
 
         return oscillators_desc , flavour , declarations
     
-    def __get_arch_sub_oscillators_mix_desc(self,architecture:SubtractiveArchitecture,style_guide:StyleGuide,flavour:DeclarationFlavour,declarations:DeclarationsMask)->str:
+    def __get_arch_sub_oscillators_mix_desc(self,architecture:SubtractiveArchitecture,style_guide:StyleGuide,flavour:DeclarationFlavour,declarations:DeclarationsMask)->Tuple[str,DeclarationFlavour]:
 
         # we choose a balanced mix flavour but the mix is not balanced ... remove it ...
         if flavour & DeclarationFlavour.OSCS_MIX_BALANCED != 0 and not self._is_arch_sub_osc_mix_balanced(architecture):
@@ -880,7 +893,10 @@ class Descriptor():
             
         return True
     
-    def desc_arch_sub_oscs_tuning(self,architecture:SubtractiveArchitecture,style_guide:StyleGuide,flavour:DeclarationFlavour,declarations:DeclarationsMask)->Tuple[str,DeclarationFlavour]:
+    def desc_arch_sub_oscs_tuning(self,architecture:SubtractiveArchitecture,
+                                  style_guide:StyleGuide,
+                                  flavour:DeclarationFlavour,
+                                  declarations:DeclarationsMask)->Tuple[str,DeclarationFlavour]:
 
         if flavour & DeclarationFlavour.OSCS_TUNING_AFTERWARDS:
             flavour = flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSCS_TUNING_ALL) | DeclarationFlavour.OSCS_TUNING_AFTERWARDS
@@ -948,7 +964,7 @@ class Descriptor():
             ]
             flavour_select = random.choice(flavours)
             flavour = flavour & (DeclarationFlavour.ALL - DeclarationFlavour.GRP_OSC_TUNING_ALL) | flavour_select
-            return self.desc_osc_tuning(osc,style_guide=style_guide,flavour=flavour,declarations=declarations)             
+            return self.desc_arch_sub_osc_tuning(architecture,osc,style_guide=style_guide,flavour=flavour,declarations=declarations)             
         
     def _get_arch_sub_oscillators_tuning(self,architecture:SubtractiveArchitecture,style_guide:StyleGuide,flavour:DeclarationFlavour,declarations:DeclarationsMask)->Tuple[str,DeclarationFlavour]:
         tunings = []
@@ -1012,7 +1028,7 @@ class Descriptor():
         architectures = list(filter(None,soundtonedesc.architectures))
 
         if architectures is None or len(architectures)==0:
-            return "everythin is off"
+            return "everything is off"
         
         # select proper formats
         compositing = sentences[k_description][k_compositing][style_guide.value]
@@ -1045,7 +1061,7 @@ class Descriptor():
              flavour:DeclarationFlavour=DeclarationFlavour.NONE,
              declarations:DeclarationsMask=DeclarationsMask.ALL,
              )->Tuple[Optional[str],DeclarationFlavour,DeclarationsMask]:  
-    
+        
         if isinstance(obj,Oscillator):
             return self.desc_osc(obj,style_guide,flavour,declarations)
         elif isinstance(obj,Filter):

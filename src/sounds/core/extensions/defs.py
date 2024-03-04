@@ -31,7 +31,7 @@ class WaveformWidthEnum(StrEnum):
     SILENCE = auto() 
 
 class ComponentID(StrEnum):
-    ENV1 = auto()
+    ENV1 = "ENV1"
     ENV2 = auto() 
     ENV3 = auto() 
     ENV4 = auto()

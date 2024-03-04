@@ -159,7 +159,7 @@ sentences = {
         k_compositing : {
             k_style_basic : {
                 k_comp_oscs_singular : [
-                     "{oscillators_desc}. " ,
+                     "{oscillators_desc}. {oscillators_tuning_desc}" ,
                      ]  ,
                 k_comp_oscs_plural : [ 
                     "{oscillators_mix_desc} {oscillators_desc}. {oscillators_tuning_desc}" ,
@@ -167,7 +167,7 @@ sentences = {
             },
             k_style_succint : {
                 k_comp_oscs_singular : [ 
-                    "{oscillators_desc}. ",
+                    "{oscillators_desc}. {oscillators_tuning_desc}",
                 ] ,
                 k_comp_oscs_plural : [
                     "{oscillators_mix_desc} {oscillators_desc}. {oscillators_tuning_desc}",
@@ -175,7 +175,7 @@ sentences = {
             },
             k_style_concise : {
                 k_comp_oscs_singular : [ 
-                    "{oscillators_desc}. ",
+                    "{oscillators_desc}. {oscillators_tuning_desc}",
                 ] ,
                 k_comp_oscs_plural : [
                     "{oscillators_mix_desc} {oscillators_desc}. {oscillators_tuning_desc}" ,
@@ -199,6 +199,114 @@ sentences = {
             }
         }
     },
+
+    k_operator : {
+        k_glue : {
+            k_style_basic : {
+                k_comp_op_one_operand : [ '' ] ,
+                k_comp_op_two_operands : [ ' with '  ] ,
+                k_comp_op_more_operands : [ ' and '  ] ,
+                k_comp_op_feedback : [ ' into '  ] ,
+            },
+            k_style_succint : {
+                k_comp_op_one_operand : [ '' ] ,
+                k_comp_op_two_operands : [ ' with '  ] ,
+                k_comp_op_more_operands : [ ' and '  ] ,
+                k_comp_op_feedback : [ ' into '  ] ,
+            },
+            k_style_concise : {
+                k_comp_op_one_operand : [ '' ] ,
+                k_comp_op_two_operands : [ ' with '  ] ,
+                k_comp_op_more_operands : [ ' and '  ] ,
+                k_comp_op_feedback : [ ' into '  ] ,
+            },
+            k_style_detailed: {
+                k_comp_op_one_operand : [ '' ] ,
+                k_comp_op_two_operands : [ ' with '  ] ,
+                k_comp_op_more_operands : [ ' and '  ] ,
+                k_comp_op_feedback : [ ' into '  ] ,
+            },
+            k_style_specification: {
+                k_comp_op_one_operand : [ '' ] ,
+                k_comp_op_two_operands : [ ' with '  ] ,
+                k_comp_op_more_operands : [ ' and '  ] ,
+                k_comp_op_feedback : [ ' into '  ] ,
+            },
+        } ,
+        # Constraint: when we have volume_desc_post, we need to always have volume_desc_pre
+        k_compositing : {
+            k_style_basic : {
+                k_comp_op_one_operand : [
+                    "the {operator_type} of {operands_desc}" ,
+                ] ,
+                k_comp_op_two_operands : [
+                    "the {operator_type} of {operands_desc}" ,
+                ] ,
+                k_comp_op_more_operands : [
+                    "the {operator_type} of {operands_desc}" ,
+                ] ,
+                k_comp_op_feedback : [
+                    "the {operator_type} of {operands_desc}" ,
+                ]
+            },
+            k_style_succint : {
+                k_comp_op_one_operand : [
+                    "the {operator_type} of {operands_desc}" ,
+                ] ,
+                k_comp_op_two_operands : [
+                    "the {operator_type} of {operands_desc}" ,
+                ] ,
+                k_comp_op_more_operands : [
+                    "the {operator_type} of {operands_desc}" ,
+                ] ,
+                k_comp_op_feedback : [
+                    "the {operator_type} of {operands_desc}" ,
+                ] ,
+            },
+            k_style_concise : {
+                k_comp_op_one_operand : [
+                    "the {operator_type} of {operands_desc}" ,
+                ] ,
+                k_comp_op_two_operands : [
+                    "the {operator_type} of {operands_desc}" ,
+                ] ,
+                k_comp_op_more_operands : [
+                    "the {operator_type} of {operands_desc}" ,
+                ] ,
+                k_comp_op_feedback : [
+                    "the {operator_type} of {operands_desc}" ,
+                ] ,                    
+            },
+            k_style_detailed: {
+                k_comp_op_one_operand : [
+                    "the {operator_type} of {operands_desc}" ,
+                ] ,
+                k_comp_op_two_operands : [
+                    "the {operator_type} of {operands_desc}" ,
+                ] ,
+                k_comp_op_more_operands : [
+                    "the {operator_type} of {operands_desc}" ,
+                ] ,
+                k_comp_op_feedback : [
+                    "the {operator_type} of {operands_desc}" ,
+                ] ,                            
+            },
+            k_style_specification: {
+                k_comp_op_one_operand : [
+                    "- {operator_type} of {operands_desc}" ,
+                ] ,
+                k_comp_op_two_operands : [
+                    "- {operator_type} of {operands_desc}" ,
+                ] ,
+                k_comp_op_more_operands : [
+                    "- {operator_type} of {operands_desc}" ,
+                ] ,
+                k_comp_op_feedback : [
+                    "- {operator_type} of {operands_desc}" ,
+                ] ,                         
+            }
+        } ,        
+    },    
 
     k_oscillator : {
 
@@ -297,59 +405,59 @@ sentences = {
         k_comp_osc_id : {
             k_style_basic: {
                 k_comp_osc_singular : [
-                    " (OSC {rank})",
+                    " (OSC{rank})",
                 ] ,                           
                 k_comp_osc_plural : [
-                   " (OSC {rank})",
+                   " (OSC{rank})",
                 ] ,                           
                 k_comp_osc_for_operator : [
-                   " (OSC {rank})",
+                   " OSC{rank}",
                 ]                              
             },
             k_style_succint: {
                 k_comp_osc_singular : [
-                    " (OSC {rank})",
+                    " (OSC{rank})",
                 ] ,                           
                 k_comp_osc_plural : [
-                   " (OSC {rank})",
+                   " (OSC{rank})",
                 ] ,                           
                 k_comp_osc_for_operator : [
-                   " (OSC {rank})",
+                   " OSC{rank}",
                 ]                              
             },
 
             k_style_concise: {
                 k_comp_osc_singular : [
-                    " (OSC {rank})",
+                    " (OSC{rank})",
                 ] ,                           
                 k_comp_osc_plural : [
-                   " (OSC {rank})",
+                   " (OSC{rank})",
                 ] ,                           
                 k_comp_osc_for_operator : [
-                   " (OSC {rank})",
+                   " OSC{rank}",
                 ]                              
             },
 
             k_style_detailed :{
                 k_comp_osc_singular : [
-                    " (OSC {rank})",
+                    " (OSC{rank})",
                 ] ,                           
                 k_comp_osc_plural : [
-                   " (OSC {rank})",
+                   " (OSC{rank})",
                 ] ,                           
                 k_comp_osc_for_operator : [
-                   " (OSC {rank})",
+                   " OSC{rank}",
                 ]                              
             },
             k_style_specification: {
                 k_comp_osc_singular : [
-                    "OSC {rank}: ",
+                    "OSC{rank}: ",
                 ] ,                           
                 k_comp_osc_plural : [
-                   "OSC {rank}: ",
+                   "OSC{rank}: ",
                 ] ,                           
                 k_comp_osc_for_operator : [
-                   "OSC {rank}",
+                   " OSC{rank}",
                 ]                              
             }
         },
@@ -460,114 +568,6 @@ sentences = {
             } ,                                                     
         }
     }    ,
-
-    k_operator : {
-        k_glue : {
-            k_style_basic : {
-                k_comp_op_one_operand : [ '' ] ,
-                k_comp_op_two_operands : [ ' with '  ] ,
-                k_comp_op_more_operands : [ ' and '  ] ,
-                k_comp_op_feedback : [ ' into '  ] ,
-            },
-            k_style_succint : {
-                k_comp_op_one_operand : [ '' ] ,
-                k_comp_op_two_operands : [ ' with '  ] ,
-                k_comp_op_more_operands : [ ' and '  ] ,
-                k_comp_op_feedback : [ ' into '  ] ,
-            },
-            k_style_concise : {
-                k_comp_op_one_operand : [ '' ] ,
-                k_comp_op_two_operands : [ ' with '  ] ,
-                k_comp_op_more_operands : [ ' and '  ] ,
-                k_comp_op_feedback : [ ' into '  ] ,
-            },
-            k_style_detailed: {
-                k_comp_op_one_operand : [ '' ] ,
-                k_comp_op_two_operands : [ ' with '  ] ,
-                k_comp_op_more_operands : [ ' and '  ] ,
-                k_comp_op_feedback : [ ' into '  ] ,
-            },
-            k_style_specification: {
-                k_comp_op_one_operand : [ '' ] ,
-                k_comp_op_two_operands : [ ' with '  ] ,
-                k_comp_op_more_operands : [ ' and '  ] ,
-                k_comp_op_feedback : [ ' into '  ] ,
-            },
-        } ,
-        # Constraint: when we have volume_desc_post, we need to always have volume_desc_pre
-        k_compositing : {
-            k_style_basic : {
-                k_comp_op_one_operand : [
-                    "the {operator_type} of {operands_desc}" ,
-                ] ,
-                k_comp_op_two_operands : [
-                    "the {operator_type} of {operands_desc}" ,
-                ] ,
-                k_comp_op_more_operands : [
-                    "the {operator_type} of {operands_desc}" ,
-                ] ,
-                k_comp_op_feedback : [
-                    "the {operator_type} of {operands_desc}" ,
-                ]
-            },
-            k_style_succint : {
-                k_comp_op_one_operand : [
-                    "the {operator_type} of {operands_desc}" ,
-                ] ,
-                k_comp_op_two_operands : [
-                    "the {operator_type} of {operands_desc}" ,
-                ] ,
-                k_comp_op_more_operands : [
-                    "the {operator_type} of {operands_desc}" ,
-                ] ,
-                k_comp_op_feedback : [
-                    "the {operator_type} of {operands_desc}" ,
-                ] ,
-            },
-            k_style_concise : {
-                k_comp_op_one_operand : [
-                    "the {operator_type} of {operands_desc}" ,
-                ] ,
-                k_comp_op_two_operands : [
-                    "the {operator_type} of {operands_desc}" ,
-                ] ,
-                k_comp_op_more_operands : [
-                    "the {operator_type} of {operands_desc}" ,
-                ] ,
-                k_comp_op_feedback : [
-                    "the {operator_type} of {operands_desc}" ,
-                ] ,                    
-            },
-            k_style_detailed: {
-                k_comp_op_one_operand : [
-                    "the {operator_type} of {operands_desc}" ,
-                ] ,
-                k_comp_op_two_operands : [
-                    "the {operator_type} of {operands_desc}" ,
-                ] ,
-                k_comp_op_more_operands : [
-                    "the {operator_type} of {operands_desc}" ,
-                ] ,
-                k_comp_op_feedback : [
-                    "the {operator_type} of {operands_desc}" ,
-                ] ,                            
-            },
-            k_style_specification: {
-                k_comp_op_one_operand : [
-                    "- {operator_type} of {operands_desc}" ,
-                ] ,
-                k_comp_op_two_operands : [
-                    "- {operator_type} of {operands_desc}" ,
-                ] ,
-                k_comp_op_more_operands : [
-                    "- {operator_type} of {operands_desc}" ,
-                ] ,
-                k_comp_op_feedback : [
-                    "- {operator_type} of {operands_desc}" ,
-                ] ,                         
-            }
-        } ,        
-    }
 }
 
 cleanup = {

@@ -285,7 +285,7 @@ def get_sound_analysis(source:SoundSource,
         if sound_description is not None:
             sound_info['analysis'] = sound_description.json()
     except ValueError as vae:
-        print("There is an issue with the SoundTone descrption generated: ",str(vae.errors()))
+        print("There is an error with the SoundTone description generated: ",str(vae.errors()))
     except Exception as e:
         print(f"There has been an error with the plugin extension: {str(e)}")
         traceback.print_exc()

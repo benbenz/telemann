@@ -95,6 +95,7 @@ class Operator(MixableComponent,RankedComponent):
     type: Operation
     operands : Optional[List[ComponentID|Component]]=None
     bias : Optional[Any]=None
+    commutable : bool
 
 class Filter(MixableComponent,RankedComponent):
 

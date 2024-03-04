@@ -498,14 +498,20 @@ class Descriptor():
                                                                declarations=declarations_local)
 
         # compose sentence
-        operands_desc = glue.join(operands_descs)
         op_type = self._get_op_type(operator,style_guide,flavour,declarations)
-        operator_desc = compose_loc.format(operands_desc=operands_desc,operator_type=op_type)
+        op_type_adj = self._get_op_type_adj(operator,style_guide,flavour,declarations)
+        operands_desc = glue.format(op_type_adj=op_type_adj).join(operands_descs)
+        operator_desc = compose_loc.format(operands_desc=operands_desc,operator_type=op_type,op_type_adj=op_type_adj)
 
         return operator_desc , flavour , declarations
     
     def _sort_op_components_first(self,operator:Operator):
 
+        # the order specified during creation matters
+        if not operator.commutable:
+            return operator.operands
+
+        # we prefer to have the new components declared first and references (ComponentID) after
         def component_sort_key(e:ComponentID|Component):
             if isinstance(e,ComponentID):
                 renamed = re.sub(r'^(\w+)([\d]{1,1})$',r'\g<1>0\2',e.name)
@@ -524,11 +530,13 @@ class Descriptor():
         if operator.type == Operation.FEEDBACK:
             compositing_copy.pop(k_comp_op_more_operands,None)
             compositing_copy.pop(k_comp_op_two_operands,None)
+            compositing_copy.pop(k_comp_op_two_operands_adj,None)
             compositing_copy.pop(k_comp_op_one_operand,None)
 
         elif len(operator.operands)==1:
             compositing_copy.pop(k_comp_op_feedback,None)
             compositing_copy.pop(k_comp_op_two_operands,None)
+            compositing_copy.pop(k_comp_op_two_operands_adj,None)
             compositing_copy.pop(k_comp_op_more_operands,None)
         else:
             compositing_copy.pop(k_comp_op_feedback,None)
@@ -571,7 +579,32 @@ class Descriptor():
                 return op_type
             case StyleGuide.SPECIFICATION:
                 op_type = get_word(f"k_operation_{operation_name}")
-                return op_type               
+                return op_type        
+
+    def _get_op_type_adj(self,
+                                     operator:Operator,
+                                 style_guide:StyleGuide,
+                                 flavour:DeclarationFlavour,
+                                 declarations:DeclarationsMask)->str:
+
+        operation_name = operator.type.lower()
+        
+        match style_guide:
+            case StyleGuide.BASIC:
+                op_type = get_word(f"k_operation_adj_{operation_name}")
+                return op_type
+            case StyleGuide.SUCCINT:
+                op_type = get_word(f"k_operation_adj_{operation_name}")
+                return op_type
+            case StyleGuide.CONCISE:
+                op_type = get_word(f"k_operation_adj_{operation_name}")
+                return op_type
+            case StyleGuide.DETAILED:
+                op_type = get_word(f"k_operation_adj_{operation_name}")
+                return op_type
+            case StyleGuide.SPECIFICATION:
+                op_type = get_word(f"k_operation_adj_{operation_name}")
+                return op_type                         
 
 
     ##############

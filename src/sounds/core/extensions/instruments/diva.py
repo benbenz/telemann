@@ -164,6 +164,7 @@ class DivaExtension(InstrumentExtension):
                     if i_vco==2 and osc_shape==4:
                         oscs.append(
                             Operator(
+                                commutable=True,
                                 rank=i_vco,
                                 type=Operation.RINGMOD,
                                 volume=vol,

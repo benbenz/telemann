@@ -205,30 +205,35 @@ sentences = {
             k_style_basic : {
                 k_comp_op_one_operand : [ '' ] ,
                 k_comp_op_two_operands : [ ' with '  ] ,
+                k_comp_op_two_operands_adj : [ ' {op_type_adj} '  ] ,
                 k_comp_op_more_operands : [ ' and '  ] ,
                 k_comp_op_feedback : [ ' into '  ] ,
             },
             k_style_succint : {
                 k_comp_op_one_operand : [ '' ] ,
                 k_comp_op_two_operands : [ ' with '  ] ,
+                k_comp_op_two_operands_adj : [ ' {op_type_adj} '  ] ,
                 k_comp_op_more_operands : [ ' and '  ] ,
                 k_comp_op_feedback : [ ' into '  ] ,
             },
             k_style_concise : {
                 k_comp_op_one_operand : [ '' ] ,
                 k_comp_op_two_operands : [ ' with '  ] ,
+                k_comp_op_two_operands_adj : [ ' {op_type_adj} '  ] ,
                 k_comp_op_more_operands : [ ' and '  ] ,
                 k_comp_op_feedback : [ ' into '  ] ,
             },
             k_style_detailed: {
                 k_comp_op_one_operand : [ '' ] ,
                 k_comp_op_two_operands : [ ' with '  ] ,
+                k_comp_op_two_operands_adj : [ ' {op_type_adj} '  ] ,
                 k_comp_op_more_operands : [ ' and '  ] ,
                 k_comp_op_feedback : [ ' into '  ] ,
             },
             k_style_specification: {
                 k_comp_op_one_operand : [ '' ] ,
                 k_comp_op_two_operands : [ ' with '  ] ,
+                k_comp_op_two_operands_adj : [ ' {op_type_adj} '  ] ,
                 k_comp_op_more_operands : [ ' and '  ] ,
                 k_comp_op_feedback : [ ' into '  ] ,
             },
@@ -241,6 +246,9 @@ sentences = {
                 ] ,
                 k_comp_op_two_operands : [
                     "the {operator_type} of {operands_desc}" ,
+                ] ,
+                k_comp_op_two_operands_adj : [
+                    "{operands_desc}" ,
                 ] ,
                 k_comp_op_more_operands : [
                     "the {operator_type} of {operands_desc}" ,
@@ -256,6 +264,9 @@ sentences = {
                 k_comp_op_two_operands : [
                     "the {operator_type} of {operands_desc}" ,
                 ] ,
+                k_comp_op_two_operands_adj : [
+                    "{operands_desc}" ,
+                ] ,
                 k_comp_op_more_operands : [
                     "the {operator_type} of {operands_desc}" ,
                 ] ,
@@ -269,6 +280,9 @@ sentences = {
                 ] ,
                 k_comp_op_two_operands : [
                     "the {operator_type} of {operands_desc}" ,
+                ] ,
+                k_comp_op_two_operands_adj : [
+                    "{operands_desc}" ,
                 ] ,
                 k_comp_op_more_operands : [
                     "the {operator_type} of {operands_desc}" ,
@@ -284,6 +298,9 @@ sentences = {
                 k_comp_op_two_operands : [
                     "the {operator_type} of {operands_desc}" ,
                 ] ,
+                k_comp_op_two_operands_adj : [
+                    "{operands_desc}" ,
+                ] ,
                 k_comp_op_more_operands : [
                     "the {operator_type} of {operands_desc}" ,
                 ] ,
@@ -297,6 +314,9 @@ sentences = {
                 ] ,
                 k_comp_op_two_operands : [
                     "- {operator_type} of {operands_desc}" ,
+                ] ,
+                k_comp_op_two_operands_adj : [
+                    "{operands_desc}" ,
                 ] ,
                 k_comp_op_more_operands : [
                     "- {operator_type} of {operands_desc}" ,
@@ -470,9 +490,9 @@ sentences = {
                 k_comp_osc_plural : [
                     "{volume_desc_pre}{shapes_desc}{tuning_desc}{volume_desc_post}{osc_id}" ,
                 ] ,
-                k_comp_osc_for_operator : {
+                k_comp_osc_for_operator : [
                     "the {shapes_desc} of {osc_id} {tuning_desc}" ,
-                }
+                ]
             },
             k_style_succint : {
                 k_comp_osc_singular : [
@@ -571,9 +591,10 @@ sentences = {
 }
 
 cleanup = {
-    "(^|\\s+)([aA])(\\s+)([aeiouAEIOU])" : "\\1an\\3\\4",
-    "(^|\\s+)([aA]n)(\\s+)([qwrtypsdfghjklzxcvbnmQWRTYPSDFGHJKLZXCVBNM])" : "\\1a\\3\\4" ,
-    "[ ]{2,}" : " " ,
+    "(^|\\s+)([aA])(\\s+)([aeiouAEIOU])" : "\\1an\\3\\4",  # 'a' [Vowel] -> 'an'
+    "(^|\\s+)([aA]n)(\\s+)([qwrtypsdfghjklzxcvbnmQWRTYPSDFGHJKLZXCVBNM])" : "\\1a\\3\\4" , # 'an' [Consonant] -> 'a'
+    "[ ]{2,}" : " " , # replace multiple spaces with a single one
+    "\.\s*\." : "." , # replace successive punctuations '.' with a single one
 }
 
 words = {
@@ -620,4 +641,11 @@ words = {
     k_operation_multiply : ["multiplication"],
     k_operation_ringmod : ["ring-modulation"],
     k_operation_feedback : ["feedback"], 
+
+    k_operation_adj_fm : ["FM-modulated with"] ,
+    k_operation_adj_add : ["added to"] ,
+    k_operation_adj_substract : ["substracted to"] ,
+    k_operation_adj_multiply : ["multiplied by"],
+    k_operation_adj_ringmod : ["ring-modulated with"],
+    k_operation_adj_feedback : ["feedbacked into"], 
 }

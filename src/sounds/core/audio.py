@@ -397,15 +397,13 @@ def get_instrument_extension(source:SoundSource):
         module = import_module(module_name)
         classes = []
         for _, member in inspect.getmembers(module):
-            if inspect.isclass(member):
+            if inspect.isclass(member) and issubclass(member,InstrumentExtension):
                 # Check if the class is defined in this module
                 if member.__module__ == module_name:
                     classes.append(member)
 
         # Handle the case where there's exactly one class
-        if len(classes) == 1:
-            return classes[0]()
-        elif len(classes) > 1:
+        if len(classes) > 0:
             print("SELECTING THE LAST CLASS OF THE MODULE")
             return classes[-1]()
         else:

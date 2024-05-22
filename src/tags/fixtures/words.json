@@ -1,2512 +1,2572 @@
 [
     {
-        "fields" : {
-            "tag" : "abrasive",
-            "group" : "Harsh" ,
-            "explanation" : "Grating sound. Typically, an unpleasant, harsh, or scratchy sound quality that can be irritating to the ear." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "abrasive",
+            "group": "Harsh",
+            "explanation": "Grating sound. Typically, an unpleasant, harsh, or scratchy sound quality that can be irritating to the ear.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 1
     },
     {
-        "fields" : {
-            "tag" : "airy",
-            "group" : "Pleasing" ,
-            "explanation" : "Light sound. This denotes a sound that is light, gentle, and possibly with a sense of openness or spaciousness, often pleasant or easy to listen to." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "airy",
+            "group": "Pleasing",
+            "explanation": "Light sound. This denotes a sound that is light, gentle, and possibly with a sense of openness or spaciousness, often pleasant or easy to listen to.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 2
     },
     {
-        "fields" : {
-            "tag" : "almighty",
-            "group" : "Loud" ,
-            "explanation" : "Used for emphasising how loud something is" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "almighty",
+            "group": "Loud",
+            "explanation": "Used for emphasising how loud something is",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 3
     },
     {
-        "fields" : {
-            "tag" : "antagonistic",
-            "group" : "General" ,
-            "explanation" : "In a sound context, it could refer to sounds that seem confrontational or conflicting, creating a sense of tension." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "antagonistic",
+            "group": "General",
+            "explanation": "In a sound context, it could refer to sounds that seem confrontational or conflicting, creating a sense of tension.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 4
     },
     {
-        "fields" : {
-            "tag" : "asymmetric",
-            "group" : "General" ,
-            "explanation" : "A lack of symmetry or balance, which, when applied to sound, might refer to irregular or uneven patterns of rhythm or melody that don't follow a conventional structure." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "asymmetric",
+            "group": "General",
+            "explanation": "A lack of symmetry or balance, which, when applied to sound, might refer to irregular or uneven patterns of rhythm or melody that don't follow a conventional structure.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 5
     },
     {
-        "fields" : {
-            "tag" : "atmosphere",
-            "group" : "Dreamy" ,
-            "explanation" : "Atmospheric sounds refer to background noises that create a sense of space or environment, often used to generate a specific mood or setting, ranging from calming to eerie." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "atmosphere",
+            "group": "Dreamy",
+            "explanation": "Atmospheric sounds refer to background noises that create a sense of space or environment, often used to generate a specific mood or setting, ranging from calming to eerie.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 6
     },
     {
-        "fields" : {
-            "tag" : "atonal",
-            "group" : "Complex" ,
-            "explanation" : "Atonal music lacks a key or tonal center, often resulting in a sound that can be perceived as discordant or challenging to listen to due to its lack of traditional harmonic structures." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "atonal",
+            "group": "Complex",
+            "explanation": "Atonal music lacks a key or tonal center, often resulting in a sound that can be perceived as discordant or challenging to listen to due to its lack of traditional harmonic structures.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 7
     },
     {
-        "fields" : {
-            "tag" : "babble",
-            "group" : "Natural" ,
-            "explanation" : "A gentle, pleasant sound of water as it moves along in a river" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "babble",
+            "group": "Natural",
+            "explanation": "A gentle, pleasant sound of water as it moves along in a river",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 8
     },
     {
-        "fields" : {
-            "tag" : "balanced",
-            "group" : "Pleasing" ,
-            "explanation" : "A sound that is well-proportioned and harmonious across its elements, often considered aesthetically pleasing or satisfying to listen to." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "balanced",
+            "group": "Pleasing",
+            "explanation": "A sound that is well-proportioned and harmonious across its elements, often considered aesthetically pleasing or satisfying to listen to.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 9
     },
     {
-        "fields" : {
-            "tag" : "bang",
-            "group" : "Loud" ,
-            "explanation" : "Making loud noises" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "bang",
+            "group": "Loud",
+            "explanation": "Making loud noises",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 10
     },
     {
-        "fields" : {
-            "tag" : "beating",
-            "group" : "Noisy" ,
-            "explanation" : "A pulsating or thumping sound, often repetitive, which can be either a physical sensation or an auditory one, depending on the context." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "beating",
+            "group": "Noisy",
+            "explanation": "A pulsating or thumping sound, often repetitive, which can be either a physical sensation or an auditory one, depending on the context.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 11
     },
     {
-        "fields" : {
-            "tag" : "beep",
-            "group" : "Short" ,
-            "explanation" : "A short high sound or several short high sounds" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "beep",
+            "group": "Short",
+            "explanation": "A short high sound or several short high sounds",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 12
     },
     {
-        "fields" : {
-            "tag" : "blare",
-            "group" : "Noisy" ,
-            "explanation" : "A loud and unpleasant noise" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "blare",
+            "group": "Noisy",
+            "explanation": "A loud and unpleasant noise",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 13
     },
     {
-        "fields" : {
-            "tag" : "blast",
-            "group" : "Noisy" ,
-            "explanation" : "A loud, intense sound, often sudden and overwhelming, akin to an explosion or a loud burst of sound." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "blast",
+            "group": "Noisy",
+            "explanation": "A loud, intense sound, often sudden and overwhelming, akin to an explosion or a loud burst of sound.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 14
     },
     {
-        "fields" : {
-            "tag" : "bleep",
-            "group" : "Short" ,
-            "explanation" : "A short high sound or several short high sounds" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "bleep",
+            "group": "Short",
+            "explanation": "A short high sound or several short high sounds",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 15
     },
     {
-        "fields" : {
-            "tag" : "boom",
-            "group" : "Loud" ,
-            "explanation" : "A deep, resonant sound with a low pitch, often associated with something large and imposing, like thunder or an explosion." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "boom",
+            "group": "Loud",
+            "explanation": "A deep, resonant sound with a low pitch, often associated with something large and imposing, like thunder or an explosion.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 16
     },
     {
-        "fields" : {
-            "tag" : "bouncy",
-            "group" : "Rhythmic" ,
-            "explanation" : "A rhythmical, upbeat sound that can invoke a sense of movement or dance, often cheerful and energetic." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "bouncy",
+            "group": "Rhythmic",
+            "explanation": "A rhythmical, upbeat sound that can invoke a sense of movement or dance, often cheerful and energetic.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 17
     },
     {
-        "fields" : {
-            "tag" : "brassy",
-            "group" : "Noisy" ,
-            "explanation" : "A sound that is loud and unpleasant" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "brassy",
+            "group": "Noisy",
+            "explanation": "A sound that is loud and unpleasant",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 18
     },
     {
-        "fields" : {
-            "tag" : "bright",
-            "group" : "Pleasing" ,
-            "explanation" : "A sound quality that is clear, sharp, and vibrant, often associated with higher pitches or a lively presence in the sound." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "bright",
+            "group": "Pleasing",
+            "explanation": "A sound quality that is clear, sharp, and vibrant, often associated with higher pitches or a lively presence in the sound.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 19
     },
     {
-        "fields" : {
-            "tag" : "broken",
-            "group" : "Rhythmic" ,
-            "explanation" : "Sound that is intermittent or disrupted, creating a sense of disconnection or fragmentation, often resulting in a jarring listening experience." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "broken",
+            "group": "Rhythmic",
+            "explanation": "Sound that is intermittent or disrupted, creating a sense of disconnection or fragmentation, often resulting in a jarring listening experience.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 20
     },
     {
-        "fields" : {
-            "tag" : "buzz",
-            "group" : "Noisy" ,
-            "explanation" : "A continuous, low-pitched sound, resembling the sound made by insects or electrical devices, often monotonous or annoying." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "buzz",
+            "group": "Noisy",
+            "explanation": "A continuous, low-pitched sound, resembling the sound made by insects or electrical devices, often monotonous or annoying.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 21
     },
     {
-        "fields" : {
-            "tag" : "cacophony",
-            "group" : "Chaotic" ,
-            "explanation" : "A harsh, discordant mixture of sounds, often overwhelming and lacking harmony or pleasantness." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "cacophony",
+            "group": "Chaotic",
+            "explanation": "A harsh, discordant mixture of sounds, often overwhelming and lacking harmony or pleasantness.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 22
     },
     {
-        "fields" : {
-            "tag" : "cadence",
-            "group" : "Rhythmic" ,
-            "explanation" : "The rhythmic flow of a sequence of sounds or words, often associated with the conclusion of a musical phrase or sentence, offering a sense of resolution or completion." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "cadence",
+            "group": "Rhythmic",
+            "explanation": "The rhythmic flow of a sequence of sounds or words, often associated with the conclusion of a musical phrase or sentence, offering a sense of resolution or completion.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 23
     },
     {
-        "fields" : {
-            "tag" : "caterwaul",
-            "group" : "Noisy" ,
-            "explanation" : "An unpleasant loud high noise" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "caterwaul",
+            "group": "Noisy",
+            "explanation": "An unpleasant loud high noise",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 24
     },
     {
-        "fields" : {
-            "tag" : "chaotic",
-            "group" : "Chaotic" ,
-            "explanation" : "Sound lacking any semblance of order or predictability, often resulting in a confusing and unsettling auditory experience." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "chaotic",
+            "group": "Chaotic",
+            "explanation": "Sound lacking any semblance of order or predictability, often resulting in a confusing and unsettling auditory experience.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 25
     },
     {
-        "fields" : {
-            "tag" : "chime",
-            "group" : "Pleasing" ,
-            "explanation" : "A high ringing sound like a bell or set of bells" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "chime",
+            "group": "Pleasing",
+            "explanation": "A high ringing sound like a bell or set of bells",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 26
     },
     {
-        "fields" : {
-            "tag" : "chiming",
-            "group" : "Pleasing" ,
-            "explanation" : "The sound of bells or similar instruments producing clear, melodious tones, often associated with time, alerts, or celebrations, characterized by clarity and resonance." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "chiming",
+            "group": "Pleasing",
+            "explanation": "The sound of bells or similar instruments producing clear, melodious tones, often associated with time, alerts, or celebrations, characterized by clarity and resonance.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 27
     },
     {
-        "fields" : {
-            "tag" : "chink",
-            "group" : "Pleasing" ,
-            "explanation" : "A high ringing sound when knocked together, or to make something do this" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "chink",
+            "group": "Pleasing",
+            "explanation": "A high ringing sound when knocked together, or to make something do this",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 28
     },
     {
-        "fields" : {
-            "tag" : "clack",
-            "group" : "Short" ,
-            "explanation" : "Short loud sound like one hard object hitting against another" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "clack",
+            "group": "Short",
+            "explanation": "Short loud sound like one hard object hitting against another",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 29
     },
     {
-        "fields" : {
-            "tag" : "clamorous",
-            "group" : "Noisy" ,
-            "explanation" : "Characterized by loud, persistent, and often discordant noise, making it demanding or attention-grabbing in a chaotic way." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "clamorous",
+            "group": "Noisy",
+            "explanation": "Characterized by loud, persistent, and often discordant noise, making it demanding or attention-grabbing in a chaotic way.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 30
     },
     {
-        "fields" : {
-            "tag" : "clang",
-            "group" : "Loud" ,
-            "explanation" : "A loud, metallic sound" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "clang",
+            "group": "Loud",
+            "explanation": "A loud, metallic sound",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 31
     },
     {
-        "fields" : {
-            "tag" : "clank",
-            "group" : "Short" ,
-            "explanation" : "A short, loud sound" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "clank",
+            "group": "Short",
+            "explanation": "A short, loud sound",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 32
     },
     {
-        "fields" : {
-            "tag" : "clap",
-            "group" : "Sharp" ,
-            "explanation" : "A sudden, loud sound made by striking the hands together or against a surface, often used as a form of applause or to create a sharp, striking noise." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "clap",
+            "group": "Sharp",
+            "explanation": "A sudden, loud sound made by striking the hands together or against a surface, often used as a form of applause or to create a sharp, striking noise.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 33
     },
     {
-        "fields" : {
-            "tag" : "clash",
-            "group" : "Loud" ,
-            "explanation" : "A loud, metallic sound" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "clash",
+            "group": "Loud",
+            "explanation": "A loud, metallic sound",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 34
     },
     {
-        "fields" : {
-            "tag" : "clatter",
-            "group" : "Noisy" ,
-            "explanation" : "A series of short, sharp noises" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "clatter",
+            "group": "Noisy",
+            "explanation": "A series of short, sharp noises",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 35
     },
     {
-        "fields" : {
-            "tag" : "clear",
-            "group" : "Pleasing" ,
-            "explanation" : "Sound that is easily perceptible and free from distortion or any form of ambiguity, often associated with purity and precision." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "clear",
+            "group": "Pleasing",
+            "explanation": "Sound that is easily perceptible and free from distortion or any form of ambiguity, often associated with purity and precision.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 36
     },
     {
-        "fields" : {
-            "tag" : "click",
-            "group" : "Short" ,
-            "explanation" : "A short, sharp sound made by a mechanism or by parts coming into contact, often repetitive and mechanical in nature." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "click",
+            "group": "Short",
+            "explanation": "A short, sharp sound made by a mechanism or by parts coming into contact, often repetitive and mechanical in nature.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 37
     },
     {
-        "fields" : {
-            "tag" : "clink",
-            "group" : "Pleasing" ,
-            "explanation" : "A short high sound of glass or metal objects hitting each other, or to cause objects to make this sound" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "clink",
+            "group": "Pleasing",
+            "explanation": "A short high sound of glass or metal objects hitting each other, or to cause objects to make this sound",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 38
     },
     {
-        "fields" : {
-            "tag" : "cluck",
-            "group" : "Short" ,
-            "explanation" : "A short, low sound with your tongue" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "cluck",
+            "group": "Short",
+            "explanation": "A short, low sound with your tongue",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 39
     },
     {
-        "fields" : {
-            "tag" : "coarse",
-            "group" : "Harsh" ,
-            "explanation" : "Rough or grating in quality, often used to describe sounds that are unpleasantly rough or abrasive to the ears." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "coarse",
+            "group": "Harsh",
+            "explanation": "Rough or grating in quality, often used to describe sounds that are unpleasantly rough or abrasive to the ears.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 40
     },
     {
-        "fields" : {
-            "tag" : "colorful",
-            "group" : "Expressive" ,
-            "explanation" : "Describes sounds rich in tone and variation, often vibrant and engaging, suggesting a wide palette of sonic hues and textures." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "colorful",
+            "group": "Expressive",
+            "explanation": "Describes sounds rich in tone and variation, often vibrant and engaging, suggesting a wide palette of sonic hues and textures.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 41
     },
     {
-        "fields" : {
-            "tag" : "cold",
-            "group" : "Expressive" ,
-            "explanation" : "Describes a sounds that is crystal cold" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "cold",
+            "group": "Expressive",
+            "explanation": "Describes a sounds that is crystal cold",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 42
     },
     {
-        "fields" : {
-            "tag" : "complex",
-            "group" : "Complex" ,
-            "explanation" : "Refers to sounds or compositions that are multifaceted and intricate, often involving multiple layers, rhythms, or harmonies that require attentive listening to fully appreciate." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "complex",
+            "group": "Complex",
+            "explanation": "Refers to sounds or compositions that are multifaceted and intricate, often involving multiple layers, rhythms, or harmonies that require attentive listening to fully appreciate.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 43
     },
     {
-        "fields" : {
-            "tag" : "constant",
-            "group" : "Continuous" ,
-            "explanation" : "Describes a sound that persists over time without significant variation in intensity or pitch, often perceived as monotonous or unchanging." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "constant",
+            "group": "Continuous",
+            "explanation": "Describes a sound that persists over time without significant variation in intensity or pitch, often perceived as monotonous or unchanging.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 44
     },
     {
-        "fields" : {
-            "tag" : "continuous",
-            "group" : "Continuous" ,
-            "explanation" : "Similar to constant, it refers to sounds that proceed uninterrupted, without breaks or pauses, potentially leading to a sensation of unending noise." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "continuous",
+            "group": "Continuous",
+            "explanation": "Similar to constant, it refers to sounds that proceed uninterrupted, without breaks or pauses, potentially leading to a sensation of unending noise.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 45
     },
     {
-        "fields" : {
-            "tag" : "cracking",
-            "group" : "Sharp" ,
-            "explanation" : "A sudden, sharp sound made by something breaking or snapping, often abrupt and startling." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "cracking",
+            "group": "Sharp",
+            "explanation": "A sudden, sharp sound made by something breaking or snapping, often abrupt and startling.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 46
     },
     {
-        "fields" : {
-            "tag" : "crash",
-            "group" : "Loud" ,
-            "explanation" : "A sudden loud noise, as if something is being hit" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "crash",
+            "group": "Loud",
+            "explanation": "A sudden loud noise, as if something is being hit",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 47
     },
     {
-        "fields" : {
-            "tag" : "creak",
-            "group" : "Natural" ,
-            "explanation" : "A high noise when it moves or when you put weight on it" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "creak",
+            "group": "Natural",
+            "explanation": "A high noise when it moves or when you put weight on it",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 48
     },
     {
-        "fields" : {
-            "tag" : "crescendo",
-            "group" : "Dynamic" ,
-            "explanation" : "A gradual increase in loudness or intensity in music or sound, often used to build anticipation or highlight a climax." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "crescendo",
+            "group": "Dynamic",
+            "explanation": "A gradual increase in loudness or intensity in music or sound, often used to build anticipation or highlight a climax.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 49
     },
     {
-        "fields" : {
-            "tag" : "crisp",
-            "group" : "Sharp" ,
-            "explanation" : "Describes sounds that are clear, precise, and possibly refreshing, often associated with clarity and energy." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "crisp",
+            "group": "Sharp",
+            "explanation": "Describes sounds that are clear, precise, and possibly refreshing, often associated with clarity and energy.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 50
     },
     {
-        "fields" : {
-            "tag" : "crunch",
-            "group" : "Natural" ,
-            "explanation" : "The sound produced by the crushing or grinding of hard materials, often associated with texture and a satisfying sensation." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "crunch",
+            "group": "Natural",
+            "explanation": "The sound produced by the crushing or grinding of hard materials, often associated with texture and a satisfying sensation.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 51
     },
     {
-        "fields" : {
-            "tag" : "dark",
-            "group" : "Expressive" ,
-            "explanation" : "Sound that is deep, possibly brooding or melancholic, often creating an atmosphere of mystery or depth, potentially invoking feelings of introspection or solemnity." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "dark",
+            "group": "Expressive",
+            "explanation": "Sound that is deep, possibly brooding or melancholic, often creating an atmosphere of mystery or depth, potentially invoking feelings of introspection or solemnity.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 52
     },
     {
-        "fields" : {
-            "tag" : "decrescendo",
-            "group" : "Dynamic" ,
-            "explanation" : "A gradual decrease in loudness or intensity, opposite of crescendo, often used to convey a sense of diminishment or fading away in music or sound." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "decrescendo",
+            "group": "Dynamic",
+            "explanation": "A gradual decrease in loudness or intensity, opposite of crescendo, often used to convey a sense of diminishment or fading away in music or sound.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 53
     },
     {
-        "fields" : {
-            "tag" : "delicate",
-            "group" : "Pleasing" ,
-            "explanation" : "Sound that is light, subtle, and graceful, often associated with finesse and a gentle touch, creating a sense of elegance or fragility." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "delicate",
+            "group": "Pleasing",
+            "explanation": "Sound that is light, subtle, and graceful, often associated with finesse and a gentle touch, creating a sense of elegance or fragility.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 54
     },
     {
-        "fields" : {
-            "tag" : "dense",
-            "group" : "Complex" ,
-            "explanation" : "Refers to sounds that are thickly layered or rich in elements, creating a sense of compactness and depth, often with multiple layers overlapping." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "dense",
+            "group": "Complex",
+            "explanation": "Refers to sounds that are thickly layered or rich in elements, creating a sense of compactness and depth, often with multiple layers overlapping.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 55
     },
     {
-        "fields" : {
-            "tag" : "depth",
-            "group" : "General" ,
-            "explanation" : "Describes the perceived distance or profundity in sound, suggesting a dimensionality or richness that adds to the complexity or emotional impact of the sound." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "depth",
+            "group": "General",
+            "explanation": "Describes the perceived distance or profundity in sound, suggesting a dimensionality or richness that adds to the complexity or emotional impact of the sound.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 56
     },
     {
-        "fields" : {
-            "tag" : "diminishing",
-            "group" : "Dynamic" ,
-            "explanation" : "Sound that gradually decreases in volume, intensity, or presence, often used to create a sense of receding or fading away." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "diminishing",
+            "group": "Dynamic",
+            "explanation": "Sound that gradually decreases in volume, intensity, or presence, often used to create a sense of receding or fading away.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 57
     },
     {
-        "fields" : {
-            "tag" : "discordant",
-            "group" : "Harsh" ,
-            "explanation" : "Sound that clashes or do not harmonize together, creating a sense of tension or dissonance, often perceived as unpleasant or jarring." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "discordant",
+            "group": "Harsh",
+            "explanation": "Sound that clashes or do not harmonize together, creating a sense of tension or dissonance, often perceived as unpleasant or jarring.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 58
     },
     {
-        "fields" : {
-            "tag" : "disharmonic",
-            "group" : "Harsh" ,
-            "explanation" : "Similar to discordant, it refers to a lack of harmony or agreement in musical elements, resulting in a sound that is typically perceived as unsettling or in conflict." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "disharmonic",
+            "group": "Harsh",
+            "explanation": "Similar to discordant, it refers to a lack of harmony or agreement in musical elements, resulting in a sound that is typically perceived as unsettling or in conflict.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 59
     },
     {
-        "fields" : {
-            "tag" : "disjointed",
-            "group" : "Chaotic" ,
-            "explanation" : "Sound that lacks a smooth or logical progression, appearing fragmented or uncoordinated, often leading to a disjointed or chaotic auditory experience." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "disjointed",
+            "group": "Chaotic",
+            "explanation": "Sound that lacks a smooth or logical progression, appearing fragmented or uncoordinated, often leading to a disjointed or chaotic auditory experience.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 60
     },
     {
-        "fields" : {
-            "tag" : "distant",
-            "group" : "Dreamy" ,
-            "explanation" : "Sound that seems to be coming from far away, creating a sense of space or remoteness, often imbued with a sense of nostalgia or detachment." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "distant",
+            "group": "Dreamy",
+            "explanation": "Sound that seems to be coming from far away, creating a sense of space or remoteness, often imbued with a sense of nostalgia or detachment.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 61
     },
     {
-        "fields" : {
-            "tag" : "drip",
-            "group" : "Natural" ,
-            "explanation" : "The sound of liquid falling drop by drop, often repetitive and rhythmic, associated with water or rain, can be soothing or monotonous depending on the context." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "dreamy",
+            "group": "Dreamy",
+            "explanation": "An evasive and beautiful sound prone to floating and escaping.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 62
     },
     {
-        "fields" : {
-            "tag" : "drone",
-            "group" : "Continuous" ,
-            "explanation" : "A low continuous noise" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "drip",
+            "group": "Natural",
+            "explanation": "The sound of liquid falling drop by drop, often repetitive and rhythmic, associated with water or rain, can be soothing or monotonous depending on the context.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 63
     },
     {
-        "fields" : {
-            "tag" : "droning",
-            "group" : "Continuous" ,
-            "explanation" : "A continuous, low hum or buzz, often monotonous and lacking in variation, sometimes inducing a hypnotic or soporific effect." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "drone",
+            "group": "Continuous",
+            "explanation": "A low continuous noise",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 64
     },
     {
-        "fields" : {
-            "tag" : "drumming",
-            "group" : "Rhythmic" ,
-            "explanation" : "The sound produced by striking a drum or similar surface, characterized by rhythm and repetition, often energetic or martial in nature." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "droning",
+            "group": "Continuous",
+            "explanation": "A continuous, low hum or buzz, often monotonous and lacking in variation, sometimes inducing a hypnotic or soporific effect.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 65
     },
     {
-        "fields" : {
-            "tag" : "dry",
-            "group" : "General" ,
-            "explanation" : "Sound that lacks reverberation or echo, often resulting in a flat or stark auditory experience, typically associated with clarity and directness." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "drumming",
+            "group": "Rhythmic",
+            "explanation": "The sound produced by striking a drum or similar surface, characterized by rhythm and repetition, often energetic or martial in nature.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 66
     },
     {
-        "fields" : {
-            "tag" : "dulcet",
-            "group" : "Pleasing" ,
-            "explanation" : "Soft and pleasant" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "dry",
+            "group": "General",
+            "explanation": "Sound that lacks reverberation or echo, often resulting in a flat or stark auditory experience, typically associated with clarity and directness.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 67
     },
     {
-        "fields" : {
-            "tag" : "dull",
-            "group" : "Noisy" ,
-            "explanation" : "Lacking in sharpness or intensity, often monotonous or uninspiring, characterized by a lack of vibrancy or excitement." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "dulcet",
+            "group": "Pleasing",
+            "explanation": "Soft and pleasant",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 68
     },
     {
-        "fields" : {
-            "tag" : "dynamic",
-            "group" : "Dynamic" ,
-            "explanation" : "Refers to variations in loudness or intensity within a piece of music or sound, contributing to its expressiveness and emotional impact." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "dull",
+            "group": "Noisy",
+            "explanation": "Lacking in sharpness or intensity, often monotonous or uninspiring, characterized by a lack of vibrancy or excitement.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 69
     },
     {
-        "fields" : {
-            "tag" : "echo",
-            "group" : "Dreamy" ,
-            "explanation" : "The repetition of a sound caused by the reflection of sound waves from a surface, creating a sense of space and depth, often associated with emptiness or vastness." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "dynamic",
+            "group": "Dynamic",
+            "explanation": "Refers to variations in loudness or intensity within a piece of music or sound, contributing to its expressiveness and emotional impact.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 70
     },
     {
-        "fields" : {
-            "tag" : "elegant",
-            "group" : "Pleasing" ,
-            "explanation" : "Sound that is graceful and refined in quality, often characterized by simplicity and tastefulness, creating a sense of beauty and sophistication." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "echo",
+            "group": "Dreamy",
+            "explanation": "The repetition of a sound caused by the reflection of sound waves from a surface, creating a sense of space and depth, often associated with emptiness or vastness.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 71
     },
     {
-        "fields" : {
-            "tag" : "ethereal",
-            "group" : "Dreamy" ,
-            "explanation" : "Extremely delicate and light in a way that seems not to be of this world." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "elegant",
+            "group": "Pleasing",
+            "explanation": "Sound that is graceful and refined in quality, often characterized by simplicity and tastefulness, creating a sense of beauty and sophistication.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 72
     },
     {
-        "fields" : {
-            "tag" : "emotive",
-            "group" : "Expressive" ,
-            "explanation" : "Sound that evokes emotions or feelings, often rich in expression and capable of conveying a wide range of emotional states." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "ethereal",
+            "group": "Dreamy",
+            "explanation": "Extremely delicate and light in a way that seems not to be of this world.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 73
     },
     {
-        "fields" : {
-            "tag" : "erratic",
-            "group" : "Chaotic" ,
-            "explanation" : "Sound that is irregular or unpredictable in their rhythm or intensity, often creating a sense of instability or unpredictability." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "emotive",
+            "group": "Expressive",
+            "explanation": "Sound that evokes emotions or feelings, often rich in expression and capable of conveying a wide range of emotional states.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 74
     },
     {
-        "fields" : {
-            "tag" : "evocative",
-            "group" : "Expressive" ,
-            "explanation" : "Sound that provokes strong images, memories, or emotions, often rich in emotional resonance and capable of transporting the listener to different times or places." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "energizing",
+            "group": "Energizing",
+            "explanation": "A sound full on energy and power.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 75
     },
     {
-        "fields" : {
-            "tag" : "explosive",
-            "group" : "Loud" ,
-            "explanation" : "Sound characterized by suddenness and force, often loud and impactful, akin to an explosion, conveying a sense of energy and intensity." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "erratic",
+            "group": "Chaotic",
+            "explanation": "Sound that is irregular or unpredictable in their rhythm or intensity, often creating a sense of instability or unpredictability.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 76
     },
     {
-        "fields" : {
-            "tag" : "expressive",
-            "group" : "Expressive" ,
-            "explanation" : "Refers to sounds that effectively convey emotions or feelings, showcasing a wide range of dynamics, timbres, and articulations to communicate specific emotional states or ideas." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "evocative",
+            "group": "Expressive",
+            "explanation": "Sound that provokes strong images, memories, or emotions, often rich in emotional resonance and capable of transporting the listener to different times or places.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 77
     },
     {
-        "fields" : {
-            "tag" : "exquisite",
-            "group" : "Pleasing" ,
-            "explanation" : "Sound of exceptional beauty or delicacy, often finely nuanced and capable of eliciting deep appreciation for their refined quality." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "explosive",
+            "group": "Loud",
+            "explanation": "Sound characterized by suddenness and force, often loud and impactful, akin to an explosion, conveying a sense of energy and intensity.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 78
     },
     {
-        "fields" : {
-            "tag" : "fade in",
-            "group" : "Dynamic" ,
-            "explanation" : "The gradual increase in volume or presence of a sound, used to smoothly introduce a sound or element into a mix, creating a sense of emergence or gradual arrival." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "expressive",
+            "group": "Expressive",
+            "explanation": "Refers to sounds that effectively convey emotions or feelings, showcasing a wide range of dynamics, timbres, and articulations to communicate specific emotional states or ideas.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 79
     },
     {
-        "fields" : {
-            "tag" : "fade out",
-            "group" : "Dynamic" ,
-            "explanation" : "The gradual decrease in volume or presence, leading to silence or the background, often used to conclude a piece or transition smoothly between elements." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "exquisite",
+            "group": "Pleasing",
+            "explanation": "Sound of exceptional beauty or delicacy, often finely nuanced and capable of eliciting deep appreciation for their refined quality.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 80
     },
     {
-        "fields" : {
-            "tag" : "fast",
-            "group" : "Rhythmic" ,
-            "explanation" : "Describes sounds or tempos that are quick in pace, often associated with energy, urgency, or excitement." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "fade in",
+            "group": "Dynamic",
+            "explanation": "The gradual increase in volume or presence of a sound, used to smoothly introduce a sound or element into a mix, creating a sense of emergence or gradual arrival.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 81
     },
     {
-        "fields" : {
-            "tag" : "feeling",
-            "group" : "Expressive" ,
-            "explanation" : "A broad category referring to sounds that convey or evoke emotional responses, emphasizing the affective impact of music or soundscapes." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "fade out",
+            "group": "Dynamic",
+            "explanation": "The gradual decrease in volume or presence, leading to silence or the background, often used to conclude a piece or transition smoothly between elements.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 82
     },
     {
-        "fields" : {
-            "tag" : "fizz",
-            "group" : "Pleasing" ,
-            "explanation" : "A soft sound that small gas bubbles make when they burst" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "fast",
+            "group": "Rhythmic",
+            "explanation": "Describes sounds or tempos that are quick in pace, often associated with energy, urgency, or excitement.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 83
     },
     {
-        "fields" : {
-            "tag" : "forceful",
-            "group" : "Loud" ,
-            "explanation" : "Sound that has a strong impact or intensity, often commanding attention with their power and assertiveness." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "feeling",
+            "group": "Expressive",
+            "explanation": "A broad category referring to sounds that convey or evoke emotional responses, emphasizing the affective impact of music or soundscapes.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 84
     },
     {
-        "fields" : {
-            "tag" : "fragmented",
-            "group" : "Chaotic" ,
-            "explanation" : "Sound that appears broken or incomplete, characterized by abrupt changes or discontinuities, often creating a sense of fragmentation or disjointedness." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "fizz",
+            "group": "Pleasing",
+            "explanation": "A soft sound that small gas bubbles make when they burst",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 85
     },
     {
-        "fields" : {
-            "tag" : "frantic",
-            "group" : "Noisy" ,
-            "explanation" : "Rapid and frenzied sounds, often chaotic and marked by a high level of activity or agitation, conveying a sense of urgency or hysteria." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "forceful",
+            "group": "Loud",
+            "explanation": "Sound that has a strong impact or intensity, often commanding attention with their power and assertiveness.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 86
     },
     {
-        "fields" : {
-            "tag" : "full",
-            "group" : "Rich" ,
-            "explanation" : "Sound that is complete and well-rounded, often characterized by depth, complexity, and a satisfying sense of completeness or wholeness." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "fragmented",
+            "group": "Chaotic",
+            "explanation": "Sound that appears broken or incomplete, characterized by abrupt changes or discontinuities, often creating a sense of fragmentation or disjointedness.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 87
     },
     {
-        "fields" : {
-            "tag" : "graceful",
-            "group" : "Pleasing" ,
-            "explanation" : "Sound that moves smoothly and elegantly, often with a sense of ease and refinement, conveying beauty and fluidity." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "frantic",
+            "group": "Noisy",
+            "explanation": "Rapid and frenzied sounds, often chaotic and marked by a high level of activity or agitation, conveying a sense of urgency or hysteria.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 88
     },
     {
-        "fields" : {
-            "tag" : "grinding",
-            "group" : "Harsh" ,
-            "explanation" : "A rough, abrasive sound, akin to the noise produced by friction between hard surfaces, often perceived as grating or unpleasant." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "full",
+            "group": "Rich",
+            "explanation": "Sound that is complete and well-rounded, often characterized by depth, complexity, and a satisfying sense of completeness or wholeness.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 89
     },
     {
-        "fields" : {
-            "tag" : "groan",
-            "group" : "Expressive" ,
-            "explanation" : "A low, mournful sound typically expressing pain, despair, or pleasure, often deep and resonant, conveying a strong emotional content." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "graceful",
+            "group": "Pleasing",
+            "explanation": "Sound that moves smoothly and elegantly, often with a sense of ease and refinement, conveying beauty and fluidity.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 90
     },
     {
-        "fields" : {
-            "tag" : "groaning",
-            "group" : "Expressive" ,
-            "explanation" : "Similar to groan, emphasizing a prolonged or repeated expression of discomfort or despair, often evocative and deeply emotional." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "grinding",
+            "group": "Harsh",
+            "explanation": "A rough, abrasive sound, akin to the noise produced by friction between hard surfaces, often perceived as grating or unpleasant.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 91
     },
     {
-        "fields" : {
-            "tag" : "growing",
-            "group" : "Dynamic" ,
-            "explanation" : "Sound that increases in volume, intensity, or presence, often used to convey a sense of development or escalation." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "groan",
+            "group": "Expressive",
+            "explanation": "A low, mournful sound typically expressing pain, despair, or pleasure, often deep and resonant, conveying a strong emotional content.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 92
     },
     {
-        "fields" : {
-            "tag" : "growl",
-            "group" : "Noisy" ,
-            "explanation" : "A low, unpleasant noise" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "groaning",
+            "group": "Expressive",
+            "explanation": "Similar to groan, emphasizing a prolonged or repeated expression of discomfort or despair, often evocative and deeply emotional.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 93
     },
     {
-        "fields" : {
-            "tag" : "grunt",
-            "group" : "Short" ,
-            "explanation" : "A short low sound in your throat and nose at the same time" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "growing",
+            "group": "Dynamic",
+            "explanation": "Sound that increases in volume, intensity, or presence, often used to convey a sense of development or escalation.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 94
     },
     {
-        "fields" : {
-            "tag" : "gurgle",
-            "group" : "Natural" ,
-            "explanation" : "The low sound water makes when it is poured quickly from a bottle" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "growl",
+            "group": "Noisy",
+            "explanation": "A low, unpleasant noise",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 95
     },
     {
-        "fields" : {
-            "tag" : "harmonic",
-            "group" : "Pleasing" ,
-            "explanation" : "Sound that is musically consonant, characterized by harmonies that are agreeable and pleasing to the ear, often rich and melodious." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "grunt",
+            "group": "Short",
+            "explanation": "A short low sound in your throat and nose at the same time",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 96
     },
     {
-        "fields" : {
-            "tag" : "haunting",
-            "group" : "Expressive" ,
-            "explanation" : "Sound that lingers in the memory, often eerie or melancholic, creating a lasting emotional impact through their atmospheric quality." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "gurgle",
+            "group": "Natural",
+            "explanation": "The low sound water makes when it is poured quickly from a bottle",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 97
     },
     {
-        "fields" : {
-            "tag" : "heavy",
-            "group" : "Loud" ,
-            "explanation" : "Sound with a sense of weight or depth, often characterized by low frequencies or a powerful impact, conveying a sense of seriousness or intensity." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "harmonic",
+            "group": "Pleasing",
+            "explanation": "Sound that is musically consonant, characterized by harmonies that are agreeable and pleasing to the ear, often rich and melodious.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 98
     },
     {
-        "fields" : {
-            "tag" : "hiss",
-            "group" : "Noisy" ,
-            "explanation" : "A sharp, sibilant sound similar to that of steam or a snake, often associated with leakage, pressure, or the sound of recording noise, typically unpleasant or distracting." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "harsh",
+            "group": "Harsh",
+            "explanation": "Sound that is hard to listen to, abrasive or shrill.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 99
     },
     {
-        "fields" : {
-            "tag" : "hollow",
-            "group" : "General" ,
-            "explanation" : "Sound that lacks depth or richness, often characterized by a sense of emptiness or void, conveying a lack of substance or fullness." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "haunting",
+            "group": "Expressive",
+            "explanation": "Sound that lingers in the memory, often eerie or melancholic, creating a lasting emotional impact through their atmospheric quality.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 100
     },
     {
-        "fields" : {
-            "tag" : "honk",
-            "group" : "Loud" ,
-            "explanation" : "A loud noise using a horn, especially the horn of a car" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "heavy",
+            "group": "Heavy",
+            "explanation": "Sound with a sense of weight or depth, often characterized by low frequencies or a powerful impact, conveying a sense of seriousness or intensity.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 101
     },
     {
-        "fields" : {
-            "tag" : "hoot",
-            "group" : "Loud" ,
-            "explanation" : "A short loud sound as a warning" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "hiss",
+            "group": "Noisy",
+            "explanation": "A sharp, sibilant sound similar to that of steam or a snake, often associated with leakage, pressure, or the sound of recording noise, typically unpleasant or distracting.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 102
     },
     {
-        "fields" : {
-            "tag" : "howl",
-            "group" : "Expressive" ,
-            "explanation" : "A long, loud, doleful sound made by an animal or a person, conveying a sense of sorrow, pain, or desolation." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "high",
+            "group": "High",
+            "explanation": "A sound with a high pitch.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 103
     },
     {
-        "fields" : {
-            "tag" : "howling",
-            "group" : "Loud" ,
-            "explanation" : "A continuous, low, loud noise" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "hollow",
+            "group": "General",
+            "explanation": "Sound that lacks depth or richness, often characterized by a sense of emptiness or void, conveying a lack of substance or fullness.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 104
     },
     {
-        "fields" : {
-            "tag" : "hum",
-            "group" : "Continuous" ,
-            "explanation" : "A low, steady continuous sound, like that made by machinery or by people singing with closed lips, often soothing or monotonous." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "honk",
+            "group": "Loud",
+            "explanation": "A loud noise using a horn, especially the horn of a car",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 105
     },
     {
-        "fields" : {
-            "tag" : "hushed",
-            "group" : "Quiet" ,
-            "explanation" : "A Sound that is quiet or subdued, often marked by a whisper or a soft tone, conveying a sense of calm, secrecy, or intimacy." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "hoot",
+            "group": "Loud",
+            "explanation": "A short loud sound as a warning",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 106
     },
     {
-        "fields" : {
-            "tag" : "hypnotic",
-            "group" : "Dreamy" ,
-            "explanation" : "Sound that induces a trance-like state, often repetitive or mesmerizing, leading to a sense of relaxation or focused attention." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "howl",
+            "group": "Expressive",
+            "explanation": "A long, loud, doleful sound made by an animal or a person, conveying a sense of sorrow, pain, or desolation.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 107
     },
     {
-        "fields" : {
-            "tag" : "impact",
-            "group" : "Loud" ,
-            "explanation" : "Sound characterized by force or a strong effect, often sudden and powerful, conveying a sense of collision or dramatic effect." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "howling",
+            "group": "Loud",
+            "explanation": "A continuous, low, loud noise",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 108
     },
     {
-        "fields" : {
-            "tag" : "industrial",
-            "group" : "Harsh" ,
-            "explanation" : "Sound associated with machinery, factories, or industrial processes, often mechanical, repetitive, and lacking in musicality, typically harsh or noisy." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "hum",
+            "group": "Continuous",
+            "explanation": "A low, steady continuous sound, like that made by machinery or by people singing with closed lips, often soothing or monotonous.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 109
     },
     {
-        "fields" : {
-            "tag" : "insistent",
-            "group" : "Loud" ,
-            "explanation" : "A continuous, loud, strong noise" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "hushed",
+            "group": "Quiet",
+            "explanation": "A Sound that is quiet or subdued, often marked by a whisper or a soft tone, conveying a sense of calm, secrecy, or intimacy.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 110
     },
     {
-        "fields" : {
-            "tag" : "instrumental",
-            "group" : "General" ,
-            "explanation" : "Sound that is produced by instruments, without vocal accompaniment, focusing on musical instruments' sounds and interactions." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "hypnotic",
+            "group": "Dreamy",
+            "explanation": "Sound that induces a trance-like state, often repetitive or mesmerizing, leading to a sense of relaxation or focused attention.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 111
     },
     {
-        "fields" : {
-            "tag" : "intense",
-            "group" : "Loud" ,
-            "explanation" : "Sound that is powerful and deeply felt, often characterized by a high level of energy or emotional impact, commanding attention." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "impact",
+            "group": "Loud",
+            "explanation": "Sound characterized by force or a strong effect, often sudden and powerful, conveying a sense of collision or dramatic effect.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 112
     },
     {
-        "fields" : {
-            "tag" : "invigorating",
-            "group" : "Energizing" ,
-            "explanation" : "Sound that stimulates energy and vitality, often lively and refreshing, inspiring action or a heightened state of awareness." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "industrial",
+            "group": "Harsh",
+            "explanation": "Sound associated with machinery, factories, or industrial processes, often mechanical, repetitive, and lacking in musicality, typically harsh or noisy.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 113
     },
     {
-        "fields" : {
-            "tag" : "irregular",
-            "group" : "Chaotic" ,
-            "explanation" : "Sound that lacks a consistent pattern or rhythm, often unpredictable or erratic, leading to a sense of instability or unpredictability." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "insistent",
+            "group": "Loud",
+            "explanation": "A continuous, loud, strong noise",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 114
     },
     {
-        "fields" : {
-            "tag" : "jarring",
-            "group" : "Harsh" ,
-            "explanation" : "Sound that is shockingly discordant or unpleasant, often causing a sense of disturbance or discomfort due to their abruptness or dissonance." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "instrumental",
+            "group": "General",
+            "explanation": "Sound that is produced by instruments, without vocal accompaniment, focusing on musical instruments' sounds and interactions.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 115
     },
     {
-        "fields" : {
-            "tag" : "jingle",
-            "group" : "Light" ,
-            "explanation" : "A short, catchy sound or tune, often light and melodious, designed to be easily remembered, typically associated with advertisements or simple melodies." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "intense",
+            "group": "Loud",
+            "explanation": "Sound that is powerful and deeply felt, often characterized by a high level of energy or emotional impact, commanding attention.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 116
     },
     {
-        "fields" : {
-            "tag" : "knocking",
-            "group" : "Noisy" ,
-            "explanation" : "A sharp sound produced by hitting a surface, often repetitive and indicating a demand for attention, potentially unsettling or alarming." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "invigorating",
+            "group": "Energizing",
+            "explanation": "Sound that stimulates energy and vitality, often lively and refreshing, inspiring action or a heightened state of awareness.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 117
     },
     {
-        "fields" : {
-            "tag" : "layered",
-            "group" : "Complex" ,
-            "explanation" : "Sound composed of multiple layers or elements, often creating a rich and textured auditory experience, showcasing depth and complexity." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "irregular",
+            "group": "Chaotic",
+            "explanation": "Sound that lacks a consistent pattern or rhythm, often unpredictable or erratic, leading to a sense of instability or unpredictability.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 118
     },
     {
-        "fields" : {
-            "tag" : "lilting",
-            "group" : "Pleasing" ,
-            "explanation" : "A sound that has a rising and falling pattern" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "jarring",
+            "group": "Harsh",
+            "explanation": "Sound that is shockingly discordant or unpleasant, often causing a sense of disturbance or discomfort due to their abruptness or dissonance.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 119
     },
     {
-        "fields" : {
-            "tag" : "listenable",
-            "group" : "Pleasing" ,
-            "explanation" : "Easy to listen to" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "jingle",
+            "group": "Light",
+            "explanation": "A short, catchy sound or tune, often light and melodious, designed to be easily remembered, typically associated with advertisements or simple melodies.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 120
     },
     {
-        "fields" : {
-            "tag" : "lively",
-            "group" : "Energizing" ,
-            "explanation" : "Sound that is full of life and energy, often upbeat and vibrant, conveying a sense of joy, excitement, or spiritedness." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "knocking",
+            "group": "Noisy",
+            "explanation": "A sharp sound produced by hitting a surface, often repetitive and indicating a demand for attention, potentially unsettling or alarming.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 121
     },
     {
-        "fields" : {
-            "tag" : "loud",
-            "group" : "Noisy" ,
-            "explanation" : "Sound characterized by a high volume, often powerful and capable of being easily heard, potentially overwhelming or attention-grabbing." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "layered",
+            "group": "Complex",
+            "explanation": "Sound composed of multiple layers or elements, often creating a rich and textured auditory experience, showcasing depth and complexity.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 122
     },
     {
-        "fields" : {
-            "tag" : "lush",
-            "group" : "Rich" ,
-            "explanation" : "Sound that is dense and filled with layers, often creating a sense of luxurious or opulent auditory experience, marked by richness and depth." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "light",
+            "group": "Light",
+            "explanation": "A sound that is short or non-invasive, often pleasing.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 123
     },
     {
-        "fields" : {
-            "tag" : "mellow",
-            "group" : "Pleasing" ,
-            "explanation" : "A soft, smooth, pleasant sound" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "lilting",
+            "group": "Pleasing",
+            "explanation": "A sound that has a rising and falling pattern",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 124
     },
     {
-        "fields" : {
-            "tag" : "melodic",
-            "group" : "Pleasing" ,
-            "explanation" : "Sound characterized by a pleasing sequence of notes forming a melody, often tuneful and easy to remember, creating a sense of harmony and beauty." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "listenable",
+            "group": "Pleasing",
+            "explanation": "Easy to listen to",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 125
     },
     {
-        "fields" : {
-            "tag" : "mewl",
-            "group" : "Pleasing" ,
-            "explanation" : "Crying with a soft, high sound" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "lively",
+            "group": "Energizing",
+            "explanation": "Sound that is full of life and energy, often upbeat and vibrant, conveying a sense of joy, excitement, or spiritedness.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 126
     },
     {
-        "fields" : {
-            "tag" : "midrange",
-            "group" : "General" ,
-            "explanation" : "Sound that falls within the middle range of the auditory spectrum, neither high nor low, often crucial for understanding speech and music's harmonic content." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "loud",
+            "group": "Noisy",
+            "explanation": "Sound characterized by a high volume, often powerful and capable of being easily heard, potentially overwhelming or attention-grabbing.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 127
     },
     {
-        "fields" : {
-            "tag" : "moan",
-            "group" : "Continuous" ,
-            "explanation" : "A long, low sound" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "lush",
+            "group": "Rich",
+            "explanation": "Sound that is dense and filled with layers, often creating a sense of luxurious or opulent auditory experience, marked by richness and depth.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 128
     },
     {
-        "fields" : {
-            "tag" : "monotonic",
-            "group" : "Noisy" ,
-            "explanation" : "Sound characterized by a lack of variation in tone or pitch, often monotonous and dull, lacking in diversity or interest." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "mellow",
+            "group": "Pleasing",
+            "explanation": "A soft, smooth, pleasant sound",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 129
     },
     {
-        "fields" : {
-            "tag" : "monotonous",
-            "group" : "Continuous" ,
-            "explanation" : "A sound that is always the same and never gets louder or quieter, or higher or lower" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "melodic",
+            "group": "Pleasing",
+            "explanation": "Sound characterized by a pleasing sequence of notes forming a melody, often tuneful and easy to remember, creating a sense of harmony and beauty.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 130
     },
     {
-        "fields" : {
-            "tag" : "moving",
-            "group" : "Expressive" ,
-            "explanation" : "Sound that evoke a strong emotional response, often deeply affecting or stirring, capable of touching the listener's emotions." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "mewl",
+            "group": "Pleasing",
+            "explanation": "Crying with a soft, high sound",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 131
     },
     {
-        "fields" : {
-            "tag" : "muffled",
-            "group" : "Quiet" ,
-            "explanation" : "Sound that is dampened or softened, often unclear, lacking clarity." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "midrange",
+            "group": "General",
+            "explanation": "Sound that falls within the middle range of the auditory spectrum, neither high nor low, often crucial for understanding speech and music's harmonic content.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 132
     },
     {
-        "fields" : {
-            "tag" : "murmur",
-            "group" : "Quiet" ,
-            "explanation" : "A soft, indistinct sound made by a person or a group of people speaking quietly or at a distance, often conveying a sense of secrecy or subtlety." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "moan",
+            "group": "Continuous",
+            "explanation": "A long, low sound",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 133
     },
     {
-        "fields" : {
-            "tag" : "musical",
-            "group" : "Pleasing" ,
-            "explanation" : "Sound that is melodious or harmonious, often associated with music, characterized by qualities that are pleasing to the ear." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "monotonic",
+            "group": "Noisy",
+            "explanation": "Sound characterized by a lack of variation in tone or pitch, often monotonous and dull, lacking in diversity or interest.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 134
     },
     {
-        "fields" : {
-            "tag" : "mysterious",
-            "group" : "Dreamy" ,
-            "explanation" : "Sound that evokes a sense of mystery or intrigue, often ambiguous or enigmatic, creating a sense of curiosity or wonder." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "monotonous",
+            "group": "Continuous",
+            "explanation": "A sound that is always the same and never gets louder or quieter, or higher or lower",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 135
     },
     {
-        "fields" : {
-            "tag" : "natural",
-            "group" : "Natural" ,
-            "explanation" : "Sound that occurs in nature or are not produced by human-made sources, often organic and unprocessed, associated with the natural environment." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "moving",
+            "group": "Expressive",
+            "explanation": "Sound that evoke a strong emotional response, often deeply affecting or stirring, capable of touching the listener's emotions.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 136
     },
     {
-        "fields" : {
-            "tag" : "neigh",
-            "group" : "Loud" ,
-            "explanation" : "A high loud sound like a horse’s neigh" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "muffled",
+            "group": "Quiet",
+            "explanation": "Sound that is dampened or softened, often unclear, lacking clarity.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 137
     },
     {
-        "fields" : {
-            "tag" : "nimble",
-            "group" : "Light" ,
-            "explanation" : "Sound that is quick and light in movement, often characterized by agility and precision, suggesting skill and dexterity." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "murmur",
+            "group": "Quiet",
+            "explanation": "A soft, indistinct sound made by a person or a group of people speaking quietly or at a distance, often conveying a sense of secrecy or subtlety.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 138
     },
     {
-        "fields" : {
-            "tag" : "noisy",
-            "group" : "Noisy" ,
-            "explanation" : "Sound that is loud, unpleasant, or undesired, often chaotic or disruptive, lacking in musicality or harmony." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "musical",
+            "group": "Pleasing",
+            "explanation": "Sound that is melodious or harmonious, often associated with music, characterized by qualities that are pleasing to the ear.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 139
     },
     {
-        "fields" : {
-            "tag" : "nostalgic",
-            "group" : "Dreamy" ,
-            "explanation" : "Sound that evokes a longing for the past, often imbued with a sense of reminiscence or sentimentality, creating an emotional connection to memories." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "mysterious",
+            "group": "Dreamy",
+            "explanation": "Sound that evokes a sense of mystery or intrigue, often ambiguous or enigmatic, creating a sense of curiosity or wonder.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 140
     },
     {
-        "fields" : {
-            "tag" : "offbeat",
-            "group" : "Rhythmic" ,
-            "explanation" : "Sound or rhythm that is not aligned with the expected beat or standard patterns, often creating a sense of syncopation or uniqueness." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "natural",
+            "group": "Natural",
+            "explanation": "Sound that occurs in nature or are not produced by human-made sources, often organic and unprocessed, associated with the natural environment.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 141
     },
     {
-        "fields" : {
-            "tag" : "ornate",
-            "group" : "Complex" ,
-            "explanation" : "Sound that is elaborately or highly decorated, often intricate and detailed, showcasing a high level of craftsmanship or complexity." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "neigh",
+            "group": "Loud",
+            "explanation": "A high loud sound like a horse\u2019s neigh",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 142
     },
     {
-        "fields" : {
-            "tag" : "overtone",
-            "group" : "Complex" ,
-            "explanation" : "A harmonic frequency higher than a fundamental tone, adding richness and depth to sounds, often contributing to the unique timbre of an instrument or voice." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "nimble",
+            "group": "Light",
+            "explanation": "Sound that is quick and light in movement, often characterized by agility and precision, suggesting skill and dexterity.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 143
     },
     {
-        "fields" : {
-            "tag" : "peal",
-            "group" : "Loud" ,
-            "explanation" : "If a bell peals, or if someone peals it, it makes a loud sound" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "noisy",
+            "group": "Noisy",
+            "explanation": "Sound that is loud, unpleasant, or undesired, often chaotic or disruptive, lacking in musicality or harmony.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 144
     },
     {
-        "fields" : {
-            "tag" : "peep",
-            "group" : "Short" ,
-            "explanation" : "If a car’s horn peeps, it makes a sound" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "nostalgic",
+            "group": "Dreamy",
+            "explanation": "Sound that evokes a longing for the past, often imbued with a sense of reminiscence or sentimentality, creating an emotional connection to memories.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 145
     },
     {
-        "fields" : {
-            "tag" : "percussive",
-            "group" : "Sharp" ,
-            "explanation" : "A sound that is short, like someone hitting a drum" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "offbeat",
+            "group": "Rhythmic",
+            "explanation": "Sound or rhythm that is not aligned with the expected beat or standard patterns, often creating a sense of syncopation or uniqueness.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 146
     },
     {
-        "fields" : {
-            "tag" : "periodic",
-            "group" : "Rhythmic" ,
-            "explanation" : "Sound that occurs at regular intervals, exhibiting a sense of rhythm or repetition, often predictable and structured." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "ornate",
+            "group": "Complex",
+            "explanation": "Sound that is elaborately or highly decorated, often intricate and detailed, showcasing a high level of craftsmanship or complexity.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 147
     },
     {
-        "fields" : {
-            "tag" : "piercing",
-            "group" : "Harsh" ,
-            "explanation" : "A sound that is very loud, high, and unpleasant" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "overtone",
+            "group": "Complex",
+            "explanation": "A harmonic frequency higher than a fundamental tone, adding richness and depth to sounds, often contributing to the unique timbre of an instrument or voice.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 148
     },
     {
-        "fields" : {
-            "tag" : "ping",
-            "group" : "Pleasing" ,
-            "explanation" : "A short high sound like the sound of a small bell" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "peal",
+            "group": "Loud",
+            "explanation": "If a bell peals, or if someone peals it, it makes a loud sound",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 149
     },
     {
-        "fields" : {
-            "tag" : "pipe",
-            "group" : "High" ,
-            "explanation" : "A very high sound, or to speak in a very high voice" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "peep",
+            "group": "Short",
+            "explanation": "If a car\u2019s horn peeps, it makes a sound",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 150
     },
     {
-        "fields" : {
-            "tag" : "plaintive",
-            "group" : "Pleasing" ,
-            "explanation" : "A sound that has a sad quality" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "percussive",
+            "group": "Sharp",
+            "explanation": "A sound that is short, like someone hitting a drum",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 151
     },
     {
-        "fields" : {
-            "tag" : "pleasing",
-            "group" : "Pleasing" ,
-            "explanation" : "Sound that is enjoyable and pleasant to the ear, often harmonious, smooth, or melodious, creating a sense of satisfaction or enjoyment." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "periodic",
+            "group": "Rhythmic",
+            "explanation": "Sound that occurs at regular intervals, exhibiting a sense of rhythm or repetition, often predictable and structured.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 152
     },
     {
-        "fields" : {
-            "tag" : "polluted",
-            "group" : "Noisy" ,
-            "explanation" : "Metaphorically describes sounds that are cluttered or contaminated with unwanted noise, reducing the clarity or quality of the auditory environment." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "piercing",
+            "group": "Harsh",
+            "explanation": "A sound that is very loud, high, and unpleasant",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 153
     },
     {
-        "fields" : {
-            "tag" : "polyphonic",
-            "group" : "Complex" ,
-            "explanation" : "Music or sounds consisting of multiple independent melodic lines or voices, creating a rich, textured sonic tapestry, often intricate and harmonically complex." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "ping",
+            "group": "Pleasing",
+            "explanation": "A short high sound like the sound of a small bell",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 154
     },
     {
-        "fields" : {
-            "tag" : "pop",
-            "group" : "Short" ,
-            "explanation" : "A sudden noise like a small explosion" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "pipe",
+            "group": "High",
+            "explanation": "A very high sound, or to speak in a very high voice",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 155
     },
     {
-        "fields" : {
-            "tag" : "pounding",
-            "group" : "Loud" ,
-            "explanation" : "A heavy, thumping sound, often repetitive and forceful, reminiscent of a heartbeat or heavy footsteps, conveying a sense of power or urgency." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "plaintive",
+            "group": "Pleasing",
+            "explanation": "A sound that has a sad quality",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 156
     },
     {
-        "fields" : {
-            "tag" : "powerful",
-            "group" : "Loud" ,
-            "explanation" : "Sound that has a strong impact or force, conveying a sense of strength, energy, and dynamism, often emotionally moving or physically impactful." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "pleasing",
+            "group": "Pleasing",
+            "explanation": "Sound that is enjoyable and pleasant to the ear, often harmonious, smooth, or melodious, creating a sense of satisfaction or enjoyment.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 157
     },
     {
-        "fields" : {
-            "tag" : "pulsating",
-            "group" : "Rhythmic" ,
-            "explanation" : "Sound that beats or throb in a steady rhythm, often creating a sense of movement or life, reminiscent of the rhythmic pulsing of the heart or music." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "polluted",
+            "group": "Noisy",
+            "explanation": "Metaphorically describes sounds that are cluttered or contaminated with unwanted noise, reducing the clarity or quality of the auditory environment.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 158
     },
     {
-        "fields" : {
-            "tag" : "punch",
-            "group" : "Dynamic" ,
-            "explanation" : "A short, explosive sound or burst of sound, often used to describe a sudden impact or the powerful effect of music or sound." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "polyphonic",
+            "group": "Complex",
+            "explanation": "Music or sounds consisting of multiple independent melodic lines or voices, creating a rich, textured sonic tapestry, often intricate and harmonically complex.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 159
     },
     {
-        "fields" : {
-            "tag" : "pure",
-            "group" : "Pleasing" ,
-            "explanation" : "Sound that is clear, clean, beautiful and free of any distortion or unwanted noise, often associated with simplicity and beauty, producing a sense of clarity and precision." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "pop",
+            "group": "Short",
+            "explanation": "A sudden noise like a small explosion",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 160
     },
     {
-        "fields" : {
-            "tag" : "purring",
-            "group" : "Pleasing" ,
-            "explanation" : "A soft, low, continuous rumbling sound, often associated with contentment and comfort, typically produced by cats but also used to describe similar comforting sounds." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "pounding",
+            "group": "Loud",
+            "explanation": "A heavy, thumping sound, often repetitive and forceful, reminiscent of a heartbeat or heavy footsteps, conveying a sense of power or urgency.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 161
     },
     {
-        "fields" : {
-            "tag" : "putter",
-            "group" : "Continuous" ,
-            "explanation" : "A short, quiet, low sound at a slow speed" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "powerful",
+            "group": "Loud",
+            "explanation": "Sound that has a strong impact or force, conveying a sense of strength, energy, and dynamism, often emotionally moving or physically impactful.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 162
     },
     {
-        "fields" : {
-            "tag" : "quiet",
-            "group" : "Quiet" ,
-            "explanation" : "Sound that is low in volume, soft or subtle, often creating a peaceful or calm atmosphere, conducive to relaxation or contemplation." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "pulsating",
+            "group": "Rhythmic",
+            "explanation": "Sound that beats or throb in a steady rhythm, often creating a sense of movement or life, reminiscent of the rhythmic pulsing of the heart or music.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 163
     },
     {
-        "fields" : {
-            "tag" : "rapid",
-            "group" : "Short" ,
-            "explanation" : "Fast-moving sounds or sequences, often characterized by speed and agility, creating a sense of urgency or briskness." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "punch",
+            "group": "Dynamic",
+            "explanation": "A short, explosive sound or burst of sound, often used to describe a sudden impact or the powerful effect of music or sound.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 164
     },
     {
-        "fields" : {
-            "tag" : "rasp",
-            "group" : "Harsh" ,
-            "explanation" : "A rough, grating sound, often unpleasant and coarse, typically associated with friction, breathiness, or a lack of smoothness." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "pure",
+            "group": "Pleasing",
+            "explanation": "Sound that is clear, clean, beautiful and free of any distortion or unwanted noise, often associated with simplicity and beauty, producing a sense of clarity and precision.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 165
     },
     {
-        "fields" : {
-            "tag" : "rattle",
-            "group" : "Noisy" ,
-            "explanation" : "A series of short, sharp sounds made by loose objects striking against each other, often erratic and unpredictable, sometimes creating a sense of disorder or agitation." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "purring",
+            "group": "Pleasing",
+            "explanation": "A soft, low, continuous rumbling sound, often associated with contentment and comfort, typically produced by cats but also used to describe similar comforting sounds.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 166
     },
     {
-        "fields" : {
-            "tag" : "raucous",
-            "group" : "Noisy" ,
-            "explanation" : "Loud and harsh-sounding, often rowdy or disorderly, creating a boisterous or disruptive auditory experience." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "putter",
+            "group": "Continuous",
+            "explanation": "A short, quiet, low sound at a slow speed",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 167
     },
     {
-        "fields" : {
-            "tag" : "refined",
-            "group" : "Pleasing" ,
-            "explanation" : "Sound that is sophisticated and cultivated, often indicating a high level of artistry or quality, marked by elegance and subtlety." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "quiet",
+            "group": "Quiet",
+            "explanation": "Sound that is low in volume, soft or subtle, often creating a peaceful or calm atmosphere, conducive to relaxation or contemplation.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 168
     },
     {
-        "fields" : {
-            "tag" : "regular",
-            "group" : "Rhythmic" ,
-            "explanation" : "Sound that occurs at consistent intervals, displaying uniformity and predictability, often creating a sense of order and stability." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "rapid",
+            "group": "Short",
+            "explanation": "Fast-moving sounds or sequences, often characterized by speed and agility, creating a sense of urgency or briskness.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 169
     },
     {
-        "fields" : {
-            "tag" : "repetitive",
-            "group" : "Rhythmic" ,
-            "explanation" : "Sound that is repeated over and over, often leading to a monotonous or tedious auditory experience, but can also establish rhythm and pattern." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "rasp",
+            "group": "Harsh",
+            "explanation": "A rough, grating sound, often unpleasant and coarse, typically associated with friction, breathiness, or a lack of smoothness.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 170
     },
     {
-        "fields" : {
-            "tag" : "resonant",
-            "group" : "Rich" ,
-            "explanation" : "Sound that is deep, clear, and continuing to echo or vibrate, often producing a powerful and enriching auditory experience due to their full and vibrant qualities." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "rattle",
+            "group": "Noisy",
+            "explanation": "A series of short, sharp sounds made by loose objects striking against each other, often erratic and unpredictable, sometimes creating a sense of disorder or agitation.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 171
     },
     {
-        "fields" : {
-            "tag" : "resounding",
-            "group" : "Loud" ,
-            "explanation" : "A sound that is loud and that continues for a while" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "raucous",
+            "group": "Noisy",
+            "explanation": "Loud and harsh-sounding, often rowdy or disorderly, creating a boisterous or disruptive auditory experience.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 172
     },
     {
-        "fields" : {
-            "tag" : "revving",
-            "group" : "Noisy" ,
-            "explanation" : "The sound of an engine increasing in speed, often associated with power and energy, characterized by a rising pitch and intensity." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "refined",
+            "group": "Pleasing",
+            "explanation": "Sound that is sophisticated and cultivated, often indicating a high level of artistry or quality, marked by elegance and subtlety.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 173
     },
     {
-        "fields" : {
-            "tag" : "rhythmic",
-            "group" : "Rhythmic" ,
-            "explanation" : "A sound that has a clear, regular pattern" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "regular",
+            "group": "Rhythmic",
+            "explanation": "Sound that occurs at consistent intervals, displaying uniformity and predictability, often creating a sense of order and stability.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 174
     },
     {
-        "fields" : {
-            "tag" : "rich",
-            "group" : "Pleasing" ,
-            "explanation" : "Sound characterized by depth and complexity, often warm and full-bodied, providing a satisfying and layered listening experience." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "repetitive",
+            "group": "Rhythmic",
+            "explanation": "Sound that is repeated over and over, often leading to a monotonous or tedious auditory experience, but can also establish rhythm and pattern.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 175
     },
     {
-        "fields" : {
-            "tag" : "ring",
-            "group" : "Continuous" ,
-            "explanation" : "A clear, resonant sound that continues to echo, like that of a bell, often carrying a sense of clarity and persistence." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "resonant",
+            "group": "Rich",
+            "explanation": "Sound that is deep, clear, and continuing to echo or vibrate, often producing a powerful and enriching auditory experience due to their full and vibrant qualities.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 176
     },
     {
-        "fields" : {
-            "tag" : "riotous",
-            "group" : "Loud" ,
-            "explanation" : "Lively and noisy" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "resounding",
+            "group": "Loud",
+            "explanation": "A sound that is loud and that continues for a while",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 177
     },
     {
-        "fields" : {
-            "tag" : "ripple",
-            "group" : "Light" ,
-            "explanation" : "A gentle, soft sound reminiscent of small waves or undulations, often soothing and associated with water or subtle movement." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "revving",
+            "group": "Noisy",
+            "explanation": "The sound of an engine increasing in speed, often associated with power and energy, characterized by a rising pitch and intensity.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 178
     },
     {
-        "fields" : {
-            "tag" : "roar",
-            "group" : "Loud" ,
-            "explanation" : "A deep, loud, and powerful sound, like that of a lion or large crowd, conveying a sense of strength, ferocity, or overwhelming force." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "rhythmic",
+            "group": "Rhythmic",
+            "explanation": "A sound that has a clear, regular pattern",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 179
     },
     {
-        "fields" : {
-            "tag" : "roaring",
-            "group" : "Loud" ,
-            "explanation" : "A deep, loud noise" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "rich",
+            "group": "Rich",
+            "explanation": "Sound characterized by depth and complexity, often warm and full-bodied, providing a satisfying and layered listening experience.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 180
     },
     {
-        "fields" : {
-            "tag" : "rowdy",
-            "group" : "Noisy" ,
-            "explanation" : "Noisy and causing trouble" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "ring",
+            "group": "Continuous",
+            "explanation": "A clear, resonant sound that continues to echo, like that of a bell, often carrying a sense of clarity and persistence.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 181
     },
     {
-        "fields" : {
-            "tag" : "rumble",
-            "group" : "Noisy" ,
-            "explanation" : "A deep, continuous, rolling sound, often indicative of thunder, heavy machinery, or an approaching storm, conveying a sense of power or impending action." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "riotous",
+            "group": "Loud",
+            "explanation": "Lively and noisy",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 182
     },
     {
-        "fields" : {
-            "tag" : "rush",
-            "group" : "Short" ,
-            "explanation" : "A sound characterized by rapid movement, often a swishing or sweeping sound, conveying a sense of haste or urgency." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "ripple",
+            "group": "Light",
+            "explanation": "A gentle, soft sound reminiscent of small waves or undulations, often soothing and associated with water or subtle movement.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 183
     },
     {
-        "fields" : {
-            "tag" : "rustling",
-            "group" : "Light" ,
-            "explanation" : "The sound of light, soft movements, such as leaves or paper, creating a delicate and often soothing auditory texture." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "roar",
+            "group": "Loud",
+            "explanation": "A deep, loud, and powerful sound, like that of a lion or large crowd, conveying a sense of strength, ferocity, or overwhelming force.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 184
     },
     {
-        "fields" : {
-            "tag" : "scream",
-            "group" : "High-Pitched" ,
-            "explanation" : "A loud, high-pitched sound expressing fear, excitement, or anguish, often startling and conveying strong emotion." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "roaring",
+            "group": "Loud",
+            "explanation": "A deep, loud noise",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 185
     },
     {
-        "fields" : {
-            "tag" : "screech",
-            "group" : "High-Pitched" ,
-            "explanation" : "A high-pitched, piercing sound, often unpleasant and grating, typically associated with abruptness or distress." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "rowdy",
+            "group": "Noisy",
+            "explanation": "Noisy and causing trouble",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 186
     },
     {
-        "fields" : {
-            "tag" : "scrunch",
-            "group" : "Natural" ,
-            "explanation" : "A sound produced by compressing something crunchy or crinkly, offering a sense of texture and compactness." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "rumble",
+            "group": "Noisy",
+            "explanation": "A deep, continuous, rolling sound, often indicative of thunder, heavy machinery, or an approaching storm, conveying a sense of power or impending action.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 187
     },
     {
-        "fields" : {
-            "tag" : "sharp",
-            "group" : "Dynamic" ,
-            "explanation" : "Sound that is acute and well-defined, often cutting or piercing in quality, leading to a sense of clarity or intensity." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "rush",
+            "group": "Short",
+            "explanation": "A sound characterized by rapid movement, often a swishing or sweeping sound, conveying a sense of haste or urgency.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 188
     },
     {
-        "fields" : {
-            "tag" : "shriek",
-            "group" : "High-Pitched" ,
-            "explanation" : "A high-pitched, sharp sound, similar to a scream but often more urgent or terror-filled, conveying extreme emotion or reaction." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "rustling",
+            "group": "Light",
+            "explanation": "The sound of light, soft movements, such as leaves or paper, creating a delicate and often soothing auditory texture.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 189
     },
     {
-        "fields" : {
-            "tag" : "shrill",
-            "group" : "High-Pitched" ,
-            "explanation" : "A high-pitched, piercing sound, often uncomfortable to hear, characterized by its intensity and sharpness." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "scream",
+            "group": "High-Pitched",
+            "explanation": "A loud, high-pitched sound expressing fear, excitement, or anguish, often startling and conveying strong emotion.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 190
     },
     {
-        "fields" : {
-            "tag" : "sibilant",
-            "group" : "Noisy" ,
-            "explanation" : "Sound characterized by a hissing effect, such as the 's' or 'sh' sound, often associated with whispering or speech." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "screech",
+            "group": "High-Pitched",
+            "explanation": "A high-pitched, piercing sound, often unpleasant and grating, typically associated with abruptness or distress.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 191
     },
     {
-        "fields" : {
-            "tag" : "sigh",
-            "group" : "Pleasing" ,
-            "explanation" : "A long, soft, low sound" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "scrunch",
+            "group": "Natural",
+            "explanation": "A sound produced by compressing something crunchy or crinkly, offering a sense of texture and compactness.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 192
     },
     {
-        "fields" : {
-            "tag" : "sizzle",
-            "group" : "Light" ,
-            "explanation" : "A sound resembling that of something frying or burning, often associated with heat and energy, creating a sense of anticipation or action." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "sharp",
+            "group": "Sharp",
+            "explanation": "Sound that is acute and well-defined, often cutting or piercing in quality, leading to a sense of clarity or intensity.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 193
     },
     {
-        "fields" : {
-            "tag" : "sloppy",
-            "group" : "Chaotic" ,
-            "explanation" : "Sound that lacks precision or clarity, often messy or unstructured, potentially leading to a confused or muddled auditory experience." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "shriek",
+            "group": "High-Pitched",
+            "explanation": "A high-pitched, sharp sound, similar to a scream but often more urgent or terror-filled, conveying extreme emotion or reaction.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 194
     },
     {
-        "fields" : {
-            "tag" : "slow",
-            "group" : "Continuous" ,
-            "explanation" : "Sound characterized by a leisurely tempo or pace, often creating a sense of calm, relaxation, or solemnity." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "shrill",
+            "group": "High-Pitched",
+            "explanation": "A high-pitched, piercing sound, often uncomfortable to hear, characterized by its intensity and sharpness.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 195
     },
     {
-        "fields" : {
-            "tag" : "smooth",
-            "group" : "Pleasing" ,
-            "explanation" : "Sound that is even and consistent, free from harshness or abrupt changes, often soothing and easy to listen to." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "short",
+            "group": "Short",
+            "explanation": "A short-lived sound, snappy or percussive.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 196
     },
     {
-        "fields" : {
-            "tag" : "snap",
-            "group" : "Sharp" ,
-            "explanation" : "A quick, abrupt sound, like a break or crack, often indicating a sudden action or movement, marked by its brevity and sharpness." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "sibilant",
+            "group": "Noisy",
+            "explanation": "Sound characterized by a hissing effect, such as the 's' or 'sh' sound, often associated with whispering or speech.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 197
     },
     {
-        "fields" : {
-            "tag" : "snort",
-            "group" : "Noisy" ,
-            "explanation" : "A harsh sound made through the nose, often indicative of derision, amusement, or effort, characterized by its forcefulness and brevity." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "sigh",
+            "group": "Pleasing",
+            "explanation": "A long, soft, low sound",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 198
     },
     {
-        "fields" : {
-            "tag" : "soft",
-            "group" : "Quiet" ,
-            "explanation" : "Sound that is low in volume, gentle, and subdued, often creating a sense of intimacy or calm." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "sizzle",
+            "group": "Light",
+            "explanation": "A sound resembling that of something frying or burning, often associated with heat and energy, creating a sense of anticipation or action.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 199
     },
     {
-        "fields" : {
-            "tag" : "sonorous",
-            "group" : "Pleasing" ,
-            "explanation" : "A sound that is deep and strong in a pleasant way" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "sloppy",
+            "group": "Chaotic",
+            "explanation": "Sound that lacks precision or clarity, often messy or unstructured, potentially leading to a confused or muddled auditory experience.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 200
     },
     {
-        "fields" : {
-            "tag" : "soothing",
-            "group" : "Pleasing" ,
-            "explanation" : "Sound that calms or comfort, often gentle and harmonious, providing relief or relaxation." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "slow",
+            "group": "Continuous",
+            "explanation": "Sound characterized by a leisurely tempo or pace, often creating a sense of calm, relaxation, or solemnity.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 201
     },
     {
-        "fields" : {
-            "tag" : "sour",
-            "group" : "Harsh" ,
-            "explanation" : "Sound that is discordant or out of tune, often creating a sense of discomfort or unpleasantness, lacking harmony." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "smooth",
+            "group": "Pleasing",
+            "explanation": "Sound that is even and consistent, free from harshness or abrupt changes, often soothing and easy to listen to.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 202
     },
     {
-        "fields" : {
-            "tag" : "sporadic",
-            "group" : "Chaotic" ,
-            "explanation" : "Sound that occurs irregularly or intermittently, often unpredictable and lacking a consistent pattern or rhythm." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "snap",
+            "group": "Sharp",
+            "explanation": "A quick, abrupt sound, like a break or crack, often indicating a sudden action or movement, marked by its brevity and sharpness.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 203
     },
     {
-        "fields" : {
-            "tag" : "squawking",
-            "group" : "Noisy" ,
-            "explanation" : "A loud, harsh sound, often resembling that of a bird or electronic feedback, characterized by its discordant and grating quality." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "snort",
+            "group": "Noisy",
+            "explanation": "A harsh sound made through the nose, often indicative of derision, amusement, or effort, characterized by its forcefulness and brevity.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 204
     },
     {
-        "fields" : {
-            "tag" : "squeak",
-            "group" : "Short" ,
-            "explanation" : "A short, high noise" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "soft",
+            "group": "Quiet",
+            "explanation": "Sound that is low in volume, gentle, and subdued, often creating a sense of intimacy or calm.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 205
     },
     {
-        "fields" : {
-            "tag" : "squeal",
-            "group" : "High-Pitched" ,
-            "explanation" : "A long, high-pitched sound, often indicative of excitement, fear, or mechanical stress, marked by its intensity and sharpness." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "sonorous",
+            "group": "Pleasing",
+            "explanation": "A sound that is deep and strong in a pleasant way",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 206
     },
     {
-        "fields" : {
-            "tag" : "squee",
-            "group" : "High" ,
-            "explanation" : "A loud high noise because you are excited or happy" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "soothing",
+            "group": "Pleasing",
+            "explanation": "Sound that calms or comfort, often gentle and harmonious, providing relief or relaxation.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 207
     },
     {
-        "fields" : {
-            "tag" : "staccato",
-            "group" : "Sharp" ,
-            "explanation" : "A sound where each word or sound is clearly separate" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "sour",
+            "group": "Harsh",
+            "explanation": "Sound that is discordant or out of tune, often creating a sense of discomfort or unpleasantness, lacking harmony.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 208
     },
     {
-        "fields" : {
-            "tag" : "stamp",
-            "group" : "Sharp" ,
-            "explanation" : "A heavy, pounding sound made by pressing down forcefully with the foot or an object, often creating a sense of impact or authority." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "sporadic",
+            "group": "Chaotic",
+            "explanation": "Sound that occurs irregularly or intermittently, often unpredictable and lacking a consistent pattern or rhythm.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 209
     },
     {
-        "fields" : {
-            "tag" : "static",
-            "group" : "Noisy" ,
-            "explanation" : "A constant, unchanging sound, often resembling background noise or interference, lacking in variation and sometimes considered monotonous or irritating." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "squawking",
+            "group": "Noisy",
+            "explanation": "A loud, harsh sound, often resembling that of a bird or electronic feedback, characterized by its discordant and grating quality.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 210
     },
     {
-        "fields" : {
-            "tag" : "steady",
-            "group" : "Continuous" ,
-            "explanation" : "Sound that is consistent in volume, pace, or intensity, offering a sense of reliability and uniformity, often soothing or grounding." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "squeak",
+            "group": "Short",
+            "explanation": "A short, high noise",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 211
     },
     {
-        "fields" : {
-            "tag" : "supple",
-            "group" : "Pleasing" ,
-            "explanation" : "Sound that is flexible and graceful, often smooth and adaptable, conveying a sense of fluidity and ease." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "squeal",
+            "group": "High-Pitched",
+            "explanation": "A long, high-pitched sound, often indicative of excitement, fear, or mechanical stress, marked by its intensity and sharpness.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 212
     },
     {
-        "fields" : {
-            "tag" : "surreal",
-            "group" : "Dreamy" ,
-            "explanation" : "Sound that evokes a sense of the unreal or dream-like, often strange or fantastical, creating an atmosphere of otherworldliness." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "squee",
+            "group": "High",
+            "explanation": "A loud high noise because you are excited or happy",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 213
     },
     {
-        "fields" : {
-            "tag" : "sweet",
-            "group" : "Pleasing" ,
-            "explanation" : "Sound that is pleasant and melodious, often tender or charming, creating a sense of delight or affection." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "staccato",
+            "group": "Sharp",
+            "explanation": "A sound where each word or sound is clearly separate",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 214
     },
     {
-        "fields" : {
-            "tag" : "swoosh",
-            "group" : "Short" ,
-            "explanation" : "A sound made by something moving swiftly through the air, often smooth and rapid, conveying a sense of speed and motion." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "stamp",
+            "group": "Sharp",
+            "explanation": "A heavy, pounding sound made by pressing down forcefully with the foot or an object, often creating a sense of impact or authority.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 215
     },
     {
-        "fields" : {
-            "tag" : "symbolic",
-            "group" : "General" ,
-            "explanation" : "Sound that represents or suggest something else, often carrying deeper meanings or associations beyond their immediate auditory experience." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "static",
+            "group": "Noisy",
+            "explanation": "A constant, unchanging sound, often resembling background noise or interference, lacking in variation and sometimes considered monotonous or irritating.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 216
     },
     {
-        "fields" : {
-            "tag" : "tapping",
-            "group" : "Light" ,
-            "explanation" : "A soft, rhythmic sound made by hitting a surface lightly and repeatedly, often creating a sense of anticipation or rhythm." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "steady",
+            "group": "Continuous",
+            "explanation": "Sound that is consistent in volume, pace, or intensity, offering a sense of reliability and uniformity, often soothing or grounding.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 217
     },
     {
-        "fields" : {
-            "tag" : "tasteful",
-            "group" : "Pleasing" ,
-            "explanation" : "Sound that is considered appropriate and aesthetically pleasing, often marked by restraint and good judgment, appealing to refined sensibilities." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "supple",
+            "group": "Pleasing",
+            "explanation": "Sound that is flexible and graceful, often smooth and adaptable, conveying a sense of fluidity and ease.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 218
     },
     {
-        "fields" : {
-            "tag" : "tearing",
-            "group" : "Sharp" ,
-            "explanation" : "A sound made by something being ripped or torn, often abrupt and associated with destruction or separation, characterized by its intensity." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "surreal",
+            "group": "Dreamy",
+            "explanation": "Sound that evokes a sense of the unreal or dream-like, often strange or fantastical, creating an atmosphere of otherworldliness.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 219
     },
     {
-        "fields" : {
-            "tag" : "temperature",
-            "group" : "General" ,
-            "explanation" : "While not directly related to sound, the concept of temperature can metaphorically describe the warmth or coolness of a sound's tone or emotional quality." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "sweet",
+            "group": "Pleasing",
+            "explanation": "Sound that is pleasant and melodious, often tender or charming, creating a sense of delight or affection.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 220
     },
     {
-        "fields" : {
-            "tag" : "tempo",
-            "group" : "Rhythmic" ,
-            "explanation" : "The speed at which a piece of music or sound is played or heard, often dictating the rhythm and mood of the auditory experience." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "swoosh",
+            "group": "Short",
+            "explanation": "A sound made by something moving swiftly through the air, often smooth and rapid, conveying a sense of speed and motion.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 221
     },
     {
-        "fields" : {
-            "tag" : "textured",
-            "group" : "Complex" ,
-            "explanation" : "Sound that has a distinct quality or layering, often rich and detailed, providing a sense of depth and complexity to the listening experience." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "symbolic",
+            "group": "General",
+            "explanation": "Sound that represents or suggest something else, often carrying deeper meanings or associations beyond their immediate auditory experience.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 222
     },
     {
-        "fields" : {
-            "tag" : "thin",
-            "group" : "Light" ,
-            "explanation" : "Sound that lacks body or fullness, often high-pitched or weak, possibly lacking in richness or depth." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "tapping",
+            "group": "Light",
+            "explanation": "A soft, rhythmic sound made by hitting a surface lightly and repeatedly, often creating a sense of anticipation or rhythm.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 223
     },
     {
-        "fields" : {
-            "tag" : "thrum",
-            "group" : "Continuous" ,
-            "explanation" : "A soft, humming sound, often repetitive and rhythmic, creating a sense of gentle movement or vibration." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "tasteful",
+            "group": "Pleasing",
+            "explanation": "Sound that is considered appropriate and aesthetically pleasing, often marked by restraint and good judgment, appealing to refined sensibilities.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 224
     },
     {
-        "fields" : {
-            "tag" : "thud",
-            "group" : "Heavy" ,
-            "explanation" : "A dull sound when falling or hitting something" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "tearing",
+            "group": "Sharp",
+            "explanation": "A sound made by something being ripped or torn, often abrupt and associated with destruction or separation, characterized by its intensity.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 225
     },
     {
-        "fields" : {
-            "tag" : "thump",
-            "group" : "Heavy" ,
-            "explanation" : "Similar to a thud, a deep, dull sound made by a heavy object striking a surface, conveying a sense of solidity and force." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "temperature",
+            "group": "General",
+            "explanation": "While not directly related to sound, the concept of temperature can metaphorically describe the warmth or coolness of a sound's tone or emotional quality.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 226
     },
     {
-        "fields" : {
-            "tag" : "thunderous",
-            "group" : "Loud" ,
-            "explanation" : "Extremely loud and powerful sounds, reminiscent of thunder, often conveying a sense of awe or overwhelming force." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "tempo",
+            "group": "Rhythmic",
+            "explanation": "The speed at which a piece of music or sound is played or heard, often dictating the rhythm and mood of the auditory experience.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 227
     },
     {
-        "fields" : {
-            "tag" : "tick",
-            "group" : "Light" ,
-            "explanation" : "A light, repetitive sound, like that of a clock, often indicating the passage of time, marked by its consistency and regularity." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "textured",
+            "group": "Complex",
+            "explanation": "Sound that has a distinct quality or layering, often rich and detailed, providing a sense of depth and complexity to the listening experience.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 228
     },
     {
-        "fields" : {
-            "tag" : "tinge",
-            "group" : "General" ,
-            "explanation" : "A slight trace of a feeling or quality in a sound, often suggesting a subtle addition or flavor that modifies the overall perception." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "thin",
+            "group": "Light",
+            "explanation": "Sound that lacks body or fullness, often high-pitched or weak, possibly lacking in richness or depth.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 229
     },
     {
-        "fields" : {
-            "tag" : "tinkle",
-            "group" : "Pleasing" ,
-            "explanation" : "A high, ringing sound" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "thrum",
+            "group": "Continuous",
+            "explanation": "A soft, humming sound, often repetitive and rhythmic, creating a sense of gentle movement or vibration.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 230
     },
     {
-        "fields" : {
-            "tag" : "toneless",
-            "group" : "General" ,
-            "explanation" : "Sound that lacks musical quality or variations in pitch, often perceived as monotonous or dull, lacking in expressiveness." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "thud",
+            "group": "Heavy",
+            "explanation": "A dull sound when falling or hitting something",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 231
     },
     {
-        "fields" : {
-            "tag" : "treble",
-            "group" : "High-Pitched" ,
-            "explanation" : "Sound that is high in pitch, often bright and sharp, contrasting with lower-pitched bass sounds." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "thump",
+            "group": "Heavy",
+            "explanation": "Similar to a thud, a deep, dull sound made by a heavy object striking a surface, conveying a sense of solidity and force.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 232
     },
     {
-        "fields" : {
-            "tag" : "tumultuous",
-            "group" : "Loud" ,
-            "explanation" : "A sound that includes noise, excitement, activity, or violence" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "thunderous",
+            "group": "Loud",
+            "explanation": "Extremely loud and powerful sounds, reminiscent of thunder, often conveying a sense of awe or overwhelming force.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 233
     },
     {
-        "fields" : {
-            "tag" : "tuned",
-            "group" : "General" ,
-            "explanation" : "Adjusted to the correct pitch or frequency, allowing them to produce notes in harmony with others." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "tick",
+            "group": "Light",
+            "explanation": "A light, repetitive sound, like that of a clock, often indicating the passage of time, marked by its consistency and regularity.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 234
     },
     {
-        "fields" : {
-            "tag" : "tuneless",
-            "group" : "General" ,
-            "explanation" : "Sound that lacks a clear melody or harmony, often perceived as discordant or lacking in musical structure, creating a sense of randomness or absence of tune." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "tinge",
+            "group": "General",
+            "explanation": "A slight trace of a feeling or quality in a sound, often suggesting a subtle addition or flavor that modifies the overall perception.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 235
     },
     {
-        "fields" : {
-            "tag" : "twang",
-            "group" : "Sharp" ,
-            "explanation" : "A sharp, vibrating sound, often associated with strings being plucked or the accent in spoken voice, characterized by its resonance and slight nasal quality." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "tinkle",
+            "group": "Pleasing",
+            "explanation": "A high, ringing sound",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 236
     },
     {
-        "fields" : {
-            "tag" : "unending",
-            "group" : "Continuous" ,
-            "explanation" : "Sound that seems to go on without stopping, creating a sense of infinity or ceaselessness, often contributing to a feeling of monotony or eternity." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "toneless",
+            "group": "General",
+            "explanation": "Sound that lacks musical quality or variations in pitch, often perceived as monotonous or dull, lacking in expressiveness.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 237
     },
     {
-        "fields" : {
-            "tag" : "uniform",
-            "group" : "Continuous" ,
-            "explanation" : "Sound that is the same in all instances or occurrences, marked by a lack of variation in tone, pitch, or intensity, offering a sense of stability and consistency." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "treble",
+            "group": "High-Pitched",
+            "explanation": "Sound that is high in pitch, often bright and sharp, contrasting with lower-pitched bass sounds.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 238
     },
     {
-        "fields" : {
-            "tag" : "unmusical",
-            "group" : "General" ,
-            "explanation" : "Sound that lacks musical qualities such as melody, harmony, or rhythm, often perceived as noise rather than music, lacking in aesthetic appeal." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "tumultuous",
+            "group": "Loud",
+            "explanation": "A sound that includes noise, excitement, activity, or violence",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 239
     },
     {
-        "fields" : {
-            "tag" : "unpredictable",
-            "group" : "Chaotic" ,
-            "explanation" : "Sound that changes unexpectedly, lacking a consistent pattern or rhythm, often creating a sense of surprise or uncertainty." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "tuned",
+            "group": "General",
+            "explanation": "Adjusted to the correct pitch or frequency, allowing them to produce notes in harmony with others.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 240
     },
     {
-        "fields" : {
-            "tag" : "uproarious",
-            "group" : "Loud" ,
-            "explanation" : "Extremely noisy" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "tuneless",
+            "group": "General",
+            "explanation": "Sound that lacks a clear melody or harmony, often perceived as discordant or lacking in musical structure, creating a sense of randomness or absence of tune.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 241
     },
     {
-        "fields" : {
-            "tag" : "wail",
-            "group" : "High-Pitched" ,
-            "explanation" : "A long, high-pitched cry or sound, often expressing grief, pain, or despair, marked by its emotional intensity and sustained pitch." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "twang",
+            "group": "Sharp",
+            "explanation": "A sharp, vibrating sound, often associated with strings being plucked or the accent in spoken voice, characterized by its resonance and slight nasal quality.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 242
     },
     {
-        "fields" : {
-            "tag" : "warm",
-            "group" : "Pleasing" ,
-            "explanation" : "Sound that is rich, full-bodied, and comforting, often associated with a sense of closeness, intimacy, or emotional warmth, typically pleasant and inviting." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "unending",
+            "group": "Continuous",
+            "explanation": "Sound that seems to go on without stopping, creating a sense of infinity or ceaselessness, often contributing to a feeling of monotony or eternity.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 243
     },
     {
-        "fields" : {
-            "tag" : "wheeze",
-            "group" : "Continuous" ,
-            "explanation" : "A high sound, as though a lot of air is being pushed through it" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "uniform",
+            "group": "Continuous",
+            "explanation": "Sound that is the same in all instances or occurrences, marked by a lack of variation in tone, pitch, or intensity, offering a sense of stability and consistency.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 244
     },
     {
-        "fields" : {
-            "tag" : "whine",
-            "group" : "High-Pitched" ,
-            "explanation" : "A high-pitched, complaining sound, often grating or nagging, characterized by its persistence and discomforting effect." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "unmusical",
+            "group": "General",
+            "explanation": "Sound that lacks musical qualities such as melody, harmony, or rhythm, often perceived as noise rather than music, lacking in aesthetic appeal.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 245
     },
     {
-        "fields" : {
-            "tag" : "whirr",
-            "group" : "Continuous" ,
-            "explanation" : "A fast, low, repeated, continuous and quiet sound, often associated with the operation of machinery or electronics, characterized by its smooth, humming quality." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "unpredictable",
+            "group": "Chaotic",
+            "explanation": "Sound that changes unexpectedly, lacking a consistent pattern or rhythm, often creating a sense of surprise or uncertainty.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 246
     },
     {
-        "fields" : {
-            "tag" : "whisper",
-            "group" : "Quiet" ,
-            "explanation" : "A soft, quiet, hushed, gentle sound" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "uproarious",
+            "group": "Loud",
+            "explanation": "Extremely noisy",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 247
     },
     {
-        "fields" : {
-            "tag" : "whistle",
-            "group" : "High" ,
-            "explanation" : "A high sound by forcing air through your mouth in order to get someone’s attention" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "wail",
+            "group": "High-Pitched",
+            "explanation": "A long, high-pitched cry or sound, often expressing grief, pain, or despair, marked by its emotional intensity and sustained pitch.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 248
     },
     {
-        "fields" : {
-            "tag" : "whoosh",
-            "group" : "Short" ,
-            "explanation" : "A sudden, rapid sound, resembling something moving swiftly through the air, characterized by its speed and smoothness, often conveying a sense of movement or force." ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "warm",
+            "group": "Pleasing",
+            "explanation": "Sound that is rich, full-bodied, and comforting, often associated with a sense of closeness, intimacy, or emotional warmth, typically pleasant and inviting.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 249
     },
     {
-        "fields" : {
-            "tag" : "yelp",
-            "group" : "Short" ,
-            "explanation" : "A short, loud, high sound, usually caused by excitement, anger, or pain" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "wheeze",
+            "group": "Continuous",
+            "explanation": "A high sound, as though a lot of air is being pushed through it",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 250
     },
     {
-        "fields" : {
-            "tag" : "yowl",
-            "group" : "Loud" ,
-            "explanation" : "A long, loud, unhappy sound or complaint" ,
-            "select": true 
-        } ,
-        "model": "tags.Tag" ,
+        "fields": {
+            "tag": "whine",
+            "group": "High-Pitched",
+            "explanation": "A high-pitched, complaining sound, often grating or nagging, characterized by its persistence and discomforting effect.",
+            "select": true
+        },
+        "model": "tags.Tag",
         "pk": 251
+    },
+    {
+        "fields": {
+            "tag": "whirr",
+            "group": "Continuous",
+            "explanation": "A fast, low, repeated, continuous and quiet sound, often associated with the operation of machinery or electronics, characterized by its smooth, humming quality.",
+            "select": true
+        },
+        "model": "tags.Tag",
+        "pk": 252
+    },
+    {
+        "fields": {
+            "tag": "whisper",
+            "group": "Quiet",
+            "explanation": "A soft, quiet, hushed, gentle sound",
+            "select": true
+        },
+        "model": "tags.Tag",
+        "pk": 253
+    },
+    {
+        "fields": {
+            "tag": "whistle",
+            "group": "High",
+            "explanation": "A high sound by forcing air through your mouth in order to get someone\u2019s attention",
+            "select": true
+        },
+        "model": "tags.Tag",
+        "pk": 254
+    },
+    {
+        "fields": {
+            "tag": "whoosh",
+            "group": "Short",
+            "explanation": "A sudden, rapid sound, resembling something moving swiftly through the air, characterized by its speed and smoothness, often conveying a sense of movement or force.",
+            "select": true
+        },
+        "model": "tags.Tag",
+        "pk": 255
+    },
+    {
+        "fields": {
+            "tag": "yelp",
+            "group": "Short",
+            "explanation": "A short, loud, high sound, usually caused by excitement, anger, or pain",
+            "select": true
+        },
+        "model": "tags.Tag",
+        "pk": 256
+    },
+    {
+        "fields": {
+            "tag": "yowl",
+            "group": "Loud",
+            "explanation": "A long, loud, unhappy sound or complaint",
+            "select": true
+        },
+        "model": "tags.Tag",
+        "pk": 257
     }
 ]

@@ -59,6 +59,7 @@ discordant|Harsh|Sound that clashes or do not harmonize together, creating a sen
 disharmonic|Harsh|Similar to discordant, it refers to a lack of harmony or agreement in musical elements, resulting in a sound that is typically perceived as unsettling or in conflict.
 disjointed|Chaotic|Sound that lacks a smooth or logical progression, appearing fragmented or uncoordinated, often leading to a disjointed or chaotic auditory experience.
 distant|Dreamy|Sound that seems to be coming from far away, creating a sense of space or remoteness, often imbued with a sense of nostalgia or detachment.
+dreamy|Dreamy|An evasive and beautiful sound prone to floating and escaping.
 drip|Natural|The sound of liquid falling drop by drop, often repetitive and rhythmic, associated with water or rain, can be soothing or monotonous depending on the context.
 drone|Continuous|A low continuous noise
 droning|Continuous|A continuous, low hum or buzz, often monotonous and lacking in variation, sometimes inducing a hypnotic or soporific effect.
@@ -71,6 +72,7 @@ echo|Dreamy|The repetition of a sound caused by the reflection of sound waves fr
 elegant|Pleasing|Sound that is graceful and refined in quality, often characterized by simplicity and tastefulness, creating a sense of beauty and sophistication.
 ethereal|Dreamy|Extremely delicate and light in a way that seems not to be of this world.
 emotive|Expressive|Sound that evokes emotions or feelings, often rich in expression and capable of conveying a wide range of emotional states.
+energizing|Energizing|A sound full on energy and power.
 erratic|Chaotic|Sound that is irregular or unpredictable in their rhythm or intensity, often creating a sense of instability or unpredictability.
 evocative|Expressive|Sound that provokes strong images, memories, or emotions, often rich in emotional resonance and capable of transporting the listener to different times or places.
 explosive|Loud|Sound characterized by suddenness and force, often loud and impactful, akin to an explosion, conveying a sense of energy and intensity.
@@ -94,9 +96,11 @@ growl|Noisy|A low, unpleasant noise
 grunt|Short|A short low sound in your throat and nose at the same time
 gurgle|Natural|The low sound water makes when it is poured quickly from a bottle
 harmonic|Pleasing|Sound that is musically consonant, characterized by harmonies that are agreeable and pleasing to the ear, often rich and melodious.
+harsh|Harsh|Sound that is hard to listen to, abrasive or shrill.
 haunting|Expressive|Sound that lingers in the memory, often eerie or melancholic, creating a lasting emotional impact through their atmospheric quality.
-heavy|Loud|Sound with a sense of weight or depth, often characterized by low frequencies or a powerful impact, conveying a sense of seriousness or intensity.
+heavy|Heavy|Sound with a sense of weight or depth, often characterized by low frequencies or a powerful impact, conveying a sense of seriousness or intensity.
 hiss|Noisy|A sharp, sibilant sound similar to that of steam or a snake, often associated with leakage, pressure, or the sound of recording noise, typically unpleasant or distracting.
+high|High|A sound with a high pitch.
 hollow|General|Sound that lacks depth or richness, often characterized by a sense of emptiness or void, conveying a lack of substance or fullness.
 honk|Loud|A loud noise using a horn, especially the horn of a car
 hoot|Loud|A short loud sound as a warning
@@ -116,6 +120,7 @@ jarring|Harsh|Sound that is shockingly discordant or unpleasant, often causing a
 jingle|Light|A short, catchy sound or tune, often light and melodious, designed to be easily remembered, typically associated with advertisements or simple melodies.
 knocking|Noisy|A sharp sound produced by hitting a surface, often repetitive and indicating a demand for attention, potentially unsettling or alarming.
 layered|Complex|Sound composed of multiple layers or elements, often creating a rich and textured auditory experience, showcasing depth and complexity.
+light|Light|A sound that is short or non-invasive, often pleasing.
 lilting|Pleasing|A sound that has a rising and falling pattern
 listenable|Pleasing|Easy to listen to
 lively|Energizing|Sound that is full of life and energy, often upbeat and vibrant, conveying a sense of joy, excitement, or spiritedness.
@@ -172,7 +177,7 @@ resonant|Rich|Sound that is deep, clear, and continuing to echo or vibrate, ofte
 resounding|Loud|A sound that is loud and that continues for a while
 revving|Noisy|The sound of an engine increasing in speed, often associated with power and energy, characterized by a rising pitch and intensity.
 rhythmic|Rhythmic|A sound that has a clear, regular pattern
-rich|Pleasing|Sound characterized by depth and complexity, often warm and full-bodied, providing a satisfying and layered listening experience.
+rich|Rich|Sound characterized by depth and complexity, often warm and full-bodied, providing a satisfying and layered listening experience.
 ring|Continuous|A clear, resonant sound that continues to echo, like that of a bell, often carrying a sense of clarity and persistence.
 riotous|Loud|Lively and noisy
 ripple|Light|A gentle, soft sound reminiscent of small waves or undulations, often soothing and associated with water or subtle movement.
@@ -185,9 +190,10 @@ rustling|Light|The sound of light, soft movements, such as leaves or paper, crea
 scream|High-Pitched|A loud, high-pitched sound expressing fear, excitement, or anguish, often startling and conveying strong emotion.
 screech|High-Pitched|A high-pitched, piercing sound, often unpleasant and grating, typically associated with abruptness or distress.
 scrunch|Natural|A sound produced by compressing something crunchy or crinkly, offering a sense of texture and compactness.
-sharp|Dynamic|Sound that is acute and well-defined, often cutting or piercing in quality, leading to a sense of clarity or intensity.
+sharp|Sharp|Sound that is acute and well-defined, often cutting or piercing in quality, leading to a sense of clarity or intensity.
 shriek|High-Pitched|A high-pitched, sharp sound, similar to a scream but often more urgent or terror-filled, conveying extreme emotion or reaction.
 shrill|High-Pitched|A high-pitched, piercing sound, often uncomfortable to hear, characterized by its intensity and sharpness.
+short|Short|A short-lived sound, snappy or percussive.
 sibilant|Noisy|Sound characterized by a hissing effect, such as the 's' or 'sh' sound, often associated with whispering or speech.
 sigh|Pleasing|A long, soft, low sound
 sizzle|Light|A sound resembling that of something frying or burning, often associated with heat and energy, creating a sense of anticipation or action.

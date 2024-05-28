@@ -10,17 +10,12 @@ from ..compositing.descriptor import Descriptor
 class InstrumentExtension(abc.ABC):
 
     @abc.abstractmethod
-    def arp_get(self, instrument)->float|List[float]:
-        """ Implement me! """
-        pass
-
-    @abc.abstractmethod
-    def arp_set(self, instrument, value: float|List[float]):
-        """ Implement me! """
-        pass
-
-    @abc.abstractmethod
     def arp_disable(self, instrument):
+        """ Implement me! """
+        pass
+
+    @abc.abstractmethod
+    def arp_enable(self, instrument):
         """ Implement me! """
         pass
 

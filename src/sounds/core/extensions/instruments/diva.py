@@ -10,22 +10,32 @@ THRESH = 0.05
 class DivaExtension(InstrumentExtension):
 
     def arp_disable(self, instrument):     
-        self.arp_set(instrument,0.0)
+        self._arp_set(instrument,0.0)
+
+    def arp_enable(self, instrument):     
+        self._arp_set(instrument,1.0)
+        self._arp_set_octaves(instrument,2)
 
     def arp_is_on(self, instrument)->bool:     
-        return self.arp_get(instrument)==1.0
+        return self._arp_get(instrument)==1.0
 
-    def arp_get(self, instrument)->float|List[float]:     
+    def _arp_get(self, instrument)->float|List[float]:     
         if 'arp_onoff' in instrument.parameters: # VST plugin
             return instrument.parameters['arp_onoff'].raw_value
         elif 'arpeggiator_onoff' in instrument.parameters: # AudioUnit
             return instrument.parameters['arpeggiator_onoff'].raw_value
 
-    def arp_set(self, instrument, value: float|List[float]):
+    def _arp_set(self, instrument, value: float|List[float]):
         if 'arp_onoff' in instrument.parameters: # VST plugin
             instrument.parameters['arp_onoff'].raw_value = value
         elif 'arpeggiator_onoff' in instrument.parameters: # AudioUnit
             instrument.parameters['arpeggiator_onoff'].raw_value = value
+
+    def _arp_set_octaves(self, instrument, value: int):
+        if 'arp_octaves' in instrument.parameters: # VST plugin
+            instrument.parameters['arp_octaves'].raw_value = 0.5
+        elif 'arpeggiator_octaves' in instrument.parameters: # AudioUnit
+            instrument.parameters['arpeggiator_octaves'].raw_value = 0.5
 
     def analyze_sound(self, parameters:dict) -> SoundToneDescription:
 

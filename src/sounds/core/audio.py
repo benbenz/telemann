@@ -163,25 +163,31 @@ def render_audio(source:SoundSource,
     sound_key = get_midi_program_key(bank_msb,bank_lsb,program)
 
     if arp_on is not None:
-        if extension is not None and sound_key in instrument_info['programs_info'] and instrument_info['programs_info'][sound_key]["arp_value"] is not None:
-            if arp_on:
-                extension.arp_set(instrument,instrument_info['programs_info'][sound_key]["arp_value"])
-            else:
-                extension.arp_disable(instrument)
+        instrument(
+            pgm_events,
+            duration=preset_offset, # preset_offset + length seconds + 2 seconds for release
+            sample_rate=sample_rate,
+            reset=reset_plugin # resolves the program name issue ?
+        )        
+        if arp_on:
+            extension.arp_enable(instrument) 
         else:
-            print("Skipping ARP command cause we dont have an extension or we didnt capture the default ARP value yet")
+            extension.arp_disable(instrument)
 
-    audio = instrument(
-      [ *pgm_events,
-        *notes],
-      duration=preset_offset+length+2, # preset_offset + length seconds + 2 seconds for release
-      sample_rate=sample_rate,
-      reset=reset_plugin # resolves the program name issue ?
-    )
-
-    if arp_on is not None:
-        if extension is not None and sound_key in instrument_info['programs_info'] and instrument_info['programs_info'][sound_key]["arp_value"] is not None:
-            extension.arp_set(instrument,instrument_info['programs_info'][sound_key]["arp_value"])
+        audio = instrument(
+            notes,
+            duration=length+2, # preset_offset + length seconds + 2 seconds for release
+            sample_rate=sample_rate,
+            reset=False # resolves the program name issue ?
+        )            
+    else:
+        audio = instrument(
+        [ *pgm_events,
+            *notes],
+        duration=preset_offset+length+2, # preset_offset + length seconds + 2 seconds for release
+        sample_rate=sample_rate,
+        reset=reset_plugin # resolves the program name issue ?
+        )
 
     # audio = instrument(
     #   [Message("note_on", note=60), Message("note_off", note=60, time=length)],
@@ -205,11 +211,9 @@ def render_audio(source:SoundSource,
             sound_info = instrument_info['programs_info'][sound_key]
             if not 'parameters' in sound_info:
                 sound_info['parameters'] = convert_parameters(instrument)
-                sound_info['arp_value'] = extension.arp_get(instrument) if extension else None
         else:
             instrument_info['programs_info'][sound_key] = {
                 'parameters' : convert_parameters(instrument) ,
-                "arp_value": extension.arp_get(instrument) if extension else None
             }
 
     print("Converted parameters")
@@ -271,7 +275,6 @@ def get_sound_analysis(source:SoundSource,
     else:
         instrument_info['programs_info'][sound_key] = {
             'parameters' : convert_parameters(instrument) ,
-            'arp_value' : instrExtension.arp_get(instrument) if instrExtension else None
         }
         sound_info = instrument_info['programs_info'][sound_key]
 
